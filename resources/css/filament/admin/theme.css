@@ -1,0 +1,6 @@
+/* Theme trang quản trị: giao diện Filament, font tự lưu trữ của Lernbuch. Màu đặt trong AdminPanelProvider. */
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+@import '../../fonts.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/admin/**/*';

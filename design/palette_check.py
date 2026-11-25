@@ -1,47 +1,51 @@
-"""Kiểm tra bảng màu OKLCH: đổi sang sRGB, kiểm gamut, tính độ tương phản WCAG."""
+"""Kiểm bảng màu trong design/tokens.css: đổi OKLCH sang sRGB, kiểm gamut, tính tương phản WCAG 2.
+
+Đọc thẳng tokens.css (khối @theme cho bản sáng, [data-theme="dark"] cho bản tối, [data-season=…] cho màu mùa),
+nên bảng màu và phép kiểm không lệch nhau. Ghi kết quả ra design/palette-check.json; có cặp không đạt thì thoát mã 1.
+
+Chạy: python design/palette_check.py [--tokens đường/dẫn/tokens.css] [--out đường/dẫn/kết-quả.json]
+"""
+import argparse
 import json
 import math
+import re
 import sys
+from pathlib import Path
 
-LIGHT = {
-    "paper": (0.975, 0.012, 85), "sheet": (0.995, 0.005, 85), "sunken": (0.950, 0.016, 85),
-    "line": (0.860, 0.020, 80), "line-strong": (0.640, 0.025, 75),
-    "ink": (0.270, 0.025, 60), "ink-2": (0.470, 0.025, 60), "ink-3": (0.560, 0.022, 60),
-    "leaf": (0.500, 0.120, 150), "leaf-strong": (0.440, 0.115, 150), "leaf-tint": (0.940, 0.040, 150),
-    "on-leaf": (0.995, 0.005, 150),
-    "focus": (0.520, 0.150, 255),
-    "danger": (0.520, 0.170, 28), "danger-tint": (0.950, 0.024, 28),
-    "warning": (0.780, 0.140, 80), "warning-ink": (0.450, 0.090, 70),
-    "info": (0.520, 0.110, 245),
-    "der": (0.500, 0.130, 255), "die": (0.520, 0.160, 15), "das": (0.500, 0.092, 170), "plural": (0.520, 0.110, 60),
-    "lv0": (0.900, 0.010, 80), "lv1": (0.860, 0.060, 115), "lv2": (0.780, 0.090, 130),
-    "lv3": (0.680, 0.110, 140), "lv4": (0.570, 0.120, 148), "lv5": (0.460, 0.110, 152),
-    "spring": (0.820, 0.080, 350), "summer": (0.860, 0.130, 95), "autumn": (0.700, 0.140, 55), "winter": (0.840, 0.050, 235),
-}
-DARK = {
-    "paper": (0.190, 0.012, 70), "sheet": (0.230, 0.014, 70), "sunken": (0.170, 0.012, 70),
-    "line": (0.340, 0.015, 70), "line-strong": (0.520, 0.020, 70),
-    "ink": (0.930, 0.012, 85), "ink-2": (0.760, 0.015, 85), "ink-3": (0.660, 0.015, 85),
-    "leaf": (0.740, 0.130, 150), "leaf-strong": (0.800, 0.120, 150), "leaf-tint": (0.300, 0.050, 150),
-    "on-leaf": (0.200, 0.030, 150),
-    "focus": (0.740, 0.120, 255),
-    "danger": (0.720, 0.150, 28), "danger-tint": (0.300, 0.060, 28),
-    "warning": (0.800, 0.130, 80), "warning-ink": (0.850, 0.110, 85),
-    "info": (0.740, 0.100, 245),
-    "der": (0.760, 0.110, 255), "die": (0.760, 0.120, 15), "das": (0.770, 0.100, 170), "plural": (0.800, 0.100, 70),
-    "lv0": (0.340, 0.010, 80), "lv1": (0.420, 0.050, 115), "lv2": (0.500, 0.080, 130),
-    "lv3": (0.590, 0.100, 140), "lv4": (0.680, 0.115, 148), "lv5": (0.780, 0.120, 152),
-}
-# (chữ hoặc hình, nền, mức tối thiểu)
+HERE = Path(__file__).resolve().parent
+
+# (chữ hoặc hình, nền, mức tối thiểu): 4.5 cho chữ thường, 3.0 cho chữ lớn, viền, biểu tượng, vòng focus
 PAIRS = [
     ("ink", "paper", 4.5), ("ink", "sheet", 4.5), ("ink-2", "sheet", 4.5), ("ink-2", "sunken", 4.5),
-    ("ink-3", "sheet", 3.0),
+    ("ink-2", "paper", 4.5), ("ink-3", "sheet", 3.0),
     ("on-leaf", "leaf", 4.5), ("on-leaf", "leaf-strong", 4.5), ("leaf", "sheet", 4.5), ("ink", "leaf-tint", 4.5),
     ("danger", "sheet", 4.5), ("ink", "danger-tint", 4.5), ("warning-ink", "sheet", 4.5), ("info", "sheet", 4.5),
-    ("focus", "sheet", 3.0), ("line-strong", "sheet", 3.0),
+    ("focus", "sheet", 3.0), ("focus", "paper", 3.0), ("line-strong", "sheet", 3.0),
     ("der", "sheet", 4.5), ("die", "sheet", 4.5), ("das", "sheet", 4.5), ("plural", "sheet", 4.5),
-    ("lv5", "sheet", 3.0), ("lv4", "sheet", 3.0),
+    ("level-5", "sheet", 3.0), ("level-4", "sheet", 3.0),
 ]
+
+OKLCH = re.compile(r"--color-([\w-]+)\s*:\s*oklch\(\s*([\d.]+)%\s+([\d.]+)\s+([\d.]+)\s*\)")
+SEASON = re.compile(r'\[data-season="(\w+)"\]\s*\{\s*--season\s*:\s*oklch\(\s*([\d.]+)%\s+([\d.]+)\s+([\d.]+)\s*\)')
+
+
+def block(css: str, header: str) -> str:
+    """Nội dung khối CSS bắt đầu bằng `header {` (không có khối lồng)."""
+    start = css.find(header)
+    if start < 0:
+        raise ValueError(f"không thấy khối {header}")
+    open_at = css.index("{", start)
+    return css[open_at + 1: css.index("}", open_at)]
+
+
+def parse_tokens(css: str):
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    def colors(text):
+        return {m[0]: (float(m[1]) / 100, float(m[2]), float(m[3])) for m in OKLCH.findall(text)}
+    light = colors(block(css, "@theme"))
+    dark = {**light, **colors(block(css, '[data-theme="dark"]'))}
+    seasons = {m[0]: (float(m[1]) / 100, float(m[2]), float(m[3])) for m in SEASON.findall(css)}
+    return light, dark, seasons
 
 
 def oklch_to_linear_srgb(L, C, h):
@@ -72,26 +76,47 @@ def contrast(a, b):
     return (la + 0.05) / (lb + 0.05)
 
 
-report = {}
-bad = []
-for theme, pal in (("light", LIGHT), ("dark", DARK)):
-    lin = {k: oklch_to_linear_srgb(*v) for k, v in pal.items()}
-    out_gamut = [k for k, v in lin.items() if any(x < -0.001 or x > 1.001 for x in v)]
-    pairs = []
-    for fg, bg, need in PAIRS:
-        if fg in lin and bg in lin:
+def check(css: str):
+    light, dark, seasons = parse_tokens(css)
+    report, bad = {}, []
+    for theme, pal in (("light", {**light, **seasons}), ("dark", dark)):
+        lin = {k: oklch_to_linear_srgb(*v) for k, v in pal.items()}
+        out_gamut = sorted(k for k, v in lin.items() if any(x < -0.001 or x > 1.001 for x in v))
+        pairs = []
+        for fg, bg, need in PAIRS:
+            if fg not in lin or bg not in lin:
+                bad.append(f"{theme}: thiếu màu {fg if fg not in lin else bg} trong tokens.css")
+                continue
             r = contrast(lin[fg], lin[bg])
             pairs.append({"fg": fg, "bg": bg, "ratio": round(r, 2), "need": need, "ok": r >= need})
             if r < need:
-                bad.append(f"{theme}: {fg} on {bg} = {r:.2f} < {need}")
-    report[theme] = {
-        "hex": {k: to_hex(v) for k, v in lin.items()},
-        "oklch": {k: f"oklch({v[0] * 100:.1f}% {v[1]:.3f} {v[2]:g})" for k, v in pal.items()},
-        "out_of_gamut": out_gamut, "pairs": pairs,
-    }
-    if out_gamut:
-        bad.append(f"{theme}: out of gamut {out_gamut}")
+                bad.append(f"{theme}: {fg} trên {bg} = {r:.2f} < {need}")
+        if out_gamut:
+            bad.append(f"{theme}: ngoài gamut sRGB {out_gamut}")
+        report[theme] = {
+            "hex": {k: to_hex(v) for k, v in lin.items()},
+            "oklch": {k: f"oklch({v[0] * 100:g}% {v[1]:g} {v[2]:g})" for k, v in pal.items()},
+            "out_of_gamut": out_gamut,
+            "pairs": pairs,
+        }
+    report["failures"] = bad
+    return report
 
-report["failures"] = bad
-print(json.dumps(report, ensure_ascii=False, indent=1))
-sys.exit(1 if bad else 0)
+
+def main(argv=None):
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--tokens", default=str(HERE / "tokens.css"))
+    ap.add_argument("--out", default=str(HERE / "palette-check.json"))
+    args = ap.parse_args(argv)
+    report = check(Path(args.tokens).read_text(encoding="utf-8"))
+    Path(args.out).write_text(json.dumps(report, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    total = sum(len(report[t]["pairs"]) for t in ("light", "dark"))
+    passed = sum(p["ok"] for t in ("light", "dark") for p in report[t]["pairs"])
+    print(f"Tương phản: {passed}/{total} cặp đạt WCAG 2 AA (sáng và tối)")
+    for f in report["failures"]:
+        print("  ✘", f)
+    return 1 if report["failures"] else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

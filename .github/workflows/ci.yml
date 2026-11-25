@@ -60,16 +60,38 @@ jobs:
         run: bash .github/scripts/report.sh php "${{ job.status }}" /tmp/php.log
 
   web:
-    name: web (TypeScript, ESLint, Vitest, Vite)
+    name: web (TypeScript, ESLint, Vitest, Vite, tương phản, Playwright)
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
+    env:
+      # Playwright chỉ mở trang không cần database
+      SESSION_DRIVER: file
+      CACHE_STORE: file
+      QUEUE_CONNECTION: sync
     steps:
       - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, intl, zip
+          tools: composer:v2
+          coverage: none
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/composer
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-
+      - run: composer install --no-interaction --prefer-dist --no-progress
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: npm
       - run: npm ci --no-audit --no-fund
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ hashFiles('package-lock.json') }}
+      - run: npx playwright install --with-deps chromium
       - name: Kiểm tra giao diện
         run: bash .github/scripts/web-checks.sh 2>&1 | tee /tmp/web.log; exit ${PIPESTATUS[0]}
       - name: Ghi tóm tắt vào nhánh ci-results

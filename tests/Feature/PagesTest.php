@@ -33,3 +33,16 @@ it('có manifest để cài app', function () {
         ->and($manifest['display'])->toBe('standalone')
         ->and($manifest['icons'])->toHaveCount(3);
 });
+
+it('trang kiểm chữ có đủ vai trò chữ và không cho máy tìm kiếm lập chỉ mục', function () {
+    $html = $this->get('/kiem-chu')->assertOk()
+        ->assertSee('<meta name="robots" content="noindex">', false)
+        ->assertSee('GROẞE GRÜẞE')
+        ->assertSee('ỳ ý ỷ ỹ ỵ')
+        ->getContent();
+
+    foreach (['Baloo 2', 'Nunito', 'Patrick Hand'] as $font) {
+        expect($html)->toContain('data-font="'.$font.'"');
+    }
+    expect(substr_count($html, 'data-font-sample'))->toBe(20);
+});

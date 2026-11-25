@@ -1,10 +1,33 @@
 @import 'tailwindcss';
+@import './fonts.css';
+@import '../../design/tokens.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
-@theme {
-    /* Font tự lưu trữ (Baloo 2, Nunito, Patrick Hand) thêm ở ngày 7 của G0. */
-    --font-sans: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-        'Noto Color Emoji';
+/* Tối theo lựa chọn trong app (data-theme), không theo hệ điều hành */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Bóng đổi theo sáng/tối nên đọc biến lúc chạy */
+@utility shadow-sheet {
+    box-shadow: var(--shadow-sheet);
+}
+
+@utility shadow-raised {
+    box-shadow: var(--shadow-raised);
+}
+
+@layer base {
+    html {
+        background-color: var(--color-paper);
+        color: var(--color-ink);
+        font-family: var(--font-body);
+        font-size: 100%;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        font-size: var(--text-body);
+        line-height: var(--text-body--line-height);
+    }
 }

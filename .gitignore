@@ -30,3 +30,6 @@ Homestead.yaml
 Thumbs.db
 /setup/ket-qua-*.txt
 /setup/tmp/
+__pycache__/
+/test-results/
+/playwright-report/

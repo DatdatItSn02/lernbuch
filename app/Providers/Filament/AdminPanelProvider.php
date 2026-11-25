@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Filament\FontProviders\LocalFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -29,9 +30,17 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('Lernbuch')
             ->path('admin')
             ->login()
+            // Cùng bảng màu với app học (design/tokens.css, bản sáng); font tự lưu trữ nằm trong theme.
             ->colors([
                 'primary' => Color::hex('#21763c'),
+                'success' => Color::hex('#21763c'),
+                'danger' => Color::hex('#b6322b'),
+                'warning' => Color::hex('#e6ac3d'),
+                'info' => Color::hex('#266ea4'),
+                'gray' => Color::Stone,
             ])
+            ->font('Nunito', provider: LocalFontProvider::class)
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([

@@ -10,7 +10,7 @@
     @viteReactRefresh
     @vite(['resources/css/app.css', 'resources/js/app/main.tsx'])
 </head>
-<body class="min-h-screen bg-white text-slate-900 antialiased">
+<body class="min-h-screen bg-paper text-ink antialiased">
     <div id="app"></div>
     <noscript>Cần bật JavaScript để dùng app học.</noscript>
 </body>
