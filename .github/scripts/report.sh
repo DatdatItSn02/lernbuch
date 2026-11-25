@@ -23,12 +23,14 @@ out="$dir/runs/${GITHUB_RUN_NUMBER}-${GITHUB_WORKFLOW}-${name}.txt"
   tail -c 40000 "$log" 2>/dev/null || true
 } > "$out"
 cp "$out" "$dir/latest-${GITHUB_WORKFLOW}-${name}.txt"
+# Tên người ghi đặt vào cấu hình kho: lần thử lại dùng pull --rebase cũng cần (trước đây thiếu nên job đến sau mất kết quả)
+git -C "$dir" config user.name lernbuch-bot
+git -C "$dir" config user.email lernbuch-bot@users.noreply.github.com
 git -C "$dir" add -A
-git -C "$dir" -c user.name=lernbuch-bot -c user.email=lernbuch-bot@users.noreply.github.com \
-  commit -q -m "${GITHUB_WORKFLOW}/${name} ${status} #${GITHUB_RUN_NUMBER}"
+git -C "$dir" commit -q -m "${GITHUB_WORKFLOW}/${name} ${status} #${GITHUB_RUN_NUMBER}"
 for i in 1 2 3 4 5; do
   git -C "$dir" push -q origin HEAD:ci-results && exit 0
   sleep $((i * 2))
   git -C "$dir" pull -q --rebase origin ci-results
 done
-echo "không ghi được kết quả vào ci-results"
+echo "::warning::không ghi được kết quả vào ci-results"
