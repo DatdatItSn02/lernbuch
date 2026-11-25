@@ -48,3 +48,18 @@ it('trang kiểm chữ có đủ vai trò chữ và không cho máy tìm kiếm 
     }
     expect(substr_count($html, 'data-font-sample'))->toBe(20);
 });
+
+it('/up trả 500 khi một kiểm tra sức khoẻ lỗi (để workflow deploy tự quay lại)', function () {
+    config(['app.debug' => false]);
+    Illuminate\Support\Facades\Event::listen(
+        Illuminate\Foundation\Events\DiagnosingHealth::class,
+        fn () => throw new RuntimeException('database không trả lời'),
+    );
+
+    $this->get('/up')->assertStatus(500);
+});
+
+it('/up không lỗi trên máy dev dù có kiểm tra cố ý hỏng chỉ dành cho bản phát hành', function () {
+    expect(config('app.release'))->toBe('dev');
+    $this->get('/up')->assertOk();
+});
