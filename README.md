@@ -33,6 +33,34 @@ Cần: [XAMPP 8.4](https://www.apachefriends.org/download.html) (PHP 8.4, MariaD
    ```
 4. Mở http://127.0.0.1:8000 (trang chào), http://127.0.0.1:8000/app (app học), http://127.0.0.1:8000/admin (quản trị).
 
+### Chạy bằng Apache của XAMPP (thay cho `php artisan serve`)
+
+Apache phải trỏ vào thư mục `public` (chứa `index.php`, cửa vào duy nhất của Laravel), không trỏ vào thư mục gốc của code, để `.env` và mã nguồn không mở ra web.
+
+1. Thêm vào cuối `C:\xampp\apache\conf\extra\httpd-vhosts.conf`:
+   ```apache
+   # Giữ localhost cho trang XAMPP; khối này phải đứng trước
+   <VirtualHost *:80>
+       ServerName localhost
+       DocumentRoot "C:/xampp/htdocs"
+   </VirtualHost>
+
+   <VirtualHost *:80>
+       ServerName lernbuch.test
+       DocumentRoot "F:/CongViec/lernbuch/app/public"
+       <Directory "F:/CongViec/lernbuch/app/public">
+           Options FollowSymLinks
+           AllowOverride All
+           Require all granted
+       </Directory>
+   </VirtualHost>
+   ```
+2. Mở Notepad bằng quyền Administrator, sửa `C:\Windows\System32\drivers\etc\hosts`, thêm dòng `127.0.0.1 lernbuch.test`.
+3. Trong `.env`: `APP_URL=http://lernbuch.test`.
+4. XAMPP Control Panel: Stop rồi Start lại Apache. Mở http://lernbuch.test, http://lernbuch.test/app, http://lernbuch.test/admin.
+
+Lỗi thường gặp: Apache không chạy thì kiểm cú pháp bằng `C:\xampp\apache\bin\httpd.exe -t`; vào `/admin` bị 404 thì thiếu `AllowOverride All`; lỗi 500 thì xem `storage\logs\laravel.log`.
+
 Chạy test: `php artisan test` (dùng database `lernbuch_test`), `npm run typecheck`, `npm run lint`, `npm test`.
 
 ## Cấu trúc
