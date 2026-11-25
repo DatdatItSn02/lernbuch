@@ -46,7 +46,7 @@ Cuối cùng bật deploy: cùng trang đó, tab **Variables** → New repositor
 ## 4. Sau lần deploy đầu
 
 1. **Tác vụ định kỳ.** Scheduled tasks: lệnh `php /home/lernbuch/lernbuch/current/artisan schedule:run`, lịch `* * * * *` (mỗi phút).
-2. **Dịch vụ hàng đợi.** Advanced → Services: lệnh `php /home/lernbuch/lernbuch/current/artisan queue:work --sleep=3 --tries=3 --max-time=3600 --memory=96`.
+2. **Hàng đợi.** Gói Free không cho tạo Services, nên dùng thêm một tác vụ định kỳ mỗi phút (`* * * * *`): lệnh `php /home/lernbuch/lernbuch/current/artisan queue:work --stop-when-empty --tries=3 --max-time=50 --memory=96`. Mỗi phút nó làm hết việc đang chờ rồi tự dừng trước phút kế. Lên gói trả phí thì thay bằng Advanced → Services với `queue:work --sleep=3 --tries=3 --max-time=3600 --memory=96`.
 3. **Tài khoản quản trị.** SSH vào rồi chạy `cd ~/lernbuch/current && php artisan app:create-admin`, nhập email và mật khẩu (ít nhất 12 ký tự).
 4. **Kiểm lịch và hàng đợi** (mục 13 của phần tự kiểm). Sau khi bật hai mục 1 và 2 được 10 phút, SSH vào `~/lernbuch/current` rồi chạy `php artisan app:kiem-nhip` (đạt khi có ít nhất 9/10 nhịp). Chạy `php artisan app:thu-hang-doi`, chờ một phút rồi chạy lệnh `--kiem=<mã>` nó in ra (đạt khi job thử xong và job cố ý lỗi vào `failed_jobs` sau 3 lần thử).
 
