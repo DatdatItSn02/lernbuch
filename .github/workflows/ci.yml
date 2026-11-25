@@ -184,7 +184,12 @@ jobs:
           # Tự gọi /up bên trong PHP trên máy chủ để biết lỗi do app hay do cấu hình site
           ssh "$SSH_USER@$SSH_HOST" "bash ~/lernbuch/bin/remote-check.sh" 2>&1 | tee /tmp/check.log | tee -a /tmp/deploy.log
           if grep -q 'app tự trả /up: 200' /tmp/check.log; then
-            echo "Gợi ý: app trên máy chủ chạy tốt nhưng địa chỉ web không trỏ vào app. alwaysdata → Web → Sites → sửa site: Root directory = /lernbuch/current/public, PHP 8.4 (docs/huong-dan-alwaysdata.md)." | tee -a /tmp/deploy.log
+            cu=$(curl -sS --max-time 15 "$SITE_URL/" 2>/dev/null | grep -o 'Bản [0-9]*-[0-9a-f]*' | head -1 || true)
+            if [ -n "$cu" ]; then
+              echo "Gợi ý: bản mới chạy tốt trên máy chủ nhưng web vẫn chạy $cu (PHP còn nhớ bản cũ). alwaysdata → Web → Sites → sửa site → ô php.ini thêm: opcache.revalidate_path = 1 và realpath_cache_ttl = 1 (docs/huong-dan-alwaysdata.md)." | tee -a /tmp/deploy.log
+            else
+              echo "Gợi ý: app trên máy chủ chạy tốt nhưng địa chỉ web không trỏ vào app. alwaysdata → Web → Sites → sửa site: Root directory = /lernbuch/current/public, PHP 8.4 (docs/huong-dan-alwaysdata.md)." | tee -a /tmp/deploy.log
+            fi
           fi
           echo "Quay lại bản trước" | tee -a /tmp/deploy.log
           ssh "$SSH_USER@$SSH_HOST" "bash ~/lernbuch/bin/remote-rollback.sh" 2>&1 | tee -a /tmp/deploy.log
