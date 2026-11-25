@@ -146,6 +146,10 @@ jobs:
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
           printf '%s\n' "${{ secrets.ALWAYSDATA_SSH_KEY }}" > ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+      - name: Trạng thái trước khi deploy (bản đang chạy, /up, dung lượng)
+        run: |
+          { echo "Trước deploy: /up trả $(curl -sS -o /dev/null -w '%{http_code}' --max-time 15 "$SITE_URL/up" || true)"
+            ssh "$SSH_USER@$SSH_HOST" 'cd ~/lernbuch 2>/dev/null && echo "Bản đang chạy: $(basename "$(readlink -f current)")" && du -sh releases/* shared . 2>/dev/null | sed "s/^/Dung lượng: /"' || true; } 2>&1 | tee -a /tmp/deploy.log
       - name: Đưa lên alwaysdata, migrate, đổi bản
         run: |
           set -o pipefail
@@ -170,6 +174,8 @@ jobs:
           fi
           echo "Quay lại bản trước" | tee -a /tmp/deploy.log
           ssh "$SSH_USER@$SSH_HOST" "bash ~/lernbuch/bin/remote-rollback.sh" 2>&1 | tee -a /tmp/deploy.log
+          sleep 5
+          echo "Sau khi quay lại: /up trả $(curl -sS -o /dev/null -w '%{http_code}' --max-time 15 "$SITE_URL/up" || true)" | tee -a /tmp/deploy.log
           exit 1
       - name: Ghi tóm tắt vào nhánh ci-results
         if: always()
