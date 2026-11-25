@@ -1,12 +1,12 @@
-workflow: windows  job: setup  status: failure
-commit: 8a84d6991d3df9b9032fa0fa1bf8d7b4b05212d4  ref: work/setup  run: 45631280694
+workflow: windows  job: setup  status: success
+commit: 95168541a80b734bb6149328afd7c66ac4e7a7e4  ref: work/setup  run: 45632357920
 
-✔ Định dạng PHP (Pint) (1.8 giây)
-✔ Phân tích tĩnh PHP (Larastan) (6.9 giây)
-✔ Test PHP (Pest, MySQL lernbuch_test) (24.6 giây)
+✔ Định dạng PHP (Pint) (1.6 giây)
+✔ Phân tích tĩnh PHP (Larastan) (6.8 giây)
+✔ Test PHP (Pest, MySQL lernbuch_test) (24.5 giây)
 ✔ Kiểu TypeScript (tsc) (1 giây)
-✔ ESLint (4.6 giây)
-✔ Test giao diện (Vitest) (1.3 giây)
+✔ ESLint (4.1 giây)
+✔ Test giao diện (Vitest) (1.2 giây)
 ✔ Build giao diện (Vite) (0.6 giây)
 KẾT QUẢ: 7/7 bước đạt
 ✔ trang chào có chữ Việt (GET / → 200)
@@ -15,19 +15,19 @@ KẾT QUẢ: 7/7 bước đạt
 ✔ đường dẫn con của app học (GET /app/hom-nay → 200)
 ✔ trang đăng nhập quản trị (GET /admin/login → 200)
 ✔ kiểm tra sống /up (GET /up → 200)
-✘ manifest PWA (GET /manifest.webmanifest → 200) 123 10 32 32 32 32 34 110 97 109 101 34 58 32 34 76 101 114 110 98 117 99 104 34 44 10 32 32 32 32 34 115 104 111 114 116 95 110 97 109 101 34 58 32 34 76 101 114 110 98 117 99 104 34 44 10 32 32 32 32 34 100 101 115 99 114 105 112 116 105 111 110 34 58 32 34 72 225 187 141 99 32 116 105 225 186 191
+✔ manifest PWA (GET /manifest.webmanifest → 200)
 ✔ không lộ .env (GET /.env → 404)
 ✔ CSS đã build (GET /build/assets/app-2VXlAOM1.css → 200)
 ✔ file CSS/JS của Filament (GET /css/filament/filament/app.css?v=5.12.0.0 → 200)
-KẾT QUẢ: 9/10 trang đạt
+KẾT QUẢ: 10/10 trang đạt
 ✔ test-cai-dat.ps1
-✘ test-cap-nhat.ps1 (mã 1)
-✘ test-chung.ps1 (mã 1)
+✔ test-cap-nhat.ps1
+✔ test-chung.ps1
 ✔ test-file.ps1
-KẾT QUẢ: 2/4 file test đạt
+KẾT QUẢ: 4/4 file test đạt
 
 ----- cuối log -----
-[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+0m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
   laravel/pao [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
   laravel/pennant [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
   laravel/sanctum [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
@@ -101,7 +101,7 @@ Use the `composer fund` command to find out more!
 
 ==> Thư viện giao diện (npm ci)
 
-added 246 packages in 8s
+added 246 packages in 7s
 
 ==> Database
     OK: MySQL đang chạy ở cổng 3307
@@ -112,19 +112,19 @@ added 246 packages in 8s
 
    INFO  Preparing database.
 
-  Creating migration table .............................................................................. 53.60ms DONE
+  Creating migration table .............................................................................. 34.16ms DONE
 
    INFO  Running migrations.
 
-  2026_11_25_000001_create_identity_tables ............................................................... 2 giây DONE
+  2026_11_25_000001_create_identity_tables ............................................................... 1 giây DONE
   2026_11_25_000002_create_content_tables ................................................................ 3 giây DONE
-  2026_11_25_000003_create_learning_tables ............................................................... 3 giây DONE
-  2026_11_25_000004_create_ai_tables ..................................................................... 2 giây DONE
+  2026_11_25_000003_create_learning_tables ............................................................... 2 giây DONE
+  2026_11_25_000004_create_ai_tables ..................................................................... 1 giây DONE
   2026_11_25_000005_create_billing_tables ................................................................ 2 giây DONE
-  2026_11_25_000006_create_engagement_tables ........................................................... 594.51ms DONE
+  2026_11_25_000006_create_engagement_tables ........................................................... 488.67ms DONE
   2026_11_25_000007_create_support_config_tables ......................................................... 1 giây DONE
-  2026_11_25_000008_create_classroom_tables ............................................................ 844.26ms DONE
-  2026_11_25_000009_create_framework_tables ............................................................ 772.14ms DONE
+  2026_11_25_000008_create_classroom_tables .............................................................. 1 giây DONE
+  2026_11_25_000009_create_framework_tables ............................................................ 739.24ms DONE
 
 
    INFO  Seeding database.
@@ -135,14 +135,14 @@ added 246 packages in 8s
 
    INFO  Clearing cached bootstrap files.
 
-  config ................................................................................................. 1.57ms DONE
-  cache .................................................................................................. 3.65ms DONE
-  compiled ............................................................................................... 1.29ms DONE
-  events ................................................................................................. 0.51ms DONE
+  config ................................................................................................. 1.37ms DONE
+  cache .................................................................................................. 3.67ms DONE
+  compiled ............................................................................................... 1.27ms DONE
+  events ................................................................................................. 0.48ms DONE
   routes ................................................................................................. 0.49ms DONE
-  views .................................................................................................. 1.44ms DONE
+  views .................................................................................................. 1.45ms DONE
   blade-icons ............................................................................................ 1.27ms DONE
-  filament ............................................................................................... 0.90ms DONE
+  filament ............................................................................................... 0.80ms DONE
 
 
 ==> Build giao diện (npm run build)
@@ -160,7 +160,7 @@ public/build/assets/app-2J9IABYJ.css   12.91 kB │ gzip:  3.50 kB
 public/build/assets/app-BvRk9kiK.js     0.00 kB │ gzip:  0.02 kB
 public/build/assets/main-DwYaINVx.js  219.24 kB │ gzip: 68.54 kB
 
-[32m✓ built in 181ms[39m
+[32m✓ built in 164ms[39m
 
 ==> CẬP NHẬT XONG
     Mở web: bấm đúp setup\chay-web.bat rồi vào http://127.0.0.1:8001
@@ -168,19 +168,19 @@ public/build/assets/main-DwYaINVx.js  219.24 kB │ gzip: 68.54 kB
 Chưa có tài khoản quản trị. Chạy setup\tao-admin.bat để tạo tài khoản đăng nhập /admin.
 **********************
 Windows PowerShell transcript end
-End time: 20261125141316
+End time: 20261125141855
 **********************
 
 ===== setup/ket-qua-test.txt
 **********************
 Windows PowerShell transcript start
-Start time: 20261125141316
+Start time: 20261125141856
 Username: runnervmbpeip\runneradmin
 RunAs User: runnervmbpeip\runneradmin
 Configuration Name: 
 Machine: runnervmbpeip (Microsoft Windows NT 10.0.26100.0)
 Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -File D:\a\lernbuch\lernbuch\setup\chay-test.ps1
-Process ID: 4544
+Process ID: 10192
 PSVersion: 5.1.26100.33822
 PSEdition: Desktop
 PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.33822
@@ -217,34 +217,34 @@ Note: Using configuration file D:\a\lernbuch\lernbuch\phpstan.neon.
   [32;1m✓[39;22m[90m [39m[90mmodel nằm trong App\Models hoặc module[39m[90m                                                                      [39m [90m0.01s[39m
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\AdminAccessTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập vào /admin thì về trang đăng nhập[39m[90m                                                        [39m [90m22.66s[39m
-  [32;1m✓[39;22m[90m [39m[90mit trang đăng nhập quản trị mở được[39m[90m                                                                         [39m [90m0.13s[39m
+  [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập vào /admin thì về trang đăng nhập[39m[90m                                                        [39m [90m22.71s[39m
+  [32;1m✓[39;22m[90m [39m[90mit trang đăng nhập quản trị mở được[39m[90m                                                                         [39m [90m0.12s[39m
   [32;1m✓[39;22m[90m [39m[90mit người học thường không vào được trang quản trị[39m[90m                                                           [39m [90m0.07s[39m
-  [32;1m✓[39;22m[90m [39m[90mit nhân viên đang hoạt động vào được trang quản trị[39m[90m                                                         [39m [90m0.17s[39m
-  [32;1m✓[39;22m[90m [39m[90mit nhân viên bị khoá không vào được trang quản trị[39m[90m                                                          [39m [90m0.06s[39m
+  [32;1m✓[39;22m[90m [39m[90mit nhân viên đang hoạt động vào được trang quản trị[39m[90m                                                         [39m [90m0.15s[39m
+  [32;1m✓[39;22m[90m [39m[90mit nhân viên bị khoá không vào được trang quản trị[39m[90m                                                          [39m [90m0.04s[39m
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\CreateAdminCommandTest[39m
   [32;1m✓[39;22m[90m [39m[90mit tạo tài khoản quản trị bằng lệnh[39m[90m                                                                         [39m [90m0.06s[39m
-  [32;1m✓[39;22m[90m [39m[90mit từ chối email đã có, kể cả khác hoa thường[39m[90m                                                               [39m [90m0.07s[39m
-  [32;1m✓[39;22m[90m [39m[90mit từ chối mật khẩu ngắn hơn 12 ký tự[39m[90m                                                                       [39m [90m0.02s[39m
+  [32;1m✓[39;22m[90m [39m[90mit từ chối email đã có, kể cả khác hoa thường[39m[90m                                                               [39m [90m0.04s[39m
+  [32;1m✓[39;22m[90m [39m[90mit từ chối mật khẩu ngắn hơn 12 ký tự[39m[90m                                                                       [39m [90m0.03s[39m
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\PagesTest[39m
   [32;1m✓[39;22m[90m [39m[90mit trả 200 ở /up[39m[90m                                                                                            [39m [90m0.04s[39m
-  [32;1m✓[39;22m[90m [39m[90mit trang chào hiện đúng chữ tiếng Việt và tiếng Đức[39m[90m                                                         [39m [90m0.03s[39m
-  [32;1m✓[39;22m[90m [39m[90mit mở được khung app học, cả đường dẫn con[39m[90m                                                                  [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit trang chào hiện đúng chữ tiếng Việt và tiếng Đức[39m[90m                                                         [39m [90m0.04s[39m
+  [32;1m✓[39;22m[90m [39m[90mit mở được khung app học, cả đường dẫn con[39m[90m                                                                  [39m [90m0.04s[39m
   [32;1m✓[39;22m[90m [39m[90mit không lộ file .env và log[39m[90m                                                                                [39m [90m0.04s[39m
-  [32;1m✓[39;22m[90m [39m[90mit có manifest để cài app[39m[90m                                                                                   [39m [90m0.04s[39m
+  [32;1m✓[39;22m[90m [39m[90mit có manifest để cài app[39m[90m                                                                                   [39m [90m0.02s[39m
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\Utf8DatabaseTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Brötchen')[39m[90m                                         [39m [90m0.08s[39m
-  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Straße')[39m[90m                                           [39m [90m0.06s[39m
-  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('tiếng Việt')[39m[90m                                       [39m [90m0.06s[39m
-  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('ẞ ắ ặ ộ ữ đ')[39m[90m                                      [39m [90m0.04s[39m
-  [32;1m✓[39;22m[90m [39m[90mit kết nối sai bảng mã thì chữ có dấu đọc ra bị hỏng, nên test bắt được[39m[90m                                     [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Brötchen')[39m[90m                                         [39m [90m0.04s[39m
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Straße')[39m[90m                                           [39m [90m0.04s[39m
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('tiếng Việt')[39m[90m                                       [39m [90m0.02s[39m
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('ẞ ắ ặ ộ ữ đ')[39m[90m                                      [39m [90m0.03s[39m
+  [32;1m✓[39;22m[90m [39m[90mit kết nối sai bảng mã thì chữ có dấu đọc ra bị hỏng, nên test bắt được[39m[90m                                     [39m [90m0.03s[39m
   [32;1m✓[39;22m[90m [39m[90mit kết nối database dùng utf8mb4[39m[90m                                                                            [39m [90m0.03s[39m
 
   [90mTests:[39m    [32;1m21 passed[39;22m[90m (42 assertions)[39m
-  [90mDuration:[39m [39m24.04s[39m
+  [90mDuration:[39m [39m23.89s[39m
 
 
 ==> Kiểu TypeScript (tsc)
@@ -267,12 +267,12 @@ Note: Using configuration file D:\a\lernbuch\lernbuch\phpstan.neon.
 
 [1m[30m[46m RUN [49m[39m[22m [36mv5.1.1 [39m[90mD:/a/lernbuch/lernbuch[39m
 
- [32m✓[39m resources/js/app/App.test.tsx [2m([22m[2m1 test[22m[2m)[22m[32m 46[2mms[22m[39m
+ [32m✓[39m resources/js/app/App.test.tsx [2m([22m[2m1 test[22m[2m)[22m[32m 45[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
 [2m      Tests [22m [1m[32m1 passed[39m[22m[90m (1)[39m
-[2m   Start at [22m 14:13:56
-[2m   Duration [22m 691ms[2m (environment 72%, import 16%, tests 8%, transform 4%, worker 1%)[22m
+[2m   Start at [22m 14:19:35
+[2m   Duration [22m 710ms[2m (environment 73%, import 15%, tests 8%, transform 4%, worker 1%)[22m
 
 
 ==> Build giao diện (Vite)
@@ -290,25 +290,25 @@ public/build/assets/app-2VXlAOM1.css   18.85 kB │ gzip:  4.59 kB
 public/build/assets/app-BvRk9kiK.js     0.00 kB │ gzip:  0.02 kB
 public/build/assets/main-DwYaINVx.js  219.24 kB │ gzip: 68.54 kB
 
-[32m✓ built in 172ms[39m
+[32m✓ built in 174ms[39m
 
 ==> TỔNG KẾT
-✔ Định dạng PHP (Pint) (1.8 giây)
-✔ Phân tích tĩnh PHP (Larastan) (6.9 giây)
-✔ Test PHP (Pest, MySQL lernbuch_test) (24.6 giây)
+✔ Định dạng PHP (Pint) (1.6 giây)
+✔ Phân tích tĩnh PHP (Larastan) (6.8 giây)
+✔ Test PHP (Pest, MySQL lernbuch_test) (24.5 giây)
 ✔ Kiểu TypeScript (tsc) (1 giây)
-✔ ESLint (4.6 giây)
-✔ Test giao diện (Vitest) (1.3 giây)
+✔ ESLint (4.1 giây)
+✔ Test giao diện (Vitest) (1.2 giây)
 ✔ Build giao diện (Vite) (0.6 giây)
 KẾT QUẢ: 7/7 bước đạt
 TẤT CẢ ĐỀU QUA
 **********************
 Windows PowerShell transcript end
-End time: 20261125141358
+End time: 20261125141936
 **********************
 
 ===== setup/ket-qua-kiem-tra.txt
-=== Kiem tra moi truong Lernbuch Wed 11/25/2026 14:13:58.51
+=== Kiem tra moi truong Lernbuch Wed 11/25/2026 14:19:36.87
 --- PHP
 PHP 8.5.13 (cli) (built: Nov 18 2026 00:59:53) (NTS Visual C++ 2022 x64)
 Copyright (c) The PHP Group
@@ -382,7 +382,7 @@ performance_schema
 sys
 --- Git
 git version 2.56.1.windows.1
-8a84d69 2026-11-25 21:11:00 +0700 setup\: chạy trên Windows giống LoWo (F:\dev dùng chung, MySQL 9.7 cổng 3307, web 127.0.0.1:8001)
+9516854 2026-11-25 21:16:57 +0700 setup/tests: sửa biến trùng tên $Remote, ghi CRLF đúng, đọc manifest dạng byte; in lỗi khi test hỏng
 --- Lernbuch
 Laravel Framework 13.44.1
 .env: co
@@ -401,11 +401,11 @@ Máy chủ chạy ở http://127.0.0.1:8001
 ✔ đường dẫn con của app học (GET /app/hom-nay → 200)
 ✔ trang đăng nhập quản trị (GET /admin/login → 200)
 ✔ kiểm tra sống /up (GET /up → 200)
-✘ manifest PWA (GET /manifest.webmanifest → 200) 123 10 32 32 32 32 34 110 97 109 101 34 58 32 34 76 101 114 110 98 117 99 104 34 44 10 32 32 32 32 34 115 104 111 114 116 95 110 97 109 101 34 58 32 34 76 101 114 110 98 117 99 104 34 44 10 32 32 32 32 34 100 101 115 99 114 105 112 116 105 111 110 34 58 32 34 72 225 187 141 99 32 116 105 225 186 191
+✔ manifest PWA (GET /manifest.webmanifest → 200)
 ✔ không lộ .env (GET /.env → 404)
 ✔ CSS đã build (GET /build/assets/app-2VXlAOM1.css → 200)
 ✔ file CSS/JS của Filament (GET /css/filament/filament/app.css?v=5.12.0.0 → 200)
-KẾT QUẢ: 9/10 trang đạt
+KẾT QUẢ: 10/10 trang đạt
 
 ===== setup/tmp/ci/test-setup.log
 ===== test-cai-dat.ps1
@@ -506,11 +506,16 @@ PASS  file lạ: giữ nguyên nội dung
 PASS  bỏ file lạ thì cập nhật được
 PASS  không ở nhánh main: dừng và nêu tên nhánh
 PASS  máy có commit riêng: dừng
-FAIL  không lấy được code: báo lỗi git fetch
+fatal: 'C:\Users\runneradmin\AppData\Local\Temp\lernbuch-git-8d990cdf\khong-co.git' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+PASS  không lấy được code: báo lỗi git fetch
 PASS  trả lại địa chỉ đúng: cập nhật được
 PASS  chưa phải kho Git: báo cách lấy code
 
-Kết quả: 41 qua, 1 lỗi
+Kết quả: 42 qua, 0 lỗi
 ===== test-chung.ps1
 PASS  thư mục dự án là thư mục cha của setup
 PASS  web chạy ở 127.0.0.1:8001 (không trùng LoWo ở localhost:8000)
@@ -522,7 +527,7 @@ PASS  mã Git của nội dung CRLF
 PASS  mã Git của nội dung có BOM và chữ có dấu
 PASS  giống hệt bản Git
 PASS  chỉ khác kiểu xuống dòng (CRLF) vẫn coi là giống
-FAIL  bản Git lưu CRLF, file trên máy CRLF: giống
+PASS  bản Git lưu CRLF, file trên máy CRLF: giống
 PASS  khác nội dung: không giống
 PASS  file không có nhưng bản Git có: không giống
 PASS  cả hai đều không có: giống
@@ -537,7 +542,7 @@ PASS  Test-Port trả false với cổng không ai dùng
 PASS  tìm thấy git
 PASS  thiếu PHP thì báo chạy cai-dat.bat
 
-Kết quả: 23 qua, 1 lỗi
+Kết quả: 24 qua, 0 lỗi
 ===== test-file.ps1
 PASS  có đủ script
 PASS  cai-dat.ps1 : đúng cú pháp PowerShell
@@ -614,8 +619,8 @@ PASS  cap-nhat.bat: chuyển tham số cho cap-nhat.ps1
 Kết quả: 71 qua, 0 lỗi
 
 ✔ test-cai-dat.ps1
-✘ test-cap-nhat.ps1 (mã 1)
-✘ test-chung.ps1 (mã 1)
+✔ test-cap-nhat.ps1
+✔ test-chung.ps1
 ✔ test-file.ps1
-KẾT QUẢ: 2/4 file test đạt
+KẾT QUẢ: 4/4 file test đạt
 
