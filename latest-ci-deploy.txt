@@ -1,7 +1,7 @@
-workflow: ci  job: deploy  status: success
-commit: 8d88488e1c16133d220b1435e672e8f6402248b4  ref: main  run: 45709828319
+workflow: ci  job: deploy  status: failure
+commit: 200e4560ec7d4cf5351c4886f973d6619cdfa1fb  ref: main  run: 45711622826
 
-✔ /up trả 200 (20261125220531-8d88488)
+✘ Deploy dừng, giữ nguyên bản đang chạy: 20261125220531-8d88488
 
 ----- cuối log -----
 Installing dependencies from lock file
@@ -325,7 +325,7 @@ Generating optimized autoload files
 75 packages you are using are looking for funding.
 Use the `composer fund` command to find out more!
 
-added 303 packages in 3s
+added 303 packages in 5s
 
 > build
 > vite build
@@ -353,30 +353,20 @@ public/build/assets/theme-B3htII5O.css                                 713.24 kB
 public/build/assets/app-BvRk9kiK.js                                      0.00 kB │ gzip:   0.02 kB
 public/build/assets/main-DryOi4bt.js                                   335.59 kB │ gzip: 104.92 kB
 
-[32m✓ built in 705ms[39m
--rw-r--r-- 1 runner runner 15M Nov 25 22:05 /tmp/20261125220531-8d88488.tgz
-== Giải nén 20261125220531-8d88488
+[32m✓ built in 782ms[39m
+-rw-r--r-- 1 runner runner 15M Nov 25 22:17 /tmp/20261125221742-200e456.tgz
+== Giải nén 20261125221742-200e456
 == Cập nhật .env (giữ APP_KEY cũ)
 == Migration
 
-   INFO  Nothing to migrate.  
+   INFO  Running migrations.  
 
-== Cache cấu hình, route, view
+  2026_11_26_000001_thu_migration_hong ........................... 4.07ms FAIL
 
-   INFO  Caching framework bootstrap, configuration, and metadata.  
+In 2026_11_26_000001_thu_migration_hong.php line 12:
+                                                                               
+  Migration cố ý hỏng để thử mục 8: deploy phải dừng, bản đang chạy giữ nguyê  
+  n.                                                                           
+                                                                               
 
-  config ........................................................ 45.67ms DONE
-  events ......................................................... 3.20ms DONE
-  routes ........................................................ 45.91ms DONE
-  views ........................................................ 719.08ms DONE
-  blade-icons .................................................... 5.15ms DONE
-  filament ....................................................... 9.40ms DONE
-
-== Đổi current sang 20261125220531-8d88488
-
-   INFO  Broadcasting queue restart signal.  
-
-== Giữ 3 bản gần nhất
-323M	/home/lernbuch/lernbuch
-Xong: 20261125220531-8d88488
-✔ /up trả 200 (20261125220531-8d88488)
+✘ Deploy dừng, giữ nguyên bản đang chạy: 20261125220531-8d88488
