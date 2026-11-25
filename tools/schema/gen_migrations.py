@@ -199,8 +199,7 @@ TEMPLATE = """<?php
 
 use Illuminate\\Database\\Migrations\\Migration;
 use Illuminate\\Database\\Schema\\Blueprint;
-use Illuminate\\Support\\Facades\\DB;
-use Illuminate\\Support\\Facades\\Schema;
+{db_import}use Illuminate\\Support\\Facades\\Schema;
 
 return new class extends Migration
 {{
@@ -250,7 +249,8 @@ def main():
         down = "\n".join(f"        Schema::dropIfExists({php_str(t)});" for t in reversed(tables))
         path = os.path.join(args.out, f"{DATE_PREFIX}{num:02d}_create_{slug}_tables.php")
         with open(path, "w", encoding="utf-8") as fh:
-            fh.write(TEMPLATE.format(up=up, down=down))
+            db_import = "use Illuminate\\Support\\Facades\\DB;\n" if "DB::" in up else ""
+            fh.write(TEMPLATE.format(up=up, down=down, db_import=db_import))
         written.append((path, len(tables)))
     for path, n in written:
         print(f"{n:3d} bảng  {path}")

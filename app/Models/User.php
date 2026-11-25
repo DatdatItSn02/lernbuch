@@ -28,6 +28,14 @@ class User extends Authenticatable implements FilamentUser
 
     protected $dateFormat = 'U';
 
+    /** Giá trị mặc định giống mặc định trong database, để model mới tạo có ngay. */
+    protected $attributes = [
+        'status' => 'active',
+        'is_staff' => false,
+        'ui_locale' => 'vi',
+        'timezone' => 'Asia/Ho_Chi_Minh',
+    ];
+
     protected $fillable = ['name', 'email', 'password', 'ui_locale', 'timezone', 'birth_date'];
 
     protected $hidden = ['password', 'remember_token', 'two_factor_secret', 'two_factor_recovery_codes'];

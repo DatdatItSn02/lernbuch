@@ -19,7 +19,11 @@ it('mở được khung app học, cả đường dẫn con', function () {
 
 it('không lộ file .env và log', function () {
     $this->get('/.env')->assertNotFound();
-    $this->get('/storage/logs/laravel.log')->assertNotFound();
+
+    // /storage/... đi qua route file của Laravel: chưa ký thì bị chặn (403), không trả nội dung.
+    $log = $this->get('/storage/logs/laravel.log');
+    expect($log->status())->toBeIn([403, 404])
+        ->and($log->getContent())->not->toContain('local.ERROR');
 });
 
 it('có manifest để cài app', function () {
