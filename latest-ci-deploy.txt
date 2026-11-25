@@ -1,7 +1,7 @@
-workflow: ci  job: deploy  status: failure
-commit: faa4d5662dca1a7cd947269dd852271a2e4e64c1  ref: main  run: 45701211694
+workflow: ci  job: deploy  status: success
+commit: faa4d5662dca1a7cd947269dd852271a2e4e64c1  ref: main  run: 45703073180
 
-✘ /up lỗi, quay lại bản trước
+✔ /up trả 200 (20261125212033-faa4d56)
 
 ----- cuối log -----
 Installing dependencies from lock file
@@ -325,7 +325,7 @@ Generating optimized autoload files
 75 packages you are using are looking for funding.
 Use the `composer fund` command to find out more!
 
-added 303 packages in 4s
+added 303 packages in 6s
 
 > build
 > vite build
@@ -353,9 +353,9 @@ public/build/assets/theme-B3htII5O.css                                 713.24 kB
 public/build/assets/app-BvRk9kiK.js                                      0.00 kB │ gzip:   0.02 kB
 public/build/assets/main-DryOi4bt.js                                   335.59 kB │ gzip: 104.92 kB
 
-[32m✓ built in 677ms[39m
--rw-r--r-- 1 runner runner 15M Nov 25 21:09 /tmp/20261125210926-faa4d56.tgz
-== Giải nén 20261125210926-faa4d56
+[32m✓ built in 798ms[39m
+-rw-r--r-- 1 runner runner 15M Nov 25 21:20 /tmp/20261125212033-faa4d56.tgz
+== Giải nén 20261125212033-faa4d56
 == Cập nhật .env (giữ APP_KEY cũ)
 == Migration
 
@@ -365,32 +365,18 @@ public/build/assets/main-DryOi4bt.js                                   335.59 kB
 
    INFO  Caching framework bootstrap, configuration, and metadata.  
 
-  config ........................................................ 46.36ms DONE
-  events ......................................................... 3.96ms DONE
-  routes ........................................................ 45.55ms DONE
-  views ........................................................ 660.35ms DONE
-  blade-icons .................................................... 4.25ms DONE
-  filament ....................................................... 7.48ms DONE
+  config ........................................................ 49.61ms DONE
+  events ......................................................... 4.70ms DONE
+  routes ........................................................ 45.80ms DONE
+  views ........................................................ 790.15ms DONE
+  blade-icons .................................................... 4.08ms DONE
+  filament ....................................................... 8.11ms DONE
 
-== Đổi current sang 20261125210926-faa4d56
+== Đổi current sang 20261125212033-faa4d56
 
    INFO  Broadcasting queue restart signal.  
 
 == Giữ 3 bản gần nhất
-216M	/home/lernbuch/lernbuch
-Xong: 20261125210926-faa4d56
-✘ /up lỗi, quay lại bản trước
-
-   INFO  Caching framework bootstrap, configuration, and metadata.  
-
-  config ....................................................... 115.25ms DONE
-  events ........................................................ 10.47ms DONE
-  routes ........................................................ 69.97ms DONE
-  views ........................................................ 851.19ms DONE
-  blade-icons .................................................... 6.99ms DONE
-  filament ...................................................... 11.62ms DONE
-
-
-   INFO  Broadcasting queue restart signal.  
-
-Đã quay lại: 20261125210926-faa4d56 -> 20261125210009-faa4d56
+323M	/home/lernbuch/lernbuch
+Xong: 20261125212033-faa4d56
+✔ /up trả 200 (20261125212033-faa4d56)
