@@ -1,0 +1,89 @@
+workflow: ci  job: web  status: success
+commit: 4e50126266dd672fc300eed0ac27eb2fdf426873  ref: work/ngay7  run: 45658311765
+
+✔ Kiểm kiểu TypeScript
+✔ ESLint
+✔ Vitest
+✔ Build Vite (app học, trang chào, theme quản trị)
+✔ Tương phản màu WCAG AA (palette_check.py trên tokens.css)
+✔ Test palette_check (cả trường hợp lỗi)
+✔ Playwright: font và bố cục trên máy tính, điện thoại
+KẾT QUẢ: 7/7 bước đạt
+
+----- cuối log -----
+::group::Kiểm kiểu TypeScript
+✔ Kiểm kiểu TypeScript
+::endgroup::
+::group::ESLint
+✔ ESLint
+::endgroup::
+::group::Vitest
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.1.1 [39m[90m/home/runner/work/lernbuch/lernbuch[39m
+
+ [32m✓[39m resources/js/app/App.test.tsx [2m([22m[2m1 test[22m[2m)[22m[32m 44[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m   Start at [22m 16:51:51
+[2m   Duration [22m 543ms[2m (environment 66%, import 18%, tests 10%, transform 6%, worker 1%)[22m
+
+✔ Vitest
+::endgroup::
+::group::Build Vite (app học, trang chào, theme quản trị)
+[36mvite v8.3.8 [32mbuilding client environment for production...[36m[39m
+transforming...
+✓ 17 modules transformed.
+rendering chunks...
+computing gzip size...
+public/build/manifest.json                                               5.27 kB │ gzip:  0.64 kB
+public/build/assets/baloo-2-vietnamese-wght-normal-C4ZonJY6.woff2        9.88 kB
+public/build/assets/patrick-hand-vietnamese-400-normal-65jA92mZ.woff2   11.57 kB
+public/build/assets/nunito-vietnamese-wght-normal-U01xdrZh.woff2        13.09 kB
+public/build/assets/nunito-vietnamese-wght-italic-5K55R7rt.woff2        14.76 kB
+public/build/assets/patrick-hand-latin-ext-400-normal-Dno5CMlI.woff2    20.11 kB
+public/build/assets/patrick-hand-latin-400-normal-B7HHA2Vw.woff2        23.94 kB
+public/build/assets/baloo-2-latin-ext-wght-normal-Dz43yst_.woff2        27.38 kB
+public/build/assets/baloo-2-latin-wght-normal-B_TVFhwJ.woff2            33.18 kB
+public/build/assets/nunito-latin-ext-wght-normal-CXYtwYOx.woff2         35.58 kB
+public/build/assets/nunito-latin-ext-wght-italic-CmZo11nB.woff2         39.07 kB
+public/build/assets/nunito-latin-wght-normal-BzFMHfZw.woff2             39.12 kB
+public/build/assets/nunito-latin-wght-italic-ZB3Aladm.woff2             41.76 kB
+public/build/assets/app-CuGBccsy.css                                    21.41 kB │ gzip:  5.31 kB
+public/build/assets/theme-B3htII5O.css                                 713.24 kB │ gzip: 72.82 kB
+public/build/assets/app-BvRk9kiK.js                                      0.00 kB │ gzip:  0.02 kB
+public/build/assets/main-DwYaINVx.js                                   219.24 kB │ gzip: 68.54 kB
+
+[32m✓ built in 580ms[39m
+✔ Build Vite (app học, trang chào, theme quản trị)
+::endgroup::
+::group::Tương phản màu WCAG AA (palette_check.py trên tokens.css)
+Tương phản: 46/46 cặp đạt WCAG 2 AA (sáng và tối)
+✔ Tương phản màu WCAG AA (palette_check.py trên tokens.css)
+::endgroup::
+::group::Test palette_check (cả trường hợp lỗi)
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.073s
+
+OK
+✔ Test palette_check (cả trường hợp lỗi)
+::endgroup::
+::group::Playwright: font và bố cục trên máy tính, điện thoại
+
+Running 8 tests using 2 workers
+
+  ✓  2 [may-tinh] › tests/e2e/chu.spec.ts:80:1 › trang chào dùng Baloo 2 cho tên và Nunito cho chữ (298ms)
+  ✓  3 [may-tinh] › tests/e2e/chu.spec.ts:86:1 › trang chào và trang kiểm chữ không tràn ngang (207ms)
+  ✓  1 [may-tinh] › tests/e2e/chu.spec.ts:74:1 › mọi mẫu chữ hiện đúng font, đủ dấu tiếng Việt và ä ö ü ß ẞ (577ms)
+  ✓  4 [may-tinh] › tests/e2e/chu.spec.ts:94:1 › thiếu file font: phép kiểm báo lỗi, chữ vẫn đọc được bằng font dự phòng (250ms)
+  ✓  6 [dien-thoai] › tests/e2e/chu.spec.ts:80:1 › trang chào dùng Baloo 2 cho tên và Nunito cho chữ (232ms)
+  ✓  5 [dien-thoai] › tests/e2e/chu.spec.ts:74:1 › mọi mẫu chữ hiện đúng font, đủ dấu tiếng Việt và ä ö ü ß ẞ (576ms)
+  ✓  7 [dien-thoai] › tests/e2e/chu.spec.ts:86:1 › trang chào và trang kiểm chữ không tràn ngang (278ms)
+  ✓  8 [dien-thoai] › tests/e2e/chu.spec.ts:94:1 › thiếu file font: phép kiểm báo lỗi, chữ vẫn đọc được bằng font dự phòng (254ms)
+
+  8 passed (5.6s)
+✔ Playwright: font và bố cục trên máy tính, điện thoại
+::endgroup::
+
+KẾT QUẢ: 7/7 bước đạt
