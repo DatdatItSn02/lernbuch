@@ -38,6 +38,16 @@ it('job cố ý lỗi vào failed_jobs sau đúng 3 lần thử', function () {
         ->and(DB::table('failed_jobs')->value('exception'))->toContain('Lỗi cố ý để thử hàng đợi (mã xyz)');
 });
 
+it('cache database (như trên alwaysdata) vẫn đếm đủ 3 lần thử', function () {
+    config(['cache.default' => 'database']);
+    ViecLoiThu::dispatch('dbcache');
+
+    $this->artisan('queue:work', ['--stop-when-empty' => true])->assertSuccessful();
+
+    expect((int) Cache::get('viec-loi-thu:dbcache'))->toBe(3)
+        ->and(DB::table('failed_jobs')->count())->toBe(1);
+});
+
 it('lệnh thử hàng đợi: đưa 2 job vào, worker chạy xong thì kiểm đạt', function () {
     Artisan::call('app:thu-hang-doi');
     preg_match('/mã ([a-z0-9]{8})/', Artisan::output(), $m);
