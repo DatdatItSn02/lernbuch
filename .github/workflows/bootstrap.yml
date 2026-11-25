@@ -1,0 +1,69 @@
+name: bootstrap
+
+# Dựng khung Laravel 13 + Filament 5 một lần, vì môi trường làm việc của Claude
+# không tải được gói PHP từ Packagist. Chạy khi đẩy nhánh bootstrap/request;
+# kết quả ghi vào nhánh bootstrap/result (thành công) hoặc bootstrap/failed (lỗi, kèm log).
+
+on:
+  push:
+    branches: [bootstrap/request]
+
+permissions:
+  contents: write
+
+jobs:
+  skeleton:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, intl, pdo_mysql, pdo_sqlite, zip, bcmath
+          tools: composer:v2
+          coverage: none
+
+      - name: Tạo khung Laravel 13 và cài gói
+        run: |
+          set -o pipefail
+          {
+            composer create-project laravel/laravel:^13.0 /tmp/app --no-interaction --prefer-dist
+            cd /tmp/app
+            composer require filament/filament:^5.0 laravel/pennant spatie/laravel-permission --no-interaction -W
+            php artisan install:api --without-migration-prompt --no-interaction
+            php artisan filament:install --panels --no-interaction
+            php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" --tag=permission-config --no-interaction
+            php artisan vendor:publish --provider="Laravel\Pennant\PennantServiceProvider" --no-interaction
+            composer remove phpunit/phpunit --dev --no-interaction
+            composer require --dev pestphp/pest pestphp/pest-plugin-laravel larastan/larastan --no-interaction -W
+            ./vendor/bin/pest --init --no-interaction
+            php artisan about
+            composer show --direct
+          } 2>&1 | tee /tmp/bootstrap.log
+
+      - name: Ghi khung vào nhánh bootstrap/result
+        run: |
+          cp /tmp/bootstrap.log /tmp/app/bootstrap-report.txt
+          rsync -a --exclude .git --exclude vendor --exclude node_modules --exclude .env \
+            --exclude 'database/*.sqlite' /tmp/app/ ./
+          git config user.name "lernbuch-bot"
+          git config user.email "lernbuch-bot@users.noreply.github.com"
+          git checkout -b bootstrap/result
+          git add -A
+          git commit -q -m "Khung Laravel 13 + Filament 5, sinh trên GitHub Actions"
+          git push -f origin bootstrap/result
+
+      - name: Báo lỗi vào nhánh bootstrap/failed
+        if: failure()
+        run: |
+          git config user.name "lernbuch-bot"
+          git config user.email "lernbuch-bot@users.noreply.github.com"
+          git checkout -B bootstrap/failed
+          cp /tmp/bootstrap.log bootstrap-failed.log 2>/dev/null || echo "không có log" > bootstrap-failed.log
+          git add bootstrap-failed.log
+          git commit -q -m "Bootstrap lỗi, run ${{ github.run_id }}"
+          git push -f origin bootstrap/failed
