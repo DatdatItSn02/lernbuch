@@ -34,6 +34,8 @@ Web chạy ở `127.0.0.1:8001`, không dùng `localhost:8000` để không trù
 | `import/` | định dạng và trình kiểm file nhập nội dung |
 | `setup/` | script chạy trên Windows (cài, cập nhật, test, mở web) và test của chúng trong `setup/tests/` |
 | `deploy/`, `docs/huong-dan-alwaysdata.md` | deploy lên alwaysdata (đang tắt; bật bằng biến `DEPLOY_ENABLED`) |
+| `tools/tu-kiem/` | chấm 16 mục tự kiểm của G0 từ log CI; kết quả ở `docs/tu-kiem-g0.json`, báo cáo ở `docs/bao-cao-g0.md` |
+| `docs/huong-dan-windows.md` | chạy trên Windows từng bước, kể cả thử lịch và hàng đợi |
 
 ## Quy ước database
 
@@ -41,4 +43,12 @@ Không khoá ngoại; thời gian lưu Unix timestamp (INT), trừ 10 bảng c�
 
 ## CI
 
-GitHub Actions chạy mỗi lần đẩy code: Pint, Larastan, migrate lên và xuống, so khớp với `schema.sql`, seeder chạy hai lần, `test_schema.py`, Pest, TypeScript, ESLint, Vitest, build. Workflow `windows` chạy bộ `setup\` trên Windows PowerShell 5.1 y như máy người dùng (cài PHP 8.5, Node.js 26, MySQL 9.7, cập nhật, chạy test, mở web thử). Mỗi đêm chạy lại trên MariaDB 10.11, 11.4, 11.8 và MySQL 8.4, 9.7. Tóm tắt kết quả ghi ở nhánh `ci-results`.
+GitHub Actions chạy mỗi lần đẩy code: Pint, Larastan, migrate lên và xuống, so khớp với `schema.sql`, seeder chạy hai lần, `test_schema.py`, Pest, TypeScript, ESLint, Vitest, build. Workflow `windows` chạy bộ `setup\` trên Windows PowerShell 5.1 y như máy người dùng (cài PHP 8.5, Node.js 26, MySQL 9.7, cập nhật, chạy test, mở web thử), chỉ khi đổi `setup\`, gói thư viện, migration, seeder và mỗi tuần một lần (máy Windows tính gấp đôi phút CI). Mỗi đêm chạy lại trên MariaDB 10.11, 11.4, 11.8 và MySQL 8.4, 9.7. Tóm tắt kết quả ghi ở nhánh `ci-results` (ảnh trang chào và trang quản trị ở `anh/`).
+
+Chấm lại 16 mục tự kiểm:
+
+```bash
+git clone --depth 1 -b ci-results https://github.com/DatdatItSn02/lernbuch.git /tmp/ci-results
+python3 tools/tu-kiem/lay_runs.py --out /tmp/runs.json
+python3 tools/tu-kiem/tu_kiem.py --ci /tmp/ci-results --runs /tmp/runs.json --out docs/tu-kiem-g0.json
+```

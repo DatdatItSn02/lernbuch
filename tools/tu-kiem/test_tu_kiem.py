@@ -119,6 +119,14 @@ class TuKiemTest(unittest.TestCase):
         self.assertEqual(data['tong']['chua_dat'], 0)
         self.assertEqual(len(data['muc']), 16)
 
+    def test_log_cu_cung_ban_database_bi_bo_qua(self):
+        files = self.good_files()
+        old = php_log(server='8.4.7', migration=MIG.replace('✔ Migrate lên lại', '✘ Migrate lên lại')).replace('run: 111', 'run: 50')
+        files['latest-nightly-php-mysql-2.txt'] = old
+        _, m, _ = self.run_check(files)
+        self.assertEqual(m[1]['trang_thai'], 'dat')
+        self.assertEqual(sum('MySQL 8.4' in e for e in m[1]['bang_chung']), 1)
+
     def test_thieu_ban_database_thi_dat_mot_phan(self):
         files = self.good_files()
         del files['latest-nightly-php-mysql-3.txt']

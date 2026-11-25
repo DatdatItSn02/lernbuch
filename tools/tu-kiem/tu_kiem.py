@@ -161,11 +161,14 @@ def check(logs, runs, assumptions):
     out = []
 
     # 1. migration lên, xuống trên các bản database
-    ok_db, bad_db = [], []
+    # Mỗi bản database lấy log mới nhất (ci-results còn giữ file của ma trận cũ)
+    newest = {}
     for l in db_logs:
         fam = db_family(l.server)
-        if not fam:
-            continue
+        if fam and (fam not in newest or int(l.run or 0) > int(newest[fam].run or 0)):
+            newest[fam] = l
+    ok_db, bad_db = [], []
+    for fam, l in newest.items():
         (ok_db if all(l.ok(s) for s in MIGRATION_STEPS) else bad_db).append((fam, l))
     have = {f for f, _ in ok_db}
     missing = [f'{a} {b}' for a, b in REQUIRED_DB if (a, b) not in have]
@@ -210,6 +213,8 @@ def check(logs, runs, assumptions):
     red = [r for r in runs if r['workflow'] == 'ci' and r['conclusion'] == 'failure'
            and any((j['conclusion'] == 'failure') for j in r['jobs'])]
     red_ok = [r for r in red if (d := job(r, 'deploy')) is not None and d['conclusion'] in ('skipped', None)]
+    # Ưu tiên lần đẩy test cố ý hỏng (tên commit ghi "cố ý" hoặc "CI đỏ") hơn lần hỏng ngoài ý muốn
+    red_ok = [r for r in red_ok if re.search(r'cố ý|CI đỏ', r['title'])] or red_ok
     st = DAT if red_ok else CHUA_CHAY
     out.append(item(6, 'CI chặn lỗi', 'CI đỏ, job deploy không chạy', st,
                     [f'run {r["id"]} ({r["branch"]}, "{r["title"]}"): '

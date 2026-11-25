@@ -41,11 +41,14 @@ Repo `lernbuch` → Settings → Secrets and variables → Actions → New repos
 
 Claude không thấy hai giá trị này. Workflow deploy ghi chúng vào `~/lernbuch/shared/.env` trên alwaysdata; `APP_KEY` sinh một lần ở lần deploy đầu rồi giữ nguyên.
 
+Cuối cùng bật deploy: cùng trang đó, tab **Variables** → New repository variable, tên `DEPLOY_ENABLED`, giá trị `true`. Chưa có biến này (hoặc giá trị khác `true`) thì job deploy luôn bỏ qua, CI vẫn chạy test như thường. Lần deploy đầu: Actions → ci → Run workflow trên nhánh `main`.
+
 ## 4. Sau lần deploy đầu
 
 1. **Tác vụ định kỳ.** Scheduled tasks: lệnh `php /home/lernbuch/lernbuch/current/artisan schedule:run`, lịch `* * * * *` (mỗi phút).
 2. **Dịch vụ hàng đợi.** Advanced → Services: lệnh `php /home/lernbuch/lernbuch/current/artisan queue:work --sleep=3 --tries=3 --max-time=3600 --memory=96`.
 3. **Tài khoản quản trị.** SSH vào rồi chạy `cd ~/lernbuch/current && php artisan app:create-admin`, nhập email và mật khẩu (ít nhất 12 ký tự).
+4. **Kiểm lịch và hàng đợi** (mục 13 của phần tự kiểm). Sau khi bật hai mục 1 và 2 được 10 phút, SSH vào `~/lernbuch/current` rồi chạy `php artisan app:kiem-nhip` (đạt khi có ít nhất 9/10 nhịp). Chạy `php artisan app:thu-hang-doi`, chờ một phút rồi chạy lệnh `--kiem=<mã>` nó in ra (đạt khi job thử xong và job cố ý lỗi vào `failed_jobs` sau 3 lần thử).
 
 ## Quay lại bản trước
 

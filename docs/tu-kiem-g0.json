@@ -1,0 +1,191 @@
+{
+ "ten": "Tự kiểm thử G0 (16 mục)",
+ "luc": "2026-11-25T20:09:11+00:00",
+ "tong": {
+  "dat": 10,
+  "dat_mot_phan": 2,
+  "chua_dat": 0,
+  "chua_chay": 4
+ },
+ "gia_dinh_phut_ci": {
+  "day_code_moi_thang": 120,
+  "windows_moi_thang": 12
+ },
+ "muc": [
+  {
+   "so": 1,
+   "ten": "migration lên, xuống",
+   "dat_khi": "không lỗi trên MariaDB 11.4, 11.8 và MySQL 8.4; sau khi rollback chỉ còn bảng migrations",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "MariaDB 10.11: Migrate lên, Migrate xuống hết, Sau khi xuống chỉ còn bảng migrations, Migrate lên lại đạt (latest-nightly-php-mariadb-0.txt (commit cdf2341, run 45691196262))",
+    "MariaDB 11.4: Migrate lên, Migrate xuống hết, Sau khi xuống chỉ còn bảng migrations, Migrate lên lại đạt (latest-nightly-php-mariadb-1.txt (commit cdf2341, run 45691196262))",
+    "MariaDB 11.8: Migrate lên, Migrate xuống hết, Sau khi xuống chỉ còn bảng migrations, Migrate lên lại đạt (latest-nightly-php-mariadb-2.txt (commit cdf2341, run 45691196262))",
+    "MySQL 8.4: Migrate lên, Migrate xuống hết, Sau khi xuống chỉ còn bảng migrations, Migrate lên lại đạt (latest-nightly-php-mysql-3.txt (commit cdf2341, run 45691196262))",
+    "MySQL 9.7: Migrate lên, Migrate xuống hết, Sau khi xuống chỉ còn bảng migrations, Migrate lên lại đạt (latest-nightly-php-mysql-4.txt (commit cdf2341, run 45691196262))"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 2,
+   "ten": "khớp với schema.sql",
+   "dat_khi": "0 khác biệt; sửa cố ý kiểu một cột thì công cụ chỉ đúng cột đó",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Khớp với schema.sql (0 khác biệt); Test công cụ so khớp và quy ước (test_compare_schema.py: test_2_changed_column_type_is_reported_exactly) (latest-ci-php.txt (commit cdf2341, run 45690545516))"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 3,
+   "ten": "quy ước LoWo",
+   "dat_khi": "không khoá ngoại, cột thời gian đúng kiểu; thêm cố ý một khoá ngoại thì bị bắt",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Quy ước LoWo (không khoá ngoại, thời gian số nguyên); test_check_conventions.py: test_foreign_key_in_migration_is_caught (latest-ci-php.txt (commit cdf2341, run 45690545516))"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 4,
+   "ten": "seeder chạy lại",
+   "dat_khi": "số dòng không đổi: 5 gói, 40 quyền lợi, 10 prompt",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Seeder chạy hai lần không nhân đôi: lần 1 = 5 40 10 16 9 26 12 4, lần 2 = 5 40 10 16 9 26 12 4 (latest-ci-php.txt (commit cdf2341, run 45690545516))"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 5,
+   "ten": "kiểm thử database cũ",
+   "dat_khi": "16/16 kiểm tra cấu trúc, 22/22 tình huống",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "16/16 kiểm tra cấu trúc, 22/22 tình huống trên 11.4.13-MariaDB-ubu2404, 91 bảng (latest-ci-php.txt (commit cdf2341, run 45690545516))"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 6,
+   "ten": "CI chặn lỗi",
+   "dat_khi": "CI đỏ, job deploy không chạy",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "run 45594024894 (work/ci-red, \"Thử CI đỏ: test cố ý hỏng (không gộp)\"): php failure, web success, deploy lên lernbuch.alwaysdata.net skipped"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 7,
+   "ten": "deploy thật",
+   "dat_khi": "/up trả 200; trang chào hiện; đăng nhập được /admin",
+   "trang_thai": "chua_chay",
+   "bang_chung": [],
+   "ghi_chu": "Cần bật deploy: khoá SSH alwaysdata trong Secrets (ALWAYSDATA_SSH_KEY, DB_PASSWORD) và biến DEPLOY_ENABLED=true (docs/huong-dan-alwaysdata.md)."
+  },
+  {
+   "so": 8,
+   "ten": "migration lỗi khi deploy",
+   "dat_khi": "deploy dừng; current vẫn là bản cũ; trang vẫn chạy",
+   "trang_thai": "chua_chay",
+   "bang_chung": [],
+   "ghi_chu": "Cần bật deploy: khoá SSH alwaysdata trong Secrets (ALWAYSDATA_SSH_KEY, DB_PASSWORD) và biến DEPLOY_ENABLED=true (docs/huong-dan-alwaysdata.md). Sau đó đẩy một bản cố ý hỏng theo kế hoạch."
+  },
+  {
+   "so": 9,
+   "ten": "bản mới lỗi sau khi đổi",
+   "dat_khi": "workflow tự đổi current về bản trước",
+   "trang_thai": "chua_chay",
+   "bang_chung": [],
+   "ghi_chu": "Cần bật deploy: khoá SSH alwaysdata trong Secrets (ALWAYSDATA_SSH_KEY, DB_PASSWORD) và biến DEPLOY_ENABLED=true (docs/huong-dan-alwaysdata.md). Sau đó đẩy một bản cố ý hỏng theo kế hoạch."
+  },
+  {
+   "so": 10,
+   "ten": "quay lại bằng tay",
+   "dat_khi": "bản trước chạy, /up trả 200",
+   "trang_thai": "chua_chay",
+   "bang_chung": [],
+   "ghi_chu": "Cần bật deploy: khoá SSH alwaysdata trong Secrets (ALWAYSDATA_SSH_KEY, DB_PASSWORD) và biến DEPLOY_ENABLED=true (docs/huong-dan-alwaysdata.md)."
+  },
+  {
+   "so": 11,
+   "ten": "bảo mật cơ bản",
+   "dat_khi": "trang lỗi chung, /.env và /storage/logs trả 404, /admin về trang đăng nhập, sai mật khẩu nhiều lần bị chặn",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Pest đạt: chưa đăng nhập vào /admin thì về trang đăng nhập",
+    "Pest đạt: không lộ file .env và log",
+    "Pest đạt: lỗi máy chủ chỉ hiện trang lỗi chung, không lộ nội dung lỗi hay đường dẫn",
+    "Pest đạt: nhập sai mật khẩu 5 lần thì bị chặn tạm thời, kể cả lần sau đúng mật khẩu",
+    "latest-ci-php.txt (commit cdf2341, run 45690545516)"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 12,
+   "ten": "chữ có dấu qua database",
+   "dat_khi": "đọc lại giống hệt; kết nối sai thì test báo lỗi",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Pest đạt: ghi rồi đọc chữ có dấu qua database giữ nguyên",
+    "Pest đạt: kết nối sai bảng mã thì chữ có dấu đọc ra bị hỏng, nên test bắt được",
+    "Pest đạt: kết nối database dùng utf8mb4",
+    "latest-ci-php.txt (commit cdf2341, run 45690545516)"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 13,
+   "ten": "lịch và hàng đợi",
+   "dat_khi": "sau 10 phút có ít nhất 9 nhịp; job thử chạy xong; job lỗi vào failed_jobs sau 3 lần thử",
+   "trang_thai": "dat_mot_phan",
+   "bang_chung": [
+    "Pest đạt: lịch có việc ghi nhịp chạy mỗi phút",
+    "Pest đạt: job thử chạy xong qua hàng đợi database",
+    "Pest đạt: job cố ý lỗi vào failed_jobs sau đúng 3 lần thử",
+    "Pest đạt: 10 phút lịch chạy mỗi phút qua hàng đợi thì đủ 10 nhịp",
+    "Pest đạt: thiếu nhịp (lịch hay hàng đợi dừng) thì kiểm nhịp báo lỗi",
+    "latest-ci-php.txt (commit cdf2341, run 45690545516)"
+   ],
+   "ghi_chu": "CI đã chạy lịch và hàng đợi thật (bảng jobs) qua 10 phút mô phỏng. Còn chạy thật 10 phút trên alwaysdata: sau khi bật tác vụ schedule:run và dịch vụ queue:work, chạy php artisan app:kiem-nhip."
+  },
+  {
+   "so": 14,
+   "ten": "font và chữ",
+   "dat_khi": "đủ dấu tiếng Việt và ä ö ü ß ẞ đúng font ở máy tính và điện thoại; thiếu file thì test báo, chữ vẫn đọc được",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "\"mọi mẫu chữ hiện đúng font, đủ dấu tiếng Việt và ä ö ü ß ẞ\": đạt 2/2 cỡ màn hình",
+    "\"thiếu file font: phép kiểm báo lỗi, chữ vẫn đọc được bằng font dự phòng\": đạt 2/2 cỡ màn hình",
+    "latest-ci-web.txt (commit cdf2341, run 45690545516)"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 15,
+   "ten": "tương phản màu",
+   "dat_khi": "mọi cặp chữ và nền đạt WCAG AA",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Tương phản: 70/70 cặp đạt; Test palette_check (cả trường hợp lỗi) đạt (latest-ci-web.txt (commit cdf2341, run 45690545516))"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 16,
+   "ten": "dung lượng và phút CI",
+   "dat_khi": "đĩa alwaysdata dùng dưới 60% của 1 GB; ước phút CI mỗi tháng dưới 1.500",
+   "trang_thai": "dat_mot_phan",
+   "bang_chung": [
+    "G0 đến nay: 36 lần chạy, 197 phút tính tiền (Windows nhân 2)",
+    "bootstrap: 1 lần, trung bình 1.0 phút/lần",
+    "ci: 20 lần, trung bình 3.4 phút/lần",
+    "nightly: 5 lần, trung bình 9.4 phút/lần",
+    "windows: 10 lần, trung bình 8.2 phút/lần",
+    "Ước mỗi tháng: ci 120 lần + windows 12 lần + nightly 30 lần = 782 phút"
+   ],
+   "ghi_chu": "Phút CI đạt. Dung lượng alwaysdata đo sau 5 lần deploy: Cần bật deploy: khoá SSH alwaysdata trong Secrets (ALWAYSDATA_SSH_KEY, DB_PASSWORD) và biến DEPLOY_ENABLED=true (docs/huong-dan-alwaysdata.md)."
+  }
+ ]
+}
