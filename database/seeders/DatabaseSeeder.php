@@ -2,24 +2,25 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
-     * Seed the application's database.
+     * Nạp database/sql/seed.sql từng câu một (lỗi ở câu nào thì dừng và báo câu đó).
+     * Chạy lại nhiều lần không nhân đôi vì mỗi INSERT có ON DUPLICATE KEY UPDATE.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $sql = (string) file_get_contents(database_path('sql/seed.sql'));
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        foreach (preg_split('/;[ \t]*\R/', $sql) ?: [] as $statement) {
+            $code = trim((string) preg_replace('/^\s*--.*$/m', '', $statement));
+
+            if ($code !== '') {
+                DB::unprepared($code);
+            }
+        }
     }
 }

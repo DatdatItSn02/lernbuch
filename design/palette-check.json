@@ -1,0 +1,435 @@
+{
+ "light": {
+  "hex": {
+   "paper": "#faf6ee",
+   "sheet": "#fffdfa",
+   "sunken": "#f3eee3",
+   "line": "#d8d0c3",
+   "line-strong": "#958a7c",
+   "ink": "#30241a",
+   "ink-2": "#66584d",
+   "ink-3": "#7f7268",
+   "leaf": "#21763c",
+   "leaf-strong": "#0d632d",
+   "leaf-tint": "#d9f3dd",
+   "on-leaf": "#fbfefc",
+   "focus": "#1f68bc",
+   "danger": "#b6322b",
+   "danger-tint": "#fee9e6",
+   "warning": "#e6ac3d",
+   "warning-ink": "#754b10",
+   "info": "#266ea4",
+   "der": "#2863ab",
+   "die": "#b2354a",
+   "das": "#17745b",
+   "plural": "#965719",
+   "lv0": "#e1ddd7",
+   "lv1": "#cfd6aa",
+   "lv2": "#a4c386",
+   "lv3": "#73a967",
+   "lv4": "#3e8a4d",
+   "lv5": "#176938",
+   "spring": "#edafcb",
+   "summer": "#ecd065",
+   "autumn": "#e0843e",
+   "winter": "#acd1e7"
+  },
+  "oklch": {
+   "paper": "oklch(97.5% 0.012 85)",
+   "sheet": "oklch(99.5% 0.005 85)",
+   "sunken": "oklch(95.0% 0.016 85)",
+   "line": "oklch(86.0% 0.020 80)",
+   "line-strong": "oklch(64.0% 0.025 75)",
+   "ink": "oklch(27.0% 0.025 60)",
+   "ink-2": "oklch(47.0% 0.025 60)",
+   "ink-3": "oklch(56.0% 0.022 60)",
+   "leaf": "oklch(50.0% 0.120 150)",
+   "leaf-strong": "oklch(44.0% 0.115 150)",
+   "leaf-tint": "oklch(94.0% 0.040 150)",
+   "on-leaf": "oklch(99.5% 0.005 150)",
+   "focus": "oklch(52.0% 0.150 255)",
+   "danger": "oklch(52.0% 0.170 28)",
+   "danger-tint": "oklch(95.0% 0.024 28)",
+   "warning": "oklch(78.0% 0.140 80)",
+   "warning-ink": "oklch(45.0% 0.090 70)",
+   "info": "oklch(52.0% 0.110 245)",
+   "der": "oklch(50.0% 0.130 255)",
+   "die": "oklch(52.0% 0.160 15)",
+   "das": "oklch(50.0% 0.092 170)",
+   "plural": "oklch(52.0% 0.110 60)",
+   "lv0": "oklch(90.0% 0.010 80)",
+   "lv1": "oklch(86.0% 0.060 115)",
+   "lv2": "oklch(78.0% 0.090 130)",
+   "lv3": "oklch(68.0% 0.110 140)",
+   "lv4": "oklch(57.0% 0.120 148)",
+   "lv5": "oklch(46.0% 0.110 152)",
+   "spring": "oklch(82.0% 0.080 350)",
+   "summer": "oklch(86.0% 0.130 95)",
+   "autumn": "oklch(70.0% 0.140 55)",
+   "winter": "oklch(84.0% 0.050 235)"
+  },
+  "out_of_gamut": [],
+  "pairs": [
+   {
+    "fg": "ink",
+    "bg": "paper",
+    "ratio": 14.09,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "ink",
+    "bg": "sheet",
+    "ratio": 14.93,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "ink-2",
+    "bg": "sheet",
+    "ratio": 6.77,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "ink-2",
+    "bg": "sunken",
+    "ratio": 5.94,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "ink-3",
+    "bg": "sheet",
+    "ratio": 4.61,
+    "need": 3.0,
+    "ok": true
+   },
+   {
+    "fg": "on-leaf",
+    "bg": "leaf",
+    "ratio": 5.6,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "on-leaf",
+    "bg": "leaf-strong",
+    "ratio": 7.27,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "leaf",
+    "bg": "sheet",
+    "ratio": 5.59,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "ink",
+    "bg": "leaf-tint",
+    "ratio": 12.87,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "danger",
+    "bg": "sheet",
+    "ratio": 5.92,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "ink",
+    "bg": "danger-tint",
+    "ratio": 12.98,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "warning-ink",
+    "bg": "sheet",
+    "ratio": 7.48,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "info",
+    "bg": "sheet",
+    "ratio": 5.38,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "focus",
+    "bg": "sheet",
+    "ratio": 5.48,
+    "need": 3.0,
+    "ok": true
+   },
+   {
+    "fg": "line-strong",
+    "bg": "sheet",
+    "ratio": 3.32,
+    "need": 3.0,
+    "ok": true
+   },
+   {
+    "fg": "der",
+    "bg": "sheet",
+    "ratio": 5.95,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "die",
+    "bg": "sheet",
+    "ratio": 5.92,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "das",
+    "bg": "sheet",
+    "ratio": 5.63,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "plural",
+    "bg": "sheet",
+    "ratio": 5.61,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "lv5",
+    "bg": "sheet",
+    "ratio": 6.66,
+    "need": 3.0,
+    "ok": true
+   },
+   {
+    "fg": "lv4",
+    "bg": "sheet",
+    "ratio": 4.17,
+    "need": 3.0,
+    "ok": true
+   }
+  ]
+ },
+ "dark": {
+  "hex": {
+   "paper": "#17130e",
+   "sheet": "#211c16",
+   "sunken": "#130f0a",
+   "line": "#3d3730",
+   "line-strong": "#71675d",
+   "ink": "#ebe7df",
+   "ink-2": "#b5b1a7",
+   "ink-3": "#969288",
+   "leaf": "#69c27e",
+   "leaf-strong": "#83d494",
+   "leaf-tint": "#1a3520",
+   "on-leaf": "#0c1a0f",
+   "focus": "#75aef5",
+   "danger": "#f47c6e",
+   "danger-tint": "#47211c",
+   "warning": "#e9b452",
+   "warning-ink": "#efc876",
+   "info": "#73b1e6",
+   "der": "#81b4f6",
+   "die": "#f39098",
+   "das": "#6cc9aa",
+   "plural": "#e7b375",
+   "lv0": "#3b3732",
+   "lv1": "#4c5030",
+   "lv2": "#546c3a",
+   "lv3": "#5c8c52",
+   "lv4": "#63ac6f",
+   "lv5": "#79cd91"
+  },
+  "oklch": {
+   "paper": "oklch(19.0% 0.012 70)",
+   "sheet": "oklch(23.0% 0.014 70)",
+   "sunken": "oklch(17.0% 0.012 70)",
+   "line": "oklch(34.0% 0.015 70)",
+   "line-strong": "oklch(52.0% 0.020 70)",
+   "ink": "oklch(93.0% 0.012 85)",
+   "ink-2": "oklch(76.0% 0.015 85)",
+   "ink-3": "oklch(66.0% 0.015 85)",
+   "leaf": "oklch(74.0% 0.130 150)",
+   "leaf-strong": "oklch(80.0% 0.120 150)",
+   "leaf-tint": "oklch(30.0% 0.050 150)",
+   "on-leaf": "oklch(20.0% 0.030 150)",
+   "focus": "oklch(74.0% 0.120 255)",
+   "danger": "oklch(72.0% 0.150 28)",
+   "danger-tint": "oklch(30.0% 0.060 28)",
+   "warning": "oklch(80.0% 0.130 80)",
+   "warning-ink": "oklch(85.0% 0.110 85)",
+   "info": "oklch(74.0% 0.100 245)",
+   "der": "oklch(76.0% 0.110 255)",
+   "die": "oklch(76.0% 0.120 15)",
+   "das": "oklch(77.0% 0.100 170)",
+   "plural": "oklch(80.0% 0.100 70)",
+   "lv0": "oklch(34.0% 0.010 80)",
+   "lv1": "oklch(42.0% 0.050 115)",
+   "lv2": "oklch(50.0% 0.080 130)",
+   "lv3": "oklch(59.0% 0.100 140)",
+   "lv4": "oklch(68.0% 0.115 148)",
+   "lv5": "oklch(78.0% 0.120 152)"
+  },
+  "out_of_gamut": [],
+  "pairs": [
+   {
+    "fg": "ink",
+    "bg": "paper",
+    "ratio": 15.04,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "ink",
+    "bg": "sheet",
+    "ratio": 13.76,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "ink-2",
+    "bg": "sheet",
+    "ratio": 7.88,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "ink-2",
+    "bg": "sunken",
+    "ratio": 8.91,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "ink-3",
+    "bg": "sheet",
+    "ratio": 5.44,
+    "need": 3.0,
+    "ok": true
+   },
+   {
+    "fg": "on-leaf",
+    "bg": "leaf",
+    "ratio": 8.21,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "on-leaf",
+    "bg": "leaf-strong",
+    "ratio": 10.07,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "leaf",
+    "bg": "sheet",
+    "ratio": 7.72,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "ink",
+    "bg": "leaf-tint",
+    "ratio": 10.88,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "danger",
+    "bg": "sheet",
+    "ratio": 6.4,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "ink",
+    "bg": "danger-tint",
+    "ratio": 11.36,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "warning-ink",
+    "bg": "sheet",
+    "ratio": 10.65,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "info",
+    "bg": "sheet",
+    "ratio": 7.41,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "focus",
+    "bg": "sheet",
+    "ratio": 7.34,
+    "need": 3.0,
+    "ok": true
+   },
+   {
+    "fg": "line-strong",
+    "bg": "sheet",
+    "ratio": 3.06,
+    "need": 3.0,
+    "ok": true
+   },
+   {
+    "fg": "der",
+    "bg": "sheet",
+    "ratio": 7.89,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "die",
+    "bg": "sheet",
+    "ratio": 7.47,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "das",
+    "bg": "sheet",
+    "ratio": 8.53,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "plural",
+    "bg": "sheet",
+    "ratio": 8.92,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "lv5",
+    "bg": "sheet",
+    "ratio": 8.86,
+    "need": 3.0,
+    "ok": true
+   },
+   {
+    "fg": "lv4",
+    "bg": "sheet",
+    "ratio": 6.15,
+    "need": 3.0,
+    "ok": true
+   }
+  ]
+ },
+ "failures": []
+}

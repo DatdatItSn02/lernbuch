@@ -1,0 +1,34 @@
+name: rollback
+
+# Bấm chạy trong tab Actions để đổi trang về bản trước. Không đụng database.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SSH_HOST: ssh-lernbuch.alwaysdata.net
+      SSH_USER: lernbuch
+      SITE_URL: https://lernbuch.alwaysdata.net
+    steps:
+      - uses: actions/checkout@v4
+      - name: Nạp khoá SSH
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "${{ secrets.ALWAYSDATA_SSH_KEY }}" > ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+      - name: Quay lại bản trước
+        run: |
+          set -o pipefail
+          { ssh "$SSH_USER@$SSH_HOST" "bash ~/lernbuch/bin/remote-rollback.sh"
+            curl -fsS --max-time 15 "$SITE_URL/up" >/dev/null && echo "✔ /up trả 200 sau khi quay lại"; } 2>&1 | tee /tmp/rollback.log
+      - name: Ghi tóm tắt vào nhánh ci-results
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash .github/scripts/report.sh rollback "${{ job.status }}" /tmp/rollback.log

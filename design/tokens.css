@@ -1,0 +1,131 @@
+/* Lernbuch Online — design tokens v0.1 (2026-11-25)
+   Nguồn chuẩn là OKLCH; tương phản đã kiểm bằng design/palette_check.py.
+   Dùng: <html data-theme="light|dark" data-season="spring|summer|autumn|winter" data-font-size="sm|md|lg"> */
+
+:root {
+  /* Nền và chữ */
+  --color-paper: oklch(97.5% 0.012 85);
+  --color-sheet: oklch(99.5% 0.005 85);
+  --color-sunken: oklch(95% 0.016 85);
+  --color-line: oklch(86% 0.02 80);
+  --color-line-strong: oklch(64% 0.025 75);
+  --color-ink: oklch(27% 0.025 60);
+  --color-ink-2: oklch(47% 0.025 60);
+  --color-ink-3: oklch(56% 0.022 60);
+
+  /* Hành động và trạng thái */
+  --color-leaf: oklch(50% 0.12 150);
+  --color-leaf-strong: oklch(44% 0.115 150);
+  --color-leaf-tint: oklch(94% 0.04 150);
+  --color-on-leaf: oklch(99.5% 0.005 150);
+  --color-danger: oklch(52% 0.17 28);
+  --color-danger-tint: oklch(95% 0.024 28);
+  --color-warning: oklch(78% 0.14 80);
+  --color-warning-ink: oklch(45% 0.09 70);
+  --color-info: oklch(52% 0.11 245);
+  --color-focus: oklch(52% 0.15 255);
+
+  /* Mạo từ */
+  --color-der: oklch(50% 0.13 255);
+  --color-die: oklch(52% 0.16 15);
+  --color-das: oklch(50% 0.092 170);
+  --color-plural: oklch(52% 0.11 60);
+
+  /* 6 mức thuộc: hạt, mầm, lá, nụ, hoa, quả */
+  --level-0: oklch(90% 0.01 80);
+  --level-1: oklch(86% 0.06 115);
+  --level-2: oklch(78% 0.09 130);
+  --level-3: oklch(68% 0.11 140);
+  --level-4: oklch(57% 0.12 148);
+  --level-5: oklch(46% 0.11 152);
+
+  /* Mùa: chỉ cho cảnh và minh hoạ */
+  --season: oklch(82% 0.08 350);
+
+  /* Chữ */
+  --font-display: "Baloo 2", "Nunito", system-ui, sans-serif;
+  --font-body: "Nunito", system-ui, sans-serif;
+  --font-hand: "Patrick Hand", "Nunito", cursive;
+  --font-zh: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  --type-scale: 1;
+  --text-display: calc(2.5rem * var(--type-scale));
+  --text-headline: calc(1.75rem * var(--type-scale));
+  --text-title: calc(1.25rem * var(--type-scale));
+  --text-body: calc(1rem * var(--type-scale));
+  --text-label: calc(0.875rem * var(--type-scale));
+  --text-hand: calc(1.125rem * var(--type-scale));
+  --text-study-word: clamp(2rem, 7vw, 3.25rem);
+
+  /* Khoảng cách, bo góc */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px;
+  --radius-sm: 6px; --radius-md: 10px; --radius-lg: 16px; --radius-pill: 999px;
+  --tap-min: 44px;
+  --sheet-max: 1120px;
+
+  /* Chiều sâu */
+  --shadow-sheet: 0 1px 2px oklch(27% 0.025 60 / 0.08), 0 4px 12px oklch(27% 0.025 60 / 0.06);
+  --shadow-raised: 0 2px 4px oklch(27% 0.025 60 / 0.10), 0 12px 28px oklch(27% 0.025 60 / 0.12);
+
+  /* Chuyển động */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-press: 120ms;
+  --dur-state: 200ms;
+  --dur-reveal: 320ms;
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --color-paper: oklch(19% 0.012 70);
+  --color-sheet: oklch(23% 0.014 70);
+  --color-sunken: oklch(17% 0.012 70);
+  --color-line: oklch(34% 0.015 70);
+  --color-line-strong: oklch(52% 0.02 70);
+  --color-ink: oklch(93% 0.012 85);
+  --color-ink-2: oklch(76% 0.015 85);
+  --color-ink-3: oklch(66% 0.015 85);
+  --color-leaf: oklch(74% 0.13 150);
+  --color-leaf-strong: oklch(80% 0.12 150);
+  --color-leaf-tint: oklch(30% 0.05 150);
+  --color-on-leaf: oklch(20% 0.03 150);
+  --color-danger: oklch(72% 0.15 28);
+  --color-danger-tint: oklch(30% 0.06 28);
+  --color-warning: oklch(80% 0.13 80);
+  --color-warning-ink: oklch(85% 0.11 85);
+  --color-info: oklch(74% 0.10 245);
+  --color-focus: oklch(74% 0.12 255);
+  --color-der: oklch(76% 0.11 255);
+  --color-die: oklch(76% 0.12 15);
+  --color-das: oklch(77% 0.10 170);
+  --color-plural: oklch(80% 0.10 70);
+  --level-0: oklch(34% 0.01 80);
+  --level-1: oklch(42% 0.05 115);
+  --level-2: oklch(50% 0.08 130);
+  --level-3: oklch(59% 0.10 140);
+  --level-4: oklch(68% 0.115 148);
+  --level-5: oklch(78% 0.12 152);
+  --shadow-sheet: 0 1px 2px oklch(0% 0 0 / 0.40), 0 4px 12px oklch(0% 0 0 / 0.30);
+  --shadow-raised: 0 2px 4px oklch(0% 0 0 / 0.45), 0 12px 28px oklch(0% 0 0 / 0.40);
+  color-scheme: dark;
+}
+
+[data-season="spring"] { --season: oklch(82% 0.08 350); }
+[data-season="summer"] { --season: oklch(86% 0.13 95); }
+[data-season="autumn"] { --season: oklch(70% 0.14 55); }
+[data-season="winter"] { --season: oklch(84% 0.05 235); }
+
+[data-font-size="sm"] { --type-scale: 0.9375; }
+[data-font-size="lg"] { --type-scale: 1.125; }
+
+/* Phần trình duyệt cũng theo màu hệ thống */
+::selection { background: var(--color-leaf-tint); color: var(--color-ink); }
+:root { caret-color: var(--color-leaf); accent-color: var(--color-leaf); }
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+
+/* Chữ tiếng Đức: ngắt từ ghép dài */
+[lang="de"] { hyphens: auto; overflow-wrap: anywhere; }
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-reveal: 120ms; --dur-state: 120ms; }
+}

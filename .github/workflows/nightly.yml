@@ -1,0 +1,71 @@
+name: nightly
+
+# Mỗi đêm chạy lại kiểm tra PHP và database trên cả ba bản database.
+on:
+  schedule:
+    - cron: '17 19 * * *'   # 02:17 giờ Việt Nam
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  php:
+    name: php trên ${{ matrix.image }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - image: mariadb:11.4
+            connection: mariadb
+            health: --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          - image: mariadb:11.8
+            connection: mariadb
+            health: --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          - image: mysql:8.4
+            connection: mysql
+            health: --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
+    services:
+      db:
+        image: ${{ matrix.image }}
+        env:
+          MARIADB_ROOT_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: root
+        ports: ['3306:3306']
+        options: >-
+          ${{ matrix.health }}
+          --health-interval=5s --health-timeout=5s --health-retries=40
+    env:
+      DB_CONNECTION: ${{ matrix.connection }}
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_DATABASE: lernbuch
+      DB_USERNAME: root
+      DB_PASSWORD: root
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, intl, pdo_mysql, zip, bcmath
+          tools: composer:v2
+          coverage: none
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/composer
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-
+      - run: composer install --no-interaction --prefer-dist --no-progress
+      - run: pip install --quiet pymysql jsonschema
+      - name: Kiểm tra PHP và database
+        run: bash .github/scripts/php-checks.sh 2>&1 | tee /tmp/php.log; exit ${PIPESTATUS[0]}
+      - name: Ghi tóm tắt vào nhánh ci-results
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash .github/scripts/report.sh "php-${{ matrix.connection }}-${{ strategy.job-index }}" "${{ job.status }}" /tmp/php.log

@@ -16,6 +16,13 @@ return [
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
+    | Mã bản đang chạy: file RELEASE do workflow deploy ghi vào thư mục bản phát hành;
+    | máy dev dùng APP_RELEASE trong .env (mặc định "dev").
+    */
+
+    'release' => env('APP_RELEASE') ?? (is_file(base_path('RELEASE')) ? trim((string) file_get_contents(base_path('RELEASE'))) : 'dev'),
+
+    /*
     |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------

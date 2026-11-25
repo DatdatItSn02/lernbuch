@@ -1,0 +1,76 @@
+{
+  "format": "lernbuch-import",
+  "version": 1,
+  "language": "de",
+  "course": "tieng-duc",
+  "source": {
+    "code": "tu-soan-a1-essen",
+    "title": "Bài mẫu tự soạn: Ăn uống A1",
+    "kind": "own",
+    "license": "allowed",
+    "license_note": "Nội dung viết mới cho dự án, không chép từ sách."
+  },
+  "generated_by": {"tool": "claude", "model": "claude-opus-5-5", "date": "2026-11-25"},
+  "topics": [
+    {"key": "a1-essen", "parent": null, "title_vi": "Ăn uống", "title_de": "Essen und Trinken", "level": "A1"},
+    {"key": "a1-essen-fruehstueck", "parent": "a1-essen", "title_vi": "Bữa sáng", "title_de": "Frühstück", "level": "A1"}
+  ],
+  "cards": [
+    {
+      "key": "de-apfel", "topic": "a1-essen-fruehstueck", "collection": "vocab", "level": "A1",
+      "front": "der Apfel", "lemma": "Apfel", "pos": "noun", "gender": "m", "plural": "die Äpfel",
+      "meanings": {"vi": ["quả táo"], "en": ["apple"]},
+      "examples": [{"de": "Ich esse jeden Morgen einen Apfel.", "vi": "Mỗi sáng tôi ăn một quả táo.", "origin": "written"}],
+      "origin": "fact"
+    },
+    {
+      "key": "de-milch", "topic": "a1-essen-fruehstueck", "collection": "vocab", "level": "A1",
+      "front": "die Milch", "lemma": "Milch", "pos": "noun", "gender": "f",
+      "meanings": {"vi": ["sữa"], "en": ["milk"]},
+      "examples": [{"de": "Kaufst du bitte Milch?", "vi": "Bạn mua sữa giúp nhé?", "origin": "written"}],
+      "note_vi": "Thường không dùng số nhiều.",
+      "origin": "fact"
+    },
+    {
+      "key": "de-broetchen", "topic": "a1-essen-fruehstueck", "collection": "vocab", "level": "A1",
+      "front": "das Brötchen", "lemma": "Brötchen", "pos": "noun", "gender": "n", "plural": "die Brötchen",
+      "meanings": {"vi": ["bánh mì nhỏ"], "en": ["bread roll"]},
+      "examples": [{"de": "Ich möchte zwei Brötchen, bitte.", "vi": "Cho tôi hai cái bánh mì nhỏ.", "origin": "written"}],
+      "origin": "fact"
+    },
+    {
+      "key": "de-bestellen", "topic": "a1-essen", "collection": "vocab", "level": "A1",
+      "front": "bestellen", "lemma": "bestellen", "pos": "verb",
+      "forms": {"er": "bestellt", "perfekt": "hat bestellt"},
+      "meanings": {"vi": ["gọi món", "đặt hàng"], "en": ["to order"]},
+      "examples": [{"de": "Wir möchten bestellen.", "vi": "Chúng tôi muốn gọi món.", "origin": "written"}],
+      "origin": "fact"
+    }
+  ],
+  "grammar": [
+    {
+      "key": "a1-artikel", "chapter": "Danh từ", "level": "A1", "title_vi": "Ba mạo từ der, die, das",
+      "blocks": [
+        {"type": "text", "md": "Danh từ tiếng Đức có ba giống. Học danh từ luôn học kèm mạo từ. Số nhiều luôn dùng **die**."},
+        {"type": "table", "rows": [["Giống", "Mạo từ", "Ví dụ"], ["đực", "der", "der Apfel"], ["cái", "die", "die Milch"], ["trung", "das", "das Brötchen"], ["số nhiều", "die", "die Äpfel"]]},
+        {"type": "example", "de": "Das Brötchen ist frisch.", "vi": "Cái bánh mì nhỏ còn mới."}
+      ],
+      "origin": "written"
+    }
+  ],
+  "exercises": [
+    {"key": "a1-essen-1", "set": "a1-essen", "type": "choice", "level": "A1", "prompt": "Chọn mạo từ đúng: ___ Apfel",
+     "answers": ["der"], "choices": ["der", "die", "das"], "explain_vi": "Apfel là danh từ giống đực.", "grammar": "a1-artikel", "origin": "written"},
+    {"key": "a1-essen-2", "set": "a1-essen", "type": "gap", "level": "A1", "prompt": "Ich ___ zwei Brötchen, bitte. (möchten)",
+     "answers": ["möchte"], "explain_vi": "Ngôi ich của möchten là möchte.", "origin": "written"},
+    {"key": "a1-essen-3", "set": "a1-essen", "type": "order", "level": "A1", "prompt": "Sắp xếp: bestellen / möchten / wir",
+     "answers": ["Wir möchten bestellen."], "explain_vi": "Động từ khuyết thiếu đứng thứ hai, động từ chính ở cuối câu.", "origin": "written"},
+    {"key": "a1-essen-4", "set": "a1-essen", "type": "translate", "level": "A1", "prompt": "Dịch: Bạn mua sữa giúp nhé?",
+     "answers": ["Kaufst du bitte Milch?", "Kannst du bitte Milch kaufen?"], "origin": "written"}
+  ],
+  "verbs": [
+    {"infinitive": "essen", "level": "A1", "meanings_vi": ["ăn"],
+     "conjugation": {"praesens": {"ich": "esse", "du": "isst", "er": "isst", "wir": "essen", "ihr": "esst", "sie": "essen"},
+                     "perfekt": "hat gegessen", "praeteritum": "aß"}}
+  ]
+}
