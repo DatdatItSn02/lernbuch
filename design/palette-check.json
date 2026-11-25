@@ -230,6 +230,90 @@
     "ratio": 4.17,
     "need": 3.0,
     "ok": true
+   },
+   {
+    "fg": "leaf",
+    "bg": "paper",
+    "ratio": 5.28,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "danger",
+    "bg": "paper",
+    "ratio": 5.59,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "warning-ink",
+    "bg": "paper",
+    "ratio": 7.06,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "der",
+    "bg": "paper",
+    "ratio": 5.62,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "die",
+    "bg": "paper",
+    "ratio": 5.59,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "das",
+    "bg": "paper",
+    "ratio": 5.31,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "plural",
+    "bg": "paper",
+    "ratio": 5.3,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "danger",
+    "bg": "danger-tint",
+    "ratio": 5.15,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "leaf",
+    "bg": "leaf-tint",
+    "ratio": 4.82,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "warning-ink",
+    "bg": "sunken",
+    "ratio": 6.56,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "leaf",
+    "bg": "sunken",
+    "ratio": 4.9,
+    "need": 3.0,
+    "ok": true
+   },
+   {
+    "fg": "ink-3",
+    "bg": "paper",
+    "ratio": 4.35,
+    "need": 3.0,
+    "ok": true
    }
   ]
  },
@@ -454,6 +538,90 @@
     "fg": "level-4",
     "bg": "sheet",
     "ratio": 6.15,
+    "need": 3.0,
+    "ok": true
+   },
+   {
+    "fg": "leaf",
+    "bg": "paper",
+    "ratio": 8.44,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "danger",
+    "bg": "paper",
+    "ratio": 6.99,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "warning-ink",
+    "bg": "paper",
+    "ratio": 11.64,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "der",
+    "bg": "paper",
+    "ratio": 8.62,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "die",
+    "bg": "paper",
+    "ratio": 8.17,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "das",
+    "bg": "paper",
+    "ratio": 9.32,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "plural",
+    "bg": "paper",
+    "ratio": 9.74,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "danger",
+    "bg": "danger-tint",
+    "ratio": 5.28,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "leaf",
+    "bg": "leaf-tint",
+    "ratio": 6.1,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "warning-ink",
+    "bg": "sunken",
+    "ratio": 12.05,
+    "need": 4.5,
+    "ok": true
+   },
+   {
+    "fg": "leaf",
+    "bg": "sunken",
+    "ratio": 8.74,
+    "need": 3.0,
+    "ok": true
+   },
+   {
+    "fg": "ink-3",
+    "bg": "paper",
+    "ratio": 5.94,
     "need": 3.0,
     "ok": true
    }

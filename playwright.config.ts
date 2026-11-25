@@ -13,6 +13,8 @@ export default defineConfig({
     use: {
         baseURL: `http://127.0.0.1:${port}`,
         trace: 'retain-on-failure',
+        // Máy không tải được Chromium của Playwright thì dùng Chrome đã cài: PW_CHANNEL=chrome
+        ...(process.env.PW_CHANNEL ? { channel: process.env.PW_CHANNEL } : {}),
     },
     projects: [
         { name: 'may-tinh', use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 800 } } },

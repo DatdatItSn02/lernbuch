@@ -30,4 +30,48 @@
         font-size: var(--text-body);
         line-height: var(--text-body--line-height);
     }
+
+    /* Tiêu đề xuống dòng cân hai dòng, không để một chữ lẻ loi ở dòng cuối */
+    h1,
+    h2,
+    h3 {
+        text-wrap: balance;
+    }
+}
+
+/* Vùng chỉ nhận tiêu điểm bằng lệnh (tabindex="-1": nội dung chính, đáp án, đầu danh sách): không vẽ vòng focus */
+[tabindex="-1"]:focus-visible {
+    outline: none;
+}
+
+/* Dấu ấn: hình cây lớn lên khi thẻ lên mức; đáp án hiện lên khi lật thẻ */
+@keyframes lb-grow {
+    from { transform: scale(0.55); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes lb-reveal {
+    from { transform: translateY(8px); opacity: 0; }
+    to { transform: none; opacity: 1; }
+}
+
+@keyframes lb-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.lb-grow {
+    transform-origin: 50% 90%;
+    animation: lb-grow var(--dur-reveal) var(--ease-out) both;
+}
+
+.lb-reveal {
+    animation: lb-reveal var(--dur-reveal) var(--ease-out) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lb-grow,
+    .lb-reveal {
+        animation-name: lb-fade;
+    }
 }

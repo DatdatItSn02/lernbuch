@@ -18,7 +18,7 @@ step "Vitest" npm run --silent test
 step "Build Vite (app học, trang chào, theme quản trị)" npm run --silent build
 step "Tương phản màu WCAG AA (palette_check.py trên tokens.css)" python3 design/palette_check.py
 step "Test palette_check (cả trường hợp lỗi)" python3 -m unittest design/test_palette_check.py
-step "Playwright: font và bố cục trên máy tính, điện thoại" npx playwright test
+step "Playwright: font, bố cục, app học (bàn phím, axe WCAG 2.2 AA, sáng/tối) trên máy tính, điện thoại" npx playwright test
 echo
 echo "KẾT QUẢ: $((total - ${#fails[@]}))/${total} bước đạt"
 for f in "${fails[@]}"; do echo "✘ lỗi: $f"; done

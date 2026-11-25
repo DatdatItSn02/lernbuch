@@ -33,3 +33,9 @@ Thumbs.db
 __pycache__/
 /test-results/
 /playwright-report/
+graphify-out/
+
+# Impeccable: ảnh soát, bản phác, câu hỏi và hạt giống chỉ dùng trên máy làm việc; brief bề mặt và design.json thì commit
+/.impeccable/review/
+/.impeccable/mocks/
+/.impeccable/questions/

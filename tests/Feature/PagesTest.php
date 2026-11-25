@@ -15,6 +15,8 @@ it('trang chào hiện đúng chữ tiếng Việt và tiếng Đức', function
 it('mở được khung app học, cả đường dẫn con', function () {
     $this->get('/app')->assertOk()->assertSee('id="app"', false);
     $this->get('/app/hom-nay')->assertOk()->assertSee('id="app"', false);
+    // Giao diện tối áp trước khi vẽ, đọc đúng khoá cài đặt của app React
+    $this->get('/app/hoc')->assertOk()->assertSee("localStorage.getItem('lernbuch.caidat.v1')", false);
 });
 
 it('không lộ file .env và log', function () {

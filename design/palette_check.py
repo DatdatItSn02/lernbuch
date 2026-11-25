@@ -23,6 +23,11 @@ PAIRS = [
     ("focus", "sheet", 3.0), ("focus", "paper", 3.0), ("line-strong", "sheet", 3.0),
     ("der", "sheet", 4.5), ("die", "sheet", 4.5), ("das", "sheet", 4.5), ("plural", "sheet", 4.5),
     ("level-5", "sheet", 3.0), ("level-4", "sheet", 3.0),
+    # Màn hình học (nền giấy) và trạng thái di chuột của nút chấm, nút sao
+    ("leaf", "paper", 4.5), ("danger", "paper", 4.5), ("warning-ink", "paper", 4.5),
+    ("der", "paper", 4.5), ("die", "paper", 4.5), ("das", "paper", 4.5), ("plural", "paper", 4.5),
+    ("danger", "danger-tint", 4.5), ("leaf", "leaf-tint", 4.5), ("warning-ink", "sunken", 4.5),
+    ("leaf", "sunken", 3.0), ("ink-3", "paper", 3.0),
 ]
 
 OKLCH = re.compile(r"--color-([\w-]+)\s*:\s*oklch\(\s*([\d.]+)%\s+([\d.]+)\s+([\d.]+)\s*\)")
