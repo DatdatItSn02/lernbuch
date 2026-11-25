@@ -20,6 +20,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - image: mariadb:10.11   # bản trong XAMPP 8.4 trên máy Windows
+            connection: mariadb
+            health: --health-cmd="healthcheck.sh --connect --innodb_initialized"
           - image: mariadb:11.4
             connection: mariadb
             health: --health-cmd="healthcheck.sh --connect --innodb_initialized"

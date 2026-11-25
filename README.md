@@ -53,4 +53,4 @@ Không khoá ngoại; thời gian lưu Unix timestamp (INT), trừ 10 bảng c�
 
 ## CI
 
-GitHub Actions chạy mỗi lần đẩy code: Pint, Larastan, migrate lên và xuống, so khớp với `schema.sql`, seeder chạy hai lần, `test_schema.py`, Pest, TypeScript, ESLint, Vitest, build. Mỗi đêm chạy lại trên MariaDB 11.4, 11.8 và MySQL 8.4. Tóm tắt kết quả ghi ở nhánh `ci-results`.
+GitHub Actions chạy mỗi lần đẩy code: Pint, Larastan, migrate lên và xuống, so khớp với `schema.sql`, seeder chạy hai lần, `test_schema.py`, Pest, TypeScript, ESLint, Vitest, build. Mỗi đêm chạy lại trên MariaDB 10.11 (như XAMPP), 11.4, 11.8 và MySQL 8.4. Tóm tắt kết quả ghi ở nhánh `ci-results`.
