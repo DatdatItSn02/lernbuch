@@ -45,8 +45,11 @@ ln -sfn "$REL" "$APP/current.new" && mv -Tf "$APP/current.new" "$APP/current"
 trap - ERR
 php artisan queue:restart -n || true
 
-echo "== Giữ 3 bản gần nhất"
-ls -1d "$APP"/releases/*/ | sort | head -n -3 | xargs -r rm -rf
+echo "== Giữ 3 bản gần nhất (và luôn giữ bản tốt gần nhất để còn chỗ quay lại)"
+TOT=$(ls -1 "$APP/releases" | sort -r | while read -r r; do [ -f "$APP/releases/$r/.da-kiem" ] && { echo "$r"; break; }; done || true)
+ls -1 "$APP/releases" | sort | head -n -3 | while read -r r; do
+  [ "$r" = "$TOT" ] || rm -rf "${APP:?}/releases/$r"
+done
 rm -f "$IN/$NAME.tgz" "$IN/$NAME.env"
 du -sh "$APP" 2>/dev/null || true
 echo "Xong: $NAME"

@@ -159,9 +159,23 @@ jobs:
             ssh "$SSH_USER@$SSH_HOST" "bash ~/lernbuch/bin/remote-deploy.sh $NAME"; } 2>&1 | tee -a /tmp/deploy.log
       - name: Kiểm /up, lỗi thì tự quay lại bản trước
         run: |
+          # PHP trên máy chủ nhớ đường dẫn thật của current một lúc (realpath cache, mặc định 120 giây),
+          # nên ngay sau khi đổi bản, web có thể vẫn chạy bản cũ. Chờ tới khi trang chủ báo đúng bản mới rồi mới kiểm /up,
+          # nếu không /up 200 của bản cũ sẽ làm tưởng bản mới chạy tốt.
+          moi=""
+          for i in $(seq 1 24); do
+            if curl -sS --max-time 15 "$SITE_URL/" 2>/dev/null | grep -q "Bản $NAME"; then moi=1; echo "✔ Web đã chạy bản $NAME sau khoảng $(( (i-1)*10 )) giây" | tee -a /tmp/deploy.log; break; fi
+            sleep 10
+          done
+          [ -n "$moi" ] || echo "✘ Sau 240 giây trang chủ vẫn chưa báo bản $NAME" | tee -a /tmp/deploy.log
           for i in 1 2 3 4 5 6; do
+            [ -n "$moi" ] || break
             up=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 15 "$SITE_URL/up" || true)
-            if [ "$up" = "200" ]; then echo "✔ /up trả 200 ($NAME)" | tee -a /tmp/deploy.log; exit 0; fi
+            if [ "$up" = "200" ]; then
+              echo "✔ /up trả 200 ($NAME)" | tee -a /tmp/deploy.log
+              ssh "$SSH_USER@$SSH_HOST" "touch ~/lernbuch/releases/$NAME/.da-kiem"
+              exit 0
+            fi
             echo "lần $i: /up trả ${up:-không kết nối được}"
             sleep 10
           done
@@ -174,8 +188,13 @@ jobs:
           fi
           echo "Quay lại bản trước" | tee -a /tmp/deploy.log
           ssh "$SSH_USER@$SSH_HOST" "bash ~/lernbuch/bin/remote-rollback.sh" 2>&1 | tee -a /tmp/deploy.log
-          sleep 5
-          echo "Sau khi quay lại: /up trả $(curl -sS -o /dev/null -w '%{http_code}' --max-time 15 "$SITE_URL/up" || true)" | tee -a /tmp/deploy.log
+          # Lại chờ PHP thôi nhớ đường dẫn cũ, rồi ghi bản web đang chạy và /up
+          for i in $(seq 1 24); do
+            curl -sS --max-time 15 "$SITE_URL/" 2>/dev/null | grep -q "Bản $NAME" || break
+            sleep 10
+          done
+          dang=$(curl -sS --max-time 15 "$SITE_URL/" 2>/dev/null | grep -o 'Bản [0-9]*-[0-9a-f]*' | head -1 || true)
+          echo "Sau khi quay lại: web chạy ${dang:-?}, /up trả $(curl -sS -o /dev/null -w '%{http_code}' --max-time 15 "$SITE_URL/up" || true)" | tee -a /tmp/deploy.log
           exit 1
       - name: Ghi tóm tắt vào nhánh ci-results
         if: always()
