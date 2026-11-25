@@ -1,5 +1,5 @@
 workflow: ci  job: web  status: success
-commit: f3f04120182da46406e7aa64569e0ead26ce6716  ref: main  run: 45595517990
+commit: f3f04120182da46406e7aa64569e0ead26ce6716  ref: work/g0  run: 45595511942
 
 ✔ Kiểm kiểu TypeScript
 ✔ ESLint
@@ -18,12 +18,12 @@ KẾT QUẢ: 4/4 bước đạt
 
 [1m[30m[46m RUN [49m[39m[22m [36mv5.1.1 [39m[90m/home/runner/work/lernbuch/lernbuch[39m
 
- [32m✓[39m resources/js/app/App.test.tsx [2m([22m[2m1 test[22m[2m)[22m[32m 76[2mms[22m[39m
+ [32m✓[39m resources/js/app/App.test.tsx [2m([22m[2m1 test[22m[2m)[22m[32m 69[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
 [2m      Tests [22m [1m[32m1 passed[39m[22m[90m (1)[39m
-[2m   Start at [22m 10:30:01
-[2m   Duration [22m 894ms[2m (environment 66%, import 19%, tests 10%, transform 5%, worker 1%)[22m
+[2m   Start at [22m 10:30:04
+[2m   Duration [22m 888ms[2m (environment 68%, import 18%, tests 9%, transform 5%, worker 1%)[22m
 
 ✔ Vitest
 ::endgroup::
@@ -38,7 +38,7 @@ public/build/assets/app-Dj4BTuDy.css    6.05 kB │ gzip:  2.02 kB
 public/build/assets/app-BvRk9kiK.js     0.00 kB │ gzip:  0.02 kB
 public/build/assets/main-DwYaINVx.js  219.24 kB │ gzip: 68.54 kB
 
-[32m✓ built in 160ms[39m
+[32m✓ built in 171ms[39m
 ✔ Build Vite
 ::endgroup::
 
