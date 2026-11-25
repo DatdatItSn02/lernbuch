@@ -1,0 +1,65 @@
+name: windows
+
+# Chạy bộ script setup\ y như trên máy Windows của người dùng: Windows PowerShell 5.1,
+# PHP 8.5, Composer, Node.js 26, MySQL 9.7 cổng 3307 (cài vào C:\lernbuch-dev thay cho F:\dev).
+on:
+  push:
+    branches: [main, 'work/**']
+  workflow_dispatch:
+
+concurrency:
+  group: windows-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write   # chỉ để ghi tóm tắt kết quả vào nhánh ci-results
+
+jobs:
+  setup:
+    name: setup\ trên Windows (PHP 8.5, MySQL 9.7)
+    runs-on: windows-latest
+    timeout-minutes: 60
+    env:
+      LERNBUCH_DEV: C:\lernbuch-dev
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: C:\lernbuch-dev\cache
+          key: lernbuch-dev-cache-${{ hashFiles('composer.lock', 'package-lock.json') }}
+          restore-keys: lernbuch-dev-cache-
+      - name: Test các hàm và file trong setup\
+        shell: powershell
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File setup\tests\chay-tat-ca.ps1 -Log setup\tmp\ci\test-setup.log
+      - name: setup\cai-dat.bat
+        id: caidat
+        if: always()
+        shell: cmd
+        run: call setup\cai-dat.bat
+      - name: setup\cap-nhat.bat -SkipCode (CI đã checkout đúng commit), rồi chạy test
+        id: capnhat
+        if: always() && steps.caidat.outcome == 'success'
+        shell: cmd
+        run: call setup\cap-nhat.bat -SkipCode
+      - name: setup\kiem-tra.bat
+        if: always()
+        shell: cmd
+        run: call setup\kiem-tra.bat
+      - name: Mở web như setup\chay-web.bat và thử các trang
+        if: always() && steps.capnhat.outcome == 'success'
+        shell: powershell
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File setup\tests\thu-web.ps1 -Log setup\tmp\ci\thu-web.log
+      - name: Ghi tóm tắt vào nhánh ci-results
+        if: always()
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          out=setup/tmp/ci/windows.log
+          mkdir -p setup/tmp/ci
+          : > "$out"
+          # test-setup.log để cuối: report.sh giữ phần cuối log, chi tiết test hàm không bị cắt.
+          for f in setup/ket-qua-cai-dat.txt setup/ket-qua-cap-nhat.txt setup/ket-qua-test.txt setup/ket-qua-kiem-tra.txt setup/tmp/ci/thu-web.log setup/tmp/ci/test-setup.log; do
+            if [ -f "$f" ]; then { echo "===== $f"; sed -e 's/\r$//' -e '1s/^\xEF\xBB\xBF//' "$f"; echo; } >> "$out"; fi
+          done
+          bash .github/scripts/report.sh setup "${{ job.status }}" "$out"

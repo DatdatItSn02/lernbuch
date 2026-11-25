@@ -4,64 +4,23 @@ Web học tiếng Đức cho người Việt, nâng cấp từ app Lernbuch. Lar
 
 Tài liệu: [phân tích và lộ trình](https://claude.ai/artifact/PF9Ncza5NRjJmkLfzSsamK) · [kế hoạch G0](https://claude.ai/artifact/T6qL5q6xLTpS3KpBMbgiNm)
 
-## Chạy trên Windows bằng XAMPP
+## Chạy trên máy (Windows), giống LoWo
 
-Cần: [XAMPP 8.4](https://www.apachefriends.org/download.html) (PHP 8.4, MariaDB 10.11), [Composer](https://getcomposer.org/download/) (khi cài, chọn `C:\xampp\php\php.exe`), [Node.js 22 LTS](https://nodejs.org/), [Git](https://git-scm.com/download/win).
+Không dùng XAMPP (XAMPP trên máy đang là PHP 7.4, Lernbuch cần PHP 8.4 trở lên). Công cụ dùng chung với LoWo trong `F:\dev`: PHP 8.5, Composer, Node.js 26, MySQL 9.7 cổng 3307. XAMPP vẫn chạy song song như cũ.
 
-1. Trong `C:\xampp\php\php.ini`, bỏ dấu `;` ở `extension=intl`, `extension=zip`, `extension=gd`. Bật MySQL trong XAMPP Control Panel.
-2. Tạo database (XAMPP Control Panel → Shell → `mysql -u root`):
-   ```sql
-   CREATE DATABASE lernbuch CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-   CREATE DATABASE lernbuch_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-   CREATE USER 'lernbuch'@'localhost' IDENTIFIED BY 'doi-mat-khau-nay';
-   GRANT ALL PRIVILEGES ON lernbuch.* TO 'lernbuch'@'localhost';
-   GRANT ALL PRIVILEGES ON lernbuch_test.* TO 'lernbuch'@'localhost';
-   FLUSH PRIVILEGES;
-   ```
-3. Lấy code và cài (PowerShell):
-   ```powershell
-   git clone https://github.com/DatdatItSn02/lernbuch.git F:\CongViec\lernbuch\app
-   cd F:\CongViec\lernbuch\app
-   composer install
-   copy .env.example .env      # rồi sửa DB_USERNAME=lernbuch, DB_PASSWORD=<mật khẩu ở bước 2>
-   php artisan key:generate
-   php artisan migrate --seed  # tạo 91 bảng và dữ liệu khởi tạo
-   npm ci
-   npm run build
-   php artisan app:create-admin
-   php artisan serve
-   ```
-4. Mở http://127.0.0.1:8000 (trang chào), http://127.0.0.1:8000/app (app học), http://127.0.0.1:8000/admin (quản trị).
+Lần đầu: lấy code vào `F:\CongViec\lernbuch\app` (`git clone https://github.com/DatdatItSn02/lernbuch.git F:\CongViec\lernbuch\app`), bấm đúp `setup\cai-dat.bat` (máy đã cài LoWo thì chỉ tạo thêm database), rồi `setup\cap-nhat.bat`.
 
-### Chạy bằng Apache của XAMPP (thay cho `php artisan serve`)
+| Việc | Cách làm |
+|---|---|
+| Nhận code mới | Bấm đúp `setup\cap-nhat.bat`: lấy code nhánh `main` từ GitHub, sửa `.env`, cài thư viện, migrate, seed, build rồi chạy toàn bộ test |
+| Tạo tài khoản quản trị | `setup\tao-admin.bat` (chạy `php artisan app:create-admin`, hỏi email, họ tên, mật khẩu) |
+| Mở web | `setup\chay-web.bat`, rồi vào http://127.0.0.1:8001 (trang chào), `/app` (app học), `/admin` (quản trị) |
+| Chạy toàn bộ test | `setup\chay-test.bat`; kết quả ghi ở `setup\ket-qua-test.txt` |
+| Cửa sổ lệnh dùng PHP 8.5 | `setup\moi-truong.bat` |
+| Bật/tắt MySQL | `setup\mysql-bat.bat`, `setup\mysql-tat.bat` (MySQL dùng chung, tắt thì LoWo cũng không vào được database) |
+| Gửi thông tin máy cho Claude | `setup\kiem-tra.bat`, ghi ở `setup\ket-qua-kiem-tra.txt` (không ghi nội dung `.env`) |
 
-Apache phải trỏ vào thư mục `public` (chứa `index.php`, cửa vào duy nhất của Laravel), không trỏ vào thư mục gốc của code, để `.env` và mã nguồn không mở ra web.
-
-1. Thêm vào cuối `C:\xampp\apache\conf\extra\httpd-vhosts.conf`:
-   ```apache
-   # Giữ localhost cho trang XAMPP; khối này phải đứng trước
-   <VirtualHost *:80>
-       ServerName localhost
-       DocumentRoot "C:/xampp/htdocs"
-   </VirtualHost>
-
-   <VirtualHost *:80>
-       ServerName lernbuch.test
-       DocumentRoot "F:/CongViec/lernbuch/app/public"
-       <Directory "F:/CongViec/lernbuch/app/public">
-           Options FollowSymLinks
-           AllowOverride All
-           Require all granted
-       </Directory>
-   </VirtualHost>
-   ```
-2. Mở Notepad bằng quyền Administrator, sửa `C:\Windows\System32\drivers\etc\hosts`, thêm dòng `127.0.0.1 lernbuch.test`.
-3. Trong `.env`: `APP_URL=http://lernbuch.test`.
-4. XAMPP Control Panel: Stop rồi Start lại Apache. Mở http://lernbuch.test, http://lernbuch.test/app, http://lernbuch.test/admin.
-
-Lỗi thường gặp: Apache không chạy thì kiểm cú pháp bằng `C:\xampp\apache\bin\httpd.exe -t`; vào `/admin` bị 404 thì thiếu `AllowOverride All`; lỗi 500 thì xem `storage\logs\laravel.log`.
-
-Chạy test: `php artisan test` (dùng database `lernbuch_test`), `npm run typecheck`, `npm run lint`, `npm test`.
+Web chạy ở `127.0.0.1:8001`, không dùng `localhost:8000` để không trùng cổng và cookie với LoWo khi mở cả hai. Database `lernbuch` (dữ liệu) và `lernbuch_test` (test), tài khoản `root` không mật khẩu, chỉ nghe trên máy này. Bản chạy thật trên alwaysdata dùng MariaDB; CI kiểm cả MariaDB và MySQL.
 
 ## Cấu trúc
 
@@ -73,6 +32,7 @@ Chạy test: `php artisan test` (dùng database `lernbuch_test`), `npm run typec
 | `database/migrations/` | 9 migration sinh từ `schema.sql` bằng `tools/schema/gen_migrations.py`; không sửa tay |
 | `tools/schema/` | so khớp migration với `schema.sql`, kiểm quy ước, `test_schema.py` |
 | `import/` | định dạng và trình kiểm file nhập nội dung |
+| `setup/` | script chạy trên Windows (cài, cập nhật, test, mở web) và test của chúng trong `setup/tests/` |
 | `deploy/`, `docs/huong-dan-alwaysdata.md` | deploy lên alwaysdata (đang tắt; bật bằng biến `DEPLOY_ENABLED`) |
 
 ## Quy ước database
@@ -81,4 +41,4 @@ Không khoá ngoại; thời gian lưu Unix timestamp (INT), trừ 10 bảng c�
 
 ## CI
 
-GitHub Actions chạy mỗi lần đẩy code: Pint, Larastan, migrate lên và xuống, so khớp với `schema.sql`, seeder chạy hai lần, `test_schema.py`, Pest, TypeScript, ESLint, Vitest, build. Mỗi đêm chạy lại trên MariaDB 10.11 (như XAMPP), 11.4, 11.8 và MySQL 8.4. Tóm tắt kết quả ghi ở nhánh `ci-results`.
+GitHub Actions chạy mỗi lần đẩy code: Pint, Larastan, migrate lên và xuống, so khớp với `schema.sql`, seeder chạy hai lần, `test_schema.py`, Pest, TypeScript, ESLint, Vitest, build. Workflow `windows` chạy bộ `setup\` trên Windows PowerShell 5.1 y như máy người dùng (cài PHP 8.5, Node.js 26, MySQL 9.7, cập nhật, chạy test, mở web thử). Mỗi đêm chạy lại trên MariaDB 10.11, 11.4, 11.8 và MySQL 8.4, 9.7. Tóm tắt kết quả ghi ở nhánh `ci-results`.

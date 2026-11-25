@@ -1,6 +1,6 @@
 name: nightly
 
-# Mỗi đêm chạy lại kiểm tra PHP và database trên cả ba bản database.
+# Mỗi đêm chạy lại kiểm tra PHP và database trên các bản MariaDB và MySQL.
 on:
   schedule:
     - cron: '17 19 * * *'   # 02:17 giờ Việt Nam
@@ -20,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - image: mariadb:10.11   # bản trong XAMPP 8.4 trên máy Windows
+          - image: mariadb:10.11   # bản LTS cũ nhất còn hỗ trợ
             connection: mariadb
             health: --health-cmd="healthcheck.sh --connect --innodb_initialized"
           - image: mariadb:11.4
@@ -30,6 +30,9 @@ jobs:
             connection: mariadb
             health: --health-cmd="healthcheck.sh --connect --innodb_initialized"
           - image: mysql:8.4
+            connection: mysql
+            health: --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
+          - image: mysql:9.7       # bản trên máy Windows (F:\dev\mysql97, dùng chung với LoWo)
             connection: mysql
             health: --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
     services:
