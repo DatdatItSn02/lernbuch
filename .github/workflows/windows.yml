@@ -2,9 +2,23 @@ name: windows
 
 # Chạy bộ script setup\ y như trên máy Windows của người dùng: Windows PowerShell 5.1,
 # PHP 8.5, Composer, Node.js 26, MySQL 9.7 cổng 3307 (cài vào C:\lernbuch-dev thay cho F:\dev).
+# Chỉ chạy khi đổi thứ ảnh hưởng tới cài đặt trên Windows (máy Windows tính gấp đôi phút CI),
+# cộng một lần mỗi tuần để bắt lỗi do bản PHP, Node, MySQL mới.
 on:
   push:
     branches: [main, 'work/**']
+    paths:
+      - 'setup/**'
+      - '.github/workflows/windows.yml'
+      - 'composer.json'
+      - 'composer.lock'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.env.example'
+      - 'database/migrations/**'
+      - 'database/seeders/**'
+  schedule:
+    - cron: '41 20 * * 0'   # 03:41 sáng thứ Hai giờ Việt Nam
   workflow_dispatch:
 
 concurrency:

@@ -48,6 +48,7 @@ step "Seeder chạy hai lần không nhân đôi" seed_twice
 step "test_schema.py (cấu trúc và tình huống)" python3 tools/schema/test_schema.py
 step "Test công cụ so khớp và quy ước" python3 -m unittest tools/schema/test_compare_schema.py tools/schema/test_check_conventions.py
 step "Test trình kiểm file nhập" bash -c "cd import && python3 -m unittest test_validate_import.py"
+step "Test công cụ tự kiểm G0 (cả trường hợp lỗi)" python3 -m unittest tools/tu-kiem/test_tu_kiem.py
 step "Pest (database lernbuch_test)" env DB_DATABASE=lernbuch_test php artisan test
 
 echo
