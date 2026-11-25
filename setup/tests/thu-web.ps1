@@ -20,7 +20,9 @@ function Test-Page([string]$name, [string]$path, [int]$status, [string]$contains
     $code = 0; $body = ''
     try {
         $r = Invoke-WebRequest -Uri "$base$path" -UseBasicParsing -TimeoutSec 60
-        $code = [int]$r.StatusCode; $body = [string]$r.Content
+        $code = [int]$r.StatusCode
+        # Windows PowerShell 5.1 trả nội dung dạng byte[] với kiểu như application/manifest+json
+        if ($r.Content -is [byte[]]) { $body = [Text.Encoding]::UTF8.GetString($r.Content) } else { $body = [string]$r.Content }
     } catch {
         if ($_.Exception.Response) { $code = [int]$_.Exception.Response.StatusCode } else { $body = $_.Exception.Message }
     }

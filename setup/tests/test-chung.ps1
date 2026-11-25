@@ -25,7 +25,7 @@ Write-TestFile $f "a`nb`n"
 Check 'giống hệt bản Git' (Test-SameAsBlob $f $lfBlob)
 Write-TestFile $f "a`nb`n" -Crlf
 Check 'chỉ khác kiểu xuống dòng (CRLF) vẫn coi là giống' (Test-SameAsBlob $f $lfBlob)
-Write-TestFile $f "a`r`nb`r`n"
+Write-TestFile $f "a`nb`n" -Crlf
 Check 'bản Git lưu CRLF, file trên máy CRLF: giống' (Test-SameAsBlob $f 'c30dea8a3641ea99b125d04d599d843712292759')
 Write-TestFile $f "a`nB`n"
 Check 'khác nội dung: không giống' (-not (Test-SameAsBlob $f $lfBlob))

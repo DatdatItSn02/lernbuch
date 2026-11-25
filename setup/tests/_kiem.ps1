@@ -3,14 +3,22 @@ try { [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding $false } c
 
 $script:pass = 0
 $script:fail = 0
+$script:lastError = ''
 
 function Check([string]$name, [bool]$cond) {
-    if ($cond) { $script:pass++; Write-Host "PASS  $name" } else { $script:fail++; Write-Host "FAIL  $name" -ForegroundColor Red }
+    if ($cond) {
+        $script:pass++; Write-Host "PASS  $name"
+    } else {
+        $script:fail++; Write-Host "FAIL  $name" -ForegroundColor Red
+        if ($script:lastError) { Write-Host "      lỗi gần nhất: $script:lastError" }
+    }
+    $script:lastError = ''
 }
 
 # Chạy khối lệnh, trả về nội dung lỗi nếu có (chuỗi rỗng nếu không lỗi).
 function Get-ErrorText([scriptblock]$block) {
-    try { & $block 6>$null | Out-Null; return '' } catch { return $_.Exception.Message }
+    try { & $block 6>$null | Out-Null; $script:lastError = '(không có lỗi)'; return '' }
+    catch { $script:lastError = $_.Exception.Message; return $_.Exception.Message }
 }
 
 function Finish-Tests {

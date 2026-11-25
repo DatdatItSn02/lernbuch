@@ -33,7 +33,7 @@ Check 'chưa có dòng APP_KEY thì thêm vào' ((Set-AppKeyText "APP_NAME=x`n" 
 # --- Luồng lấy code bằng Git ---
 $work = New-TestDir 'lernbuch-git'
 $dev = Join-Path $work 'dev'          # nơi Claude commit rồi đẩy lên
-$remote = Join-Path $work 'github.git' # đóng vai GitHub
+$github = Join-Path $work 'github.git' # đóng vai GitHub (không đặt tên $remote: trùng biến $Remote của cap-nhat.ps1)
 $app = Join-Path $work 'app'          # máy người dùng
 New-Item -ItemType Directory -Force -Path $dev | Out-Null
 Invoke-TestGit $dev @('init', '-q', '-b', 'main') | Out-Null
@@ -53,9 +53,9 @@ function Publish([string]$msg) {
 }
 Invoke-TestGit $dev @('add', '-A') | Out-Null
 Invoke-TestGit $dev @('commit', '-q', '-m', 'ban 1') | Out-Null
-Invoke-TestGit $work @('clone', '-q', '--bare', $dev, $remote) | Out-Null
-Invoke-TestGit $dev @('remote', 'add', 'origin', $remote) | Out-Null
-Invoke-TestGit $work @('clone', '-q', $remote, $app) | Out-Null
+Invoke-TestGit $work @('clone', '-q', '--bare', $dev, $github) | Out-Null
+Invoke-TestGit $dev @('remote', 'add', 'origin', $github) | Out-Null
+Invoke-TestGit $work @('clone', '-q', $github, $app) | Out-Null
 function Get-Head { return (Invoke-TestGit $app @('rev-parse', 'HEAD'))[0].Trim() }
 function Test-Clean { return ((Invoke-TestGit $app @('status', '--porcelain')).Count -eq 0) }
 
@@ -144,7 +144,7 @@ Invoke-TestGit $app @('reset', '-q', '--hard', $h5) | Out-Null
 # Không lấy được code (mất mạng, sai địa chỉ).
 Invoke-TestGit $app @('remote', 'set-url', 'origin', (Join-Path $work 'khong-co.git')) | Out-Null
 Check 'không lấy được code: báo lỗi git fetch' ((Get-ErrorText { Update-Code }) -like '*git fetch*')
-Invoke-TestGit $app @('remote', 'set-url', 'origin', $remote) | Out-Null
+Invoke-TestGit $app @('remote', 'set-url', 'origin', $github) | Out-Null
 Check 'trả lại địa chỉ đúng: cập nhật được' (((Get-ErrorText { Update-Code }) -eq '') -and ((Get-Head) -eq $h5))
 
 # Thư mục chưa phải kho Git.
