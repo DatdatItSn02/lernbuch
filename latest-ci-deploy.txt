@@ -1,7 +1,7 @@
 workflow: ci  job: deploy  status: failure
-commit: 9602d2f18c2ec242161d4d94a947b068156b2053  ref: main  run: 45714460059
+commit: 42886a0aff88d8a989b1e2003307042ea9060d43  ref: main  run: 45715730883
 
-✘ Sau 240 giây trang chủ vẫn chưa báo bản 20261125223718-9602d2f
+✘ Sau 240 giây trang chủ vẫn chưa báo bản 20261125224617-42886a0
 ✘ /up trả ?, trang chủ trả 200
 
 ----- cuối log -----
@@ -326,7 +326,7 @@ Generating optimized autoload files
 75 packages you are using are looking for funding.
 Use the `composer fund` command to find out more!
 
-added 303 packages in 7s
+added 303 packages in 6s
 
 > build
 > vite build
@@ -354,16 +354,16 @@ public/build/assets/theme-B3htII5O.css                                 713.24 kB
 public/build/assets/app-BvRk9kiK.js                                      0.00 kB │ gzip:   0.02 kB
 public/build/assets/main-DryOi4bt.js                                   335.59 kB │ gzip: 104.92 kB
 
-[32m✓ built in 1.20s[39m
--rw-r--r-- 1 runner runner 15M Nov 25 22:37 /tmp/20261125223718-9602d2f.tgz
+[32m✓ built in 1.03s[39m
+-rw-r--r-- 1 runner runner 15M Nov 25 22:46 /tmp/20261125224617-42886a0.tgz
 Trước deploy: /up trả 200
 Bản đang chạy: 20261125222922-ca55655
-Dung lượng: 107M	releases/20261125220531-8d88488
 Dung lượng: 107M	releases/20261125222232-4e29788
 Dung lượng: 107M	releases/20261125222922-ca55655
+Dung lượng: 107M	releases/20261125223718-9602d2f
 Dung lượng: 1.3M	shared
 Dung lượng: 15M	.
-== Giải nén 20261125223718-9602d2f
+== Giải nén 20261125224617-42886a0
 == Cập nhật .env (giữ APP_KEY cũ)
 == Migration
 
@@ -373,41 +373,42 @@ Dung lượng: 15M	.
 
    INFO  Caching framework bootstrap, configuration, and metadata.  
 
-  config ........................................................ 46.45ms DONE
-  events ......................................................... 3.19ms DONE
-  routes ........................................................ 44.25ms DONE
-  views ........................................................ 668.57ms DONE
-  blade-icons .................................................... 4.25ms DONE
-  filament ....................................................... 7.27ms DONE
+  config ........................................................ 44.70ms DONE
+  events ......................................................... 3.33ms DONE
+  routes ........................................................ 42.69ms DONE
+  views ........................................................ 761.44ms DONE
+  blade-icons .................................................... 4.57ms DONE
+  filament ....................................................... 8.28ms DONE
 
-== Đổi current sang 20261125223718-9602d2f
+== Đổi current sang 20261125224617-42886a0
 
    INFO  Broadcasting queue restart signal.  
 
 == Giữ 3 bản gần nhất (và luôn giữ bản tốt gần nhất để còn chỗ quay lại)
 337M	/home/lernbuch/lernbuch
-Xong: 20261125223718-9602d2f
-✘ Sau 240 giây trang chủ vẫn chưa báo bản 20261125223718-9602d2f
+Xong: 20261125224617-42886a0
+✘ Sau 240 giây trang chủ vẫn chưa báo bản 20261125224617-42886a0
 ✘ /up trả ?, trang chủ trả 200
-current -> /home/lernbuch/lernbuch/releases/20261125223718-9602d2f
+current -> /home/lernbuch/lernbuch/releases/20261125224617-42886a0
 có public/index.php
 có public/.htaccess
 có .env
 có vendor/autoload.php
-app tự trả /up: 500
+app tự trả /up: 200
+Gợi ý: app trên máy chủ chạy tốt nhưng địa chỉ web không trỏ vào app. alwaysdata → Web → Sites → sửa site: Root directory = /lernbuch/current/public, PHP 8.4 (docs/huong-dan-alwaysdata.md).
 Quay lại bản trước
 
    INFO  Caching framework bootstrap, configuration, and metadata.  
 
-  config ....................................................... 123.89ms DONE
-  events ........................................................ 10.35ms DONE
-  routes ........................................................ 72.20ms DONE
-  views ........................................................ 695.82ms DONE
-  blade-icons .................................................... 5.65ms DONE
-  filament ....................................................... 8.14ms DONE
+  config ....................................................... 102.38ms DONE
+  events ......................................................... 8.29ms DONE
+  routes ........................................................ 61.67ms DONE
+  views ........................................................ 680.49ms DONE
+  blade-icons .................................................... 5.59ms DONE
+  filament ....................................................... 8.86ms DONE
 
 
    INFO  Broadcasting queue restart signal.  
 
-Đã quay lại: 20261125223718-9602d2f -> 20261125222922-ca55655
+Đã quay lại: 20261125224617-42886a0 -> 20261125222922-ca55655
 Sau khi quay lại: web chạy Bản 20261125222922-ca55655, /up trả 200
