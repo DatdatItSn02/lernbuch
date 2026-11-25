@@ -1,5 +1,5 @@
 workflow: ci  job: php  status: success
-commit: faa4d5662dca1a7cd947269dd852271a2e4e64c1  ref: main  run: 45699852373
+commit: faa4d5662dca1a7cd947269dd852271a2e4e64c1  ref: main  run: 45701211694
 
 ✔ Pint (định dạng code)
 ✔ Larastan (phân tích tĩnh)
@@ -48,19 +48,19 @@ mysql: [Warning] Using a password on the command line interface can be insecure.
 
    INFO  Preparing database.  
 
-  Creating migration table ....................................... 6.00ms DONE
+  Creating migration table ....................................... 4.73ms DONE
 
    INFO  Running migrations.  
 
-  2026_11_25_000001_create_identity_tables ..................... 131.68ms DONE
-  2026_11_25_000002_create_content_tables ...................... 352.96ms DONE
-  2026_11_25_000003_create_learning_tables ..................... 111.88ms DONE
-  2026_11_25_000004_create_ai_tables ........................... 170.05ms DONE
-  2026_11_25_000005_create_billing_tables ...................... 170.50ms DONE
-  2026_11_25_000006_create_engagement_tables .................... 52.24ms DONE
-  2026_11_25_000007_create_support_config_tables ................ 87.18ms DONE
-  2026_11_25_000008_create_classroom_tables ..................... 66.02ms DONE
-  2026_11_25_000009_create_framework_tables ..................... 55.15ms DONE
+  2026_11_25_000001_create_identity_tables ..................... 204.75ms DONE
+  2026_11_25_000002_create_content_tables ...................... 879.47ms DONE
+  2026_11_25_000003_create_learning_tables ..................... 244.35ms DONE
+  2026_11_25_000004_create_ai_tables ........................... 296.01ms DONE
+  2026_11_25_000005_create_billing_tables ........................ 1 giây DONE
+  2026_11_25_000006_create_engagement_tables .................... 63.01ms DONE
+  2026_11_25_000007_create_support_config_tables ............... 114.19ms DONE
+  2026_11_25_000008_create_classroom_tables ..................... 85.60ms DONE
+  2026_11_25_000009_create_framework_tables ..................... 61.14ms DONE
 
 ✔ Migrate lên
 ::endgroup::
@@ -76,15 +76,15 @@ mysql: [Warning] Using a password on the command line interface can be insecure.
 
    INFO  Rolling back migrations.  
 
-  2026_11_25_000009_create_framework_tables ..................... 14.75ms DONE
-  2026_11_25_000008_create_classroom_tables ...................... 8.76ms DONE
-  2026_11_25_000007_create_support_config_tables ................ 10.38ms DONE
-  2026_11_25_000006_create_engagement_tables ..................... 8.04ms DONE
-  2026_11_25_000005_create_billing_tables ....................... 18.06ms DONE
-  2026_11_25_000004_create_ai_tables ............................. 9.81ms DONE
-  2026_11_25_000003_create_learning_tables ...................... 16.35ms DONE
-  2026_11_25_000002_create_content_tables ....................... 28.53ms DONE
-  2026_11_25_000001_create_identity_tables ...................... 17.28ms DONE
+  2026_11_25_000009_create_framework_tables ..................... 23.32ms DONE
+  2026_11_25_000008_create_classroom_tables ..................... 18.80ms DONE
+  2026_11_25_000007_create_support_config_tables ................ 15.89ms DONE
+  2026_11_25_000006_create_engagement_tables ..................... 9.32ms DONE
+  2026_11_25_000005_create_billing_tables ....................... 25.74ms DONE
+  2026_11_25_000004_create_ai_tables ............................ 11.54ms DONE
+  2026_11_25_000003_create_learning_tables ...................... 62.33ms DONE
+  2026_11_25_000002_create_content_tables ...................... 132.08ms DONE
+  2026_11_25_000001_create_identity_tables ...................... 29.58ms DONE
 
 ✔ Migrate xuống hết
 ::endgroup::
@@ -96,15 +96,15 @@ mysql: [Warning] Using a password on the command line interface can be insecure.
 
    INFO  Running migrations.  
 
-  2026_11_25_000001_create_identity_tables ..................... 136.12ms DONE
-  2026_11_25_000002_create_content_tables ...................... 274.36ms DONE
-  2026_11_25_000003_create_learning_tables ..................... 113.13ms DONE
-  2026_11_25_000004_create_ai_tables ............................ 82.68ms DONE
-  2026_11_25_000005_create_billing_tables ...................... 166.88ms DONE
-  2026_11_25_000006_create_engagement_tables .................... 52.40ms DONE
-  2026_11_25_000007_create_support_config_tables ................ 90.38ms DONE
-  2026_11_25_000008_create_classroom_tables ..................... 76.57ms DONE
-  2026_11_25_000009_create_framework_tables ..................... 56.99ms DONE
+  2026_11_25_000001_create_identity_tables ..................... 271.20ms DONE
+  2026_11_25_000002_create_content_tables ...................... 645.49ms DONE
+  2026_11_25_000003_create_learning_tables ....................... 3 giây DONE
+  2026_11_25_000004_create_ai_tables ........................... 909.04ms DONE
+  2026_11_25_000005_create_billing_tables ........................ 1 giây DONE
+  2026_11_25_000006_create_engagement_tables ................... 203.47ms DONE
+  2026_11_25_000007_create_support_config_tables ............... 376.24ms DONE
+  2026_11_25_000008_create_classroom_tables .................... 357.86ms DONE
+  2026_11_25_000009_create_framework_tables .................... 172.63ms DONE
 
 ✔ Migrate lên lại
 ::endgroup::
@@ -206,36 +206,36 @@ lần 1: 5 40 10 16 9 26 12 4 | lần 2: 5 40 10 16 9 26 12 4
  ],
  "timings_ms": {
   "the_den_han": {
-   "median": 3.2,
-   "max": 39.57
+   "median": 3.38,
+   "max": 11.02
   },
   "tu_moi_trong_chu_de": {
-   "median": 4.55,
-   "max": 5.95
+   "median": 6.17,
+   "max": 258.55
   },
   "muc_thuoc_theo_chu_de": {
-   "median": 12.49,
-   "max": 17.8
+   "median": 11.43,
+   "max": 244.26
   },
   "den_han_theo_chu_de": {
-   "median": 4.2,
-   "max": 44.37
+   "median": 3.12,
+   "max": 20.09
   },
   "goi_dang_dung": {
-   "median": 0.3,
-   "max": 0.56
+   "median": 0.28,
+   "max": 1.29
   },
   "bieu_do_14_ngay": {
-   "median": 0.29,
-   "max": 0.41
+   "median": 0.27,
+   "max": 0.71
   },
   "nhat_ky_7_ngay": {
-   "median": 0.26,
-   "max": 0.72
+   "median": 0.24,
+   "max": 0.63
   },
   "tra_tu_khong_dau": {
-   "median": 16.68,
-   "max": 23.36
+   "median": 13.31,
+   "max": 91.84
   }
  },
  "behaviour": [
@@ -469,7 +469,7 @@ lần 1: 5 40 10 16 9 26 12 4 | lần 2: 5 40 10 16 9 26 12 4
     "partitions": null,
     "type": "ref",
     "key": "ix_cards_pos",
-    "rows": "12237"
+    "rows": "12224"
    }
   ]
  },
@@ -516,7 +516,7 @@ lần 1: 5 40 10 16 9 26 12 4 | lần 2: 5 40 10 16 9 26 12 4
 ✔ test_schema.py (cấu trúc và tình huống)
 ::endgroup::
 ::group::Test công cụ so khớp và quy ước
-...../home/runner/work/lernbuch/lernbuch/tools/schema/check_conventions.py:29: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpnrklxn57/2026_12_01_000000_add_bad.php' mode='r' encoding='utf-8'>
+...../home/runner/work/lernbuch/lernbuch/tools/schema/check_conventions.py:29: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpb6467_tp/2026_12_01_000000_add_bad.php' mode='r' encoding='utf-8'>
   text = open(path, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ./home/runner/work/lernbuch/lernbuch/tools/schema/check_conventions.py:29: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/lernbuch/lernbuch/tools/schema/../../database/migrations/2026_11_25_000001_create_identity_tables.php' mode='r' encoding='utf-8'>
@@ -546,15 +546,15 @@ ResourceWarning: Enable tracemalloc to get the object allocation traceback
 /home/runner/work/lernbuch/lernbuch/tools/schema/check_conventions.py:29: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/lernbuch/lernbuch/tools/schema/../../database/migrations/2026_11_25_000009_create_framework_tables.php' mode='r' encoding='utf-8'>
   text = open(path, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-./home/runner/work/lernbuch/lernbuch/tools/schema/check_conventions.py:29: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpicu5ivxo/2026_12_01_000001_add_dates.php' mode='r' encoding='utf-8'>
+./home/runner/work/lernbuch/lernbuch/tools/schema/check_conventions.py:29: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpn1cx42vs/2026_12_01_000001_add_dates.php' mode='r' encoding='utf-8'>
   text = open(path, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/lernbuch/lernbuch/tools/schema/check_conventions.py:29: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpicu5ivxo/2026_12_01_000002_framework_ok.php' mode='r' encoding='utf-8'>
+/home/runner/work/lernbuch/lernbuch/tools/schema/check_conventions.py:29: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpn1cx42vs/2026_12_01_000002_framework_ok.php' mode='r' encoding='utf-8'>
   text = open(path, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 .
 ----------------------------------------------------------------------
-Ran 8 tests in 0.750s
+Ran 8 tests in 2.647s
 
 OK
 ✔ Test công cụ so khớp và quy ước
@@ -562,7 +562,7 @@ OK
 ::group::Test trình kiểm file nhập
 ...................
 ----------------------------------------------------------------------
-Ran 19 tests in 0.260s
+Ran 19 tests in 0.224s
 
 OK
 ✔ Test trình kiểm file nhập
@@ -570,7 +570,7 @@ OK
 ::group::Test công cụ tự kiểm G0 (cả trường hợp lỗi)
 ...............
 ----------------------------------------------------------------------
-Ran 15 tests in 0.054s
+Ran 15 tests in 0.049s
 
 OK
 ✔ Test công cụ tự kiểm G0 (cả trường hợp lỗi)
@@ -582,16 +582,16 @@ OK
   [32;1m✓[39;22m[90m [39m[90mmodel nằm trong App\Models hoặc module[39m
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\AdminAccessTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập vào /admin thì về trang đăng nhập[39m[90m                 [39m [90m1.19s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit trang đăng nhập quản trị mở được[39m[90m                                 [39m [90m0.07s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit người học thường không vào được trang quản trị[39m[90m                   [39m [90m0.29s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit nhân viên đang hoạt động vào được trang quản trị[39m[90m                 [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập vào /admin thì về trang đăng nhập[39m[90m                 [39m [90m2.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit trang đăng nhập quản trị mở được[39m[90m                                 [39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit người học thường không vào được trang quản trị[39m[90m                   [39m [90m0.15s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nhân viên đang hoạt động vào được trang quản trị[39m[90m                 [39m [90m0.08s[39m  
   [32;1m✓[39;22m[90m [39m[90mit nhân viên bị khoá không vào được trang quản trị[39m[90m                  [39m [90m0.02s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\BaoMatTest[39m
   [32;1m✓[39;22m[90m [39m[90mit lỗi máy chủ chỉ hiện trang lỗi chung, không lộ nội dung lỗi hay[39m[90m… [39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit đúng email và mật khẩu thì đăng nhập được trang quản trị[39m[90m         [39m [90m0.05s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit nhập sai mật khẩu 5 lần thì bị chặn tạm thời, kể cả lần sau đúng[39m[90m…[39m [90m1.13s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đúng email và mật khẩu thì đăng nhập được trang quản trị[39m[90m         [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nhập sai mật khẩu 5 lần thì bị chặn tạm thời, kể cả lần sau đúng[39m[90m…[39m [90m1.11s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\CreateAdminCommandTest[39m
   [32;1m✓[39;22m[90m [39m[90mit tạo tài khoản quản trị bằng lệnh[39m[90m                                 [39m [90m0.02s[39m  
@@ -603,7 +603,7 @@ OK
   [32;1m✓[39;22m[90m [39m[90mit job thử chạy xong qua hàng đợi database[39m[90m                          [39m [90m3.03s[39m  
   [32;1m✓[39;22m[90m [39m[90mit job cố ý lỗi vào failed_jobs sau đúng 3 lần thử[39m[90m                  [39m [90m3.03s[39m  
   [32;1m✓[39;22m[90m [39m[90mit lệnh thử hàng đợi: đưa 2 job vào, worker chạy xong thì kiểm đạt[39m[90m  [39m [90m3.03s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit 10 phút lịch chạy mỗi phút qua hàng đợi thì đủ 10 nhịp[39m[90m          [39m [90m30.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit 10 phút lịch chạy mỗi phút qua hàng đợi thì đủ 10 nhịp[39m[90m          [39m [90m30.07s[39m  
   [32;1m✓[39;22m[90m [39m[90mit thiếu nhịp (lịch hay hàng đợi dừng) thì kiểm nhịp báo lỗi[39m[90m        [39m [90m0.01s[39m  
   [32;1m✓[39;22m[90m [39m[90mit job ghi nhịp ghi đúng phút hiện tại[39m[90m                              [39m [90m0.01s[39m  
 
@@ -624,7 +624,7 @@ OK
   [32;1m✓[39;22m[90m [39m[90mit kết nối database dùng utf8mb4[39m[90m                                    [39m [90m0.01s[39m  
 
   [90mTests:[39m    [32;1m32 passed[39;22m[90m (134 assertions)[39m
-  [90mDuration:[39m [39m42.49s[39m
+  [90mDuration:[39m [39m43.12s[39m
 
 ✔ Pest (database lernbuch_test)
 ::endgroup::
