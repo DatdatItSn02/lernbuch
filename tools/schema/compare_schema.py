@@ -49,8 +49,14 @@ def snapshot(cur, db):
         if t in snap:
             idx = snap[t]["indexes"].setdefault(iname, {"unique": not non_unique, "type": itype, "columns": []})
             idx["columns"].append(f"{col}({sub})" if sub else col)
-    cur.execute("SELECT TABLE_NAME, CONSTRAINT_NAME, CHECK_CLAUSE FROM information_schema.CHECK_CONSTRAINTS "
-                "WHERE CONSTRAINT_SCHEMA=%s", (db,))
+    try:  # MariaDB có cột TABLE_NAME trong CHECK_CONSTRAINTS
+        cur.execute("SELECT TABLE_NAME, CONSTRAINT_NAME, CHECK_CLAUSE FROM information_schema.CHECK_CONSTRAINTS "
+                    "WHERE CONSTRAINT_SCHEMA=%s", (db,))
+    except pymysql.err.OperationalError:  # MySQL: lấy tên bảng từ TABLE_CONSTRAINTS
+        cur.execute("SELECT tc.TABLE_NAME, cc.CONSTRAINT_NAME, cc.CHECK_CLAUSE FROM information_schema.CHECK_CONSTRAINTS cc "
+                    "JOIN information_schema.TABLE_CONSTRAINTS tc ON tc.CONSTRAINT_SCHEMA = cc.CONSTRAINT_SCHEMA "
+                    "AND tc.CONSTRAINT_NAME = cc.CONSTRAINT_NAME AND tc.CONSTRAINT_TYPE = 'CHECK' "
+                    "WHERE cc.CONSTRAINT_SCHEMA=%s", (db,))
     for t, cname, clause in cur.fetchall():
         if t in snap:
             snap[t]["checks"][cname] = clause
