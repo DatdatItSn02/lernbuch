@@ -1,7 +1,8 @@
 workflow: ci  job: deploy  status: success
-commit: 4e29788c257e9a365b8a95faca36e99832e1210f  ref: main  run: 45712297563
+commit: ca55655f4227a292a1797617f41176b615ca9da7  ref: main  run: 45713264993
 
-✔ /up trả 200 (20261125222232-4e29788)
+✔ Web đã chạy bản 20261125222922-ca55655 sau khoảng 10 giây
+✔ /up trả 200 (20261125222922-ca55655)
 
 ----- cuối log -----
 Installing dependencies from lock file
@@ -325,7 +326,7 @@ Generating optimized autoload files
 75 packages you are using are looking for funding.
 Use the `composer fund` command to find out more!
 
-added 303 packages in 4s
+added 303 packages in 5s
 
 > build
 > vite build
@@ -353,16 +354,16 @@ public/build/assets/theme-B3htII5O.css                                 713.24 kB
 public/build/assets/app-BvRk9kiK.js                                      0.00 kB │ gzip:   0.02 kB
 public/build/assets/main-DryOi4bt.js                                   335.59 kB │ gzip: 104.92 kB
 
-[32m✓ built in 680ms[39m
--rw-r--r-- 1 runner runner 15M Nov 25 22:22 /tmp/20261125222232-4e29788.tgz
+[32m✓ built in 792ms[39m
+-rw-r--r-- 1 runner runner 15M Nov 25 22:29 /tmp/20261125222922-ca55655.tgz
 Trước deploy: /up trả 200
-Bản đang chạy: 20261125220531-8d88488
-Dung lượng: 107M	releases/20261125212809-241cd71
+Bản đang chạy: 20261125222232-4e29788
 Dung lượng: 107M	releases/20261125213411-3d01767
 Dung lượng: 107M	releases/20261125220531-8d88488
+Dung lượng: 107M	releases/20261125222232-4e29788
 Dung lượng: 1.3M	shared
 Dung lượng: 15M	.
-== Giải nén 20261125222232-4e29788
+== Giải nén 20261125222922-ca55655
 == Cập nhật .env (giữ APP_KEY cũ)
 == Migration
 
@@ -372,18 +373,19 @@ Dung lượng: 15M	.
 
    INFO  Caching framework bootstrap, configuration, and metadata.  
 
-  config ........................................................ 51.64ms DONE
-  events ......................................................... 3.77ms DONE
-  routes ........................................................ 46.76ms DONE
-  views ........................................................ 670.13ms DONE
-  blade-icons .................................................... 7.13ms DONE
-  filament ....................................................... 8.04ms DONE
+  config ........................................................ 67.99ms DONE
+  events ......................................................... 4.78ms DONE
+  routes ........................................................ 63.17ms DONE
+  views .......................................................... 1 giây DONE
+  blade-icons .................................................... 7.96ms DONE
+  filament ...................................................... 10.32ms DONE
 
-== Đổi current sang 20261125222232-4e29788
+== Đổi current sang 20261125222922-ca55655
 
    INFO  Broadcasting queue restart signal.  
 
-== Giữ 3 bản gần nhất
+== Giữ 3 bản gần nhất (và luôn giữ bản tốt gần nhất để còn chỗ quay lại)
 337M	/home/lernbuch/lernbuch
-Xong: 20261125222232-4e29788
-✔ /up trả 200 (20261125222232-4e29788)
+Xong: 20261125222922-ca55655
+✔ Web đã chạy bản 20261125222922-ca55655 sau khoảng 10 giây
+✔ /up trả 200 (20261125222922-ca55655)
