@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Events\DiagnosingHealth;
+use Illuminate\Support\Facades\Event;
+
 it('trả 200 ở /up', function () {
     $this->get('/up')->assertOk();
 });
@@ -51,10 +54,7 @@ it('trang kiểm chữ có đủ vai trò chữ và không cho máy tìm kiếm 
 
 it('/up trả 500 khi một kiểm tra sức khoẻ lỗi (để workflow deploy tự quay lại)', function () {
     config(['app.debug' => false]);
-    Illuminate\Support\Facades\Event::listen(
-        Illuminate\Foundation\Events\DiagnosingHealth::class,
-        fn () => throw new RuntimeException('database không trả lời'),
-    );
+    Event::listen(DiagnosingHealth::class, fn () => throw new RuntimeException('database không trả lời'));
 
     $this->get('/up')->assertStatus(500);
 });
