@@ -14,6 +14,9 @@ mkdir -p "$APP/releases" "$APP/shared/storage/app/public" "$APP/shared/storage/l
 php -r 'exit(version_compare(PHP_VERSION, "8.4.0", ">=") ? 0 : 1);' || {
   echo "Cần PHP 8.4 cho tài khoản alwaysdata (đang dùng $(php -r 'echo PHP_VERSION;'))"; exit 1; }
 
+# Lỗi ở bất kỳ bước nào trước khi đổi current thì xoá bản dở dang, để lần quay lại sau không chọn nhầm nó
+trap 'echo "✘ Deploy dừng, giữ nguyên bản đang chạy: $(basename "$(readlink -f "$APP/current")")"; rm -rf "$REL"' ERR
+
 echo "== Giải nén $NAME"
 rm -rf "$REL" && mkdir -p "$REL"
 tar xzf "$IN/$NAME.tgz" -C "$REL"
@@ -39,6 +42,7 @@ php artisan optimize -n
 
 echo "== Đổi current sang $NAME"
 ln -sfn "$REL" "$APP/current.new" && mv -Tf "$APP/current.new" "$APP/current"
+trap - ERR
 php artisan queue:restart -n || true
 
 echo "== Giữ 3 bản gần nhất"
