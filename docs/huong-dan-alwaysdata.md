@@ -7,7 +7,7 @@ Tên menu trong trang quản trị alwaysdata có thể hơi khác chữ dưới
 ## 1. alwaysdata
 
 1. **PHP 8.4 cho tài khoản.** Trong phần Environment (môi trường), chọn PHP 8.4. Lệnh `php` khi SSH dùng bản này; script deploy dừng nếu không phải 8.4.
-2. **Site.** Web → Sites → sửa site `lernbuch.alwaysdata.net`: kiểu PHP, phiên bản 8.4, thư mục gốc `/lernbuch/current/public` (thư mục `lernbuch/current/public` trong home). Thư mục này có sau lần deploy đầu.
+2. **Site.** Web → Sites → sửa site `lernbuch.alwaysdata.net`: kiểu PHP, phiên bản 8.4, thư mục gốc (Root directory) `/lernbuch/current/public` (thư mục `lernbuch/current/public` trong home). Đặt ngay từ đầu dù thư mục chưa có: lần deploy đầu tạo ra nó. Để mặc định `/www/` thì mọi trang trả 404 và deploy tự quay lại bản trước.
 3. **Database.** Databases → MySQL:
    - thêm database `lernbuch_app`;
    - thêm người dùng `lernbuch_app`, đặt mật khẩu mạnh, quyền đầy đủ trên `lernbuch_app`;

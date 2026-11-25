@@ -151,15 +151,24 @@ jobs:
           set -o pipefail
           { ssh "$SSH_USER@$SSH_HOST" 'mkdir -p ~/lernbuch/incoming ~/lernbuch/bin'
             scp "/tmp/$NAME.tgz" "/tmp/$NAME.env" "$SSH_USER@$SSH_HOST:lernbuch/incoming/"
-            scp deploy/remote-deploy.sh deploy/remote-rollback.sh "$SSH_USER@$SSH_HOST:lernbuch/bin/"
+            scp deploy/remote-deploy.sh deploy/remote-rollback.sh deploy/remote-check.sh "$SSH_USER@$SSH_HOST:lernbuch/bin/"
             ssh "$SSH_USER@$SSH_HOST" "bash ~/lernbuch/bin/remote-deploy.sh $NAME"; } 2>&1 | tee -a /tmp/deploy.log
       - name: Kiểm /up, lỗi thì tự quay lại bản trước
         run: |
           for i in 1 2 3 4 5 6; do
-            if curl -fsS --max-time 15 "$SITE_URL/up" >/dev/null; then echo "✔ /up trả 200 ($NAME)" | tee -a /tmp/deploy.log; exit 0; fi
+            up=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 15 "$SITE_URL/up" || true)
+            if [ "$up" = "200" ]; then echo "✔ /up trả 200 ($NAME)" | tee -a /tmp/deploy.log; exit 0; fi
+            echo "lần $i: /up trả ${up:-không kết nối được}"
             sleep 10
           done
-          echo "✘ /up lỗi, quay lại bản trước" | tee -a /tmp/deploy.log
+          home=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 15 "$SITE_URL/" || true)
+          echo "✘ /up trả ${up:-?}, trang chủ trả ${home:-?}" | tee -a /tmp/deploy.log
+          # Tự gọi /up bên trong PHP trên máy chủ để biết lỗi do app hay do cấu hình site
+          ssh "$SSH_USER@$SSH_HOST" "bash ~/lernbuch/bin/remote-check.sh" 2>&1 | tee /tmp/check.log | tee -a /tmp/deploy.log
+          if grep -q 'app tự trả /up: 200' /tmp/check.log; then
+            echo "Gợi ý: app trên máy chủ chạy tốt nhưng địa chỉ web không trỏ vào app. alwaysdata → Web → Sites → sửa site: Root directory = /lernbuch/current/public, PHP 8.4 (docs/huong-dan-alwaysdata.md)." | tee -a /tmp/deploy.log
+          fi
+          echo "Quay lại bản trước" | tee -a /tmp/deploy.log
           ssh "$SSH_USER@$SSH_HOST" "bash ~/lernbuch/bin/remote-rollback.sh" 2>&1 | tee -a /tmp/deploy.log
           exit 1
       - name: Ghi tóm tắt vào nhánh ci-results
