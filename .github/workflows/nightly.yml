@@ -5,6 +5,8 @@ on:
   schedule:
     - cron: '17 19 * * *'   # 02:17 giờ Việt Nam
   workflow_dispatch:
+  push:
+    branches: ['nightly/run']   # đẩy nhánh này để chạy ngay, không cần chờ đêm
 
 permissions:
   contents: write
