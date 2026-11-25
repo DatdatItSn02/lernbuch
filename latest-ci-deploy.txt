@@ -1,5 +1,5 @@
 workflow: ci  job: deploy  status: failure
-commit: faa4d5662dca1a7cd947269dd852271a2e4e64c1  ref: main  run: 45699852373
+commit: faa4d5662dca1a7cd947269dd852271a2e4e64c1  ref: main  run: 45701211694
 
 ✘ /up lỗi, quay lại bản trước
 
@@ -325,7 +325,7 @@ Generating optimized autoload files
 75 packages you are using are looking for funding.
 Use the `composer fund` command to find out more!
 
-added 303 packages in 5s
+added 303 packages in 4s
 
 > build
 > vite build
@@ -353,48 +353,44 @@ public/build/assets/theme-B3htII5O.css                                 713.24 kB
 public/build/assets/app-BvRk9kiK.js                                      0.00 kB │ gzip:   0.02 kB
 public/build/assets/main-DryOi4bt.js                                   335.59 kB │ gzip: 104.92 kB
 
-[32m✓ built in 805ms[39m
--rw-r--r-- 1 runner runner 15M Nov 25 21:00 /tmp/20261125210009-faa4d56.tgz
-== Giải nén 20261125210009-faa4d56
+[32m✓ built in 677ms[39m
+-rw-r--r-- 1 runner runner 15M Nov 25 21:09 /tmp/20261125210926-faa4d56.tgz
+== Giải nén 20261125210926-faa4d56
 == Cập nhật .env (giữ APP_KEY cũ)
-
-   INFO  Application key set successfully.  
-
 == Migration
 
-   INFO  Preparing database.  
-
-  Creating migration table ...................................... 23.97ms DONE
-
-   INFO  Running migrations.  
-
-  2026_11_25_000001_create_identity_tables ..................... 314.39ms DONE
-  2026_11_25_000002_create_content_tables ...................... 670.11ms DONE
-  2026_11_25_000003_create_learning_tables ..................... 237.20ms DONE
-  2026_11_25_000004_create_ai_tables ........................... 193.73ms DONE
-  2026_11_25_000005_create_billing_tables ...................... 467.53ms DONE
-  2026_11_25_000006_create_engagement_tables ................... 100.93ms DONE
-  2026_11_25_000007_create_support_config_tables ............... 190.62ms DONE
-  2026_11_25_000008_create_classroom_tables .................... 153.42ms DONE
-  2026_11_25_000009_create_framework_tables .................... 180.25ms DONE
+   INFO  Nothing to migrate.  
 
 == Cache cấu hình, route, view
 
    INFO  Caching framework bootstrap, configuration, and metadata.  
 
-  config ........................................................ 50.69ms DONE
-  events ......................................................... 4.16ms DONE
-  routes ........................................................ 48.64ms DONE
-  views ........................................................ 662.41ms DONE
-  blade-icons .................................................... 4.04ms DONE
-  filament ....................................................... 7.28ms DONE
+  config ........................................................ 46.36ms DONE
+  events ......................................................... 3.96ms DONE
+  routes ........................................................ 45.55ms DONE
+  views ........................................................ 660.35ms DONE
+  blade-icons .................................................... 4.25ms DONE
+  filament ....................................................... 7.48ms DONE
 
-== Đổi current sang 20261125210009-faa4d56
+== Đổi current sang 20261125210926-faa4d56
 
    INFO  Broadcasting queue restart signal.  
 
 == Giữ 3 bản gần nhất
-109M	/home/lernbuch/lernbuch
-Xong: 20261125210009-faa4d56
+216M	/home/lernbuch/lernbuch
+Xong: 20261125210926-faa4d56
 ✘ /up lỗi, quay lại bản trước
-Không có bản trước để quay lại (đang chạy 20261125210009-faa4d56)
+
+   INFO  Caching framework bootstrap, configuration, and metadata.  
+
+  config ....................................................... 115.25ms DONE
+  events ........................................................ 10.47ms DONE
+  routes ........................................................ 69.97ms DONE
+  views ........................................................ 851.19ms DONE
+  blade-icons .................................................... 6.99ms DONE
+  filament ...................................................... 11.62ms DONE
+
+
+   INFO  Broadcasting queue restart signal.  
+
+Đã quay lại: 20261125210926-faa4d56 -> 20261125210009-faa4d56
