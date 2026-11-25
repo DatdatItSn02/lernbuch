@@ -98,6 +98,8 @@ jobs:
         if: always()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Ảnh trang chào và trang quản trị cho báo cáo (tests/e2e/anh.spec.ts)
+          REPORT_IMAGES: test-results/anh
         run: bash .github/scripts/report.sh web "${{ job.status }}" /tmp/web.log
 
   deploy:

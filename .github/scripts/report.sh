@@ -23,6 +23,11 @@ out="$dir/runs/${GITHUB_RUN_NUMBER}-${GITHUB_WORKFLOW}-${name}.txt"
   tail -c 40000 "$log" 2>/dev/null || true
 } > "$out"
 cp "$out" "$dir/latest-${GITHUB_WORKFLOW}-${name}.txt"
+# Ảnh kèm theo (nếu job có): REPORT_IMAGES là thư mục ảnh PNG, chép vào anh/ (ghi đè bản cũ)
+if [ -n "${REPORT_IMAGES:-}" ] && compgen -G "${REPORT_IMAGES}/*.png" >/dev/null; then
+  mkdir -p "$dir/anh"
+  cp "${REPORT_IMAGES}"/*.png "$dir/anh/"
+fi
 # Tên người ghi đặt vào cấu hình kho: lần thử lại dùng pull --rebase cũng cần (trước đây thiếu nên job đến sau mất kết quả)
 git -C "$dir" config user.name lernbuch-bot
 git -C "$dir" config user.email lernbuch-bot@users.noreply.github.com
