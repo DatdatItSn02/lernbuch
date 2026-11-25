@@ -1,23 +1,21 @@
-workflow: nightly  job: php-mysql-2  status: failure
-commit: 09dbdbc382a179feea64bbafaf43ef3cfa4b8470  ref: nightly/run  run: 45594020680
+workflow: nightly  job: php-mysql-2  status: success
+commit: 4082deab44c378014b2176a54b97a7c72ea76cb8  ref: nightly/run  run: 45594816518
 
 ✔ Pint (định dạng code)
 ✔ Larastan (phân tích tĩnh)
 ✔ Dựng database tham chiếu từ schema.sql
 ✔ Migrate lên
-✘ Khớp với schema.sql (0 khác biệt)
+✔ Khớp với schema.sql (0 khác biệt)
 ✔ Quy ước LoWo (không khoá ngoại, thời gian số nguyên)
 ✔ Migrate xuống hết
 ✔ Sau khi xuống chỉ còn bảng migrations
 ✔ Migrate lên lại
 ✔ Seeder chạy hai lần không nhân đôi
 ✔ test_schema.py (cấu trúc và tình huống)
-✘ Test công cụ so khớp và quy ước
+✔ Test công cụ so khớp và quy ước
 ✔ Test trình kiểm file nhập
 ✔ Pest (database lernbuch_test)
-KẾT QUẢ: 12/14 bước đạt
-✘ lỗi: Khớp với schema.sql (0 khác biệt)
-✘ lỗi: Test công cụ so khớp và quy ước
+KẾT QUẢ: 14/14 bước đạt
 
 ----- cuối log -----
 mysql: [Warning] Using a password on the command line interface can be insecure.
@@ -49,52 +47,25 @@ mysql: [Warning] Using a password on the command line interface can be insecure.
 
    INFO  Preparing database.  
 
-  Creating migration table ...................................... 44.50ms DONE
+  Creating migration table ....................................... 7.19ms DONE
 
    INFO  Running migrations.  
 
-  2026_11_25_000001_create_identity_tables ..................... 322.42ms DONE
-  2026_11_25_000002_create_content_tables ........................ 4 giây DONE
-  2026_11_25_000003_create_learning_tables ..................... 576.23ms DONE
-  2026_11_25_000004_create_ai_tables ........................... 543.87ms DONE
-  2026_11_25_000005_create_billing_tables ........................ 1 giây DONE
-  2026_11_25_000006_create_engagement_tables .................... 98.20ms DONE
-  2026_11_25_000007_create_support_config_tables ............... 289.40ms DONE
-  2026_11_25_000008_create_classroom_tables .................... 419.51ms DONE
-  2026_11_25_000009_create_framework_tables .................... 335.14ms DONE
+  2026_11_25_000001_create_identity_tables ..................... 262.65ms DONE
+  2026_11_25_000002_create_content_tables ...................... 613.93ms DONE
+  2026_11_25_000003_create_learning_tables ..................... 242.69ms DONE
+  2026_11_25_000004_create_ai_tables ........................... 227.39ms DONE
+  2026_11_25_000005_create_billing_tables ...................... 419.60ms DONE
+  2026_11_25_000006_create_engagement_tables .................... 81.57ms DONE
+  2026_11_25_000007_create_support_config_tables ............... 163.33ms DONE
+  2026_11_25_000008_create_classroom_tables .................... 115.24ms DONE
+  2026_11_25_000009_create_framework_tables .................... 135.66ms DONE
 
 ✔ Migrate lên
 ::endgroup::
 ::group::Khớp với schema.sql (0 khác biệt)
-Traceback (most recent call last):
-  File "/home/runner/work/lernbuch/lernbuch/tools/schema/compare_schema.py", line 127, in <module>
-    main()
-  File "/home/runner/work/lernbuch/lernbuch/tools/schema/compare_schema.py", line 114, in main
-    ref, mig = snapshot(cur, args.ref), snapshot(cur, args.db)
-               ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/lernbuch/lernbuch/tools/schema/compare_schema.py", line 52, in snapshot
-    cur.execute("SELECT TABLE_NAME, CONSTRAINT_NAME, CHECK_CLAUSE FROM information_schema.CHECK_CONSTRAINTS "
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/cursors.py", line 170, in execute
-    result = self._query(query)
-             ^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/cursors.py", line 335, in _query
-    conn.query(q)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 591, in query
-    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 867, in _read_query_result
-    result.read()
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 1300, in read
-    first_packet = self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 820, in _read_packet
-    packet.raise_for_error()
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/err.py", line 154, in raise_mysql_exception
-    raise errorclass(errno, errval, sqlstate=sqlstate)
-pymysql.err.OperationalError: (1054, "Unknown column 'TABLE_NAME' in 'field list'")
-✘ Khớp với schema.sql (0 khác biệt)
+91 bảng tham chiếu, 91 bảng so sánh, 0 khác biệt
+✔ Khớp với schema.sql (0 khác biệt)
 ::endgroup::
 ::group::Quy ước LoWo (không khoá ngoại, thời gian số nguyên)
 0 vi phạm quy ước
@@ -104,15 +75,15 @@ pymysql.err.OperationalError: (1054, "Unknown column 'TABLE_NAME' in 'field list
 
    INFO  Rolling back migrations.  
 
-  2026_11_25_000009_create_framework_tables .................... 164.29ms DONE
-  2026_11_25_000008_create_classroom_tables ..................... 16.20ms DONE
-  2026_11_25_000007_create_support_config_tables ............... 424.55ms DONE
-  2026_11_25_000006_create_engagement_tables .................... 14.61ms DONE
-  2026_11_25_000005_create_billing_tables ....................... 53.27ms DONE
-  2026_11_25_000004_create_ai_tables ............................ 26.95ms DONE
-  2026_11_25_000003_create_learning_tables ..................... 139.33ms DONE
-  2026_11_25_000002_create_content_tables ........................ 2 giây DONE
-  2026_11_25_000001_create_identity_tables ...................... 94.56ms DONE
+  2026_11_25_000009_create_framework_tables ..................... 37.83ms DONE
+  2026_11_25_000008_create_classroom_tables ..................... 15.36ms DONE
+  2026_11_25_000007_create_support_config_tables ................ 22.10ms DONE
+  2026_11_25_000006_create_engagement_tables .................... 14.64ms DONE
+  2026_11_25_000005_create_billing_tables ....................... 35.49ms DONE
+  2026_11_25_000004_create_ai_tables ............................ 18.89ms DONE
+  2026_11_25_000003_create_learning_tables ...................... 36.06ms DONE
+  2026_11_25_000002_create_content_tables ....................... 75.80ms DONE
+  2026_11_25_000001_create_identity_tables ...................... 34.56ms DONE
 
 ✔ Migrate xuống hết
 ::endgroup::
@@ -124,15 +95,15 @@ mysql: [Warning] Using a password on the command line interface can be insecure.
 
    INFO  Running migrations.  
 
-  2026_11_25_000001_create_identity_tables ....................... 1 giây DONE
-  2026_11_25_000002_create_content_tables ...................... 653.22ms DONE
-  2026_11_25_000003_create_learning_tables ..................... 247.16ms DONE
-  2026_11_25_000004_create_ai_tables ........................... 223.97ms DONE
-  2026_11_25_000005_create_billing_tables ...................... 384.70ms DONE
-  2026_11_25_000006_create_engagement_tables .................... 88.37ms DONE
-  2026_11_25_000007_create_support_config_tables ............... 186.94ms DONE
-  2026_11_25_000008_create_classroom_tables .................... 593.47ms DONE
-  2026_11_25_000009_create_framework_tables .................... 180.32ms DONE
+  2026_11_25_000001_create_identity_tables ..................... 442.09ms DONE
+  2026_11_25_000002_create_content_tables ...................... 619.76ms DONE
+  2026_11_25_000003_create_learning_tables ..................... 244.49ms DONE
+  2026_11_25_000004_create_ai_tables ........................... 220.47ms DONE
+  2026_11_25_000005_create_billing_tables ...................... 310.88ms DONE
+  2026_11_25_000006_create_engagement_tables .................... 86.37ms DONE
+  2026_11_25_000007_create_support_config_tables ............... 188.87ms DONE
+  2026_11_25_000008_create_classroom_tables .................... 145.31ms DONE
+  2026_11_25_000009_create_framework_tables .................... 174.72ms DONE
 
 ✔ Migrate lên lại
 ::endgroup::
@@ -234,36 +205,36 @@ lần 1: 5 40 10 16 9 26 12 4 | lần 2: 5 40 10 16 9 26 12 4
  ],
  "timings_ms": {
   "the_den_han": {
-   "median": 3.06,
-   "max": 76.13
+   "median": 2.77,
+   "max": 3.69
   },
   "tu_moi_trong_chu_de": {
-   "median": 4.23,
-   "max": 510.42
+   "median": 4.22,
+   "max": 25.53
   },
   "muc_thuoc_theo_chu_de": {
-   "median": 10.95,
-   "max": 57.79
+   "median": 10.5,
+   "max": 152.06
   },
   "den_han_theo_chu_de": {
-   "median": 3.04,
-   "max": 36.43
+   "median": 2.9,
+   "max": 107.96
   },
   "goi_dang_dung": {
    "median": 0.25,
-   "max": 1.12
+   "max": 0.63
   },
   "bieu_do_14_ngay": {
    "median": 0.25,
-   "max": 0.44
+   "max": 0.59
   },
   "nhat_ky_7_ngay": {
-   "median": 0.23,
-   "max": 0.57
+   "median": 0.22,
+   "max": 0.55
   },
   "tra_tu_khong_dau": {
-   "median": 11.22,
-   "max": 12.61
+   "median": 11.13,
+   "max": 11.6
   }
  },
  "behaviour": [
@@ -497,7 +468,7 @@ lần 1: 5 40 10 16 9 26 12 4 | lần 2: 5 40 10 16 9 26 12 4
     "partitions": null,
     "type": "ref",
     "key": "uq_cards_key",
-    "rows": 6123
+    "rows": 5958
    }
   ]
  },
@@ -544,7 +515,7 @@ lần 1: 5 40 10 16 9 26 12 4 | lần 2: 5 40 10 16 9 26 12 4
 ✔ test_schema.py (cấu trúc và tình huống)
 ::endgroup::
 ::group::Test công cụ so khớp và quy ước
-EEEE./home/runner/work/lernbuch/lernbuch/tools/schema/check_conventions.py:29: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp8ym5hav9/2026_12_01_000000_add_bad.php' mode='r' encoding='utf-8'>
+...../home/runner/work/lernbuch/lernbuch/tools/schema/check_conventions.py:29: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp_18_ov05/2026_12_01_000000_add_bad.php' mode='r' encoding='utf-8'>
   text = open(path, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ./home/runner/work/lernbuch/lernbuch/tools/schema/check_conventions.py:29: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/lernbuch/lernbuch/tools/schema/../../database/migrations/2026_11_25_000001_create_identity_tables.php' mode='r' encoding='utf-8'>
@@ -574,143 +545,23 @@ ResourceWarning: Enable tracemalloc to get the object allocation traceback
 /home/runner/work/lernbuch/lernbuch/tools/schema/check_conventions.py:29: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/lernbuch/lernbuch/tools/schema/../../database/migrations/2026_11_25_000009_create_framework_tables.php' mode='r' encoding='utf-8'>
   text = open(path, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-./home/runner/work/lernbuch/lernbuch/tools/schema/check_conventions.py:29: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp1o7500ra/2026_12_01_000001_add_dates.php' mode='r' encoding='utf-8'>
+./home/runner/work/lernbuch/lernbuch/tools/schema/check_conventions.py:29: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpmqb9mfgd/2026_12_01_000001_add_dates.php' mode='r' encoding='utf-8'>
   text = open(path, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/lernbuch/lernbuch/tools/schema/check_conventions.py:29: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp1o7500ra/2026_12_01_000002_framework_ok.php' mode='r' encoding='utf-8'>
+/home/runner/work/lernbuch/lernbuch/tools/schema/check_conventions.py:29: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpmqb9mfgd/2026_12_01_000002_framework_ok.php' mode='r' encoding='utf-8'>
   text = open(path, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 .
-======================================================================
-ERROR: test_1_identical_databases_have_no_difference (tools.schema.test_compare_schema.CompareSchemaTest.test_1_identical_databases_have_no_difference)
 ----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/runner/work/lernbuch/lernbuch/tools/schema/test_compare_schema.py", line 42, in test_1_identical_databases_have_no_difference
-    diffs = cs.diff(cs.snapshot(self.cur, A), cs.snapshot(self.cur, B))
-                    ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/lernbuch/lernbuch/tools/schema/compare_schema.py", line 52, in snapshot
-    cur.execute("SELECT TABLE_NAME, CONSTRAINT_NAME, CHECK_CLAUSE FROM information_schema.CHECK_CONSTRAINTS "
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/cursors.py", line 170, in execute
-    result = self._query(query)
-             ^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/cursors.py", line 335, in _query
-    conn.query(q)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 591, in query
-    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 867, in _read_query_result
-    result.read()
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 1300, in read
-    first_packet = self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 820, in _read_packet
-    packet.raise_for_error()
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/err.py", line 154, in raise_mysql_exception
-    raise errorclass(errno, errval, sqlstate=sqlstate)
-pymysql.err.OperationalError: (1054, "Unknown column 'TABLE_NAME' in 'field list'")
+Ran 8 tests in 2.604s
 
-======================================================================
-ERROR: test_2_changed_column_type_is_reported_exactly (tools.schema.test_compare_schema.CompareSchemaTest.test_2_changed_column_type_is_reported_exactly)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/runner/work/lernbuch/lernbuch/tools/schema/test_compare_schema.py", line 48, in test_2_changed_column_type_is_reported_exactly
-    diffs = cs.diff(cs.snapshot(self.cur, A), cs.snapshot(self.cur, B))
-                    ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/lernbuch/lernbuch/tools/schema/compare_schema.py", line 52, in snapshot
-    cur.execute("SELECT TABLE_NAME, CONSTRAINT_NAME, CHECK_CLAUSE FROM information_schema.CHECK_CONSTRAINTS "
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/cursors.py", line 170, in execute
-    result = self._query(query)
-             ^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/cursors.py", line 335, in _query
-    conn.query(q)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 591, in query
-    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 867, in _read_query_result
-    result.read()
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 1300, in read
-    first_packet = self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 820, in _read_packet
-    packet.raise_for_error()
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/err.py", line 154, in raise_mysql_exception
-    raise errorclass(errno, errval, sqlstate=sqlstate)
-pymysql.err.OperationalError: (1054, "Unknown column 'TABLE_NAME' in 'field list'")
-
-======================================================================
-ERROR: test_3_dropped_index_is_reported (tools.schema.test_compare_schema.CompareSchemaTest.test_3_dropped_index_is_reported)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/runner/work/lernbuch/lernbuch/tools/schema/test_compare_schema.py", line 54, in test_3_dropped_index_is_reported
-    diffs = cs.diff(cs.snapshot(self.cur, A), cs.snapshot(self.cur, B))
-                    ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/lernbuch/lernbuch/tools/schema/compare_schema.py", line 52, in snapshot
-    cur.execute("SELECT TABLE_NAME, CONSTRAINT_NAME, CHECK_CLAUSE FROM information_schema.CHECK_CONSTRAINTS "
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/cursors.py", line 170, in execute
-    result = self._query(query)
-             ^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/cursors.py", line 335, in _query
-    conn.query(q)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 591, in query
-    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 867, in _read_query_result
-    result.read()
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 1300, in read
-    first_packet = self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 820, in _read_packet
-    packet.raise_for_error()
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/err.py", line 154, in raise_mysql_exception
-    raise errorclass(errno, errval, sqlstate=sqlstate)
-pymysql.err.OperationalError: (1054, "Unknown column 'TABLE_NAME' in 'field list'")
-
-======================================================================
-ERROR: test_4_foreign_key_is_reported (tools.schema.test_compare_schema.CompareSchemaTest.test_4_foreign_key_is_reported)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/runner/work/lernbuch/lernbuch/tools/schema/test_compare_schema.py", line 60, in test_4_foreign_key_is_reported
-    diffs = cs.diff(cs.snapshot(self.cur, A), cs.snapshot(self.cur, B))
-                    ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/lernbuch/lernbuch/tools/schema/compare_schema.py", line 52, in snapshot
-    cur.execute("SELECT TABLE_NAME, CONSTRAINT_NAME, CHECK_CLAUSE FROM information_schema.CHECK_CONSTRAINTS "
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/cursors.py", line 170, in execute
-    result = self._query(query)
-             ^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/cursors.py", line 335, in _query
-    conn.query(q)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 591, in query
-    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 867, in _read_query_result
-    result.read()
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 1300, in read
-    first_packet = self.connection._read_packet()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/connections.py", line 820, in _read_packet
-    packet.raise_for_error()
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/pymysql/err.py", line 154, in raise_mysql_exception
-    raise errorclass(errno, errval, sqlstate=sqlstate)
-pymysql.err.OperationalError: (1054, "Unknown column 'TABLE_NAME' in 'field list'")
-
-----------------------------------------------------------------------
-Ran 8 tests in 2.748s
-
-FAILED (errors=4)
-✘ Test công cụ so khớp và quy ước
+OK
+✔ Test công cụ so khớp và quy ước
 ::endgroup::
 ::group::Test trình kiểm file nhập
 ...................
 ----------------------------------------------------------------------
-Ran 19 tests in 0.214s
+Ran 19 tests in 0.251s
 
 OK
 ✔ Test trình kiểm file nhập
@@ -722,15 +573,15 @@ OK
   [32;1m✓[39;22m[90m [39m[90mmodel nằm trong App\Models hoặc module[39m
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\AdminAccessTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập vào /admin thì về trang đăng nhập[39m[90m                 [39m [90m2.50s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit trang đăng nhập quản trị mở được[39m[90m                                 [39m [90m0.06s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit người học thường không vào được trang quản trị[39m[90m                   [39m [90m0.10s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit nhân viên đang hoạt động vào được trang quản trị[39m[90m                 [39m [90m0.09s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit nhân viên bị khoá không vào được trang quản trị[39m[90m                  [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập vào /admin thì về trang đăng nhập[39m[90m                 [39m [90m5.52s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit trang đăng nhập quản trị mở được[39m[90m                                 [39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit người học thường không vào được trang quản trị[39m[90m                   [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nhân viên đang hoạt động vào được trang quản trị[39m[90m                 [39m [90m0.39s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nhân viên bị khoá không vào được trang quản trị[39m[90m                  [39m [90m0.02s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\CreateAdminCommandTest[39m
   [32;1m✓[39;22m[90m [39m[90mit tạo tài khoản quản trị bằng lệnh[39m[90m                                 [39m [90m0.03s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit từ chối email đã có, kể cả khác hoa thường[39m[90m                       [39m [90m0.01s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit từ chối email đã có, kể cả khác hoa thường[39m[90m                       [39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit từ chối mật khẩu ngắn hơn 12 ký tự[39m[90m                               [39m [90m0.01s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\PagesTest[39m
@@ -742,18 +593,16 @@ OK
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\Utf8DatabaseTest[39m
   [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Brötchen')[39m[90m [39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Straße')[39m[90m   [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Straße')[39m[90m   [39m [90m0.01s[39m  
   [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('tiếng Việt[39m[90m…[39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('ẞ ắ ặ ộ ữ[39m[90m… [39m [90m0.01s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit kết nối sai bảng mã thì chữ có dấu đọc ra bị hỏng, nên test bắt[39m[90m… [39m [90m0.01s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('ẞ ắ ặ ộ ữ[39m[90m… [39m [90m0.13s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kết nối sai bảng mã thì chữ có dấu đọc ra bị hỏng, nên test bắt[39m[90m… [39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit kết nối database dùng utf8mb4[39m[90m                                    [39m [90m0.01s[39m  
 
   [90mTests:[39m    [32;1m21 passed[39;22m[90m (42 assertions)[39m
-  [90mDuration:[39m [39m3.15s[39m
+  [90mDuration:[39m [39m6.56s[39m
 
 ✔ Pest (database lernbuch_test)
 ::endgroup::
 
-KẾT QUẢ: 12/14 bước đạt
-✘ lỗi: Khớp với schema.sql (0 khác biệt)
-✘ lỗi: Test công cụ so khớp và quy ước
+KẾT QUẢ: 14/14 bước đạt
