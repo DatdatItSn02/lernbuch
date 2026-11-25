@@ -1,7 +1,7 @@
 workflow: ci  job: deploy  status: success
-commit: 241cd71c040dc94400c95a388d8f86b99d60b91d  ref: main  run: 45704221031
+commit: 3d01767b26cb97880617c91ab152ec0e33ad44d6  ref: main  run: 45705146385
 
-✔ /up trả 200 (20261125212809-241cd71)
+✔ /up trả 200 (20261125213411-3d01767)
 
 ----- cuối log -----
 Installing dependencies from lock file
@@ -325,7 +325,7 @@ Generating optimized autoload files
 75 packages you are using are looking for funding.
 Use the `composer fund` command to find out more!
 
-added 303 packages in 4s
+added 303 packages in 6s
 
 > build
 > vite build
@@ -353,9 +353,9 @@ public/build/assets/theme-B3htII5O.css                                 713.24 kB
 public/build/assets/app-BvRk9kiK.js                                      0.00 kB │ gzip:   0.02 kB
 public/build/assets/main-DryOi4bt.js                                   335.59 kB │ gzip: 104.92 kB
 
-[32m✓ built in 726ms[39m
--rw-r--r-- 1 runner runner 15M Nov 25 21:28 /tmp/20261125212809-241cd71.tgz
-== Giải nén 20261125212809-241cd71
+[32m✓ built in 1.05s[39m
+-rw-r--r-- 1 runner runner 15M Nov 25 21:34 /tmp/20261125213411-3d01767.tgz
+== Giải nén 20261125213411-3d01767
 == Cập nhật .env (giữ APP_KEY cũ)
 == Migration
 
@@ -365,18 +365,18 @@ public/build/assets/main-DryOi4bt.js                                   335.59 kB
 
    INFO  Caching framework bootstrap, configuration, and metadata.  
 
-  config ........................................................ 46.72ms DONE
-  events ......................................................... 3.89ms DONE
-  routes ........................................................ 52.58ms DONE
-  views ........................................................ 716.88ms DONE
-  blade-icons .................................................... 4.45ms DONE
-  filament ....................................................... 7.93ms DONE
+  config ........................................................ 45.83ms DONE
+  events ......................................................... 3.35ms DONE
+  routes ........................................................ 43.97ms DONE
+  views ........................................................ 809.56ms DONE
+  blade-icons .................................................... 4.11ms DONE
+  filament ....................................................... 7.78ms DONE
 
-== Đổi current sang 20261125212809-241cd71
+== Đổi current sang 20261125213411-3d01767
 
    INFO  Broadcasting queue restart signal.  
 
 == Giữ 3 bản gần nhất
 323M	/home/lernbuch/lernbuch
-Xong: 20261125212809-241cd71
-✔ /up trả 200 (20261125212809-241cd71)
+Xong: 20261125213411-3d01767
+✔ /up trả 200 (20261125213411-3d01767)
