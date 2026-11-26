@@ -50,7 +50,7 @@ export function CaiDat() {
                     ]}
                 />
                 <Choice<Season>
-                    legend="Cảnh theo mùa ở Hôm nay"
+                    legend="Cành theo mùa ở Hôm nay"
                     name={`${uid}-mua`}
                     value={settings.season}
                     onChange={(s) => set({ season: s })}
