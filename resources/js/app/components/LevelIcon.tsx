@@ -1,20 +1,10 @@
 import { LEVEL_NAMES, STAGE_NAMES } from '../lib/srs';
 
 // Dấu ấn của Lernbuch: 6 mức thuộc vẽ thành 6 giai đoạn của cây (hạt, mầm, lá, nụ, hoa, quả).
-// Nét mực nâu, phần chính tô màu của mức; đọc được ở cỡ 20–24 px.
+// Vẽ bằng nét mực như hình vẽ tay trong vở: chỉ nét, không tô màu; nét theo màu chữ (currentColor).
+// Đọc được ở cỡ 16–24 px: mỗi giai đoạn khác nhau ở hình ngọn (hạt nằm, hai lá nhỏ, hai lá lớn, nụ, hoa 5 cánh, quả tròn).
 
-const fill = (level: number) => `var(--color-level-${level})`;
-
-function Leaves({ low, high, level }: { low?: boolean; high?: boolean; level: number }) {
-    return (
-        <>
-            {low && <path d="M12 17c-3.3 0-5.4-1.9-5.4-4.7 3.1 0 5.4 1.8 5.4 4.7z" fill={fill(level)} />}
-            {high && <path d="M12 13.6c0-2.9 2.2-4.9 5.4-4.9 0 2.8-2.2 4.9-5.4 4.9z" fill={fill(level)} />}
-        </>
-    );
-}
-
-export function LevelIcon({ level, size = 24, title }: { level: number; size?: number; title?: string }) {
+export function LevelIcon({ level, size = 24, title, className = '' }: { level: number; size?: number; title?: string; className?: string }) {
     const lv = Math.min(5, Math.max(0, Math.round(level)));
     // title="" là hình trang trí (chữ bên cạnh đã nói mức): ẩn khỏi trình đọc màn hình.
     const label = title ?? `${STAGE_NAMES[lv]}: mức ${LEVEL_NAMES[lv]}`;
@@ -25,57 +15,62 @@ export function LevelIcon({ level, size = 24, title }: { level: number; size?: n
             height={size}
             viewBox="0 0 24 24"
             {...a11y}
-            className="shrink-0"
+            className={`shrink-0 ${className}`}
             fill="none"
-            stroke="var(--color-ink-2)"
+            stroke="currentColor"
             strokeWidth={1.5}
             strokeLinecap="round"
             strokeLinejoin="round"
         >
-            <path d="M5 20.5h14" stroke="var(--color-line-strong)" />
-            {lv === 0 && <ellipse cx="12" cy="17.6" rx="3.1" ry="2.2" transform="rotate(-24 12 17.6)" fill={fill(0)} />}
+            {/* mặt đất: một nét hơi lượn như vẽ tay */}
+            <path d="M4.5 20.6c2.4-.5 4.8-.6 7.5-.5s5 .3 7.5-.1" />
+            {lv === 0 && (
+                <>
+                    <ellipse cx="12" cy="17.4" rx="3.2" ry="2.1" transform="rotate(-20 12 17.4)" />
+                    <path d="M10.4 17.9c.9-.9 2.1-1.3 3.3-1.2" />
+                </>
+            )}
             {lv === 1 && (
                 <>
-                    <path d="M12 20.5v-5" />
-                    <path d="M12 16.4c-2.5 0-3.9-1.4-3.9-3.5 2.3 0 3.9 1.3 3.9 3.5z" fill={fill(1)} />
-                    <path d="M12 15.5c0-2.2 1.5-3.7 3.9-3.7 0 2.1-1.5 3.7-3.9 3.7z" fill={fill(1)} />
+                    <path d="M12 20.4v-4.6" />
+                    <path d="M12 16.2c-2.4.1-3.9-1.2-4.1-3.3 2.2-.1 3.8 1.1 4.1 3.3z" />
+                    <path d="M12 15.4c.2-2.1 1.6-3.4 3.8-3.4-.1 2-1.6 3.4-3.8 3.4z" />
                 </>
             )}
             {lv === 2 && (
                 <>
-                    <path d="M12 20.5V9.8" />
-                    <Leaves low high level={2} />
+                    <path d="M12 20.4V9.5" />
+                    <path d="M12 16.8c-3.2.1-5.4-1.7-5.6-4.5 3 0 5.3 1.7 5.6 4.5zM8.6 13.6l2.2 1.8" />
+                    <path d="M12 13.4c.2-2.8 2.4-4.6 5.5-4.6-.1 2.8-2.3 4.6-5.5 4.6zM15.2 10.5l-1.9 1.8" />
                 </>
             )}
             {lv === 3 && (
                 <>
-                    <path d="M12 20.5V9" />
-                    <Leaves low high level={3} />
-                    <path d="M12 9c-1.6-1.1-2.3-2.5-2.3-3.8 0-1.4 1-2.4 2.3-2.9 1.3.5 2.3 1.5 2.3 2.9 0 1.3-.7 2.7-2.3 3.8z" fill={fill(3)} />
+                    <path d="M12 20.4V9.4" />
+                    <path d="M12 17.2c-2.8.1-4.6-1.4-4.8-3.8 2.5 0 4.5 1.5 4.8 3.8z" />
+                    <path d="M12 14.4c.2-2.4 2-3.9 4.6-3.9-.1 2.4-1.9 3.9-4.6 3.9z" />
+                    <path d="M12 9.4c-1.7-.9-2.5-2.3-2.4-3.7.1-1.3 1.1-2.4 2.4-2.9 1.3.5 2.3 1.6 2.4 2.9.1 1.4-.7 2.8-2.4 3.7zM12 9.2V5.4" />
                 </>
             )}
             {lv === 4 && (
                 <>
-                    <path d="M12 20.5V9.6" />
-                    <Leaves low level={4} />
-                    {[0, 72, 144, 216, 288].map((a) => (
-                        <circle
-                            key={a}
-                            cx={12 + 2.4 * Math.sin((a * Math.PI) / 180)}
-                            cy={6.4 - 2.4 * Math.cos((a * Math.PI) / 180)}
-                            r="1.9"
-                            fill={fill(4)}
-                        />
-                    ))}
-                    <circle cx="12" cy="6.4" r="1.1" fill="var(--color-sheet)" />
+                    <path d="M12 20.4V10.3" />
+                    <path d="M12 17.4c-2.6.1-4.3-1.3-4.5-3.5 2.3 0 4.2 1.4 4.5 3.5z" />
+                    {[0, 72, 144, 216, 288].map((a) => {
+                        const r = (a * Math.PI) / 180;
+                        const cx = 12 + 2.7 * Math.sin(r);
+                        const cy = 6.4 - 2.7 * Math.cos(r);
+                        return <ellipse key={a} cx={cx} cy={cy} rx="1.7" ry="2" transform={`rotate(${a} ${cx} ${cy})`} />;
+                    })}
+                    <circle cx="12" cy="6.4" r="0.9" />
                 </>
             )}
             {lv === 5 && (
                 <>
-                    <path d="M12 20.5V12" />
-                    <Leaves low level={5} />
-                    <circle cx="12" cy="8.2" r="3.7" fill={fill(5)} />
-                    <path d="M12 4.5c.7-1.3 1.9-2 3.3-2-.1 1.4-1.2 2.3-3.3 2z" fill={fill(2)} />
+                    <path d="M12 20.4v-7.6" />
+                    <path d="M12 17.6c-2.5.1-4.2-1.2-4.4-3.4 2.2 0 4.1 1.3 4.4 3.4z" />
+                    <circle cx="12" cy="8.6" r="4" />
+                    <path d="M12 4.6c.5-1.3 1.6-2 3-2.1-.1 1.3-1.2 2.1-3 2.1zM10.1 7.2c.5-.6 1.1-.9 1.8-1" />
                 </>
             )}
         </svg>

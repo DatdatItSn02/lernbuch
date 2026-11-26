@@ -10,7 +10,7 @@ const NAV = [
     { to: '/cai-dat', label: 'Cài đặt', icon: Settings },
 ];
 
-/** Khung app học: thanh trên ở máy tính, thanh dưới ở điện thoại (như Lernbuch); nội dung là tờ sổ giữa nền giấy. */
+/** Khung app học: thanh mực tím trên cùng (điều hướng ở máy tính), thanh điều hướng dưới ở điện thoại; nội dung trên nền giấy vở. */
 export function Shell({ children }: { children: ReactNode }) {
     const { pathname } = useLocation();
     const mainRef = useRef<HTMLElement>(null);
@@ -29,19 +29,19 @@ export function Shell({ children }: { children: ReactNode }) {
             <a href="#noi-dung" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-sheet focus:px-4 focus:py-2">
                 Bỏ qua thanh điều hướng
             </a>
-            <header className="sticky top-0 z-20 hidden border-b border-line bg-paper md:block">
-                <div className="mx-auto flex h-16 max-w-[var(--sheet-max)] items-center gap-8 px-6">
-                    <NavLink to="/hom-nay" className="font-display text-title font-bold text-ink">
+            <header className="sticky top-0 z-20 bg-box text-on-box">
+                <div className="mx-auto flex h-12 max-w-[var(--sheet-max)] items-center gap-8 px-5 md:h-14 md:px-6">
+                    <NavLink to="/hom-nay" className="text-title font-extrabold tracking-tight focus-visible:outline-on-box!">
                         Lernbuch
                     </NavLink>
-                    <nav aria-label="Điều hướng chính" className="flex h-full items-stretch gap-1">
+                    <nav aria-label="Điều hướng chính" className="hidden h-full items-stretch gap-1 md:flex">
                         {NAV.map(({ to, label, icon: Icon }) => (
                             <NavLink
                                 key={to}
                                 to={to}
                                 className={({ isActive }) =>
-                                    `flex items-center gap-2 border-b-2 px-3 text-label font-semibold transition-colors duration-200 ${
-                                        isActive ? 'border-leaf text-leaf' : 'border-transparent text-ink-2 hover:text-ink'
+                                    `flex items-center gap-2 border-b-[3px] px-3 pt-[3px] text-label font-semibold transition-colors duration-200 focus-visible:outline-on-box! ${
+                                        isActive ? 'border-on-box text-on-box' : 'border-transparent text-on-box/75 hover:text-on-box'
                                     }`
                                 }
                             >
@@ -50,18 +50,18 @@ export function Shell({ children }: { children: ReactNode }) {
                             </NavLink>
                         ))}
                     </nav>
-                    <span className="ml-auto rounded-pill border border-line px-3 py-1 text-label text-ink-2">Dữ liệu mẫu</span>
+                    <span className="ml-auto text-label text-on-box/80">Dữ liệu mẫu</span>
                 </div>
             </header>
 
             <main ref={mainRef} id="noi-dung" tabIndex={-1} className="mx-auto max-w-[var(--sheet-max)] pb-24 md:px-6 md:pt-6 md:pb-12">
-                <p className="border-b border-line px-5 py-1.5 text-label text-ink-2 md:hidden">Dữ liệu mẫu: tiến độ và ghi chú mất khi tải lại trang.</p>
+                <p className="border-b border-line px-5 py-1.5 text-label text-ink-2 md:hidden">Tiến độ và ghi chú mất khi tải lại trang.</p>
                 {children}
             </main>
 
             <nav
                 aria-label="Điều hướng chính"
-                className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-paper pb-[env(safe-area-inset-bottom)] md:hidden"
+                className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-sheet pb-[env(safe-area-inset-bottom)] md:hidden"
             >
                 <ul className="grid grid-cols-5">
                     {NAV.map(({ to, label, icon: Icon }) => (
@@ -69,8 +69,8 @@ export function Shell({ children }: { children: ReactNode }) {
                             <NavLink
                                 to={to}
                                 className={({ isActive }) =>
-                                    `flex min-h-16 flex-col items-center justify-center gap-1 text-[calc(0.75rem*var(--type-scale))] font-semibold leading-tight ${
-                                        isActive ? 'text-leaf' : 'text-ink-2'
+                                    `relative flex min-h-16 flex-col items-center justify-center gap-1 text-[calc(0.75rem*var(--type-scale))] font-semibold leading-tight ${
+                                        isActive ? 'text-tim before:absolute before:inset-x-5 before:top-0 before:h-[3px] before:bg-tim' : 'text-ink-2'
                                     }`
                                 }
                             >
@@ -85,7 +85,7 @@ export function Shell({ children }: { children: ReactNode }) {
     );
 }
 
-/** Tờ sổ: khung nội dung chính. */
+/** Trang vở: khung nội dung chính; điện thoại tràn màn hình, máy tính có viền mảnh. */
 export function Sheet({ children, className = '' }: { children: ReactNode; className?: string }) {
-    return <div className={`bg-sheet md:rounded-lg md:border md:border-line md:shadow-sheet ${className}`}>{children}</div>;
+    return <div className={`bg-sheet md:rounded-md md:border md:border-line ${className}`}>{children}</div>;
 }

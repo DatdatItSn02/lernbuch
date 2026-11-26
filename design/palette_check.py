@@ -18,16 +18,20 @@ HERE = Path(__file__).resolve().parent
 PAIRS = [
     ("ink", "paper", 4.5), ("ink", "sheet", 4.5), ("ink-2", "sheet", 4.5), ("ink-2", "sunken", 4.5),
     ("ink-2", "paper", 4.5), ("ink-3", "sheet", 3.0),
-    ("on-leaf", "leaf", 4.5), ("on-leaf", "leaf-strong", 4.5), ("leaf", "sheet", 4.5), ("ink", "leaf-tint", 4.5),
+    ("on-tim", "tim", 4.5), ("on-tim", "tim-strong", 4.5), ("tim", "sheet", 4.5), ("ink", "tim-tint", 4.5),
     ("danger", "sheet", 4.5), ("ink", "danger-tint", 4.5), ("warning-ink", "sheet", 4.5), ("info", "sheet", 4.5),
     ("focus", "sheet", 3.0), ("focus", "paper", 3.0), ("line-strong", "sheet", 3.0),
     ("der", "sheet", 4.5), ("die", "sheet", 4.5), ("das", "sheet", 4.5), ("plural", "sheet", 4.5),
     ("level-5", "sheet", 3.0), ("level-4", "sheet", 3.0),
+    # Bút đỏ: số đến hạn, tích ngày; tai thẻ có chữ (mức 0–3 chữ mực, 4–5 chữ trắng ở bản sáng)
+    ("pen", "sheet", 4.5), ("pen", "paper", 4.5), ("pen", "pen-tint", 4.5), ("pen", "tim-tint", 3.0),
+    ("on-box", "box", 4.5), ("box-pen", "on-box", 4.5),
+    *[(f"on-level-{i}", f"level-{i}", 4.5) for i in range(6)],
     # Màn hình học (nền giấy) và trạng thái di chuột của nút chấm, nút sao
-    ("leaf", "paper", 4.5), ("danger", "paper", 4.5), ("warning-ink", "paper", 4.5),
+    ("tim", "paper", 4.5), ("danger", "paper", 4.5), ("warning-ink", "paper", 4.5),
     ("der", "paper", 4.5), ("die", "paper", 4.5), ("das", "paper", 4.5), ("plural", "paper", 4.5),
-    ("danger", "danger-tint", 4.5), ("leaf", "leaf-tint", 4.5), ("warning-ink", "sunken", 4.5),
-    ("leaf", "sunken", 3.0), ("ink-3", "paper", 3.0),
+    ("danger", "danger-tint", 4.5), ("tim", "tim-tint", 4.5), ("warning-ink", "sunken", 4.5),
+    ("tim", "sunken", 3.0), ("ink-3", "paper", 3.0),
 ]
 
 OKLCH = re.compile(r"--color-([\w-]+)\s*:\s*oklch\(\s*([\d.]+)%\s+([\d.]+)\s+([\d.]+)\s*\)")

@@ -137,7 +137,7 @@ function WordSheet({ word }: { word: Word }) {
                                 tabIndex={on ? 0 : -1}
                                 onClick={() => setTab(t.id)}
                                 className={`-mb-px min-h-12 shrink-0 border-b-2 px-3 text-label font-semibold whitespace-nowrap transition-colors duration-200 ${
-                                    on ? 'border-leaf text-ink' : 'border-transparent text-ink-2 hover:text-ink'
+                                    on ? 'border-tim text-ink' : 'border-transparent text-ink-2 hover:text-ink'
                                 }`}
                             >
                                 {t.label}
@@ -194,7 +194,7 @@ function MeaningTab({ word }: { word: Word }) {
                         aria-pressed={langs[l.id]}
                         onClick={() => toggle(l.id)}
                         className={`min-h-11 min-w-11 rounded-pill border px-4 text-label font-semibold transition-colors duration-200 ${
-                            langs[l.id] ? 'border-leaf bg-leaf-tint text-ink' : 'border-line text-ink-2 hover:border-line-strong'
+                            langs[l.id] ? 'border-tim bg-tim-tint text-ink' : 'border-line text-ink-2 hover:border-line-strong'
                         } ${l.id === 'zh' ? 'font-zh' : ''}`}
                     >
                         {l.short}

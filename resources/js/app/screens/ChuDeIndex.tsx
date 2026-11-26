@@ -39,7 +39,7 @@ export function ChuDeIndex() {
                                                             <span className="block font-semibold group-hover:underline">
                                                                 {t.name}
                                                                 {t.id === currentTopicId && (
-                                                                    <span className="ml-2 rounded-pill bg-leaf-tint px-2 text-label font-semibold whitespace-nowrap">Đang học</span>
+                                                                    <span className="ml-2 rounded-pill bg-tim-tint px-2 text-label font-semibold whitespace-nowrap">Đang học</span>
                                                                 )}
                                                             </span>
                                                             <span className="block text-label text-ink-2 tabular-nums">

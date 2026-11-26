@@ -20,8 +20,8 @@ const MAX_REQUEUE = 2;
 const GRADE_STYLE: Record<Grade, string> = {
     quen: 'border-danger text-danger bg-sheet hover:bg-danger-tint',
     kho: 'border-warning-ink text-warning-ink bg-sheet hover:bg-sunken',
-    tot: 'border-leaf bg-leaf text-on-leaf hover:bg-leaf-strong hover:border-leaf-strong',
-    de: 'border-leaf text-leaf bg-sheet hover:bg-leaf-tint',
+    tot: 'border-tim bg-tim text-on-tim hover:bg-tim-strong hover:border-tim-strong',
+    de: 'border-tim text-tim bg-sheet hover:bg-tim-tint',
 };
 
 const isTyping = (el: EventTarget | null) => el instanceof HTMLElement && (el.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName));
@@ -148,7 +148,7 @@ export function Hoc() {
                     aria-valuenow={Math.min(pos, queue.length)}
                     className="h-1.5 flex-1 overflow-hidden rounded-pill bg-sunken"
                 >
-                    <div className="h-full rounded-pill bg-leaf transition-[width] duration-300" style={{ width: `${progressPct}%` }} />
+                    <div className="h-full rounded-pill bg-tim transition-[width] duration-300" style={{ width: `${progressPct}%` }} />
                 </div>
                 <span className="min-w-12 text-right text-label font-semibold tabular-nums text-ink-2">
                     {Math.min(pos + (finished ? 0 : 1), queue.length)}/{queue.length}
@@ -257,7 +257,7 @@ function Card(props: {
                             ref={revealRef}
                             type="button"
                             onClick={props.onReveal}
-                            className="flex min-h-14 w-full items-center justify-center gap-3 rounded-md bg-leaf text-title font-bold text-on-leaf transition-colors duration-200 hover:bg-leaf-strong"
+                            className="flex min-h-14 w-full items-center justify-center gap-3 rounded-md bg-tim text-title font-bold text-on-tim transition-colors duration-200 hover:bg-tim-strong"
                         >
                             Lật thẻ <Kbd>Space</Kbd>
                         </button>
@@ -359,7 +359,7 @@ function Summary({ done, topicId, topicName, newTopicId }: { done: Done[]; topic
                 {more && (
                     <Link
                         to={topicId ? `/hoc?chu-de=${topicId}` : '/hoc'}
-                        className="flex min-h-12 items-center justify-center rounded-md bg-leaf px-6 font-bold text-on-leaf hover:bg-leaf-strong"
+                        className="flex min-h-12 items-center justify-center rounded-md bg-tim px-6 font-bold text-on-tim hover:bg-tim-strong"
                     >
                         {moreNew > 0 ? 'Học tiếp' : 'Ôn tiếp'}
                         <span className="ml-2 text-label font-semibold tabular-nums">
@@ -370,7 +370,7 @@ function Summary({ done, topicId, topicName, newTopicId }: { done: Done[]; topic
                 <Link
                     to={back.to}
                     className={`flex min-h-12 items-center justify-center rounded-md px-6 font-semibold ${
-                        more ? 'border border-line-strong hover:bg-sunken' : 'bg-leaf font-bold text-on-leaf hover:bg-leaf-strong'
+                        more ? 'border border-line-strong hover:bg-sunken' : 'bg-tim font-bold text-on-tim hover:bg-tim-strong'
                     }`}
                 >
                     {back.label}

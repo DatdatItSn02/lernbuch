@@ -15,7 +15,7 @@
         <p class="mt-6 text-ink-2" lang="de">Ich möchte zwei Brötchen. Die Straße ist schön. Äpfel, Übung, Größe.</p>
         <p class="mt-2 text-ink-2">Chữ có dấu: ắ ằ ẳ ẵ ặ · ế ề ể ễ ệ · ố ồ ổ ỗ ộ · ư ơ đ · Ä Ö Ü ẞ</p>
         <p class="mt-10">
-            <a class="inline-flex min-h-11 items-center rounded-md bg-leaf px-5 text-label font-semibold text-on-leaf transition-colors duration-200 hover:bg-leaf-strong" href="{{ route('app') }}">Mở app học</a>
+            <a class="inline-flex min-h-11 items-center rounded-md bg-tim px-5 text-label font-semibold text-on-tim transition-colors duration-200 hover:bg-tim-strong" href="{{ route('app') }}">Mở app học</a>
         </p>
     </main>
     <footer class="mx-auto max-w-2xl px-6 pb-8 text-label text-ink-2">Bản {{ config('app.release') }}</footer>

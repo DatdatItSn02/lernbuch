@@ -148,7 +148,7 @@ function TopicPage({ topic }: { topic: Topic }) {
                         {due + newNext > 0 ? (
                             <Link
                                 to={`/hoc?chu-de=${topic.id}`}
-                                className="flex min-h-14 flex-col justify-center rounded-md bg-leaf px-4 py-2 text-on-leaf transition-colors duration-200 hover:bg-leaf-strong"
+                                className="flex min-h-14 flex-col justify-center rounded-md bg-tim px-4 py-2 text-on-tim transition-colors duration-200 hover:bg-tim-strong"
                             >
                                 <span className="font-bold">Học tiếp</span>
                                 <span className="text-label tabular-nums">
@@ -194,7 +194,7 @@ function TopicPage({ topic }: { topic: Topic }) {
                         <button
                             type="button"
                             onClick={() => setShown(hiddenCount > 0 ? Object.fromEntries(rows.map((w) => [w.id, true])) : {})}
-                            className="min-h-11 rounded-md px-3 text-label font-semibold text-leaf underline-offset-2 hover:underline"
+                            className="min-h-11 rounded-md px-3 text-label font-semibold text-tim underline-offset-2 hover:underline"
                         >
                             {hiddenCount > 0 ? 'Hiện hết' : 'Che lại'}
                         </button>
@@ -249,7 +249,7 @@ function TopicPage({ topic }: { topic: Topic }) {
                         {pages > 1 && ` · trang ${page}/${pages}`}
                     </h2>
                     {filtered && rows.length > 0 && (
-                        <button type="button" onClick={clearFilters} className="min-h-11 px-2 text-label font-semibold text-leaf underline-offset-2 hover:underline">
+                        <button type="button" onClick={clearFilters} className="min-h-11 px-2 text-label font-semibold text-tim underline-offset-2 hover:underline">
                             Bỏ lọc
                         </button>
                     )}

@@ -7,18 +7,18 @@ related_targets: []
 
 # Học
 
-Phạm vi: phiên học thẻ chế độ Flashcard (`/app/hoc`). Chế độ Operate. Dùng nhiều nhất, nhiều lượt ngắn; trên điện thoại một tay, trên máy tính bằng bàn phím (Space, 1–4, P, S, E, ←, →, Esc). Luật lặp lại ngắt quãng theo Lernbuch.
+Phạm vi: phiên học thẻ chế độ Flashcard (`/app/hoc`). Chế độ Operate. Dùng nhiều nhất, nhiều lượt ngắn; trên điện thoại một tay, trên máy tính bằng bàn phím (Space, 1–4, P, S, E, ←, →, Esc). Luật lặp lại ngắt quãng theo Lernbuch. Thế giới mới (2026-11-26).
 
 ## Direction contract
 
-THESIS: Chỉ có từ tiếng Đức cho tới khi người học muốn xem đáp án; lúc đó nghĩa, ví dụ và 4 nút chấm mới hiện lên vùng ngón cái. Không đặt thẻ trong khung trang trí, không thanh bên.
+THESIS: Mỗi từ là một tấm thẻ rút ra từ hộp: thẻ trắng có lề đỏ, tai thẻ ghi mức thuộc bằng hình cây nét mực, vài thẻ chờ phía sau. Lật thẻ thì đáp án viết tiếp trên chính thẻ đó; chấm Tốt hay Dễ thì bút đỏ đánh dấu tích ở lề.
 
-OWN-WORLD: Nền giấy trơn, không cảnh mùa; từ Nunito 800 cỡ lớn nhất màn hình, mạo từ tô màu giống kèm chính mạo từ; nút chấm: Quên viền gạch, Khó viền mật ong, Tốt nền lá, Dễ viền lá; dấu ấn: hình cây của thẻ lớn lên khi lên mức.
+OWN-WORLD: Như Hôm nay: giấy trắng lạnh, mực tím, đỏ bút chấm, Be Vietnam Pro; từ tiếng Đức cỡ lớn nhất, mạo từ tô màu (der xanh lam, die đỏ tía, das xanh lục); tai thẻ màu theo dải mực tím của mức; nút chấm là nút chuẩn, Tốt nền mực tím.
 
-STORY: Người học đọc từ, tự nhớ nghĩa, lật (Space hoặc chạm), tự chấm Quên/Khó/Tốt/Dễ (1–4, mỗi nút ghi hạn ôn mới), nghe lại (P, S, E), đi hết phiên rồi xem bảng tổng kết và học tiếp hoặc về Hôm nay.
+STORY: Người học đọc từ, tự nhớ nghĩa, lật (Space hoặc chạm), tự chấm Quên/Khó/Tốt/Dễ (1–4, mỗi nút ghi hạn ôn mới), nghe lại (P, S, E), đi hết phiên rồi xem tổng kết và học tiếp hoặc về Hôm nay.
 
-FIRST VIEWPORT: Điện thoại: hàng trên mảnh: nút thoát, vạch tiến độ, "3/13"; giữa màn hình: mạo từ + từ cỡ lớn nhất, số nhiều, nút nghe; nửa dưới: nút Lật thẻ rộng cả hàng. Sau khi lật: nghĩa VI đậm, EN và 中 nhỏ hơn, một câu ví dụ có dịch; 4 nút chấm thành một hàng sát đáy. Máy tính: cùng cột giữa rộng 640 px, có gợi ý phím.
+FIRST VIEWPORT: Điện thoại: hàng trên: nút thoát, vạch tiến độ theo ô, "5/21"; thẻ chiếm phần trên (tai thẻ góc phải, dòng chủ đề nhỏ, mạo từ + từ cỡ lớn nhất, số nhiều, nút nghe và nghe chậm); nút Lật thẻ rộng cả hàng sát đáy. Sau khi lật: nghĩa, ví dụ hiện tiếp trên thẻ, 4 nút chấm thành một hàng sát đáy. Máy tính: thẻ rộng tối đa 640 px giữa màn, có gợi ý phím.
 
-FORM: Chỉ có từ, vị trí 2 trong danh sách của mình; người dùng giao mình chọn trong 3 phương án được rút. seed:b910b58a848b85ee
+FORM: Thẻ rút từ hộp (B, vị trí 1) trên giấy vở bút đỏ (A, vị trí 4, hướng được rút), người dùng chọn trộn. seed:ead90915f8ca2dae
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

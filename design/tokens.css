@@ -1,4 +1,4 @@
-/* Lernbuch Online — design tokens v0.2 (2026-11-25)
+/* Lernbuch Online — design tokens v0.3 (2026-11-26): thế giới "Vở ô li và hộp thẻ"
    Nguồn chuẩn là OKLCH; tương phản kiểm bằng design/palette_check.py (đọc thẳng file này).
    Dùng: <html data-theme="light|dark" data-season="spring|summer|autumn|winter" data-font-size="sm|md|lg">
    File này nằm trong luồng Tailwind 4 của resources/css/app.css: biến trong @theme sinh ra lớp tiện ích
@@ -11,53 +11,74 @@
     --radius-*: initial;
     --shadow-*: initial;
 
-    /* Nền và chữ */
-    --color-paper: oklch(97.5% 0.012 85);
-    --color-sheet: oklch(99.5% 0.005 85);
-    --color-sunken: oklch(95% 0.016 85);
-    --color-line: oklch(86% 0.02 80);
-    --color-line-strong: oklch(64% 0.025 75);
-    --color-ink: oklch(27% 0.025 60);
-    --color-ink-2: oklch(47% 0.025 60);
-    --color-ink-3: oklch(56% 0.022 60);
+    /* Nền và chữ: giấy vở trắng lạnh, chữ mực đậm ngả tím */
+    --color-paper: oklch(98.4% 0.006 275);
+    --color-sheet: oklch(100% 0 0);
+    --color-sunken: oklch(95.6% 0.012 278);
+    --color-line: oklch(87.5% 0.03 278);
+    --color-line-strong: oklch(64% 0.05 280);
+    --color-ink: oklch(24% 0.035 285);
+    --color-ink-2: oklch(45% 0.04 282);
+    --color-ink-3: oklch(55% 0.035 282);
 
-    /* Hành động và trạng thái */
-    --color-leaf: oklch(50% 0.12 150);
-    --color-leaf-strong: oklch(44% 0.115 150);
-    --color-leaf-tint: oklch(94% 0.04 150);
-    --color-on-leaf: oklch(99.5% 0.005 150);
-    --color-danger: oklch(52% 0.17 28);
-    --color-danger-tint: oklch(95% 0.024 28);
+    /* Mực tím: hành động chính, mục đang chọn, dải mức thuộc */
+    --color-tim: oklch(40% 0.17 285);
+    --color-tim-strong: oklch(33.5% 0.15 285);
+    --color-tim-tint: oklch(94.5% 0.026 285);
+    --color-on-tim: oklch(99.5% 0.002 285);
+
+    /* Bút đỏ: chỉ cho dấu chấm (tích ngày đã học, khoanh hôm nay, số đến hạn, lề vở) */
+    --color-pen: oklch(53% 0.2 27);
+    --color-pen-tint: oklch(95.5% 0.02 27);
+
+    /* Hộp thẻ ở Hôm nay: lòng hộp mực tím đậm, chữ trên hộp */
+    --color-box: oklch(31% 0.11 285);
+    --color-on-box: oklch(96% 0.012 285);
+    --color-box-pen: oklch(53% 0.2 27);
+
+    /* Trạng thái */
+    --color-danger: oklch(50% 0.19 25);
+    --color-danger-tint: oklch(95.5% 0.02 25);
     --color-warning: oklch(78% 0.14 80);
     --color-warning-ink: oklch(45% 0.09 70);
-    --color-info: oklch(52% 0.11 245);
-    --color-focus: oklch(52% 0.15 255);
+    --color-info: oklch(50% 0.12 250);
+    --color-focus: oklch(52% 0.16 255);
 
-    /* Mạo từ */
-    --color-der: oklch(50% 0.13 255);
-    --color-die: oklch(52% 0.16 15);
-    --color-das: oklch(50% 0.092 170);
-    --color-plural: oklch(52% 0.11 60);
+    /* Mạo từ: die đỏ tía để không lẫn với bút đỏ */
+    --color-der: oklch(47% 0.15 255);
+    --color-die: oklch(48% 0.19 350);
+    --color-das: oklch(48% 0.1 165);
+    --color-plural: oklch(50% 0.11 60);
 
-    /* 6 mức thuộc: hạt, mầm, lá, nụ, hoa, quả */
-    --color-level-0: oklch(90% 0.01 80);
-    --color-level-1: oklch(86% 0.06 115);
-    --color-level-2: oklch(78% 0.09 130);
-    --color-level-3: oklch(68% 0.11 140);
-    --color-level-4: oklch(57% 0.12 148);
-    --color-level-5: oklch(46% 0.11 152);
+    /* 6 mức thuộc (hạt, mầm, lá, nụ, hoa, quả): mực tím từ nhạt đến đậm */
+    --color-level-0: oklch(92.5% 0.014 280);
+    --color-level-1: oklch(86% 0.045 283);
+    --color-level-2: oklch(77% 0.08 284);
+    --color-level-3: oklch(65% 0.12 285);
+    --color-level-4: oklch(52% 0.15 285);
+    --color-level-5: oklch(38% 0.16 286);
+
+    /* Chữ trên nền từng mức (tai thẻ ở hộp thẻ và thẻ học) */
+    --color-on-level-0: oklch(24% 0.035 285);
+    --color-on-level-1: oklch(24% 0.035 285);
+    --color-on-level-2: oklch(24% 0.035 285);
+    --color-on-level-3: oklch(20% 0.04 285);
+    --color-on-level-4: oklch(99.5% 0.002 285);
+    --color-on-level-5: oklch(99.5% 0.002 285);
 
     /* Chữ: font tự lưu trữ khai báo ở resources/css/fonts.css */
-    --font-sans: "Nunito", system-ui, sans-serif;
-    --font-display: "Baloo 2", "Nunito", system-ui, sans-serif;
-    --font-body: "Nunito", system-ui, sans-serif;
-    --font-hand: "Patrick Hand", "Nunito", cursive;
+    --font-sans: "Be Vietnam Pro", system-ui, sans-serif;
+    --font-display: "Be Vietnam Pro", system-ui, sans-serif;
+    --font-body: "Be Vietnam Pro", system-ui, sans-serif;
+    --font-hand: "Patrick Hand", "Be Vietnam Pro", cursive;
     --font-zh: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
 
     --text-display: calc(2.5rem * var(--type-scale));
     --text-display--line-height: 1.1;
-    --text-headline: calc(1.75rem * var(--type-scale));
-    --text-headline--line-height: 1.2;
+    --text-display--letter-spacing: -0.025em;
+    --text-headline: calc(1.625rem * var(--type-scale));
+    --text-headline--line-height: 1.25;
+    --text-headline--letter-spacing: -0.015em;
     --text-title: calc(1.25rem * var(--type-scale));
     --text-title--line-height: 1.3;
     --text-body: calc(1rem * var(--type-scale));
@@ -68,11 +89,12 @@
     --text-hand--line-height: 1.4;
     --text-study-word: clamp(2rem, 7vw, 3.25rem);
     --text-study-word--line-height: 1.1;
+    --text-study-word--letter-spacing: -0.02em;
 
     /* Bo góc */
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 16px;
+    --radius-sm: 3px;
+    --radius-md: 5px;
+    --radius-lg: 8px;
     --radius-pill: 999px;
 
     /* Chuyển động */
@@ -89,48 +111,60 @@
     --sheet-max: 1120px;
 
     /* Chiều sâu: dùng lớp shadow-sheet, shadow-raised */
-    --shadow-sheet: 0 1px 2px oklch(27% 0.025 60 / 0.08), 0 4px 12px oklch(27% 0.025 60 / 0.06);
-    --shadow-raised: 0 2px 4px oklch(27% 0.025 60 / 0.10), 0 12px 28px oklch(27% 0.025 60 / 0.12);
+    --shadow-sheet: 0 1px 2px oklch(30% 0.06 285 / 0.10), 0 3px 8px oklch(30% 0.06 285 / 0.06);
+    --shadow-raised: 0 2px 4px oklch(30% 0.06 285 / 0.12), 0 10px 24px oklch(30% 0.06 285 / 0.14);
 
     --dur-press: 120ms;
     --dur-state: 200ms;
     --dur-reveal: 320ms;
 
-    /* Mùa: chỉ cho cảnh và minh hoạ */
+    /* Mùa: chỉ cho cành vẽ nét mực cạnh ngày ở Hôm nay */
     --season: oklch(82% 0.08 350);
 
     color-scheme: light;
 }
 
 [data-theme="dark"] {
-    --color-paper: oklch(19% 0.012 70);
-    --color-sheet: oklch(23% 0.014 70);
-    --color-sunken: oklch(17% 0.012 70);
-    --color-line: oklch(34% 0.015 70);
-    --color-line-strong: oklch(52% 0.02 70);
-    --color-ink: oklch(93% 0.012 85);
-    --color-ink-2: oklch(76% 0.015 85);
-    --color-ink-3: oklch(66% 0.015 85);
-    --color-leaf: oklch(74% 0.13 150);
-    --color-leaf-strong: oklch(80% 0.12 150);
-    --color-leaf-tint: oklch(30% 0.05 150);
-    --color-on-leaf: oklch(20% 0.03 150);
-    --color-danger: oklch(72% 0.15 28);
-    --color-danger-tint: oklch(30% 0.06 28);
+    /* Đọc buổi tối: giấy mực xanh tím đậm, chữ trắng ngà lạnh */
+    --color-paper: oklch(18% 0.02 280);
+    --color-sheet: oklch(22.5% 0.025 280);
+    --color-sunken: oklch(15.5% 0.018 280);
+    --color-line: oklch(33% 0.03 280);
+    --color-line-strong: oklch(54% 0.04 280);
+    --color-ink: oklch(94% 0.01 280);
+    --color-ink-2: oklch(78% 0.02 280);
+    --color-ink-3: oklch(68% 0.02 280);
+    --color-tim: oklch(76% 0.12 285);
+    --color-tim-strong: oklch(83% 0.085 285);
+    --color-tim-tint: oklch(31% 0.07 285);
+    --color-on-tim: oklch(18% 0.04 285);
+    --color-pen: oklch(71% 0.16 27);
+    --color-pen-tint: oklch(30% 0.07 27);
+    --color-box: oklch(13% 0.03 282);
+    --color-on-box: oklch(92% 0.015 285);
+    --color-box-pen: oklch(52% 0.2 27);
+    --color-danger: oklch(72% 0.15 25);
+    --color-danger-tint: oklch(30% 0.07 25);
     --color-warning: oklch(80% 0.13 80);
     --color-warning-ink: oklch(85% 0.11 85);
-    --color-info: oklch(74% 0.10 245);
-    --color-focus: oklch(74% 0.12 255);
-    --color-der: oklch(76% 0.11 255);
-    --color-die: oklch(76% 0.12 15);
-    --color-das: oklch(77% 0.10 170);
+    --color-info: oklch(75% 0.10 250);
+    --color-focus: oklch(75% 0.12 255);
+    --color-der: oklch(77% 0.11 255);
+    --color-die: oklch(77% 0.13 350);
+    --color-das: oklch(78% 0.10 165);
     --color-plural: oklch(80% 0.10 70);
-    --color-level-0: oklch(34% 0.01 80);
-    --color-level-1: oklch(42% 0.05 115);
-    --color-level-2: oklch(50% 0.08 130);
-    --color-level-3: oklch(59% 0.10 140);
-    --color-level-4: oklch(68% 0.115 148);
-    --color-level-5: oklch(78% 0.12 152);
+    --color-level-0: oklch(32% 0.02 280);
+    --color-level-1: oklch(40% 0.05 283);
+    --color-level-2: oklch(50% 0.08 284);
+    --color-level-3: oklch(70% 0.10 285);
+    --color-level-4: oklch(78% 0.085 285);
+    --color-level-5: oklch(87% 0.055 286);
+    --color-on-level-0: oklch(94% 0.01 280);
+    --color-on-level-1: oklch(94% 0.01 280);
+    --color-on-level-2: oklch(96% 0.008 280);
+    --color-on-level-3: oklch(17% 0.04 285);
+    --color-on-level-4: oklch(17% 0.04 285);
+    --color-on-level-5: oklch(17% 0.04 285);
     --shadow-sheet: 0 1px 2px oklch(0% 0 0 / 0.40), 0 4px 12px oklch(0% 0 0 / 0.30);
     --shadow-raised: 0 2px 4px oklch(0% 0 0 / 0.45), 0 12px 28px oklch(0% 0 0 / 0.40);
     color-scheme: dark;
@@ -145,8 +179,8 @@
 [data-font-size="lg"] { --type-scale: 1.125; }
 
 /* Phần trình duyệt cũng theo màu hệ thống */
-::selection { background: var(--color-leaf-tint); color: var(--color-ink); }
-:root { caret-color: var(--color-leaf); accent-color: var(--color-leaf); scrollbar-color: var(--color-line-strong) var(--color-paper); }
+::selection { background: var(--color-tim-tint); color: var(--color-ink); }
+:root { caret-color: var(--color-tim); accent-color: var(--color-tim); scrollbar-color: var(--color-line-strong) var(--color-paper); }
 :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 
 /* Chữ tiếng Đức: ngắt từ ghép dài */

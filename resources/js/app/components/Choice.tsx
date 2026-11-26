@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 export type ChoiceOption<T> = { value: T; label: ReactNode };
 
-/** Nhóm chọn một (radio) vẽ thành hàng viên thuốc; chọn bằng chuột, chạm hoặc phím mũi tên như radio thường. */
+/** Nhóm chọn một (radio) vẽ thành hàng ô vuông; chọn bằng chuột, chạm hoặc phím mũi tên như radio thường. */
 export function Choice<T extends string | number>({
     legend,
     name,
@@ -29,8 +29,8 @@ export function Choice<T extends string | number>({
                     return (
                         <label
                             key={String(o.value)}
-                            className={`flex min-h-11 min-w-11 cursor-pointer items-center justify-center gap-1.5 rounded-pill border px-3.5 text-label font-semibold transition-colors duration-200 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-focus ${
-                                on ? 'border-leaf bg-leaf-tint text-ink' : 'border-line text-ink-2 hover:border-line-strong hover:text-ink'
+                            className={`flex min-h-11 min-w-11 cursor-pointer items-center justify-center gap-1.5 rounded-md border px-3.5 text-label font-semibold transition-colors duration-200 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-focus ${
+                                on ? 'border-tim bg-tim-tint text-ink' : 'border-line text-ink-2 hover:border-line-strong hover:text-ink'
                             }`}
                         >
                             <input type="radio" name={name} className="sr-only" checked={on} onChange={() => onChange(o.value)} />
