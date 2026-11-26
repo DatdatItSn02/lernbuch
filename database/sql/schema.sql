@@ -1,5 +1,5 @@
 -- =====================================================================
--- Lernbuch Online — schema database v0.2 (2026-11-27: base_lang cho bài ngữ pháp, bộ bài tập)
+-- Lernbuch Online — schema database v0.3 (2026-11-27: base_lang cho bài ngữ pháp, bộ bài tập; nhóm bộ bài tập, dữ liệu thêm của câu bài tập)
 -- Đích: MySQL 8.4 LTS. Cú pháp giữ ở mức chạy được cả MariaDB 10.6+ (máy dev).
 --
 -- Quy ước (theo LoWo):
@@ -574,6 +574,7 @@ CREATE TABLE exercise_sets (
   grammar_lesson_id  INT UNSIGNED NULL,
   topic_id           INT UNSIGNED NULL,
   description        VARCHAR(500) NULL,
+  group_name         VARCHAR(160) NULL COMMENT 'nhóm hiện trên trang, vd Chương 36 · Pronomen, Bài 1 · Person & Familie',
   item_count         SMALLINT UNSIGNED NOT NULL DEFAULT 0,
   access_tier        TINYINT UNSIGNED NOT NULL DEFAULT 2,
   status             VARCHAR(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL DEFAULT 'published',
@@ -607,6 +608,7 @@ CREATE TABLE exercises (
   hint          VARCHAR(500) NULL,
   explanation   TEXT NULL,
   translations  JSON NULL,
+  extra         JSON NULL COMMENT 'lời dặn (Viết số nhiều…), phân biệt hoa thường, kho từ để chọn',
   sort          INT NOT NULL DEFAULT 0,
   status        VARCHAR(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL DEFAULT 'published',
   source_id     SMALLINT UNSIGNED NULL,

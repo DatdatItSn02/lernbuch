@@ -106,7 +106,7 @@ results["review_partitions"] = [r[0] for r in cur.fetchall()]
 
 # ---------------------------------------------------------------- dữ liệu khởi tạo
 for table, expected in {"plans": 5, "plan_entitlements": 40, "roles": 9, "permissions": 14,
-                        "card_collections": 7, "languages": 4, "ai_prompts": 10, "content_sources": 12}.items():
+                        "card_collections": 7, "languages": 4, "ai_prompts": 10, "content_sources": 13}.items():
     cur.execute(f"SELECT COUNT(*) FROM {table}")
     n = cur.fetchone()[0]
     check(f"seed {table} = {expected}", n == expected, n)

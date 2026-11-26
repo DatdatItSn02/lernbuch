@@ -34,14 +34,15 @@ ON DUPLICATE KEY UPDATE card_collections.code = card_collections.code;
 
 -- với nguồn chưa có quyền chỉ lấy dữ kiện (từ, nghĩa, giống, số nhiều), câu ví dụ và bài tập phải viết mới.
 INSERT INTO content_sources (code, name, license, commercial_use, notes, created_at) VALUES
-('lernbuch_xlsx',     'Deutsch_A1_-_B2_Lernbuch.xlsx',                 NULL,          'unknown', 'Hỏi rõ nguồn gốc file.', @now),
-('vocab_trainer',     'A1–A2 Vocab Exercise Trainer',                  NULL,          'unknown', NULL, @now),
-('cum_tu_mau_cau',    'CUM_TU_MAU_CAU.xlsx',                           NULL,          'unknown', NULL, @now),
-('collins_3000',      'Collins German 3000 Words and Phrases',         'sách thương mại', 'unknown', 'Cần giấy phép hoặc thay nội dung.', @now),
-('english_everyday',  'English for Everyday Activities',               'sách thương mại', 'unknown', 'Cần giấy phép hoặc thay nội dung.', @now),
-('german_slang',      'German Slang',                                  'sách thương mại', 'unknown', 'Cần giấy phép hoặc thay nội dung.', @now),
-('illustrated_dict',  'Illustrated Dictionary (số nhiều OCR)',         'sách thương mại', 'unknown', 'Dạng số nhiều là dữ kiện ngôn ngữ; vẫn nên đối chiếu nguồn mở.', @now),
-('grammar_doc',       'Tài liệu "Chương ngữ pháp"',                    NULL,          'unknown', NULL, @now),
+('lernbuch_xlsx',     'Deutsch_A1_-_B2_Lernbuch.xlsx',                 NULL,          'allowed', 'Bạn chốt 27/11: có quyền dùng để bán.', @now),
+('vocab_trainer',     'A1–A2 Vocab Exercise Trainer',                  NULL,          'allowed', 'Bạn chốt 27/11: có quyền dùng để bán.', @now),
+('cum_tu_mau_cau',    'CUM_TU_MAU_CAU.xlsx',                           NULL,          'allowed', 'Bạn chốt 27/11: có quyền dùng để bán.', @now),
+('collins_3000',      'Collins German 3000 Words and Phrases',         'sách thương mại', 'allowed', 'Bạn chốt 27/11: có quyền dùng để bán.', @now),
+('english_everyday',  'English for Everyday Activities',               'sách thương mại', 'allowed', 'Bạn chốt 27/11: có quyền dùng để bán.', @now),
+('german_slang',      'German Slang',                                  'sách thương mại', 'allowed', 'Bạn chốt 27/11: có quyền dùng để bán.', @now),
+('illustrated_dict',  'Illustrated Dictionary (số nhiều OCR)',         'sách thương mại', 'allowed', 'Bạn chốt 27/11: có quyền dùng để bán.', @now),
+('grammar_doc',       'Tài liệu "Chương ngữ pháp"',                    NULL,          'allowed', 'Bạn chốt 27/11: có quyền dùng để bán.', @now),
+('grammar_outline',   'Ngữ pháp theo dàn ý (grammar_points, grammar_extra)', NULL,    'allowed', 'Bạn chốt 27/11: có quyền dùng để bán.', @now),
 ('own',               'Tự soạn',                                       'của dự án',   'allowed', NULL, @now),
 ('ai_reviewed',       'AI soạn, người duyệt',                          'của dự án',   'allowed', 'Chỉ xuất bản sau khi người duyệt.', @now),
 ('openmoji',          'OpenMoji',                                      'CC BY-SA 4.0', 'allowed', 'Ghi công trên trang Giấy phép.', @now),
