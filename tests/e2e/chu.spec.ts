@@ -77,10 +77,10 @@ test('mọi mẫu chữ hiện đúng font, đủ dấu tiếng Việt và ä ö
     await expect.poll(() => problems(page), { timeout: 15_000 }).toBe('');
 });
 
-test('trang chào dùng Baloo 2 cho tên và Nunito cho chữ', async ({ page }) => {
+test('trang chào dùng Be Vietnam Pro cho tên và chữ', async ({ page }) => {
     await open(page, '/');
-    await expect.poll(async () => (await renderedFonts(page, 'h1')).every((f) => isFamily(f, 'Baloo 2'))).toBe(true);
-    await expect.poll(async () => (await renderedFonts(page, 'main p')).every((f) => isFamily(f, 'Nunito'))).toBe(true);
+    await expect.poll(async () => (await renderedFonts(page, 'h1')).every((f) => isFamily(f, 'Be Vietnam Pro'))).toBe(true);
+    await expect.poll(async () => (await renderedFonts(page, 'main p')).every((f) => isFamily(f, 'Be Vietnam Pro'))).toBe(true);
 });
 
 test('trang chào và trang kiểm chữ không tràn ngang', async ({ page }) => {
@@ -92,11 +92,11 @@ test('trang chào và trang kiểm chữ không tràn ngang', async ({ page }) =
 });
 
 test('thiếu file font: phép kiểm báo lỗi, chữ vẫn đọc được bằng font dự phòng', async ({ page }) => {
-    // Giả lập mất file Nunito bộ chữ tiếng Việt.
-    await page.route(/nunito-vietnamese-wght-normal.*\.woff2/, (route) => route.abort());
+    // Giả lập mất file Be Vietnam Pro bộ chữ tiếng Việt, đậm 400.
+    await page.route(/be-vietnam-pro-vietnamese-400-normal.*\.woff2/, (route) => route.abort());
     await open(page, '/kiem-chu');
 
-    const sample = (await samples(page)).find((s) => s.font === 'Nunito' && s.text.startsWith('Học tiếng Đức'));
+    const sample = (await samples(page)).find((s) => s.font === 'Be Vietnam Pro' && s.text.startsWith('Học tiếng Đức'));
     expect(sample).toBeDefined();
     const s = sample as Sample;
     await expect

@@ -20,7 +20,7 @@ export function CaiDat() {
 
     return (
         <Sheet className="mx-auto max-w-[720px] px-5 py-6 md:px-8">
-            <h1 className="font-display text-headline font-semibold">Cài đặt</h1>
+            <h1 className="text-headline font-bold">Cài đặt</h1>
             <p role={saving ? undefined : 'alert'} className={`mt-1 ${saving ? 'text-ink-2' : 'font-semibold text-danger'}`}>
                 {saving
                     ? 'Cài đặt lưu trên trình duyệt này.'

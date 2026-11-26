@@ -132,7 +132,7 @@ function TopicPage({ topic }: { topic: Topic }) {
 
                 <div className="mt-1 grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(14rem,auto)] md:items-end md:gap-10">
                     <div className="min-w-0">
-                        <h1 className="font-display text-headline font-semibold">{topic.name}</h1>
+                        <h1 className="text-headline font-bold">{topic.name}</h1>
                         <p lang="en" className="text-ink-2">
                             {topic.nameEn}
                         </p>
@@ -291,7 +291,7 @@ function TopicPage({ topic }: { topic: Topic }) {
                                 return (
                                     <tr key={w.id} className="align-top">
                                         <td className="py-3 pl-5 md:pl-8">
-                                            <LevelIcon level={lv} size={22} />
+                                            <LevelIcon level={lv} size={22} className="text-tim" />
                                         </td>
                                         <td className="py-3 pr-3">
                                             {cover === 'de' && !open ? (

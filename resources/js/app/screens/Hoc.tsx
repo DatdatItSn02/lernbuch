@@ -5,6 +5,7 @@ import { GermanWord, PluralLine } from '../components/Article';
 import { AudioButton } from '../components/AudioButton';
 import { Kbd } from '../components/Kbd';
 import { LevelIcon } from '../components/LevelIcon';
+import { PenTick } from '../components/Vo';
 import { currentTopicId, topics, words, type Word } from '../data/demo';
 import { buildSession, isDue, isNew } from '../lib/session';
 import { speak } from '../lib/speech';
@@ -115,7 +116,7 @@ export function Hoc() {
             <span className="inline-flex items-center gap-1">
                 <span lang="de">{lastWord.lemma}</span> lên mức {LEVEL_NAMES[last.after]}
                 <span className="lb-grow inline-flex">
-                    <LevelIcon level={last.after} size={20} />
+                    <LevelIcon level={last.after} size={20} className="text-tim" />
                 </span>
             </span>
         );
@@ -146,9 +147,9 @@ export function Hoc() {
                     aria-valuemin={0}
                     aria-valuemax={queue.length}
                     aria-valuenow={Math.min(pos, queue.length)}
-                    className="h-1.5 flex-1 overflow-hidden rounded-pill bg-sunken"
+                    className="h-2 flex-1 overflow-hidden rounded-sm bg-sunken"
                 >
-                    <div className="h-full rounded-pill bg-tim transition-[width] duration-300" style={{ width: `${progressPct}%` }} />
+                    <div className="h-full bg-tim transition-[width] duration-300" style={{ width: `${progressPct}%` }} />
                 </div>
                 <span className="min-w-12 text-right text-label font-semibold tabular-nums text-ink-2">
                     {Math.min(pos + (finished ? 0 : 1), queue.length)}/{queue.length}
@@ -209,44 +210,60 @@ function Card(props: {
     }, [revealed, reviewing]);
     return (
         <>
-            <main className="mx-auto flex w-full max-w-[640px] flex-1 flex-col px-5 pb-48">
-                <div className="flex flex-1 flex-col items-center justify-center py-6 text-center">
-                    <p className="flex items-center gap-1.5 text-label text-ink-2">
-                        <LevelIcon level={level} size={20} title="" />
-                        {level === 0 ? 'Từ mới' : `${STAGE_NAMES[level]} · ${LEVEL_NAMES[level]}`}
-                    </p>
-                    <h1 className="mt-3 max-w-full text-study-word font-extrabold break-words">
-                        <GermanWord word={word} />
-                    </h1>
-                    <p className="mt-2 text-ink-2">
-                        <PluralLine word={word} />
-                    </p>
-                    <div className="mt-4 flex gap-2">
-                        <AudioButton text={word.lemma} shortcut="P" iconOnly />
-                        <AudioButton text={word.lemma} slow shortcut="S" iconOnly />
-                    </div>
+            <main className="mx-auto flex w-full max-w-[640px] flex-1 flex-col px-4 pt-6 pb-48">
+                {/* Thẻ rút từ hộp: hai thẻ chờ phía sau, tai thẻ ghi mức thuộc */}
+                <div className="relative">
+                    <span aria-hidden="true" className="absolute inset-x-4 -top-2 h-4 rounded-t-md border border-b-0 border-line bg-sheet" />
+                    <span aria-hidden="true" className="absolute inset-x-2 -top-1 h-4 rounded-t-md border border-b-0 border-line bg-sheet" />
+                    <article className="relative flex min-h-[min(56vh,30rem)] flex-col rounded-md border border-line bg-sheet shadow-sheet">
+                        <p
+                            className="absolute -top-6 right-4 flex h-6 items-center gap-1 rounded-t-md px-2.5 text-label font-semibold"
+                            style={{ background: `var(--color-level-${level})`, color: `var(--color-on-level-${level})` }}
+                        >
+                            <LevelIcon level={level} size={16} title="" className="text-tim" />
+                            {level === 0 ? 'Từ mới' : `${STAGE_NAMES[level]} · ${LEVEL_NAMES[level]}`}
+                        </p>
+                        <div className="relative flex-1 py-6 pr-5 pl-14 md:pl-16">
+                            <span aria-hidden="true" className="absolute inset-y-0 left-10 w-[1.5px] bg-pen opacity-45 md:left-12" />
+                            {reviewing && (reviewing.grade === 'tot' || reviewing.grade === 'de') && (
+                                <span className="absolute top-7 left-2.5 md:left-3.5">
+                                    <PenTick size={22} />
+                                </span>
+                            )}
+                            <h1 className="max-w-full text-study-word font-extrabold break-words">
+                                <GermanWord word={word} />
+                            </h1>
+                            <p className="mt-1 text-ink-2">
+                                <PluralLine word={word} />
+                            </p>
+                            <div className="mt-4 flex gap-2">
+                                <AudioButton text={word.lemma} shortcut="P" iconOnly />
+                                <AudioButton text={word.lemma} slow shortcut="S" iconOnly />
+                            </div>
 
-                    {revealed && (
-                        <div ref={answerRef} tabIndex={-1} aria-label="Đáp án" className="lb-reveal mt-8 w-full max-w-xl border-t border-line pt-6 text-left">
-                            {langs.vi && <p className="text-title font-bold">{word.vi}</p>}
-                            {langs.en && <p lang="en" className="mt-1 text-ink-2">{word.en}</p>}
-                            {langs.zh && <p lang="zh" className="mt-1 font-zh text-ink-2">{word.zh}</p>}
-                            {!langs.vi && !langs.en && !langs.zh && <p className="text-ink-2">Đang tắt cả ba thứ tiếng của nghĩa (bật lại ở Cài đặt).</p>}
-                            {example && (
-                                <div className="mt-5 flex items-start gap-3">
-                                    <AudioButton text={example.de} label="Nghe câu ví dụ" shortcut="E" iconOnly />
-                                    <p>
-                                        <span lang="de" className="block font-semibold">{example.de}</span>
-                                        <span className="block text-ink-2">{example.vi}</span>
-                                    </p>
+                            {revealed && (
+                                <div ref={answerRef} tabIndex={-1} aria-label="Đáp án" className="lb-reveal mt-6 border-t border-dashed border-line-strong pt-5">
+                                    {langs.vi && <p className="text-title font-bold">{word.vi}</p>}
+                                    {langs.en && <p lang="en" className="mt-1 text-ink-2">{word.en}</p>}
+                                    {langs.zh && <p lang="zh" className="mt-1 font-zh text-ink-2">{word.zh}</p>}
+                                    {!langs.vi && !langs.en && !langs.zh && <p className="text-ink-2">Đang tắt cả ba thứ tiếng của nghĩa (bật lại ở Cài đặt).</p>}
+                                    {example && (
+                                        <div className="mt-5 flex items-start gap-3">
+                                            <AudioButton text={example.de} label="Nghe câu ví dụ" shortcut="E" iconOnly />
+                                            <p>
+                                                <span lang="de" className="block font-semibold">{example.de}</span>
+                                                <span className="block text-ink-2">{example.vi}</span>
+                                            </p>
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>
-                    )}
+                    </article>
                 </div>
             </main>
 
-            <footer className="fixed inset-x-0 bottom-0 border-t border-line bg-paper pb-[env(safe-area-inset-bottom)]">
+            <footer className="fixed inset-x-0 bottom-0 border-t border-line bg-sheet pb-[env(safe-area-inset-bottom)]">
                 <div className="mx-auto max-w-[640px] px-4 py-3">
                     {reviewing ? (
                         <button type="button" onClick={props.onBack} className="flex min-h-14 w-full items-center justify-center gap-3 rounded-md border border-line-strong bg-sheet font-semibold hover:bg-sunken">
@@ -269,7 +286,7 @@ function Card(props: {
                                     type="button"
                                     onClick={() => props.onGrade(g.id)}
                                     aria-keyshortcuts={g.key}
-                                    className={`flex min-h-14 flex-col items-center justify-center rounded-md border-2 px-1 transition-colors duration-200 ${GRADE_STYLE[g.id]}`}
+                                    className={`flex min-h-14 flex-col items-center justify-center rounded-md border-[1.5px] px-1 transition-colors duration-200 ${GRADE_STYLE[g.id]}`}
                                 >
                                     <span className="font-bold">{g.label}</span>
                                     <span className="text-label tabular-nums">
@@ -317,7 +334,7 @@ function Summary({ done, topicId, topicName, newTopicId }: { done: Done[]; topic
 
     return (
         <main className="mx-auto w-full max-w-[640px] flex-1 px-5 py-6">
-            <h1 className="font-display text-headline font-semibold">Xong phiên</h1>
+            <h1 className="text-headline font-bold">Xong phiên</h1>
             {topicName && <p className="text-ink-2">{topicName}</p>}
             <p className="mt-4 text-title">
                 {sessionLine(stats.total, stats.fresh)}{' '}
@@ -339,10 +356,10 @@ function Summary({ done, topicId, topicName, newTopicId }: { done: Done[]; topic
                                         <GermanWord word={w} />
                                     </span>
                                     <span className="flex shrink-0 items-center gap-1 text-label text-ink-2">
-                                        <LevelIcon level={c.from} size={20} title="" />
+                                        <LevelIcon level={c.from} size={20} title="" className="text-tim" />
                                         <ArrowRight size={14} aria-hidden="true" />
                                         <span className="lb-grow inline-flex" style={{ animationDelay: `${i * 80}ms` }}>
-                                            <LevelIcon level={c.to} size={28} title="" />
+                                            <LevelIcon level={c.to} size={28} title="" className="text-tim" />
                                         </span>
                                         <span className="sr-only">{`từ ${LEVEL_NAMES[c.from]} lên`}</span>
                                         {LEVEL_NAMES[c.to]}
@@ -383,7 +400,7 @@ function Summary({ done, topicId, topicName, newTopicId }: { done: Done[]; topic
 function Empty({ onExit }: { onExit: () => void }) {
     return (
         <main className="mx-auto flex w-full max-w-[640px] flex-1 flex-col items-center justify-center px-5 text-center">
-            <h1 className="font-display text-headline font-semibold">Chưa có thẻ nào để học</h1>
+            <h1 className="text-headline font-bold">Chưa có thẻ nào để học</h1>
             <p className="mt-2 text-ink-2">Thẻ đến hạn đã ôn hết và chủ đề này hết từ mới.</p>
             <button type="button" onClick={onExit} className="mt-6 min-h-12 rounded-md border border-line-strong px-6 font-semibold hover:bg-sunken">
                 Quay lại

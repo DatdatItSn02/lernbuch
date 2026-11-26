@@ -136,7 +136,7 @@ export function HomNay({ now: fixedNow }: { now?: Date }) {
                                         onClick={() => setSelected(d.offset)}
                                         className={`relative flex min-h-16 min-w-0 flex-col items-center justify-between border-r border-line py-1.5 transition-colors duration-200 last:border-r-0 ${
                                             active ? 'bg-tim-tint' : 'hover:bg-sunken'
-                                        } ${d.kind === 'future' ? 'text-ink-3' : 'text-ink-2'}`}
+                                        } text-ink-2`}
                                     >
                                         {/* Tên đọc ra bắt đầu bằng chữ nhìn thấy (T2 16), rồi tới ngày đủ và số thẻ */}
                                         <span className={`text-[calc(0.6875rem*var(--type-scale))] leading-none ${d.kind === 'today' ? 'font-bold text-pen' : ''}`}>
@@ -147,7 +147,7 @@ export function HomNay({ now: fixedNow }: { now?: Date }) {
                                             {d.kind === 'today' && d.count > 0 && <PenTick size={15} />}
                                             {d.kind === 'future' && d.count > 0 && <span className="text-[calc(0.6875rem*var(--type-scale))] tabular-nums">{d.count}</span>}
                                         </span>
-                                        <span className={`text-label leading-none font-semibold tabular-nums ${d.kind === 'today' ? 'text-pen' : 'text-ink'} ${d.kind === 'future' ? 'opacity-60' : ''}`}>
+                                        <span className={`text-label leading-none font-semibold tabular-nums ${d.kind === 'today' ? 'text-pen' : d.kind === 'future' ? 'font-normal text-ink-2' : 'text-ink'}`}>
                                             {d.date.getDate()}
                                         </span>
                                         {d.kind === 'today' && <TodayRing />}

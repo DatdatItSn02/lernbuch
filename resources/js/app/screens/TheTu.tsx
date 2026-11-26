@@ -99,7 +99,7 @@ function WordSheet({ word }: { word: Word }) {
                             aria-pressed={isStarred}
                             onClick={() => dispatch({ type: 'star', id: word.id })}
                             className={`flex size-11 shrink-0 items-center justify-center rounded-md border transition-colors duration-200 ${
-                                isStarred ? 'border-warning-ink bg-sunken text-warning-ink' : 'border-line text-ink-2 hover:bg-sunken'
+                                isStarred ? 'border-line text-warning-ink hover:bg-sunken' : 'border-line text-ink-2 hover:bg-sunken'
                             }`}
                         >
                             <Star size={22} aria-hidden="true" fill={isStarred ? 'currentColor' : 'none'} />
@@ -111,7 +111,7 @@ function WordSheet({ word }: { word: Word }) {
                             {posLabel(word)} · {word.cefr}
                         </span>
                         <span className="inline-flex items-center gap-1.5">
-                            <LevelIcon level={level} size={20} title="" />
+                            <LevelIcon level={level} size={20} title="" className="text-tim" />
                             {STAGE_NAMES[level]} · {LEVEL_NAMES[level]}
                         </span>
                         <span>{dueText(level, dueDay(p))}</span>
@@ -193,7 +193,7 @@ function MeaningTab({ word }: { word: Word }) {
                         aria-label={`${l.short} (${l.name})`}
                         aria-pressed={langs[l.id]}
                         onClick={() => toggle(l.id)}
-                        className={`min-h-11 min-w-11 rounded-pill border px-4 text-label font-semibold transition-colors duration-200 ${
+                        className={`min-h-11 min-w-11 rounded-md border px-4 text-label font-semibold transition-colors duration-200 ${
                             langs[l.id] ? 'border-tim bg-tim-tint text-ink' : 'border-line text-ink-2 hover:border-line-strong'
                         } ${l.id === 'zh' ? 'font-zh' : ''}`}
                     >

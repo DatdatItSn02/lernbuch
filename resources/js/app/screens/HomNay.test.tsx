@@ -14,20 +14,27 @@ const selectedTab = () => within(strip()).getAllByRole('tab').find((t) => t.getA
 const label = (t: HTMLElement) => t.textContent!.split(', ').slice(1).join(', ');
 
 describe('Hôm nay: chuỗi 14 ngày làm trục', () => {
-    it('chào theo giờ và ghi thứ, ngày', () => {
+    it('tiêu đề là một câu nói việc hôm nay; dòng trên ghi thứ, ngày', () => {
         open();
-        const h1 = screen.getByRole('heading', { level: 1, name: 'Chào buổi sáng' });
-        expect(h1.nextElementSibling?.textContent).toContain('Thứ Năm, 26/11');
+        const h1 = screen.getByRole('heading', { level: 1 });
+        expect(h1.textContent).toBe('Hôm nay có 12 thẻ cần ôn và 9 từ mới.');
+        expect(h1.previousElementSibling?.textContent).toContain('Thứ Năm, 26/11');
     });
 
-    it.each([
-        [4, 'Chào buổi tối'],
-        [11, 'Chào buổi trưa'],
-        [13, 'Chào buổi chiều'],
-        [18, 'Chào buổi tối'],
-    ])('lúc %i giờ chào "%s"', (h, text) => {
-        open(initialState(), new Date(2026, 10, 26, h, 0));
-        expect(screen.getByRole('heading', { level: 1, name: text })).toBeTruthy();
+    it('hộp thẻ đọc ra số thẻ từng ngăn, số đến hạn và số từ mới sắp học', () => {
+        open();
+        const box = screen.getByRole('img', { name: /^Hộp thẻ theo mức thuộc/ });
+        const name = box.getAttribute('aria-label')!;
+        expect(name).toContain('Hạt (Mới) 12 thẻ, 9 sắp học');
+        expect(name).toContain('Mầm (Đang học) 7 thẻ, 4 đến hạn');
+        expect(name).toContain('Quả (Thành thạo) 2 thẻ');
+        expect(name).not.toContain('Quả (Thành thạo) 2 thẻ,');
+    });
+
+    it('hộp thẻ tính lại khi đổi số từ mới mỗi lượt', () => {
+        open();
+        fireEvent.click(screen.getByRole('radio', { name: '10' }));
+        expect(screen.getByRole('img', { name: /^Hộp thẻ/ }).getAttribute('aria-label')).toContain('9 sắp học');
     });
 
     it('14 ô ngày: 10 ngày qua, hôm nay đang chọn, 3 ngày tới', () => {
@@ -101,7 +108,9 @@ describe('Hôm nay: chuỗi 14 ngày làm trục', () => {
         state.progress = Object.fromEntries(words.map((w) => [w.id, { level: 3, dueInDays: 5, lapses: 0 }]));
         open(state);
         expect(screen.queryByRole('link', { name: /Học ngay/ })).toBeNull();
-        expect(screen.getByText(/Hôm nay đã ôn hết thẻ đến hạn/)).toBeTruthy();
+        expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Hôm nay đã ôn hết thẻ đến hạn.');
+        expect(screen.getByText('Chọn thêm từ mới ở chủ đề kế tiếp.')).toBeTruthy();
+        expect(screen.getByRole('img', { name: /^Hộp thẻ/ }).getAttribute('aria-label')).not.toMatch(/đến hạn|sắp học/);
     });
 
     it('thẻ đến hạn chia theo chủ đề, có liên kết sang trang chủ đề', () => {
@@ -117,7 +126,7 @@ describe('Hôm nay: chuỗi 14 ngày làm trục', () => {
         open();
         const modes = within(screen.getByRole('region', { name: 'Chế độ học' }));
         expect(modes.getAllByRole('link').map((l) => l.textContent)).toEqual(['Flashcard']);
-        expect(modes.getAllByText('làm ở G1')).toHaveLength(5);
+        expect(modes.getByText('Quiz, Nghe, Gõ từ, Ghép cặp và Đặc biệt sẽ có ở bản G1.')).toBeTruthy();
         expect(modes.getByRole('link', { name: 'Flashcard' }).getAttribute('href')).toBe('/hoc');
     });
 });

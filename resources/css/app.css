@@ -37,6 +37,12 @@
     h3 {
         text-wrap: balance;
     }
+
+    /* Đoạn văn kéo một chữ xuống cùng chữ lẻ ở dòng cuối */
+    p,
+    li {
+        text-wrap: pretty;
+    }
 }
 
 /* Vùng chỉ nhận tiêu điểm bằng lệnh (tabindex="-1": nội dung chính, đáp án, đầu danh sách): không vẽ vòng focus */

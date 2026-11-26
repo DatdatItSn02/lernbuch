@@ -46,10 +46,11 @@ it('trang kiểm chữ có đủ vai trò chữ và không cho máy tìm kiếm 
         ->assertSee('ỳ ý ỷ ỹ ỵ')
         ->getContent();
 
-    foreach (['Baloo 2', 'Nunito', 'Patrick Hand'] as $font) {
+    foreach (['Be Vietnam Pro', 'Patrick Hand'] as $font) {
         expect($html)->toContain('data-font="'.$font.'"');
     }
     expect(substr_count($html, 'data-font-sample'))->toBe(20);
+    expect($html)->not->toContain('data-font="Nunito"');
 });
 
 it('/up trả 500 khi một kiểm tra sức khoẻ lỗi (để workflow deploy tự quay lại)', function () {

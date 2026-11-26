@@ -107,17 +107,17 @@ test('thẻ từ: Tab tới dải tab, mũi tên đổi tab', async ({ page }) =
     expect(await axe(page)).toEqual([]);
 });
 
-test('font của app học đã nạp: Baloo 2 cho tiêu đề, Nunito cho chữ', async ({ page }) => {
+test('font của app học đã nạp: Be Vietnam Pro cho tiêu đề và chữ', async ({ page }) => {
     await open(page, '/app/hom-nay');
     const fonts = await page.evaluate(() => ({
         loaded: [...document.fonts].filter((f) => f.status === 'loaded').map((f) => f.family.replace(/["']/g, '')),
         h1: getComputedStyle(document.querySelector('h1')!).fontFamily,
         body: getComputedStyle(document.body).fontFamily,
     }));
-    expect(fonts.loaded).toContain('Baloo 2');
-    expect(fonts.loaded).toContain('Nunito');
-    expect(fonts.h1).toMatch(/^"?Baloo 2/);
-    expect(fonts.body).toMatch(/^"?Nunito/);
+    expect(fonts.loaded).toContain('Be Vietnam Pro');
+    expect(fonts.loaded).not.toContain('Nunito');
+    expect(fonts.h1).toMatch(/^"?Be Vietnam Pro/);
+    expect(fonts.body).toMatch(/^"?Be Vietnam Pro/);
 });
 
 test('giao diện tối lưu lại sau khi tải lại trang', async ({ page }) => {

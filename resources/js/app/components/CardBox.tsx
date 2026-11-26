@@ -1,6 +1,8 @@
 import { LEVEL_NAMES, STAGE_NAMES } from '../lib/srs';
 import { LevelIcon } from './LevelIcon';
 
+const EDGE = 'color-mix(in oklch, var(--color-on-box) 62%, var(--color-box))';
+
 /**
  * Hộp thẻ 6 ngăn nhìn từ trên (hộp Leitner): mỗi ngăn là một mức thuộc, chồng thẻ cao theo số từ,
  * tai thẻ ghi tên mức kèm hình cây nét mực, số thẻ đến hạn của ngăn ghi trong ô trắng chữ bút đỏ.
@@ -40,7 +42,9 @@ export function CardBox({ counts, due, fresh }: { counts: number[]; due: number[
                                 style={{
                                     height: `${h}%`,
                                     minHeight: 3,
-                                    background: 'repeating-linear-gradient(to top, var(--color-on-box) 0 3px, color-mix(in oklch, var(--color-on-box) 72%, var(--color-box)) 3px 4px)',
+                                    // Mép trên của vài tấm thẻ: hai vạch mảnh ở đầu chồng
+                                    background: 'var(--color-on-box)',
+                                    boxShadow: [3, 4, 7, 8].map((y, k) => `inset 0 ${y}px 0 ${k % 2 ? EDGE : 'var(--color-on-box)'}`).join(', '),
                                 }}
                             />
                         </div>

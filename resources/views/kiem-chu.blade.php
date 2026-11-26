@@ -6,13 +6,13 @@
 
     // Mỗi vai trò chữ trong DESIGN.md; test Playwright đọc data-font để biết font phải dùng.
     $vaiTro = [
-        ['ten' => 'Tiêu đề thương hiệu', 'font' => 'Baloo 2', 'dam' => 700, 'lop' => 'font-display text-display font-bold', 'mau' => [['vi', 'Lernbuch: học tiếng Đức'], ['de', 'Größe, Straße, GROẞE']]],
-        ['ten' => 'Tiêu đề trang', 'font' => 'Baloo 2', 'dam' => 600, 'lop' => 'font-display text-headline font-semibold', 'mau' => [['vi', 'Chủ đề: Đồ ăn và thức uống'], ['de', 'Essen und Trinken in der Bäckerei']]],
-        ['ten' => 'Tiêu đề mục', 'font' => 'Nunito', 'dam' => 700, 'lop' => 'text-title font-bold', 'mau' => [['vi', 'Bài 3: Ở tiệm bánh mì'], ['de', 'Übung 3: Grüße aus München']]],
-        ['ten' => 'Chữ thường', 'font' => 'Nunito', 'dam' => 400, 'lop' => 'text-body', 'mau' => [['vi', $viCau], ['vi', $viThuong], ['vi', $viHoa], ['de', $de]]],
-        ['ten' => 'Chữ nghiêng', 'font' => 'Nunito', 'dam' => 400, 'lop' => 'text-body italic', 'mau' => [['vi', 'Ví dụ: người học đọc to từng câu.'], ['de', 'Die Brötchen schmecken großartig.']]],
-        ['ten' => 'Nhãn, nút, số liệu', 'font' => 'Nunito', 'dam' => 600, 'lop' => 'text-label font-semibold tabular-nums', 'mau' => [['vi', 'Ôn 12 thẻ · Học mới 8 từ · Chuỗi 14 ngày'], ['de', 'Übung · Größe · Grüße']]],
-        ['ten' => 'Từ trên thẻ học', 'font' => 'Nunito', 'dam' => 800, 'lop' => 'text-study-word font-extrabold', 'mau' => [['de', 'die Straße'], ['de', 'das Brötchen']]],
+        ['ten' => 'Tiêu đề thương hiệu', 'font' => 'Be Vietnam Pro', 'dam' => 800, 'lop' => 'text-display font-extrabold', 'mau' => [['vi', 'Lernbuch: học tiếng Đức'], ['de', 'Größe, Straße, GROẞE']]],
+        ['ten' => 'Tiêu đề trang', 'font' => 'Be Vietnam Pro', 'dam' => 700, 'lop' => 'text-headline font-bold', 'mau' => [['vi', 'Chủ đề: Đồ ăn và thức uống'], ['de', 'Essen und Trinken in der Bäckerei']]],
+        ['ten' => 'Tiêu đề mục', 'font' => 'Be Vietnam Pro', 'dam' => 700, 'lop' => 'text-title font-bold', 'mau' => [['vi', 'Bài 3: Ở tiệm bánh mì'], ['de', 'Übung 3: Grüße aus München']]],
+        ['ten' => 'Chữ thường', 'font' => 'Be Vietnam Pro', 'dam' => 400, 'lop' => 'text-body', 'mau' => [['vi', $viCau], ['vi', $viThuong], ['vi', $viHoa], ['de', $de]]],
+        ['ten' => 'Chữ nghiêng', 'font' => 'Be Vietnam Pro', 'dam' => 400, 'lop' => 'text-body italic', 'mau' => [['vi', 'Ví dụ: người học đọc to từng câu.'], ['de', 'Die Brötchen schmecken großartig.']]],
+        ['ten' => 'Nhãn, nút, số liệu', 'font' => 'Be Vietnam Pro', 'dam' => 600, 'lop' => 'text-label font-semibold tabular-nums', 'mau' => [['vi', 'Ôn 12 thẻ · Học mới 8 từ · Chuỗi 14 ngày'], ['de', 'Übung · Größe · Grüße']]],
+        ['ten' => 'Từ trên thẻ học', 'font' => 'Be Vietnam Pro', 'dam' => 800, 'lop' => 'text-study-word font-extrabold', 'mau' => [['de', 'die Straße'], ['de', 'das Brötchen']]],
         ['ten' => 'Chữ viết tay', 'font' => 'Patrick Hand', 'dam' => 400, 'lop' => 'font-hand text-hand', 'mau' => [['vi', 'Mẹo: chữ ß đọc như hai chữ s, ví dụ Straße.'], ['vi', $viThuong], ['de', 'Viele Grüße aus München!']]],
     ];
 @endphp
@@ -27,7 +27,7 @@
 </head>
 <body class="min-h-screen bg-paper text-ink antialiased">
     <main class="mx-auto max-w-5xl px-5 pt-10 pb-16 sm:px-8">
-        <h1 class="font-display text-headline font-semibold">Kiểm chữ</h1>
+        <h1 class="text-headline font-bold">Kiểm chữ</h1>
         <p class="mt-2 max-w-prose text-ink-2">Mỗi dòng ghi vai trò, font và độ đậm phải dùng. Chữ tiếng Việt đủ dấu và chữ tiếng Đức ä ö ü ß ẞ phải hiện đúng font, không lẫn font của máy.</p>
 
         <div class="mt-8 border-t border-line">
@@ -48,10 +48,10 @@
             <section class="grid gap-x-8 gap-y-3 border-b border-line py-6 md:grid-cols-[13rem_1fr]">
                 <h2 class="text-label font-semibold">
                     Chữ viết tay có ẞ
-                    <span class="block font-normal text-ink-2">Patrick Hand không có ẞ, chữ này hiện bằng Nunito</span>
+                    <span class="block font-normal text-ink-2">Patrick Hand không có ẞ, chữ này hiện bằng Be Vietnam Pro</span>
                 </h2>
                 <div class="min-w-0">
-                    <p lang="de" class="font-hand text-hand" data-font-sample data-font="Patrick Hand" data-weight="400" data-fallback-font="Nunito" data-fallback-chars="ẞ">GROẞE GRÜẞE</p>
+                    <p lang="de" class="font-hand text-hand" data-font-sample data-font="Patrick Hand" data-weight="400" data-fallback-font="Be Vietnam Pro" data-fallback-chars="ẞ">GROẞE GRÜẞE</p>
                 </div>
             </section>
         </div>

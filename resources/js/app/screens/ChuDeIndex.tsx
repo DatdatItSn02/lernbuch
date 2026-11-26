@@ -14,7 +14,7 @@ export function ChuDeIndex() {
     const groups = [...new Set(topics.map((t) => t.group))];
     return (
         <Sheet className="px-5 py-6 md:px-8">
-            <h1 className="font-display text-headline font-semibold">Chủ đề</h1>
+            <h1 className="text-headline font-bold">Chủ đề</h1>
             <p className="mt-1 text-ink-2">Bản mẫu có hai chủ đề nhỏ; bản đầy đủ có 2.466 chủ đề nhỏ, xếp theo nhóm và chủ đề vừa.</p>
             {groups.map((g) => {
                 const inGroup = topics.filter((t) => t.group === g);
@@ -39,7 +39,7 @@ export function ChuDeIndex() {
                                                             <span className="block font-semibold group-hover:underline">
                                                                 {t.name}
                                                                 {t.id === currentTopicId && (
-                                                                    <span className="ml-2 rounded-pill bg-tim-tint px-2 text-label font-semibold whitespace-nowrap">Đang học</span>
+                                                                    <span className="ml-2 rounded-sm bg-tim-tint px-1.5 text-label font-semibold whitespace-nowrap">Đang học</span>
                                                                 )}
                                                             </span>
                                                             <span className="block text-label text-ink-2 tabular-nums">
