@@ -40,3 +40,6 @@ graphify-out/
 /.impeccable/mocks/
 /.impeccable/questions/
 /tests/e2e/.auth
+
+# Dữ liệu Lernbuch cũ của bạn (lernweb.zip, app.db): không đưa vào repo
+/nguon-cu/

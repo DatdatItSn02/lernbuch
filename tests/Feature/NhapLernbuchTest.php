@@ -62,7 +62,13 @@ function taoNguon(?array $the = null): string
 
     $db = new PDO('sqlite:'.$goc.'/content/seed.db', null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
     $cot = array_keys(theCu(['id' => 0, 'key' => '', 'front' => '']));
-    $db->exec('CREATE TABLE cards('.implode(', ', array_map(fn ($c) => "\"{$c}\"", $cot)).')');
+    // Khai kiểu cột như seed.db thật: cột số có kiểu INTEGER (PDO gửi tham số dạng chữ, SQLite đổi sang số theo kiểu cột)
+    $kieu = fn (string $c) => match ($c) {
+        'id' => 'INTEGER PRIMARY KEY',
+        'src_no', 'level_min', 'level_max', 'active', 'emoji_q' => 'INTEGER',
+        default => 'TEXT',
+    };
+    $db->exec('CREATE TABLE cards('.implode(', ', array_map(fn ($c) => "\"{$c}\" ".$kieu($c), $cot)).')');
     $db->exec('CREATE TABLE kv(key TEXT PRIMARY KEY, val TEXT)');
     $db->exec("INSERT INTO kv VALUES ('extra_de', 'x19')");
     $db->exec('CREATE TABLE docs(id INTEGER PRIMARY KEY, lang TEXT, slug TEXT, grp TEXT, title TEXT, level TEXT, sort INTEGER, blocks TEXT, ex_key TEXT)');
