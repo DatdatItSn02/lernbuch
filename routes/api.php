@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\V1\CaiDatController;
+use App\Http\Controllers\Api\V1\NoiDungController;
 use App\Http\Controllers\Api\V1\PhienController;
+use App\Http\Controllers\Api\V1\SoTayController;
 use App\Http\Controllers\Api\V1\ToiController;
+use App\Http\Controllers\Api\V1\TraTuController;
 use Illuminate\Support\Facades\Route;
 
 // API cho app học. Cần đăng nhập (cookie phiên của app cùng tên miền, hoặc token của app di động sau này)
@@ -17,4 +20,22 @@ Route::prefix('v1')->middleware(['auth:sanctum', 'da-xac-minh', 'ngon-ngu'])->gr
     Route::get('toi/phien', [PhienController::class, 'index']);
     // Cần mật khẩu: chặn đoán mật khẩu bằng giới hạn riêng, chặt hơn giới hạn chung của API.
     Route::post('toi/phien/dang-xuat-may-khac', [PhienController::class, 'dangXuatMayKhac'])->middleware('throttle:6,1');
+
+    // Nội dung học (chỉ đọc)
+    Route::get('bo-the', [NoiDungController::class, 'boThe']);
+    Route::get('chu-de', [NoiDungController::class, 'chuDe']);
+    Route::get('chu-de/{slug}', [NoiDungController::class, 'moChuDe'])->where('slug', '[a-z0-9-]{1,160}');
+    Route::get('the/{id}', [NoiDungController::class, 'the'])->whereNumber('id');
+
+    // Sổ tay: sao và ghi chú riêng, luôn của người đang đăng nhập
+    Route::get('so-tay', [SoTayController::class, 'index']);
+    Route::put('the/{id}/so-tay', [SoTayController::class, 'update'])->whereNumber('id');
+
+    // Tra từ
+    Route::get('tra-tu', [TraTuController::class, 'tim']);
+    Route::get('tra-chu', [TraTuController::class, 'traChu']);
+    Route::get('tra-tu/lich-su', [TraTuController::class, 'lichSu']);
+    Route::post('tra-tu/lich-su', [TraTuController::class, 'ghiLichSu']);
+    Route::delete('tra-tu/lich-su', [TraTuController::class, 'xoaHetLichSu']);
+    Route::delete('tra-tu/lich-su/{id}', [TraTuController::class, 'xoaLichSu'])->whereNumber('id');
 });

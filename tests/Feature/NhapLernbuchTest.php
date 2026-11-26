@@ -190,6 +190,19 @@ it('ghi: thẻ, chủ đề 3 tầng, nghĩa, câu ví dụ, dạng từ, ngữ 
         ->and(DB::table('word_forms')->where('card_id', $zahlen->id)->where('kind', 'conj')->pluck('form')->all())->toContain('zahle', 'zahlst', 'gezahlt');
 });
 
+it('dạng từ "–" (danh từ không có số nhiều) giữ nguyên, khác với để trống; chữ tìm có bản bỏ dấu và bản viết ae, oe, ue', function () {
+    nhap(taoNguon([
+        theCu(['id' => 1, 'key' => 'k-mehl', 'front' => 'das Mehl', 'article' => 'das', 'pos' => 'Noun', 'forms' => '–', 'theme' => 't-food', 'vi' => 'bột mì']),
+        theCu(['id' => 2, 'key' => 'k-butter', 'src_no' => 2, 'front' => 'die Butter', 'article' => 'die', 'pos' => 'Noun', 'theme' => 't-food', 'vi' => 'bơ']),
+        theCu(['id' => 3, 'key' => 'k-zaehlen', 'src_no' => 3, 'front' => 'zählen', 'pos' => 'Verb', 'forms' => 'er zählt · hat gezählt', 'theme' => 't-food', 'vi' => 'đếm']),
+    ]), true);
+
+    expect(DB::table('cards')->orderBy('id')->pluck('forms', 'card_key')->all())->toBe(['k-mehl' => '–', 'k-butter' => null, 'k-zaehlen' => 'er zählt · hat gezählt'])
+        ->and(DB::table('cards')->where('card_key', 'k-zaehlen')->value('search_text'))->toContain('zählen')->toContain('zahlen')->toContain('zaehlen')->toContain('dem')
+        ->and(DB::table('cards')->where('card_key', 'k-mehl')->value('search_text'))->toContain('bot mi')->not->toContain('–')
+        ->and(DB::table('word_forms')->where('card_id', DB::table('cards')->where('card_key', 'k-mehl')->value('id'))->pluck('kind')->all())->toBe(['lemma']);
+});
+
 it('chạy lại lần hai: không thêm dòng nào, giữ id (nên giữ tiến độ học)', function () {
     $nguon = taoNguon();
     nhap($nguon, true);

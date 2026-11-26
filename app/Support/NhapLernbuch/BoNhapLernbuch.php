@@ -3,6 +3,7 @@
 namespace App\Support\NhapLernbuch;
 
 use App\Models\ContentSource;
+use App\Support\NoiDung;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -49,6 +50,9 @@ final class BoNhapLernbuch
     private const CAP = ['A1' => 1, 'A2' => 2, 'B1' => 3, 'B2' => 4, 'C1' => 5, 'C2' => 6];
 
     private const GIONG = ['der' => 'm', 'die' => 'f', 'das' => 'n'];
+
+    /** Số câu ví dụ tối đa mỗi thẻ (như ghi chú của bảng card_examples). */
+    private const VI_DU_TOI_DA = 4;
 
     private const KIEU_BAI_TAP = ['fill', 'mc', 'order', 'fix'];
 
@@ -543,7 +547,8 @@ final class BoNhapLernbuch
         [$maNguon, $loai, , $cap] = $the;
         $front = trim((string) $r['front']);
         $article = in_array($r['article'], ['der', 'die', 'das'], true) ? (string) $r['article'] : null;
-        $forms = self::chu($r['forms'], 255);
+        // "–" trong cột dạng từ là "không có" (danh từ không có số nhiều), khác với để trống là chưa có dữ liệu: giữ nguyên
+        $forms = is_scalar($r['forms']) && trim((string) $r['forms']) === '–' ? '–' : self::chu($r['forms'], 255);
         $dich = array_filter(['vi' => self::chu($r['vi'], 500), 'en' => self::chu($r['en'], 500), 'zh' => self::chu($r['zh'], 500)], fn ($v) => $v !== null);
 
         $extra = [];
@@ -560,8 +565,6 @@ final class BoNhapLernbuch
             $extra['register'] = trim((string) $r['register']);
         }
 
-        $chuTim = mb_strtolower(implode(' ', array_filter([$front, $forms, ...array_values($dich)])));
-
         return [
             'the' => [
                 'lang' => self::LANG, 'collection' => $loai, 'card_key' => (string) $r['key'], 'owner_user_id' => null, 'topic_id' => $chuDeId,
@@ -573,7 +576,7 @@ final class BoNhapLernbuch
                 'note' => self::chu($r['note'] ?? null, 65535), 'tip' => self::chu($r['tip'] ?? null, 65535),
                 'cloze' => self::chu($r['cloze'] ?? null, 500), 'cloze_answer' => self::chu($r['cloze_ans'] ?? null, 120),
                 'source_topic' => self::chu($r['topic'] ?? null, 160), 'extra' => $extra !== [] ? json_encode($extra, JSON_UNESCAPED_UNICODE) : null,
-                'search_text' => Str::limit(trim($chuTim.' '.($chuTim !== Str::ascii($chuTim) ? mb_strtolower(Str::ascii($chuTim)) : '')), 1500, ''),
+                'search_text' => NoiDung::chuTim($front, $forms, $dich),
                 'status' => 'published', 'source_id' => $this->nguonId[$maNguon], 'version' => 1,
                 'published_at' => $this->bay, 'created_at' => $this->bay, 'updated_at' => $this->bay,
             ],
@@ -596,7 +599,7 @@ final class BoNhapLernbuch
         $them = function (mixed $de, array $dich) use (&$ds): void {
             $cau = self::chu($de, 600);
 
-            if ($cau === null || count($ds) >= 10 && ! isset($ds[$cau])) {
+            if ($cau === null || count($ds) >= self::VI_DU_TOI_DA && ! isset($ds[$cau])) {
                 return;
             }
 
@@ -641,7 +644,7 @@ final class BoNhapLernbuch
     {
         $ra = [];
         $them = function (string $dang, string $kieu) use (&$ra): void {
-            $dang = mb_strtolower(trim($dang, " \t.,;:!?…"));
+            $dang = mb_strtolower(NoiDung::catDauCau($dang));
 
             if ($dang !== '' && mb_strlen($dang) <= 120 && ! in_array([$dang, $kieu], $ra, true)) {
                 $ra[] = [$dang, $kieu];
