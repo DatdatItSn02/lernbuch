@@ -1,0 +1,5 @@
+workflow: ci  job: web  status: cancelled
+commit: 24f8c2da5081e5a028683bdf9f8972a0072c741f  ref: work/khep-g0  run: 45873127167
+
+
+----- cuối log -----
