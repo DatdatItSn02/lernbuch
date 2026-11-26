@@ -1,8 +1,8 @@
 workflow: ci  job: deploy  status: success
-commit: 7e2d2a56ac04edfd0cc28068d1b82ab28394b3a2  ref: main  run: 45881445844
+commit: accbc6131e60afd9aafd12c184fdeed2dcf6510a  ref: main  run: 45884620127
 
-✔ Web đã chạy bản 20261126191123-7e2d2a5 sau khoảng 0 giây
-✔ /up trả 200 (20261126191123-7e2d2a5)
+✔ Web đã chạy bản 20261126193657-accbc61 sau khoảng 0 giây
+✔ /up trả 200 (20261126193657-accbc61)
 
 ----- cuối log -----
 Installing dependencies from lock file
@@ -363,17 +363,17 @@ public/build/assets/theme-B9XK3I9m.css                                   716.31 
 public/build/assets/app-BvRk9kiK.js                                        0.00 kB │ gzip:   0.02 kB
 public/build/assets/main-CKvl3L-i.js                                     339.59 kB │ gzip: 106.25 kB
 
-[32m✓ built in 1.09s[39m
--rw-r--r-- 1 runner runner 15M Nov 26 19:11 /tmp/20261126191123-7e2d2a5.tgz
+[32m✓ built in 1.03s[39m
+-rw-r--r-- 1 runner runner 15M Nov 26 19:36 /tmp/20261126193657-accbc61.tgz
 Trước deploy: /up trả 200
-Bản đang chạy: 20261126183549-9f913ad
-Dung lượng: 108M	releases/20261126182250-92d8bfd
+Bản đang chạy: 20261126191123-7e2d2a5
 Dung lượng: 108M	releases/20261126182809-9f913ad
 Dung lượng: 108M	releases/20261126183549-9f913ad
+Dung lượng: 108M	releases/20261126191123-7e2d2a5
 Dung lượng: 1.3M	shared
 Dung lượng: 15M	.
-Nhịp trong 10 phút qua: 10/10 (cần ít nhất 9).
-== Giải nén 20261126191123-7e2d2a5
+Nhịp trong 10 phút qua: 9/10 (cần ít nhất 9).
+== Giải nén 20261126193657-accbc61
 == Cập nhật .env (giữ APP_KEY cũ)
 == Migration
 
@@ -383,22 +383,22 @@ Nhịp trong 10 phút qua: 10/10 (cần ít nhất 9).
 
    INFO  Caching framework bootstrap, configuration, and metadata.  
 
-  config ........................................................ 57.30ms DONE
-  events ......................................................... 4.32ms DONE
-  routes ........................................................ 56.06ms DONE
-  views .......................................................... 1 giây DONE
-  blade-icons .................................................... 6.86ms DONE
-  filament ...................................................... 11.78ms DONE
+  config ........................................................ 75.98ms DONE
+  events ......................................................... 5.31ms DONE
+  routes ........................................................ 67.48ms DONE
+  views ........................................................ 993.84ms DONE
+  blade-icons .................................................... 5.14ms DONE
+  filament ...................................................... 11.48ms DONE
 
-== Đổi current sang 20261126191123-7e2d2a5
+== Đổi current sang 20261126193657-accbc61
 
    INFO  Broadcasting queue restart signal.  
 
 == Giữ 3 bản gần nhất (và luôn giữ bản tốt gần nhất để còn chỗ quay lại)
 == Dung lượng (gói Free: 1 GB tính chung file, mail và database)
 Thư mục app: 337M
-Cả thư mục nhà: 340M
+Cả thư mục nhà: 339M
 Database: 6.2M (92 bảng)
-Xong: 20261126191123-7e2d2a5
-✔ Web đã chạy bản 20261126191123-7e2d2a5 sau khoảng 0 giây
-✔ /up trả 200 (20261126191123-7e2d2a5)
+Xong: 20261126193657-accbc61
+✔ Web đã chạy bản 20261126193657-accbc61 sau khoảng 0 giây
+✔ /up trả 200 (20261126193657-accbc61)
