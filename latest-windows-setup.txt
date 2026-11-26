@@ -1,213 +1,158 @@
-workflow: windows  job: setup  status: cancelled
-commit: 00f1e18cb1df419d5515de1b98ed8fd608293c58  ref: work/g1-tuan2  run: 45911298990
+workflow: windows  job: setup  status: success
+commit: b7ccc946a7cfdb4ee149de62736b7b2eda3b0160  ref: work/g1-tuan2  run: 45911651355
 
 ✔ Định dạng PHP (Pint) (3 giây)
-✔ Phân tích tĩnh PHP (Larastan) (13.3 giây)
-✘ Test PHP (Pest, MySQL lernbuch_test) (mã 2, 84.8 giây)
-✔ Kiểu TypeScript (tsc) (3.8 giây)
-✔ ESLint (6.6 giây)
-✔ Test giao diện (Vitest) (7.3 giây)
-✔ Build giao diện (Vite) (1.2 giây)
-KẾT QUẢ: 6/7 bước đạt
+✔ Phân tích tĩnh PHP (Larastan) (10.8 giây)
+✔ Test PHP (Pest, MySQL lernbuch_test) (77.8 giây)
+✔ Kiểu TypeScript (tsc) (3 giây)
+✔ ESLint (5 giây)
+✔ Test giao diện (Vitest) (7.2 giây)
+✔ Build giao diện (Vite) (1.1 giây)
+KẾT QUẢ: 7/7 bước đạt
+✔ trang chào có chữ Việt (GET / → 200)
+✔ trang chào có chữ Đức (GET / → 200)
+✔ app học dẫn về trang đăng nhập (GET /app/hom-nay → 200)
+✔ trang tạo tài khoản (GET /dang-ky → 200)
+✔ trang đăng nhập quản trị (GET /admin/login → 200)
+✔ kiểm tra sống /up (GET /up → 200)
+✔ manifest PWA (GET /manifest.webmanifest → 200)
+✔ không lộ .env (GET /.env → 404)
+✔ CSS đã build (GET /build/assets/app-YKHRSXNG.css → 200)
+✔ file CSS/JS của Filament (GET /js/filament/forms/components/text-input/password-reveal.js?v=5.12.0.0 → 200)
+KẾT QUẢ: 10/10 trang đạt
 ✔ test-cai-dat.ps1
 ✔ test-cap-nhat.ps1
 ✔ test-chung.ps1
 ✔ test-file.ps1
-KẾT QUẢ: 4/4 file test đạt
+✔ test-nhap-du-lieu.ps1
+KẾT QUẢ: 5/5 file test đạt
 
 ----- cuối log -----
-9m[90m                                               [39m [90m0.05s[39m
+0m0.01s[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\AdminAccessTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập vào /admin thì về trang đăng nhập[39m[90m                                                        [39m [90m22.12s[39m
+  [32;1m✓[39;22m[90m [39m[90mit trang đăng nhập quản trị mở được[39m[90m                                                                         [39m [90m0.07s[39m
+  [32;1m✓[39;22m[90m [39m[90mit người học thường không vào được trang quản trị[39m[90m                                                           [39m [90m0.07s[39m
+  [32;1m✓[39;22m[90m [39m[90mit nhân viên đang hoạt động vào được trang quản trị[39m[90m                                                         [39m [90m0.16s[39m
+  [32;1m✓[39;22m[90m [39m[90mit nhân viên bị khoá không vào được trang quản trị[39m[90m                                                          [39m [90m0.03s[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\ApiTaiKhoanTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập: 401 có mã chua_dang_nhap, lời nhắn tiếng Việt, không lộ dữ liệu[39m[90m                          [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit chưa xác minh email: 403 có mã chua_xac_minh[39m[90m                                                             [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit GET /toi: mã ULID thay cho id số, cài đặt mặc định, khoá học từ dữ liệu khởi tạo[39m[90m                         [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit hồ sơ: đổi tên, múi giờ; chọn mục tiêu rồi trình độ thì ghi danh một lần, đổi phần nào giữ phần kia[39m[90m      [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit hồ sơ sai thì báo đúng ô, không ghi gì[39m[90m                                                                   [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit chưa có khoá học thì không chọn được mục tiêu, báo rõ lý do[39m[90m                                              [39m [90m0.04s[39m
+  [32;1m✓[39;22m[90m [39m[90mit cài đặt: đổi phần nào giữ phần kia; 0 từ mới = tất cả; mỗi người một bản[39m[90m                                 [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit cài đặt sai thì 422 đúng ô, giá trị cũ giữ nguyên[39m[90m                                                        [39m [90m0.07s[39m
+  [32;1m✓[39;22m[90m [39m[90mit danh sách máy: chỉ phiên của mình, đọc được trình duyệt, ghi rõ máy này, không trả mã phiên[39m[90m              [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đăng xuất các máy khác: sai mật khẩu thì không làm gì; đúng thì xoá phiên khác, giữ máy này, ghi lịch sử[39m[90m [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đăng xuất các máy khác bị giới hạn 6 lần mỗi phút để chặn đoán mật khẩu[39m[90m                                  [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit giới hạn chung của API: 120 lần mỗi phút cho mỗi người[39m[90m                                                   [39m [90m0.03s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Chrome Windows"[39m[90m                                 [39m [90m0.04s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Safari iPhone"[39m[90m                                  [39m [90m0.03s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Edge"[39m[90m                                           [39m [90m0.03s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Samsung Android"[39m[90m                                [39m [90m0.03s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Firefox Mac"[39m[90m                                    [39m [90m0.03s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Chrome iPad"[39m[90m                                    [39m [90m0.03s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Android máy tính bảng"[39m[90m                          [39m [90m0.03s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "trống"[39m[90m                                          [39m [90m0.03s[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\BaoMatTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit lỗi máy chủ chỉ hiện trang lỗi chung, không lộ nội dung lỗi hay đường dẫn[39m[90m                                [39m [90m0.06s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đúng email và mật khẩu thì đăng nhập được trang quản trị[39m[90m                                                 [39m [90m0.07s[39m
+  [32;1m✓[39;22m[90m [39m[90mit nhập sai mật khẩu 5 lần thì bị chặn tạm thời, kể cả lần sau đúng mật khẩu[39m[90m                                [39m [90m1.18s[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\CreateAdminCommandTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit tạo tài khoản quản trị bằng lệnh[39m[90m                                                                         [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đã nạp seed.sql thì gán đúng vai trò có sẵn, không tạo vai trò trùng[39m[90m                                     [39m [90m0.07s[39m
+  [32;1m✓[39;22m[90m [39m[90mit từ chối email đã có, kể cả khác hoa thường[39m[90m                                                               [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit từ chối mật khẩu ngắn hơn 12 ký tự[39m[90m                                                                       [39m [90m0.04s[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\DungLuongTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit in dung lượng database và số bảng theo dạng deploy ghi lại[39m[90m                                               [39m [90m0.05s[39m
   [32;1m✓[39;22m[90m [39m[90mit không đo được database thì báo lỗi mà không lộ chi tiết kết nối[39m[90m                                          [39m [90m0.06s[39m
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\HangDoiTest[39m
   [32;1m✓[39;22m[90m [39m[90mit lịch có việc ghi nhịp chạy mỗi phút[39m[90m                                                                      [39m [90m0.04s[39m
-  [32;1m✓[39;22m[90m [39m[90mit job thử chạy xong qua hàng đợi database[39m[90m                                                                  [39m [90m3.06s[39m
-  [32;1m✓[39;22m[90m [39m[90mit job cố ý lỗi vào failed_jobs sau đúng 3 lần thử[39m[90m                                                          [39m [90m3.07s[39m
-  [32;1m✓[39;22m[90m [39m[90mit cache database (như trên alwaysdata) vẫn đếm đủ 3 lần thử[39m[90m                                                [39m [90m3.07s[39m
+  [32;1m✓[39;22m[90m [39m[90mit job thử chạy xong qua hàng đợi database[39m[90m                                                                  [39m [90m3.11s[39m
+  [32;1m✓[39;22m[90m [39m[90mit job cố ý lỗi vào failed_jobs sau đúng 3 lần thử[39m[90m                                                          [39m [90m3.06s[39m
+  [32;1m✓[39;22m[90m [39m[90mit cache database (như trên alwaysdata) vẫn đếm đủ 3 lần thử[39m[90m                                                [39m [90m3.06s[39m
   [32;1m✓[39;22m[90m [39m[90mit lệnh thử hàng đợi: đưa 2 job vào, worker chạy xong thì kiểm đạt[39m[90m                                          [39m [90m3.06s[39m
-  [32;1m✓[39;22m[90m [39m[90mit 10 phút lịch chạy mỗi phút qua hàng đợi thì đủ 10 nhịp[39m[90m                                                  [39m [90m30.15s[39m
+  [32;1m✓[39;22m[90m [39m[90mit 10 phút lịch chạy mỗi phút qua hàng đợi thì đủ 10 nhịp[39m[90m                                                  [39m [90m30.14s[39m
   [32;1m✓[39;22m[90m [39m[90mit thiếu nhịp (lịch hay hàng đợi dừng) thì kiểm nhịp báo lỗi[39m[90m                                                [39m [90m0.04s[39m
-  [32;1m✓[39;22m[90m [39m[90mit job ghi nhịp ghi đúng phút hiện tại[39m[90m                                                                      [39m [90m0.03s[39m
+  [32;1m✓[39;22m[90m [39m[90mit job ghi nhịp ghi đúng phút hiện tại[39m[90m                                                                      [39m [90m0.05s[39m
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\NgonNguTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit trang app học đặt [39m[90m<html lang>[39m[90m theo ngôn ngữ giao diện và có mã CSRF cho nút đăng xuất[39m[90m                    [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit trang app học đặt [39m[90m<html lang>[39m[90m theo ngôn ngữ giao diện và có mã CSRF cho nút đăng xuất[39m[90m                    [39m [90m0.04s[39m
   [32;1m✓[39;22m[90m [39m[90mit chọn ngôn ngữ chưa có bản dịch (tiếng Anh khi G1 chỉ có tiếng Việt): trang, API và email đều tiếng Việt[39m[90m  [39m [90m0.05s[39m
   [32;1m✓[39;22m[90m [39m[90mit ngôn ngữ đã bật nhưng còn thiếu bản dịch: chữ thiếu hiện tiếng Việt, không bao giờ hiện mã khoá[39m[90m          [39m [90m0.05s[39m
-  [32;1m✓[39;22m[90m [39m[90mit bài ngữ pháp và bộ bài tập có ngôn ngữ giải thích, mặc định tiếng Việt; cùng slug được có bản giải thích[39m[90m…[39m [90m0.10s[39m
+  [32;1m✓[39;22m[90m [39m[90mit bài ngữ pháp và bộ bài tập có ngôn ngữ giải thích, mặc định tiếng Việt; cùng slug được có bản giải thích[39m[90m…[39m [90m0.04s[39m
 
-  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\NhapLernbuchTest[39m
-  [31;1m⨯[39;22m[90m [39m[90mit chạy thử: đếm đúng theo loại, nguồn, cấp; bỏ thẻ đã tắt và dòng rỗng; không ghi gì[39m[90m                       [39m [90m0.78s[39m
-  [31;1m⨯[39;22m[90m [39m[90mit ghi: thẻ, chủ đề 3 tầng, nghĩa, câu ví dụ, dạng từ, ngữ pháp, bài tập, động từ đúng nội dung[39m[90m             [39m [90m0.76s[39m
-  [31;1m⨯[39;22m[90m [39m[90mit chạy lại lần hai: không thêm dòng nào, giữ id (nên giữ tiến độ học)[39m[90m                                      [39m [90m0.84s[39m
-  [31;1m⨯[39;22m[90m [39m[90mit nguồn đánh dấu "Không" thì không có dòng nào của nguồn đó, kể cả dòng đã nhập lần trước[39m[90m                  [39m [90m0.88s[39m
-  [31;1m⨯[39;22m[90m [39m[90mit quy tắc dữ liệu: cụm từ trong Từ vựng, thẻ không có chủ đề thì báo đúng dòng, không ghi gì[39m[90m               [39m [90m0.98s[39m
-  [31;1m⨯[39;22m[90m [39m[90mit nhận cả file lernweb.zip và thẳng file seed.db[39m[90m                                                           [39m [90m0.87s[39m
-  [32;1m✓[39;22m[90m [39m[90mit nguồn sai: báo lỗi rõ, mã thoát 2, không ghi gì[39m[90m                                                          [39m [90m0.07s[39m
-  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết ngăn bằng / with ('die Frau (Anrede)', tr[39m[90m…[39m [90m0.04s[39m
-  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết ngăn bằng / with ('der/die Deutsche(r)',[39m[90m… [39m [90m0.03s[39m
-  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết ngăn bằng / with ('der Maurer / die Maure[39m[90m…[39m [90m0.04s[39m
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\NhapLernbuchTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit chạy thử: đếm đúng theo loại, nguồn, cấp; bỏ thẻ đã tắt và dòng rỗng; không ghi gì[39m[90m                       [39m [90m0.76s[39m
+  [32;1m✓[39;22m[90m [39m[90mit ghi: thẻ, chủ đề 3 tầng, nghĩa, câu ví dụ, dạng từ, ngữ pháp, bài tập, động từ đúng nội dung[39m[90m             [39m [90m0.54s[39m
+  [32;1m✓[39;22m[90m [39m[90mit chạy lại lần hai: không thêm dòng nào, giữ id (nên giữ tiến độ học)[39m[90m                                      [39m [90m0.52s[39m
+  [32;1m✓[39;22m[90m [39m[90mit nguồn đánh dấu "Không" thì không có dòng nào của nguồn đó, kể cả dòng đã nhập lần trước[39m[90m                  [39m [90m0.66s[39m
+  [32;1m✓[39;22m[90m [39m[90mit quy tắc dữ liệu: cụm từ trong Từ vựng, thẻ không có chủ đề thì báo đúng dòng, không ghi gì[39m[90m               [39m [90m1.20s[39m
+  [32;1m✓[39;22m[90m [39m[90mit nhận cả file lernweb.zip và thẳng file seed.db[39m[90m                                                           [39m [90m0.52s[39m
+  [32;1m✓[39;22m[90m [39m[90mit nguồn sai: báo lỗi rõ, mã thoát 2, không ghi gì[39m[90m                                                          [39m [90m0.12s[39m
+  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết ngăn bằng / with ('die Frau (Anrede)', tr[39m[90m…[39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết ngăn bằng / with ('der/die Deutsche(r)',[39m[90m… [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết ngăn bằng / with ('der Maurer / die Maure[39m[90m…[39m [90m0.05s[39m
   [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết ngăn bằng / with ('Polnisch / polnisch',[39m[90m… [39m [90m0.05s[39m
   [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết ngăn bằng / with ('sich freuen', true)[39m[90m    [39m [90m0.04s[39m
   [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết ngăn bằng / with ('eine Tasse Kaffee', fa[39m[90m…[39m [90m0.04s[39m
-  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết ngăn bằng / with ('zu Hause', false)[39m[90m      [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết ngăn bằng / with ('zu Hause', false)[39m[90m      [39m [90m0.04s[39m
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\PagesTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit trả 200 ở /up[39m[90m                                                                                            [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit trả 200 ở /up[39m[90m                                                                                            [39m [90m0.03s[39m
   [32;1m✓[39;22m[90m [39m[90mit trang chào hiện đúng chữ tiếng Việt và tiếng Đức[39m[90m                                                         [39m [90m0.04s[39m
-  [32;1m✓[39;22m[90m [39m[90mit mở được khung app học, cả đường dẫn con, khi đã đăng nhập và xác minh email[39m[90m                              [39m [90m0.05s[39m
-  [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập thì app học về trang đăng nhập[39m[90m                                                            [39m [90m0.04s[39m
+  [32;1m✓[39;22m[90m [39m[90mit mở được khung app học, cả đường dẫn con, khi đã đăng nhập và xác minh email[39m[90m                              [39m [90m0.04s[39m
+  [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập thì app học về trang đăng nhập[39m[90m                                                            [39m [90m0.03s[39m
   [32;1m✓[39;22m[90m [39m[90mit không lộ file .env và log[39m[90m                                                                                [39m [90m0.04s[39m
-  [32;1m✓[39;22m[90m [39m[90mit có manifest để cài app[39m[90m                                                                                   [39m [90m0.03s[39m
+  [32;1m✓[39;22m[90m [39m[90mit có manifest để cài app[39m[90m                                                                                   [39m [90m0.04s[39m
   [32;1m✓[39;22m[90m [39m[90mit trang kiểm chữ có đủ vai trò chữ và không cho máy tìm kiếm lập chỉ mục[39m[90m                                   [39m [90m0.03s[39m
   [32;1m✓[39;22m[90m [39m[90mit /up trả 500 khi một kiểm tra sức khoẻ lỗi (để workflow deploy tự quay lại)[39m[90m                               [39m [90m0.05s[39m
-  [32;1m✓[39;22m[90m [39m[90mit /up không lỗi trên máy dev dù có kiểm tra cố ý hỏng chỉ dành cho bản phát hành[39m[90m                           [39m [90m0.03s[39m
+  [32;1m✓[39;22m[90m [39m[90mit /up không lỗi trên máy dev dù có kiểm tra cố ý hỏng chỉ dành cho bản phát hành[39m[90m                           [39m [90m0.05s[39m
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\QuanTriTest[39m
   [32;1m✓[39;22m[90m [39m[90mit người học (không phải nhân viên) vào /admin thì bị từ chối 403; nhân viên bị khoá cũng vậy[39m[90m               [39m [90m0.10s[39m
-  [32;1m✓[39;22m[90m [39m[90mit chỉ người có quyền phân quyền mới thấy trang Vai trò và Nhân viên[39m[90m                                        [39m [90m0.22s[39m
-  [32;1m✓[39;22m[90m [39m[90mit sửa quyền của vai trò: có hiệu lực ngay, ghi nhật ký quyền trước và sau[39m[90m                                  [39m [90m0.12s[39m
+  [32;1m✓[39;22m[90m [39m[90mit chỉ người có quyền phân quyền mới thấy trang Vai trò và Nhân viên[39m[90m                                        [39m [90m0.17s[39m
+  [32;1m✓[39;22m[90m [39m[90mit sửa quyền của vai trò: có hiệu lực ngay, ghi nhật ký quyền trước và sau[39m[90m                                  [39m [90m0.11s[39m
   [32;1m✓[39;22m[90m [39m[90mit không sửa được vai trò Quản trị cao nhất (đã có mọi quyền)[39m[90m                                               [39m [90m0.06s[39m
-  [32;1m✓[39;22m[90m [39m[90mit tạo nhân viên: mật khẩu dưới 12 ký tự bị từ chối; đủ thì tạo tài khoản đã xác minh, có vai trò, ghi nhật[39m[90m…[39m [90m0.17s[39m
-  [32;1m✓[39;22m[90m [39m[90mit sửa nhân viên: khoá tài khoản, đổi vai trò được ghi nhật ký; không tự khoá chính mình[39m[90m                    [39m [90m0.18s[39m
-  [32;1m✓[39;22m[90m [39m[90mit nhân viên sửa nội dung thì ghi người sửa và nhật ký trước/sau; người học tự sửa hồ sơ thì không ghi nhật[39m[90m…[39m [90m0.06s[39m
-  [32;1m✓[39;22m[90m [39m[90mit đăng nhập trang quản trị: sai 5 lần thì lần thứ 6 bị chặn tạm, kể cả khi nhập đúng[39m[90m                       [39m [90m1.29s[39m
+  [32;1m✓[39;22m[90m [39m[90mit tạo nhân viên: mật khẩu dưới 12 ký tự bị từ chối; đủ thì tạo tài khoản đã xác minh, có vai trò, ghi nhật[39m[90m…[39m [90m0.13s[39m
+  [32;1m✓[39;22m[90m [39m[90mit sửa nhân viên: khoá tài khoản, đổi vai trò được ghi nhật ký; không tự khoá chính mình[39m[90m                    [39m [90m0.14s[39m
+  [32;1m✓[39;22m[90m [39m[90mit nhân viên sửa nội dung thì ghi người sửa và nhật ký trước/sau; người học tự sửa hồ sơ thì không ghi nhật[39m[90m…[39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đăng nhập trang quản trị: sai 5 lần thì lần thứ 6 bị chặn tạm, kể cả khi nhập đúng[39m[90m                       [39m [90m1.19s[39m
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\TaiKhoanTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit hiện trang đăng nhập, đăng ký, quên mật khẩu bằng tiếng Việt[39m[90m                                             [39m [90m0.06s[39m
-  [32;1m✓[39;22m[90m [39m[90mit đăng ký: tạo tài khoản, email viết thường, gửi thư xác minh qua hàng đợi[39m[90m                                 [39m [90m0.07s[39m
+  [32;1m✓[39;22m[90m [39m[90mit hiện trang đăng nhập, đăng ký, quên mật khẩu bằng tiếng Việt[39m[90m                                             [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đăng ký: tạo tài khoản, email viết thường, gửi thư xác minh qua hàng đợi[39m[90m                                 [39m [90m0.04s[39m
   [32;1m✓[39;22m[90m [39m[90mit đăng ký: email đã có thì báo lỗi ngay ô email[39m[90m                                                            [39m [90m0.05s[39m
   [32;1m✓[39;22m[90m [39m[90mit đăng ký: mật khẩu thiếu số hoặc nhập lại không khớp thì báo lỗi[39m[90m                                          [39m [90m0.04s[39m
   [32;1m✓[39;22m[90m [39m[90mit đăng ký: mỗi địa chỉ IP tạo tối đa 5 tài khoản mỗi giờ, lần thứ 6 bị chặn tạm[39m[90m                            [39m [90m0.07s[39m
-  [32;1m✓[39;22m[90m [39m[90mit chưa xác minh email mà vào học thì được dẫn tới trang gửi lại thư[39m[90m                                        [39m [90m0.06s[39m
-  [32;1m✓[39;22m[90m [39m[90mit bấm link xác minh thì xác minh xong và vào học[39m[90m                                                           [39m [90m0.05s[39m
-  [32;1m✓[39;22m[90m [39m[90mit link xác minh hết hạn hoặc không khớp email thì không dùng được[39m[90m                                          [39m [90m0.04s[39m
-  [32;1m✓[39;22m[90m [39m[90mit gửi lại thư xác minh[39m[90m                                                                                     [39m [90m0.08s[39m
-  [32;1m✓[39;22m[90m [39m[90mit đăng nhập đúng (email viết hoa cũng được) thì vào app học và ghi lịch sử[39m[90m                                 [39m [90m0.05s[39m
-  [32;1m✓[39;22m[90m [39m[90mit sai mật khẩu 5 lần thì lần thứ 6 bị chặn tạm, kể cả đúng mật khẩu[39m[90m                                        [39m [90m1.07s[39m
-  [32;1m✓[39;22m[90m [39m[90mit quên mật khẩu: gửi link, đặt mật khẩu mới, dùng lại link thì không được[39m[90m                                  [39m [90m0.29s[39m
+  [32;1m✓[39;22m[90m [39m[90mit chưa xác minh email mà vào học thì được dẫn tới trang gửi lại thư[39m[90m                                        [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit bấm link xác minh thì xác minh xong và vào học[39m[90m                                                           [39m [90m0.06s[39m
+  [32;1m✓[39;22m[90m [39m[90mit link xác minh hết hạn hoặc không khớp email thì không dùng được[39m[90m                                          [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit gửi lại thư xác minh[39m[90m                                                                                     [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đăng nhập đúng (email viết hoa cũng được) thì vào app học và ghi lịch sử[39m[90m                                 [39m [90m0.04s[39m
+  [32;1m✓[39;22m[90m [39m[90mit sai mật khẩu 5 lần thì lần thứ 6 bị chặn tạm, kể cả đúng mật khẩu[39m[90m                                        [39m [90m1.08s[39m
+  [32;1m✓[39;22m[90m [39m[90mit quên mật khẩu: gửi link, đặt mật khẩu mới, dùng lại link thì không được[39m[90m                                  [39m [90m0.26s[39m
   [32;1m✓[39;22m[90m [39m[90mit thư xác minh và thư đặt lại mật khẩu viết bằng tiếng Việt, link tới đúng trang[39m[90m                           [39m [90m0.09s[39m
-  [32;1m✓[39;22m[90m [39m[90mit đăng xuất thì về trang chào và ghi lịch sử[39m[90m                                                               [39m [90m0.06s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đăng xuất thì về trang chào và ghi lịch sử[39m[90m                                                               [39m [90m0.04s[39m
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\Utf8DatabaseTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Brötchen')[39m[90m                                         [39m [90m0.06s[39m
-  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Straße')[39m[90m                                           [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Brötchen')[39m[90m                                         [39m [90m0.04s[39m
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Straße')[39m[90m                                           [39m [90m0.04s[39m
   [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('tiếng Việt')[39m[90m                                       [39m [90m0.04s[39m
   [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('ẞ ắ ặ ộ ữ đ')[39m[90m                                      [39m [90m0.05s[39m
   [32;1m✓[39;22m[90m [39m[90mit kết nối sai bảng mã thì chữ có dấu đọc ra bị hỏng, nên test bắt được[39m[90m                                     [39m [90m0.05s[39m
   [32;1m✓[39;22m[90m [39m[90mit kết nối database dùng utf8mb4[39m[90m                                                                            [39m [90m0.03s[39m
-  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
-  [41;1m FAILED [49;22m [1mTests\Feature\NhapLernbuchTest[22m [90m>[39m it chạy thử: đếm đúng theo loại, nguồn, cấp; bỏ thẻ đã tắt và dòng rỗng;…
-[39;1m  Failed asserting that an array has the key 'the'.[39;22m
 
-  at [32mtests\Feature\NhapLernbuchTest.php[39m:[32m111[39m
-    107▕ it('chạy thử: đếm đúng theo loại, nguồn, cấp; bỏ thẻ đã tắt và dòng rỗng; không ghi gì', function () {
-    108▕     $bc = nhap(taoNguon(), false);
-    109▕
-    110▕     expect($bc['phien_ban'])->toBe('x19')
-  ➜ 111▕         ->and($bc['so'])->toMatchArray(['the' => 6, 'chu_de_nhom' => 2, 'chu_de_vua' => 2, 'chu_de_nho' => 5, 'bai_ngu_phap' => 3, 'chuong_ngu_phap' => 1, 'bo_bai_tap' => 3, 'cau_bai_tap' => 4, 'dong_tu' => 2])
-    112▕         ->and($bc['the_theo_loai'])->toEqual(['vocab' => 3, 'phrase' => 2, 'comm' => 1])
-    113▕         ->and($bc['the_theo_nguon'])->toEqual(['lernbuch_xlsx' => 2, 'vocab_trainer' => 1, 'collins_3000' => 1, 'cum_tu_mau_cau' => 1, 'german_slang' => 1])
-    114▕         ->and($bc['the_theo_cap'])->toEqual(['A1' => 4, 'A2' => 1, 'chua_xep' => 1])
-    115▕         ->and($bc['the_da_tat'])->toBe(1)
-
-  [33m1   [39m[39;1mtests\Feature\NhapLernbuchTest.php[39;22m:[39;1m111[39;22m
-
-  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
-  [41;1m FAILED [49;22m [1mTests\Feature\NhapLernbuchTest[22m [90m>[39m it ghi: thẻ, chủ đề 3 tầng, nghĩa, câu ví dụ, dạng từ, ngữ pháp, bài tập…
-[39;1m  Failed asserting that 0 is identical to 6.[39;22m
-
-  at [32mtests\Feature\NhapLernbuchTest.php[39m:[32m129[39m
-    125▕
-    126▕ it('ghi: thẻ, chủ đề 3 tầng, nghĩa, câu ví dụ, dạng từ, ngữ pháp, bài tập, động từ đúng nội dung', function () {
-    127▕     nhap(taoNguon(), true);
-    128▕
-  ➜ 129▕     expect(DB::table('cards')->count())->toBe(6)
-    130▕         ->and(DB::table('topics')->where('depth', 1)->pluck('name_vi')->all())->toBe(['Con người & Đời sống cá nhân', 'Sinh hoạt & Giao tiếp hằng ngày'])
-    131▕         ->and(DB::table('topics')->where('depth', 2)->count())->toBe(2)
-    132▕         ->and(DB::table('topics')->where('depth', 3)->orderBy('code')->pluck('code')->all())->toBe(['t-food.p', 't-food.v', 't-greet.c', 't-greet.p', 't-greet.v']);
-    133▕
-
-  [33m1   [39m[39;1mtests\Feature\NhapLernbuchTest.php[39;22m:[39;1m129[39;22m
-
-  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
-  [41;1m FAILED [49;22m [1mTests\Feature\NhapLernbuchTest[22m [90m>[39m it chạy lại lần hai: không thêm dòng nào, giữ id (nên giữ tiến độ học)
-[39;1m  Failed asserting that two arrays are identical.
---- Expected
-+++ Actual
-@@ @@
- Array &0 [
-     'moi' => 0,
--    'cap_nhat' => 6,
-+    'cap_nhat' => 0,
-     'xoa' => 0,
- ][39;22m
-
-  at [32mtests\Feature\NhapLernbuchTest.php[39m:[32m199[39m
-    195▕
-    196▕     $bc = nhap($nguon, true);
-    197▕
-    198▕     expect(DB::table('cards')->orderBy('id')->pluck('id', 'card_key')->all())->toBe($truoc['cards'])
-  ➜ 199▕         ->and($bc['ket_qua_ghi']['the'])->toBe(['moi' => 0, 'cap_nhat' => 6, 'xoa' => 0])
-    200▕         ->and($bc['ket_qua_ghi']['cau_bai_tap']['moi'])->toBe(0);
-    201▕
-    202▕     foreach (array_diff_key($truoc, ['cards' => 1]) as $bang => $so) {
-    203▕         expect(DB::table($bang)->count())->toBe($so, "bảng {$bang} bị thêm dòng ở lần chạy thứ hai");
-
-  [33m1   [39m[39;1mtests\Feature\NhapLernbuchTest.php[39;22m:[39;1m199[39;22m
-
-  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
-  [41;1m FAILED [49;22m [1mTests\Feature\NhapLernbuchTest[22m [90m>[39m it nguồn đánh dấu "Không" thì không có dòng nào của nguồn đó, kể cả dòng…
-[39;1m  Failed asserting that false is true.[39;22m
-
-  at [32mtests\Feature\NhapLernbuchTest.php[39m:[32m210[39m
-    206▕
-    207▕ it('nguồn đánh dấu "Không" thì không có dòng nào của nguồn đó, kể cả dòng đã nhập lần trước', function () {
-    208▕     $nguon = taoNguon();
-    209▕     nhap($nguon, true);
-  ➜ 210▕     expect(DB::table('cards')->where('card_key', 'k-zaehlen')->exists())->toBeTrue();
-    211▕
-    212▕     DB::table('content_sources')->whereIn('code', ['collins_3000', 'illustrated_dict'])->update(['commercial_use' => 'forbidden']);
-    213▕     $bc = nhap($nguon, true);
-    214▕     $collins = DB::table('content_sources')->where('code', 'collins_3000')->value('id');
-
-  [33m1   [39m[39;1mtests\Feature\NhapLernbuchTest.php[39;22m:[39;1m210[39;22m
-
-  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
-  [41;1m FAILED [49;22m [1mTests\Feature\NhapLernbuchTest[22m [90m>[39m it quy tắc dữ liệu: cụm từ trong Từ vựng, thẻ không có chủ đề thì báo đú…
-[39;1m  Expected status code 1 but received 0.
-Failed asserting that 0 matches expected 1.[39;22m
-
-  at [32mtests\Feature\NhapLernbuchTest.php[39m:[32m100[39m
-     96▕ /** @return array<string, mixed> */
-     97▕ function nhap(string $nguon, bool $ghi, int $maThoat = 0): array
-     98▕ {
-     99▕     $json = tempnam(sys_get_temp_dir(), 'bc');
-  ➜ 100▕     test()->artisan('app:nhap-lernbuch', array_filter(['nguon' => $nguon, '--ghi' => $ghi, '--json' => $json]))->assertExitCode($maThoat)->run();
-    101▕
-    102▕     return json_decode((string) file_get_contents($json), true);
-    103▕ }
-    104▕
-
-  [33m1   [39m[39;1mtests\Feature\NhapLernbuchTest.php[39;22m:[39;1m231[39;22m
-
-  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
-  [41;1m FAILED [49;22m [1mTests\Feature\NhapLernbuchTest[22m [90m>[39m it nhận cả file lernweb.zip và thẳng file seed.db         [41;1m ErrorException [49;22m
-[39;1m  Undefined array key "the"[39;22m
-
-  at [32mtests\Feature\NhapLernbuchTest.php[39m:[32m256[39m
-    252▕     $z->addFile($goc.'/content/de/topics_fine.json', 'lernweb/content/de/topics_fine.json');
-    253▕     $z->addFromString('lernweb/README.md', 'Lernbuch');
-    254▕     $z->close();
-    255▕
-  ➜ 256▕     expect(nhap($zip, false)['so']['the'])->toBe(6)
-    257▕         ->and(nhap($goc.'/content/seed.db', false)['so']['the'])->toBe(6);
-    258▕ });
-    259▕
-    260▕ it('nguồn sai: báo lỗi rõ, mã thoát 2, không ghi gì', function () {
-
-
-  [90mTests:[39m    [31;1m6 failed[39;22m[90m,[39m[39m [39m[32;1m93 passed[39;22m[90m (532 assertions)[39m
-  [90mDuration:[39m [39m84.19s[39m
+  [90mTests:[39m    [32;1m99 passed[39;22m[90m (678 assertions)[39m
+  [90mDuration:[39m [39m77.26s[39m
 
 
 ==> Kiểu TypeScript (tsc)
@@ -230,32 +175,32 @@ Failed asserting that 0 matches expected 1.[39;22m
 
 [1m[30m[46m RUN [49m[39m[22m [36mv5.1.1 [39m[90mD:/a/lernbuch/lernbuch[39m
 
- [32m✓[39m resources/js/app/screens/Hoc.test.tsx [2m([22m[2m16 tests[22m[2m)[22m[33m 904[2mms[22m[39m
- [32m✓[39m resources/js/app/screens/CaiDat.test.tsx [2m([22m[2m11 tests[22m[2m)[22m[33m 968[2mms[22m[39m
- [32m✓[39m resources/js/app/screens/ChuDe.test.tsx [2m([22m[2m16 tests[22m[2m)[22m[33m 1028[2mms[22m[39m
- [32m✓[39m resources/js/app/screens/HomNay.test.tsx [2m([22m[2m13 tests[22m[2m)[22m[33m 536[2mms[22m[39m
- [32m✓[39m resources/js/app/screens/TheTu.test.tsx [2m([22m[2m14 tests[22m[2m)[22m[33m 589[2mms[22m[39m
- [32m✓[39m resources/js/app/state/store.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 17[2mms[22m[39m
- [32m✓[39m resources/js/app/components/AudioButton.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 97[2mms[22m[39m
- [32m✓[39m resources/js/app/state/taiKhoan.test.tsx [2m([22m[2m9 tests[22m[2m)[22m[33m 1452[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/Hoc.test.tsx [2m([22m[2m16 tests[22m[2m)[22m[33m 859[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/CaiDat.test.tsx [2m([22m[2m11 tests[22m[2m)[22m[33m 953[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/ChuDe.test.tsx [2m([22m[2m16 tests[22m[2m)[22m[33m 1041[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/TheTu.test.tsx [2m([22m[2m14 tests[22m[2m)[22m[33m 563[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/HomNay.test.tsx [2m([22m[2m13 tests[22m[2m)[22m[33m 575[2mms[22m[39m
+ [32m✓[39m resources/js/app/state/store.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+ [32m✓[39m resources/js/app/components/AudioButton.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 85[2mms[22m[39m
+ [32m✓[39m resources/js/app/state/taiKhoan.test.tsx [2m([22m[2m9 tests[22m[2m)[22m[33m 1466[2mms[22m[39m
    [32m✓[39m TaiKhoanProvider [2m(6)[22m
-     [33m[2m✓[22m[39m lưu lên máy chủ hỏng: báo rõ, cài đặt trên máy vẫn đổi[33m 496[2mms[22m[39m
-     [33m[2m✓[22m[39m đổi rồi tải lại trang ngay (chưa kịp gửi): lần mở sau, phần chờ trên máy thắng và được gửi tiếp[33m 478[2mms[22m[39m
- [32m✓[39m resources/js/app/lib/api.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 21[2mms[22m[39m
- [32m✓[39m tests/js/chuVietThang.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 152[2mms[22m[39m
- [32m✓[39m resources/js/app/i18n/i18n.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 132[2mms[22m[39m
- [32m✓[39m resources/js/app/lib/srs.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+     [33m[2m✓[22m[39m lưu lên máy chủ hỏng: báo rõ, cài đặt trên máy vẫn đổi[33m 563[2mms[22m[39m
+     [33m[2m✓[22m[39m đổi rồi tải lại trang ngay (chưa kịp gửi): lần mở sau, phần chờ trên máy thắng và được gửi tiếp[33m 466[2mms[22m[39m
+ [32m✓[39m resources/js/app/lib/api.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m✓[39m tests/js/chuVietThang.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 130[2mms[22m[39m
+ [32m✓[39m resources/js/app/i18n/i18n.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 116[2mms[22m[39m
+ [32m✓[39m resources/js/app/lib/srs.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+ [32m✓[39m resources/js/app/App.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[33m 313[2mms[22m[39m
  [32m✓[39m resources/js/app/lib/speech.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 8[2mms[22m[39m
- [32m✓[39m resources/js/app/App.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 290[2mms[22m[39m
- [32m✓[39m resources/js/app/lib/session.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m resources/js/app/lib/session.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
  [32m✓[39m resources/js/app/lib/muiGio.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 4[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m16 passed[39m[22m[90m (16)[39m
 [2m      Tests [22m [1m[32m144 passed[39m[22m[90m (144)[39m
-[2m   Start at [22m 23:34:18
-[2m   Duration [22m 6.81s[2m (environment 41%, tests 35%, import 10%, setup 9%, transform 4%)[22m
+[2m   Start at [22m 23:38:34
+[2m   Duration [22m 6.67s[2m (environment 41%, tests 35%, import 11%, setup 8%, transform 4%)[22m
 
-[2mEnvironment [22m [33mjsdom was created 16 times[39m[2m · 7.35s total, 41% of tracked time[22m
+[2mEnvironment [22m [33mjsdom was created 16 times[39m[2m · 7.12s total, 41% of tracked time[22m
 [2m            [22m [2mcreate it once per worker with [22m[33mpool: 'vmThreads'[39m[2m (keeps per-file isolation) or [22m[33misolate: false[39m[2m (shares it across files)[22m
 [2m            [22m [2mlearn more: https://vitest.dev/guide/improving-performance#test-environments[22m
 
@@ -297,25 +242,25 @@ public/build/assets/theme-DVHi_9sl.css                                   716.36 
 public/build/assets/app-BvRk9kiK.js                                        0.00 kB │ gzip:   0.02 kB
 public/build/assets/main-VEeq8UGc.js                                     361.78 kB │ gzip: 113.66 kB
 
-[32m✓ built in 792ms[39m
+[32m✓ built in 667ms[39m
 
 ==> TỔNG KẾT
 ✔ Định dạng PHP (Pint) (3 giây)
-✔ Phân tích tĩnh PHP (Larastan) (13.3 giây)
-✘ Test PHP (Pest, MySQL lernbuch_test) (mã 2, 84.8 giây)
-✔ Kiểu TypeScript (tsc) (3.8 giây)
-✔ ESLint (6.6 giây)
-✔ Test giao diện (Vitest) (7.3 giây)
-✔ Build giao diện (Vite) (1.2 giây)
-KẾT QUẢ: 6/7 bước đạt
-CÓ BƯỚC CHƯA QUA - báo Claude đọc setup\ket-qua-test.txt
+✔ Phân tích tĩnh PHP (Larastan) (10.8 giây)
+✔ Test PHP (Pest, MySQL lernbuch_test) (77.8 giây)
+✔ Kiểu TypeScript (tsc) (3 giây)
+✔ ESLint (5 giây)
+✔ Test giao diện (Vitest) (7.2 giây)
+✔ Build giao diện (Vite) (1.1 giây)
+KẾT QUẢ: 7/7 bước đạt
+TẤT CẢ ĐỀU QUA
 **********************
 Windows PowerShell transcript end
-End time: 20261126233427
+End time: 20261126233842
 **********************
 
 ===== setup/ket-qua-kiem-tra.txt
-=== Kiem tra moi truong Lernbuch Thu 11/26/2026 23:34:27.25
+=== Kiem tra moi truong Lernbuch Thu 11/26/2026 23:38:42.76
 --- PHP
 PHP 8.5.13 (cli) (built: Nov 18 2026 00:59:53) (NTS Visual C++ 2022 x64)
 Copyright (c) The PHP Group
@@ -389,7 +334,7 @@ performance_schema
 sys
 --- Git
 git version 2.56.1.windows.1
-00f1e18 2026-11-27 06:30:05 +0700 G1 tuần 2: lệnh app:nhap-lernbuch nhập nội dung Lernbuch cũ (chạy thử, báo cáo, rồi mới ghi)
+b7ccc94 2026-11-27 06:33:32 +0700 Nhập Lernbuch: script Windows setup\nhap-du-lieu.bat (chạy thử, hỏi rồi mới ghi); sửa nguồn giả trong test (cột số kiểu INTEGER)
 --- Lernbuch
 Laravel Framework 13.44.1
 .env: co
@@ -399,6 +344,20 @@ giao dien da build: co
 --- XAMPP, chi de doi chieu
 Khong thay C:\xampp\php\php.exe
 === Het
+
+===== setup/tmp/ci/thu-web.log
+Máy chủ chạy ở http://127.0.0.1:8001
+✔ trang chào có chữ Việt (GET / → 200)
+✔ trang chào có chữ Đức (GET / → 200)
+✔ app học dẫn về trang đăng nhập (GET /app/hom-nay → 200)
+✔ trang tạo tài khoản (GET /dang-ky → 200)
+✔ trang đăng nhập quản trị (GET /admin/login → 200)
+✔ kiểm tra sống /up (GET /up → 200)
+✔ manifest PWA (GET /manifest.webmanifest → 200)
+✔ không lộ .env (GET /.env → 404)
+✔ CSS đã build (GET /build/assets/app-YKHRSXNG.css → 200)
+✔ file CSS/JS của Filament (GET /js/filament/forms/components/text-input/password-reveal.js?v=5.12.0.0 → 200)
+KẾT QUẢ: 10/10 trang đạt
 
 ===== setup/tmp/ci/test-setup.log
 ===== test-cai-dat.ps1
@@ -499,7 +458,7 @@ PASS  file lạ: giữ nguyên nội dung
 PASS  bỏ file lạ thì cập nhật được
 PASS  không ở nhánh main: dừng và nêu tên nhánh
 PASS  máy có commit riêng: dừng
-fatal: 'C:\Users\runneradmin\AppData\Local\Temp\lernbuch-git-3b4bca2a\khong-co.git' does not appear to be a git repository
+fatal: 'C:\Users\runneradmin\AppData\Local\Temp\lernbuch-git-76c691ea\khong-co.git' does not appear to be a git repository
 fatal: Could not read from remote repository.
 
 Please make sure you have the correct access rights
@@ -553,6 +512,9 @@ PASS  lernbuch-chung.ps1 : xuống dòng CRLF
 PASS  mysql.ps1 : đúng cú pháp PowerShell
 PASS  mysql.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
 PASS  mysql.ps1 : xuống dòng CRLF
+PASS  nhap-du-lieu.ps1 : đúng cú pháp PowerShell
+PASS  nhap-du-lieu.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
+PASS  nhap-du-lieu.ps1 : xuống dòng CRLF
 PASS  tao-admin.ps1 : đúng cú pháp PowerShell
 PASS  tao-admin.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
 PASS  tao-admin.ps1 : xuống dòng CRLF
@@ -571,6 +533,9 @@ PASS  tests\test-chung.ps1 : xuống dòng CRLF
 PASS  tests\test-file.ps1 : đúng cú pháp PowerShell
 PASS  tests\test-file.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
 PASS  tests\test-file.ps1 : xuống dòng CRLF
+PASS  tests\test-nhap-du-lieu.ps1 : đúng cú pháp PowerShell
+PASS  tests\test-nhap-du-lieu.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
+PASS  tests\test-nhap-du-lieu.ps1 : xuống dòng CRLF
 PASS  tests\thu-web.ps1 : đúng cú pháp PowerShell
 PASS  tests\thu-web.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
 PASS  tests\thu-web.ps1 : xuống dòng CRLF
@@ -600,6 +565,9 @@ PASS  mysql-bat.bat : chỉ dừng chờ phím khi không chạy trên CI
 PASS  mysql-tat.bat : chỉ có ký tự ASCII
 PASS  mysql-tat.bat : xuống dòng CRLF (cmd.exe cần)
 PASS  mysql-tat.bat : chỉ dừng chờ phím khi không chạy trên CI
+PASS  nhap-du-lieu.bat : chỉ có ký tự ASCII
+PASS  nhap-du-lieu.bat : xuống dòng CRLF (cmd.exe cần)
+PASS  nhap-du-lieu.bat : chỉ dừng chờ phím khi không chạy trên CI
 PASS  tao-admin.bat : chỉ có ký tự ASCII
 PASS  tao-admin.bat : xuống dòng CRLF (cmd.exe cần)
 PASS  tao-admin.bat : chỉ dừng chờ phím khi không chạy trên CI
@@ -609,11 +577,20 @@ PASS  _env.bat : chỉ dừng chờ phím khi không chạy trên CI
 PASS  cap-nhat.bat: cả khối lệnh trong ngoặc, có exit /b bên trong
 PASS  cap-nhat.bat: chuyển tham số cho cap-nhat.ps1
 
-Kết quả: 71 qua, 0 lỗi
+Kết quả: 80 qua, 0 lỗi
+===== test-nhap-du-lieu.ps1
+PASS  chưa có dữ liệu thì báo rõ phải chép lernweb.zip vào đâu
+PASS  đường dẫn đưa vào không có thì báo lỗi
+PASS  thư mục lernweb có content\seed.db thì dùng thư mục đó
+PASS  có lernweb.zip thì ưu tiên file zip
+PASS  đường dẫn đưa vào thì dùng đúng đường dẫn đó
+
+Kết quả: 5 qua, 0 lỗi
 
 ✔ test-cai-dat.ps1
 ✔ test-cap-nhat.ps1
 ✔ test-chung.ps1
 ✔ test-file.ps1
-KẾT QUẢ: 4/4 file test đạt
+✔ test-nhap-du-lieu.ps1
+KẾT QUẢ: 5/5 file test đạt
 
