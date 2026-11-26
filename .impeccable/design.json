@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-25T19:44:24+00:00",
+  "generatedAt": "2026-11-26T03:11:43+00:00",
   "title": "Design System: Lernbuch Online",
   "extensions": {
     "colorMeta": {
@@ -556,7 +556,6 @@
     {
       "name": "Thanh 6 mức thuộc",
       "kind": "custom",
-      "refersTo": "colors.level-0",
       "description": "Dấu ấn: dải màu theo số thẻ từng mức và hình cây kèm số; ở trang chủ đề mỗi mức là nút lọc.",
       "html": "<div class=\"ds-levels\" role=\"img\" aria-label=\"Mức thuộc: Hạt 9, Mầm 3, Lá 4, Nụ 4, Hoa 2, Quả 2\"><div class=\"ds-levels__bar\"><span style=\"width:37.5%;background:var(--color-level-0)\"></span><span style=\"width:12.5%;background:var(--color-level-1)\"></span><span style=\"width:16.7%;background:var(--color-level-2)\"></span><span style=\"width:16.7%;background:var(--color-level-3)\"></span><span style=\"width:8.3%;background:var(--color-level-4)\"></span><span style=\"width:8.3%;background:var(--color-level-5)\"></span></div><div class=\"ds-levels__row\"><span><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--color-ink-2)\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 20.5h14\" stroke=\"var(--color-line-strong)\"/><path d=\"M12 20.5V9.8\"/><path d=\"M12 17c-3.3 0-5.4-1.9-5.4-4.7 3.1 0 5.4 1.8 5.4 4.7z\" fill=\"var(--color-level-2)\"/><path d=\"M12 13.6c0-2.9 2.2-4.9 5.4-4.9 0 2.8-2.2 4.9-5.4 4.9z\" fill=\"var(--color-level-2)\"/></svg><b>4</b> Lá</span></div></div>",
       "css": ".ds-levels { max-width: 448px; font-family: var(--font-body); } .ds-levels__bar { display: flex; height: 8px; overflow: hidden; border-radius: var(--radius-pill); background: var(--color-sunken); } .ds-levels__row { display: flex; gap: 16px; margin-top: 8px; } .ds-levels__row span { display: flex; align-items: center; gap: 4px; font-size: 0.875rem; color: var(--color-ink-2); font-variant-numeric: tabular-nums; } .ds-levels__row b { color: var(--color-ink); font-weight: 600; }"
@@ -564,7 +563,6 @@
     {
       "name": "Mầm của dải 14 ngày",
       "kind": "custom",
-      "refersTo": "colors.leaf",
       "description": "Dấu ấn: mỗi ngày một mầm, thân cao theo số thẻ đã ôn; hôm nay màu lá, ngày tới nét đứt.",
       "html": "<div class=\"ds-days\"><button type=\"button\"><svg viewBox=\"0 0 20 48\" width=\"20\" height=\"48\" aria-hidden=\"true\"><path d=\"M10 47V22\" stroke=\"var(--color-ink-3)\" stroke-width=\"2\" stroke-linecap=\"round\" fill=\"none\"/><path d=\"M10 24Q5 24.6 3.4 19.6Q8.6 19 10 24Z\" fill=\"var(--color-level-4)\" stroke=\"var(--color-ink-3)\" stroke-width=\"1.2\"/><path d=\"M10 22Q15 22.6 16.6 17.6Q11.4 17 10 22Z\" fill=\"var(--color-level-4)\" stroke=\"var(--color-ink-3)\" stroke-width=\"1.2\"/></svg><small>T4</small><b>25</b></button><button type=\"button\" class=\"is-today\" aria-pressed=\"true\"><svg viewBox=\"0 0 20 48\" width=\"20\" height=\"48\" aria-hidden=\"true\"><path d=\"M10 47V36\" stroke=\"var(--color-leaf)\" stroke-width=\"2\" stroke-linecap=\"round\" fill=\"none\"/><path d=\"M10 38Q5 38.6 3.4 33.6Q8.6 33 10 38Z\" fill=\"var(--color-leaf)\" stroke=\"var(--color-leaf)\" stroke-width=\"1.2\"/><path d=\"M10 36Q15 36.6 16.6 31.6Q11.4 31 10 36Z\" fill=\"var(--color-leaf)\" stroke=\"var(--color-leaf)\" stroke-width=\"1.2\"/></svg><small>Nay</small><b>26</b></button></div>",
       "css": ".ds-days { display: flex; gap: 4px; font-family: var(--font-body); } .ds-days button { display: flex; min-height: 96px; width: 52px; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; padding: 8px 0 6px; border: 1px solid transparent; border-radius: var(--radius-md); background: none; color: var(--color-ink); cursor: pointer; } .ds-days button:hover { background: var(--color-sunken); } .ds-days button.is-today { border-color: var(--color-leaf); background: var(--color-leaf-tint); } .ds-days small { font-size: 0.6875rem; color: var(--color-ink-2); } .ds-days .is-today small { color: var(--color-leaf); font-weight: 700; } .ds-days b { font-size: 0.875rem; font-weight: 600; font-variant-numeric: tabular-nums; } .ds-days button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }"
