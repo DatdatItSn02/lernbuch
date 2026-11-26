@@ -44,7 +44,7 @@ Trong lúc thử mục 8, 9 tìm ra và đã sửa:
 - Deploy tự động lên alwaysdata: mỗi lần đẩy vào `main` mà CI xanh thì đóng gói, migrate trên bản mới, đổi bản, kiểm trang chủ và `/up`, lỗi thì tự quay lại. Log từng lần (bản đang chạy, `/up`, số nhịp, dung lượng) ở nhánh `ci-results`.
 - 4 màn hình app học chạy được với dữ liệu mẫu: Hôm nay, Học, Thẻ từ, Trang chủ đề; thêm Cài đặt, danh sách chủ đề, trang 404. Mở ở `/app/hom-nay` sau khi chạy `setup\chay-web.bat`.
 - Chạy trên Windows: `docs/huong-dan-windows.md` (bộ `setup\*.bat` giống LoWo thay cho Herd như kế hoạch ban đầu, theo yêu cầu của bạn).
-- Ảnh trang chào và trang đăng nhập quản trị ở cỡ máy tính và điện thoại (giao diện mới, chụp trong CI): `docs/anh/`. Ảnh 4 màn hình app học có trong thư mục dự án trên máy.
+- Ảnh trang chào và trang đăng nhập quản trị ở cỡ máy tính và điện thoại (giao diện mới): `docs/anh/`. Ảnh 4 màn hình app học có trong thư mục dự án trên máy.
 - File zip mã nguồn `lernbuch-g0.zip` và bản sao tài liệu trong `F:\CongViec\lernbuch`.
 
 ## Chưa làm, cần bạn
