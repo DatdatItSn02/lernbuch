@@ -7,13 +7,20 @@ import argparse
 import json
 import subprocess
 import sys
+import time
 
 FIELDS = 'databaseId,workflowName,headBranch,headSha,displayTitle,event,status,conclusion,createdAt'
 
 
-def gh_json(args):
-    out = subprocess.run(['gh', *args], check=True, capture_output=True, text=True).stdout
-    return json.loads(out)
+def gh_json(args, tries=3):
+    """Gọi gh, lỗi tạm (mạng, giới hạn API) thì thử lại vài lần trước khi dừng."""
+    for i in range(tries):
+        r = subprocess.run(['gh', *args], capture_output=True, text=True)
+        if r.returncode == 0:
+            return json.loads(r.stdout)
+        if i < tries - 1:
+            time.sleep(2 * (i + 1))
+    raise RuntimeError(f'gh {" ".join(args)} lỗi sau {tries} lần thử: {r.stderr.strip()[:300]}')
 
 
 def main(argv=None):
