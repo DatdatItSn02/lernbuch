@@ -1,4 +1,4 @@
-"""Test tu_kiem.py bằng log giả lập: đủ bằng chứng thì đạt, có bước hỏng thì báo chưa đạt.
+"""Test tu_kiem.py bằng log giả lập (theo đúng dạng log thật): đủ bằng chứng thì đạt, có bước hỏng thì báo chưa đạt.
 
 Chạy: python3 -m unittest tools/tu-kiem/test_tu_kiem.py
 """
@@ -85,18 +85,123 @@ def runs():
     ]
 
 
+# ---------- log máy chủ (runs/*-ci-deploy.txt, runs/*-rollback-rollback.txt), theo dạng log thật ----------
+
+R = {i: f'2026112{i}100000-{i}{i}{i}{i}{i}{i}{i}' for i in range(1, 9)}
+
+
+def server_log(run, body, status='success', kind='deploy'):
+    wf, job = ('ci', 'deploy') if kind == 'deploy' else ('rollback', 'rollback')
+    head = '\n'.join(l for l in body.splitlines() if l.startswith(('✔', '✘')))
+    return f"""workflow: {wf}  job: {job}  status: {status}
+commit: {run:07d}{'0' * 33}  ref: main  run: {run}
+
+{head}
+
+----- cuối log -----
+composer install ... (đóng gói)
+{body}
+"""
+
+
+def status_lines(cur, rels, up='200', beats=None):
+    out = [f'Trước deploy: /up trả {up}', f'Bản đang chạy: {cur}']
+    out += [f'Dung lượng: 107M\treleases/{r}' for r in rels] + ['Dung lượng: 1.3M\tshared', 'Dung lượng: 15M\t.']
+    if beats is not None:
+        out.append(f'Nhịp trong 10 phút qua: {beats}/10 (cần ít nhất 9).')
+    return out
+
+
+def deploy_ok(rel, before=None, disk='new', home='380M', db='3.2M (92 bảng)', beats=None):
+    out = status_lines(*before, beats=beats) if before else []
+    out += [f'== Giải nén {rel}', '== Cập nhật .env (giữ APP_KEY cũ)', '== Migration', '   INFO  Nothing to migrate.',
+            '== Cache cấu hình, route, view', '  config \x1b[90m....\x1b[39m 46.45ms \x1b[32;1mDONE\x1b[39;22m',
+            f'== Đổi current sang {rel}', '   INFO  Broadcasting queue restart signal.',
+            '== Giữ 3 bản gần nhất (và luôn giữ bản tốt gần nhất để còn chỗ quay lại)']
+    if disk == 'new':
+        out += ['== Dung lượng (gói Free: 1 GB tính chung file, mail và database)', 'Thư mục app: 337M', f'Cả thư mục nhà: {home}',
+                db if db.startswith('Database') else f'Database: {db}']
+    elif disk == 'old':
+        out.append('337M\t/home/lernbuch/lernbuch')
+    out += [f'Xong: {rel}', f'✔ Web đã chạy bản {rel} sau khoảng 0 giây', f'✔ /up trả 200 ({rel})']
+    return '\n'.join(out)
+
+
+def deploy_mig_fail(rel, kept, before=None, switched=False):
+    out = status_lines(*before) if before else []
+    out += [f'== Giải nén {rel}', '== Cập nhật .env (giữ APP_KEY cũ)', '== Migration', '   INFO  Running migrations.',
+            '  2026_11_26_000001_thu_migration_hong \x1b[90m....\x1b[39m 4.07ms \x1b[31;1mFAIL\x1b[39;22m',
+            'In 2026_11_26_000001_thu_migration_hong.php line 12:', '  Migration cố ý hỏng để thử mục 8.']
+    if switched:
+        out.append(f'== Đổi current sang {rel}')
+    out.append(f'✘ Deploy dừng, giữ nguyên bản đang chạy: {kept}')
+    return '\n'.join(out)
+
+
+def deploy_rollback(rel, prev, before=None, app_up='500', after=None, web_timeout=True):
+    out = status_lines(*before) if before else []
+    out += [f'== Giải nén {rel}', '== Migration', '   INFO  Nothing to migrate.', f'== Đổi current sang {rel}', f'Xong: {rel}']
+    if web_timeout:
+        out += [f'✘ Sau 240 giây trang chủ vẫn chưa báo bản {rel}', '✘ /up trả ?, trang chủ trả 200']
+    else:
+        out += [f'✔ Web đã chạy bản {rel} sau khoảng 0 giây', '✘ /up trả 500, trang chủ trả 500']
+    out += [f'current -> /home/lernbuch/lernbuch/releases/{rel}', 'có public/index.php', f'app tự trả /up: {app_up}',
+            'Quay lại bản trước', f'Đã quay lại: {rel} -> {prev}']
+    if after is not False:
+        a, code = after or (prev, '200')
+        out.append(f'Sau khi quay lại: web chạy Bản {a}, /up trả {code}')
+    return '\n'.join(out)
+
+
+def rollback_wf(cur, prev, after=None):
+    a, code = after or (prev, '200')
+    out = [f'Đã quay lại: {cur} -> {prev}', f'Sau khi quay lại: web chạy Bản {a}, /up trả {code}']
+    if (a, code) == (prev, '200'):
+        out.append(f'✔ Web chạy bản trước ({prev}), /up trả 200')
+    return '\n'.join(out)
+
+
+def history():
+    """Lịch sử như G0: deploy tốt, migration hỏng, bản làm /up lỗi tự quay lại, quay lại bằng tay, đủ 5 lần deploy tốt."""
+    return {
+        'runs/1-ci-deploy.txt': server_log(100, deploy_ok(R[1], disk='old')),
+        'runs/2-ci-deploy.txt': server_log(101, deploy_ok(R[2], before=(R[1], [R[1]]), disk='old')),
+        'runs/3-ci-deploy.txt': server_log(102, deploy_mig_fail(R[3], kept=R[2], before=(R[2], [R[1], R[2]])), status='failure'),
+        'runs/4-ci-deploy.txt': server_log(103, deploy_ok(R[4], before=(R[2], [R[1], R[2]]), disk='old')),
+        'runs/5-ci-deploy.txt': server_log(104, deploy_rollback(R[5], prev=R[4], before=(R[4], [R[1], R[2], R[4]])), status='failure'),
+        'runs/6-ci-deploy.txt': server_log(105, deploy_ok(R[6], before=(R[4], [R[2], R[4], R[5]]), beats=10)),
+        'runs/1-rollback-rollback.txt': server_log(106, rollback_wf(R[6], R[4]), kind='rollback'),
+        'runs/7-ci-deploy.txt': server_log(107, deploy_ok(R[7], before=(R[4], [R[4], R[5], R[6]]), beats=9)),
+    }
+
+
+TAY = {'muc': [
+    {'so': 7, 'nguon': 'đăng nhập trên trình duyệt', 'luc': '2026-11-27', 'dang_nhap_admin': True},
+    {'so': 13, 'nguon': 'SSH trên alwaysdata', 'luc': '2026-11-26', 'nhip': 9, 'trong_phut': 10,
+     'job_thu_xong': True, 'job_loi_so_lan_thu': 3, 'job_loi_vao_failed_jobs': True},
+]}
+
+
 class TuKiemTest(unittest.TestCase):
-    def run_check(self, files, run_list=None, args=()):
+    def run_check(self, files, run_list=None, args=(), tay=None):
         with tempfile.TemporaryDirectory() as d:
             for name, text in files.items():
+                Path(d, name).parent.mkdir(parents=True, exist_ok=True)
                 Path(d, name).write_text(text, encoding='utf-8')
             rp = Path(d, 'runs.json')
             rp.write_text(json.dumps(run_list if run_list is not None else runs()), encoding='utf-8')
             out = Path(d, 'kq.json')
+            if tay is not None:
+                Path(d, 'tay.json').write_text(json.dumps(tay, ensure_ascii=False), encoding='utf-8')
+                args = (*args, '--tay', str(Path(d, 'tay.json')))
             with contextlib.redirect_stdout(io.StringIO()):
                 code = tu_kiem.main(['--ci', d, '--runs', str(rp), '--out', str(out), *args])
             data = json.loads(out.read_text(encoding='utf-8'))
             return code, {i['so']: i for i in data['muc']}, data
+
+    def with_history(self, changes=None):
+        """Bộ log tốt + lịch sử máy chủ; changes: tên file -> nội dung thay vào."""
+        return {**self.good_files(), **history(), **(changes or {})}
 
     def good_files(self):
         return {
@@ -113,9 +218,11 @@ class TuKiemTest(unittest.TestCase):
             self.assertEqual(m[so]['trang_thai'], 'dat', (so, m[so]))
         self.assertEqual(m[13]['trang_thai'], 'dat_mot_phan')
         self.assertEqual(m[16]['trang_thai'], 'dat_mot_phan')
-        for so in (7, 8, 9, 10):
+        for so in (7, 8, 9):
             self.assertEqual(m[so]['trang_thai'], 'chua_chay')
             self.assertIn('DEPLOY_ENABLED', m[so]['ghi_chu'])
+        self.assertEqual(m[10]['trang_thai'], 'chua_chay')
+        self.assertIn('Run workflow', m[10]['ghi_chu'])
         self.assertEqual(data['tong']['chua_dat'], 0)
         self.assertEqual(len(data['muc']), 16)
 
@@ -213,15 +320,203 @@ class TuKiemTest(unittest.TestCase):
         self.assertEqual(m[16]['trang_thai'], 'chua_dat')
         self.assertIn('vượt mức', m[16]['ghi_chu'])
 
-    def test_deploy_that_va_quay_lai_co_bang_chung_thi_dat(self):
-        r = runs()
-        r[1]['jobs'][2]['conclusion'] = 'success'
-        r.append({'id': 9, 'workflow': 'rollback', 'branch': 'main', 'sha': 'y', 'title': 'rb', 'event': 'workflow_dispatch',
-                  'conclusion': 'success', 'created': '', 'jobs': []})
-        _, m, _ = self.run_check(self.good_files(), run_list=r)
-        self.assertEqual(m[7]['trang_thai'], 'dat')
-        self.assertEqual(m[10]['trang_thai'], 'dat')
+    # ---------- mục 7–10, 13, 16 từ log máy chủ ----------
 
+    def test_log_may_chu_du_thi_dat(self):
+        code, m, data = self.run_check(self.with_history(), tay=TAY)
+        for so in range(1, 17):
+            self.assertEqual(m[so]['trang_thai'], 'dat', (so, m[so]))
+        self.assertEqual(code, 0)
+        self.assertIn(R[7], m[7]['bang_chung'][0])
+        self.assertIn(f'giữ bản {R[2]}', m[8]['bang_chung'][0])
+        self.assertTrue(any(f'bản dở dang {R[3]} đã bị xoá' in e for e in m[8]['bang_chung']))
+        self.assertTrue(any(f'{R[5]} -> {R[4]}' in e for e in m[9]['bang_chung']))
+        self.assertIn('php.ini', m[9]['ghi_chu'])
+        self.assertTrue(any(f'{R[6]} -> {R[4]}' in e for e in m[10]['bang_chung']))
+        # nhịp lấy từ log deploy mới nhất có dòng app:kiem-nhip (9/10), không phải từ kết quả tay
+        self.assertTrue(any('9/10 nhịp (app:kiem-nhip trước lần deploy run 107' in e for e in m[13]['bang_chung']))
+        self.assertTrue(any('383 MB = 37% của 1 GB; đo sau 5 lần deploy thành công' in e for e in m[16]['bang_chung']), m[16])
+
+    def test_chua_dang_nhap_admin_thi_muc_7_dat_mot_phan(self):
+        _, m, _ = self.run_check(self.with_history())
+        self.assertEqual(m[7]['trang_thai'], 'dat_mot_phan')
+        self.assertIn('app:create-admin', m[7]['ghi_chu'])
+
+    def test_dang_nhap_admin_khong_duoc_thi_chua_dat(self):
+        tay = {'muc': [{**TAY['muc'][0], 'dang_nhap_admin': False}, TAY['muc'][1]]}
+        code, m, _ = self.run_check(self.with_history(), tay=tay)
+        self.assertEqual(m[7]['trang_thai'], 'chua_dat')
+        self.assertEqual(code, 1)
+
+    def test_deploy_khong_bao_dung_ban_moi_thi_khong_tinh(self):
+        # /up 200 nhưng trang chủ chưa báo bản mới (web còn chạy bản cũ): không phải bằng chứng deploy chạy được
+        files = {'runs/1-ci-deploy.txt': server_log(100, deploy_ok(R[1]).replace(f'✔ Web đã chạy bản {R[1]} sau khoảng 0 giây', ''))}
+        _, m, _ = self.run_check(files)
+        self.assertEqual(m[7]['trang_thai'], 'chua_chay')
+
+    def test_migration_hong_ma_van_doi_current_thi_chua_dat(self):
+        bad = server_log(102, deploy_mig_fail(R[3], kept=R[2], before=(R[2], [R[1], R[2]]), switched=True), status='failure')
+        _, m, _ = self.run_check(self.with_history({'runs/3-ci-deploy.txt': bad}))
+        self.assertEqual(m[8]['trang_thai'], 'chua_dat')
+        self.assertIn('vẫn đổi current', m[8]['ghi_chu'])
+
+    def test_migration_hong_lan_sau_thay_ban_khac_thi_chua_dat(self):
+        bad = server_log(103, deploy_ok(R[4], before=(R[3], [R[1], R[2]]), disk='old'))
+        _, m, _ = self.run_check(self.with_history({'runs/4-ci-deploy.txt': bad}))
+        self.assertEqual(m[8]['trang_thai'], 'chua_dat')
+        self.assertIn(f'không phải {R[2]}', m[8]['ghi_chu'])
+
+    def test_migration_hong_trang_khong_chay_thi_chua_dat(self):
+        bad = server_log(103, deploy_ok(R[4], before=(R[2], [R[1], R[2]], '500'), disk='old'))
+        _, m, _ = self.run_check(self.with_history({'runs/4-ci-deploy.txt': bad}))
+        self.assertEqual(m[8]['trang_thai'], 'chua_dat')
+        self.assertIn('/up trả 500', m[8]['ghi_chu'])
+
+    def test_migration_hong_con_ban_do_dang_thi_chua_dat(self):
+        bad = server_log(103, deploy_ok(R[4], before=(R[2], [R[1], R[2], R[3]]), disk='old'))
+        _, m, _ = self.run_check(self.with_history({'runs/4-ci-deploy.txt': bad}))
+        self.assertEqual(m[8]['trang_thai'], 'chua_dat')
+        self.assertIn('chưa bị xoá', m[8]['ghi_chu'])
+
+    def test_migration_hong_giu_sai_ban_thi_chua_dat(self):
+        bad = server_log(102, deploy_mig_fail(R[3], kept=R[1], before=(R[2], [R[1], R[2]])), status='failure')
+        _, m, _ = self.run_check(self.with_history({'runs/3-ci-deploy.txt': bad}))
+        self.assertEqual(m[8]['trang_thai'], 'chua_dat')
+        self.assertIn('khác bản đang chạy trước đó', m[8]['ghi_chu'])
+
+    def test_migration_hong_chua_co_lan_deploy_sau_thi_dat_mot_phan(self):
+        files = {k: v for k, v in self.with_history().items() if not k.startswith('runs/') or int(k[5]) <= 3 and 'deploy' in k}
+        _, m, _ = self.run_check(files)
+        self.assertEqual(m[8]['trang_thai'], 'dat_mot_phan')
+
+    def test_quay_lai_nhung_web_chay_ban_khac_thi_chua_dat(self):
+        bad = server_log(104, deploy_rollback(R[5], prev=R[4], after=(R[5], '200')), status='failure')
+        _, m, _ = self.run_check(self.with_history({'runs/5-ci-deploy.txt': bad}))
+        self.assertEqual(m[9]['trang_thai'], 'chua_dat')
+        self.assertIn(f'web chạy {R[5]}', m[9]['ghi_chu'])
+
+    def test_quay_lai_xong_up_loi_thi_chua_dat(self):
+        bad = server_log(104, deploy_rollback(R[5], prev=R[4], after=(R[4], '500')), status='failure')
+        _, m, _ = self.run_check(self.with_history({'runs/5-ci-deploy.txt': bad}))
+        self.assertEqual(m[9]['trang_thai'], 'chua_dat')
+
+    def test_quay_lai_khong_ghi_sau_khi_quay_lai_thi_dat_mot_phan(self):
+        bad = server_log(104, deploy_rollback(R[5], prev=R[4], after=False), status='failure')
+        _, m, _ = self.run_check(self.with_history({'runs/5-ci-deploy.txt': bad}))
+        self.assertEqual(m[9]['trang_thai'], 'dat_mot_phan')
+
+    def test_quay_lai_khi_ban_moi_khong_hong_thi_dat_mot_phan(self):
+        # web chưa đổi bản nên workflow quay lại, nhưng app tự trả /up 200: chưa thử được bản hỏng
+        bad = server_log(104, deploy_rollback(R[5], prev=R[4], app_up='200'), status='failure')
+        _, m, _ = self.run_check(self.with_history({'runs/5-ci-deploy.txt': bad}))
+        self.assertEqual(m[9]['trang_thai'], 'dat_mot_phan')
+
+    def test_quay_lai_uu_tien_lan_ban_moi_hong(self):
+        # như G0: lần thử bản hỏng (app tự trả /up 500), sau đó một lần quay lại vì web chưa đổi bản (app trả 200)
+        later = server_log(108, deploy_rollback(R[8], prev=R[7], app_up='200'), status='failure')
+        _, m, _ = self.run_check(self.with_history({'runs/8-ci-deploy.txt': later}), tay=TAY)
+        self.assertEqual(m[9]['trang_thai'], 'dat')
+        self.assertIn('run 104', m[9]['bang_chung'][0])
+
+    def test_quay_lai_khi_web_da_doi_ban_thi_khong_ghi_chu_php_ini(self):
+        log = server_log(104, deploy_rollback(R[5], prev=R[4], web_timeout=False), status='failure')
+        _, m, _ = self.run_check(self.with_history({'runs/5-ci-deploy.txt': log}))
+        self.assertEqual(m[9]['trang_thai'], 'dat')
+        self.assertTrue(any('/up trên web trả 500' in e for e in m[9]['bang_chung']))
+        self.assertEqual(m[9]['ghi_chu'], '')
+
+    def test_rollback_bang_tay_web_khong_doi_ban_thi_chua_dat(self):
+        bad = server_log(106, rollback_wf(R[6], R[4], after=(R[6], '200')), status='failure', kind='rollback')
+        _, m, _ = self.run_check(self.with_history({'runs/1-rollback-rollback.txt': bad}))
+        self.assertEqual(m[10]['trang_thai'], 'chua_dat')
+
+    def test_rollback_bang_tay_khong_co_ban_truoc_thi_chua_dat(self):
+        bad = server_log(106, f'Không có bản trước để quay lại (đang chạy {R[1]})', status='failure', kind='rollback')
+        code, m, _ = self.run_check(self.with_history({'runs/1-rollback-rollback.txt': bad}))
+        self.assertEqual(m[10]['trang_thai'], 'chua_dat')
+        self.assertEqual(code, 1)
+
+    def test_rollback_bang_tay_lay_lan_moi_nhat(self):
+        files = self.with_history()
+        files['runs/2-rollback-rollback.txt'] = server_log(109, rollback_wf(R[7], R[6], after=(R[7], '200')), status='failure', kind='rollback')
+        _, m, _ = self.run_check(files)
+        self.assertEqual(m[10]['trang_thai'], 'chua_dat')
+
+    def test_dia_tren_60_phan_tram_thi_chua_dat(self):
+        big = server_log(107, deploy_ok(R[7], before=(R[4], [R[4], R[5], R[6]]), home='700M'))
+        code, m, _ = self.run_check(self.with_history({'runs/7-ci-deploy.txt': big}), tay=TAY)
+        self.assertEqual(m[16]['trang_thai'], 'chua_dat')
+        self.assertIn('vượt mức', m[16]['ghi_chu'])
+        self.assertEqual(code, 1)
+
+    def test_dia_tinh_ca_database(self):
+        # 600 MB thư mục nhà + 20 MB database = 620 MB, trên 60% của 1 GB (614 MB)
+        big = server_log(107, deploy_ok(R[7], before=(R[4], [R[4], R[5], R[6]]), home='600M', db='20.0M (92 bảng)'))
+        _, m, _ = self.run_check(self.with_history({'runs/7-ci-deploy.txt': big}), tay=TAY)
+        self.assertEqual(m[16]['trang_thai'], 'chua_dat')
+
+    def test_dia_chi_do_thu_muc_app_thi_dat_mot_phan(self):
+        files = {k: v.replace('Cả thư mục nhà', 'X').replace('Thư mục app: 337M', '337M\t/home/lernbuch/lernbuch')
+                 for k, v in self.with_history().items()}
+        _, m, _ = self.run_check(files)
+        self.assertEqual(m[16]['trang_thai'], 'dat_mot_phan')
+        self.assertIn('thư mục nhà', m[16]['ghi_chu'])
+        self.assertTrue(any('thư mục app 337 MB' in e for e in m[16]['bang_chung']))
+
+    def test_it_hon_5_lan_deploy_thi_dat_mot_phan(self):
+        files = {**self.good_files(), 'runs/1-ci-deploy.txt': server_log(100, deploy_ok(R[1])),
+                 'runs/2-ci-deploy.txt': server_log(101, deploy_ok(R[2], before=(R[1], [R[1]])))}
+        _, m, _ = self.run_check(files)
+        self.assertEqual(m[16]['trang_thai'], 'dat_mot_phan')
+        self.assertIn('mới 2 lần', m[16]['ghi_chu'])
+
+    def test_database_khong_do_duoc_thi_dat_mot_phan(self):
+        log = server_log(107, deploy_ok(R[7], before=(R[4], [R[4], R[5], R[6]]), db='Database: không đo được (không kết nối được)'))
+        _, m, _ = self.run_check(self.with_history({'runs/7-ci-deploy.txt': log}), tay=TAY)
+        self.assertEqual(m[16]['trang_thai'], 'dat_mot_phan')
+        self.assertTrue(any('database không đo được' in e for e in m[16]['bang_chung']))
+
+    def test_thieu_nhip_tren_may_chu_thi_chua_dat(self):
+        log = server_log(107, deploy_ok(R[7], before=(R[4], [R[4], R[5], R[6]]), beats=6))
+        code, m, _ = self.run_check(self.with_history({'runs/7-ci-deploy.txt': log}), tay=TAY)
+        self.assertEqual(m[13]['trang_thai'], 'chua_dat')
+        self.assertIn('6/10', m[13]['ghi_chu'])
+        self.assertEqual(code, 1)
+
+    def test_job_loi_thu_khac_3_lan_thi_chua_dat(self):
+        tay = {'muc': [TAY['muc'][0], {**TAY['muc'][1], 'job_loi_so_lan_thu': 0, 'job_loi_vao_failed_jobs': False}]}
+        _, m, _ = self.run_check(self.with_history(), tay=tay)
+        self.assertEqual(m[13]['trang_thai'], 'chua_dat')
+        self.assertIn('cần đúng 3', m[13]['ghi_chu'])
+
+    def test_co_nhip_chua_thu_hang_doi_thi_dat_mot_phan(self):
+        _, m, _ = self.run_check(self.with_history())
+        self.assertEqual(m[13]['trang_thai'], 'dat_mot_phan')
+        self.assertIn('app:thu-hang-doi', m[13]['ghi_chu'])
+
+    def test_nhip_tu_ket_qua_tay_khi_log_chua_co(self):
+        files = {k: v.replace('Nhịp trong', 'X') for k, v in self.with_history().items()}
+        _, m, _ = self.run_check(files, tay=TAY)
+        self.assertEqual(m[13]['trang_thai'], 'dat')
+        self.assertTrue(any('9/10 nhịp (app:kiem-nhip; SSH trên alwaysdata, 2026-11-26)' in e for e in m[13]['bang_chung']))
+
+    def test_ket_qua_tay_thieu_nguon_thi_bao_loi(self):
+        tay = {'muc': [{'so': 13, 'nhip': 10}]}
+        with tempfile.TemporaryDirectory() as d:
+            Path(d, 'runs.json').write_text('[]', encoding='utf-8')
+            Path(d, 'tay.json').write_text(json.dumps(tay), encoding='utf-8')
+            with contextlib.redirect_stderr(io.StringIO()) as err:
+                code = tu_kiem.main(['--ci', d, '--runs', str(Path(d, 'runs.json')), '--tay', str(Path(d, 'tay.json'))])
+        self.assertEqual(code, 2)
+        self.assertIn('nguon', err.getvalue())
+
+    def test_doi_don_vi_du(self):
+        self.assertEqual(tu_kiem.mb('107M'), 107)
+        self.assertAlmostEqual(tu_kiem.mb('1.3G'), 1331.2)
+        self.assertAlmostEqual(tu_kiem.mb('15K'), 15 / 1024)
+        self.assertEqual(tu_kiem.mb('0'), 0)
+        self.assertIsNone(tu_kiem.mb('không'))
+        self.assertIsNone(tu_kiem.mb(None))
 
 if __name__ == '__main__':
     unittest.main()

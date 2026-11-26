@@ -51,5 +51,10 @@ ls -1 "$APP/releases" | sort | head -n -3 | while read -r r; do
   [ "$r" = "$TOT" ] || rm -rf "${APP:?}/releases/$r"
 done
 rm -f "$IN/$NAME.tgz" "$IN/$NAME.env"
-du -sh "$APP" 2>/dev/null || true
+
+# Gói Free tính chung 1 GB cho file, mail và database: ghi cả ba để theo dõi (tools/tu-kiem đọc các dòng này)
+echo "== Dung lượng (gói Free: 1 GB tính chung file, mail và database)"
+echo "Thư mục app: $(du -sh "$APP" 2>/dev/null | cut -f1)"
+echo "Cả thư mục nhà: $(du -sh "$HOME" 2>/dev/null | cut -f1)"
+php artisan app:dung-luong -n 2>/dev/null || true
 echo "Xong: $NAME"

@@ -10,7 +10,7 @@ permissions:
 jobs:
   rollback:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     env:
       SSH_HOST: ssh-lernbuch.alwaysdata.net
       SSH_USER: lernbuch
@@ -26,7 +26,19 @@ jobs:
         run: |
           set -o pipefail
           { ssh "$SSH_USER@$SSH_HOST" "bash ~/lernbuch/bin/remote-rollback.sh"
-            curl -fsS --max-time 15 "$SITE_URL/up" >/dev/null && echo "✔ /up trả 200 sau khi quay lại"; } 2>&1 | tee /tmp/rollback.log
+            ve=$(ssh "$SSH_USER@$SSH_HOST" 'basename "$(readlink -f ~/lernbuch/current)"')
+            # Chờ trang chủ báo đúng bản vừa quay về (PHP có thể còn nhớ đường dẫn current cũ), rồi mới kiểm /up
+            dang=""
+            for i in $(seq 1 24); do
+              dang=$(curl -sS --max-time 15 "$SITE_URL/" 2>/dev/null | grep -o 'Bản [0-9]*-[0-9a-f]*' | head -1 || true)
+              [ "$dang" = "Bản $ve" ] && break
+              sleep 10
+            done
+            up=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 15 "$SITE_URL/up" || true)
+            echo "Sau khi quay lại: web chạy ${dang:-?}, /up trả ${up:-?}"
+            if [ "$dang" != "Bản $ve" ]; then echo "✘ Sau 240 giây web vẫn chưa chạy bản $ve"; exit 1
+            elif [ "$up" != "200" ]; then echo "✘ /up trả ${up:-?} sau khi quay lại"; exit 1
+            else echo "✔ Web chạy bản trước ($ve), /up trả 200"; fi; } 2>&1 | tee /tmp/rollback.log
       - name: Ghi tóm tắt vào nhánh ci-results
         if: always()
         env:

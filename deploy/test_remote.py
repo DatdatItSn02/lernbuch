@@ -13,10 +13,12 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 
 PHP_GIA = """#!/usr/bin/env bash
-# php giả: ghi lại lệnh, cho migrate hỏng khi có biến MIGRATE_HONG
+# php giả: ghi lại lệnh, cho migrate hỏng khi có biến MIGRATE_HONG, không đo được database khi có DUNG_LUONG_HONG
 echo "$*" >> "$HOME/php.log"
 case "$*" in
   *"migrate"*) [ -n "${MIGRATE_HONG:-}" ] && { echo "migrate hỏng"; exit 1; } ;;
+  *"app:dung-luong"*) [ -n "${DUNG_LUONG_HONG:-}" ] && { echo "Database: không đo được"; exit 1; }
+                      echo "Database: 1.0M (3 bảng)" ;;
 esac
 exit 0
 """
@@ -120,6 +122,22 @@ class RemoteScriptsTest(unittest.TestCase):
         # 3 bản mới nhất + bản tốt gần nhất (aaaaaaa) không bị xoá
         self.assertEqual(con, ["20260101000000-aaaaaaa", "20260102000000-bbbbbbb",
                                "20260103000000-ccccccc", name])
+        # Dung lượng: thư mục app, cả thư mục nhà, database (đúng dạng tools/tu-kiem đọc)
+        self.assertRegex(r.stdout, r"(?m)^Thư mục app: \S+$")
+        self.assertRegex(r.stdout, r"(?m)^Cả thư mục nhà: \S+$")
+        self.assertIn("Database: 1.0M (3 bảng)", r.stdout)
+        self.assertLess(r.stdout.index("Database:"), r.stdout.index(f"Xong: {name}"))
+
+    def test_deploy_khong_do_duoc_database_van_xong(self):
+        self.ban("20260101000000-aaaaaaa", tot=True)
+        self.dat_current("20260101000000-aaaaaaa")
+        name = "20260102000000-bbbbbbb"
+        self.goi_ban(name)
+        r = self.chay("remote-deploy.sh", name, DUNG_LUONG_HONG="1")
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertIn("Database: không đo được", r.stdout)
+        self.assertIn(f"Xong: {name}", r.stdout)
+        self.assertEqual(self.current(), name)
 
     def test_deploy_xoa_ban_cu_khi_ban_tot_nam_trong_3_ban_moi(self):
         for n in ("20260101000000-aaaaaaa", "20260102000000-bbbbbbb"):

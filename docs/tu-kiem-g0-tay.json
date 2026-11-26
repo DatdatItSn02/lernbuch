@@ -1,0 +1,16 @@
+{
+ "ten": "Kết quả đo trên máy chủ thật mà log CI không có (đọc bằng tools/tu-kiem/tu_kiem.py --tay)",
+ "ghi_chu": "Mục 7 chờ đăng nhập /admin trên alwaysdata: xong thì thêm {\"so\": 7, \"nguon\": \"...\", \"luc\": \"...\", \"dang_nhap_admin\": true}. Mục 8, 9, 10, 16 và nhịp của mục 13 đọc thẳng từ log deploy, rollback trong nhánh ci-results.",
+ "muc": [
+  {
+   "so": 13,
+   "nguon": "bạn chạy qua SSH trên alwaysdata, trong ~/lernbuch/current",
+   "luc": "2026-11-26",
+   "nhip": 9,
+   "trong_phut": 10,
+   "job_thu_xong": true,
+   "job_loi_so_lan_thu": 3,
+   "job_loi_vao_failed_jobs": true
+  }
+ ]
+}

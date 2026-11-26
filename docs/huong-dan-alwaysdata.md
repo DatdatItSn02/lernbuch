@@ -56,6 +56,8 @@ Cuối cùng bật deploy: cùng trang đó, tab **Variables** → New repositor
 3. **Tài khoản quản trị.** SSH vào rồi chạy `cd ~/lernbuch/current && php artisan app:create-admin`, nhập email và mật khẩu (ít nhất 12 ký tự).
 4. **Kiểm lịch và hàng đợi** (mục 13 của phần tự kiểm). Sau khi bật hai mục 1 và 2 được 10 phút, SSH vào `~/lernbuch/current` rồi chạy `php artisan app:kiem-nhip` (đạt khi có ít nhất 9/10 nhịp). Chạy `php artisan app:thu-hang-doi`, chờ một phút rồi chạy lệnh `--kiem=<mã>` nó in ra (đạt khi job thử xong và job cố ý lỗi vào `failed_jobs` sau 3 lần thử).
 
+Mỗi lần deploy, log của job deploy (và nhánh `ci-results`) ghi thêm: số nhịp 10 phút qua trước khi deploy, dung lượng thư mục app, cả thư mục nhà và database sau khi dọn bản cũ. Gói Free có 1 GB tính chung file, mail và database.
+
 ## Quay lại bản trước
 
-GitHub → Actions → rollback → Run workflow. Trang đổi về bản trước trong vòng một phút, database giữ nguyên. Muốn về bản mới: Actions → ci → Run workflow trên nhánh `main`.
+GitHub → Actions → rollback → Run workflow. Workflow đổi `current` về bản tốt gần nhất trước bản đang chạy, chờ trang chủ báo đúng bản đó rồi kiểm `/up`; log ghi `Sau khi quay lại: web chạy Bản …, /up trả 200`. Database giữ nguyên. Muốn về bản mới: Actions → ci → Run workflow trên nhánh `main`.

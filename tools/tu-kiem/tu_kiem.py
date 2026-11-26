@@ -1,13 +1,16 @@
 """Tự kiểm thử G0: chấm 16 mục của kế hoạch G0 từ bằng chứng có thật, ghi kết quả ra JSON.
 
 Bằng chứng lấy từ:
-  --ci    thư mục bản sao nhánh ci-results (latest-*.txt do .github/scripts/report.sh ghi)
+  --ci    thư mục bản sao nhánh ci-results: latest-*.txt (log job mới nhất) và runs/*-ci-deploy.txt,
+          runs/*-rollback-rollback.txt (log máy chủ của từng lần deploy và quay lại, cho mục 7–10, 13, 16)
   --runs  JSON danh sách lần chạy GitHub Actions kèm job (tools/tu-kiem/lay_runs.py)
+  --tay   JSON kết quả đo trên máy chủ mà log CI không có (mục 7: đăng nhập /admin; mục 13: thử hàng đợi);
+          mỗi mục ghi nguồn, công cụ tự so với ngưỡng
 
 Dùng:
   git clone --depth 1 -b ci-results <repo> /tmp/ci-results
   python3 tools/tu-kiem/lay_runs.py --out /tmp/runs.json
-  python3 tools/tu-kiem/tu_kiem.py --ci /tmp/ci-results --runs /tmp/runs.json --out docs/tu-kiem-g0.json
+  python3 tools/tu-kiem/tu_kiem.py --ci /tmp/ci-results --runs /tmp/runs.json --tay docs/tu-kiem-g0-tay.json --out docs/tu-kiem-g0.json
 
 Trạng thái mỗi mục: dat (đạt), dat_mot_phan (phần kiểm được đã đạt, còn phần chờ điều kiện),
 chua_dat (có bằng chứng hỏng), chua_chay (chưa có bằng chứng). Mã thoát 1 nếu có mục chua_dat.
@@ -154,7 +157,8 @@ def item(so, ten, dat_khi, trang_thai, bang_chung, ghi_chu=''):
     return {'so': so, 'ten': ten, 'dat_khi': dat_khi, 'trang_thai': trang_thai, 'bang_chung': bang_chung, 'ghi_chu': ghi_chu}
 
 
-def check(logs, runs, assumptions):
+def check(logs, runs, assumptions, tay=None, slogs=()):
+    tay = tay or {}
     php = logs.get('ci-php')
     web = logs.get('ci-web')
     db_logs = [l for k, l in logs.items() if k == 'ci-php' or k.startswith('nightly-php')]
@@ -220,16 +224,11 @@ def check(logs, runs, assumptions):
                     [f'run {r["id"]} ({r["branch"]}, "{r["title"]}"): '
                      + ', '.join(f'{j["name"].split(" (")[0]} {j["conclusion"]}' for j in r['jobs']) for r in red_ok[:2]]))
 
-    # 7–10. deploy và quay lại (cần alwaysdata)
-    deploys = [r for r in runs if r['workflow'] == 'ci' and r['branch'] == 'main' and (d := job(r, 'deploy')) and d['conclusion'] == 'success']
-    out.append(item(7, 'deploy thật', '/up trả 200; trang chào hiện; đăng nhập được /admin', DAT if deploys else CHUA_CHAY,
-                    [f'run {r["id"]}: deploy success' for r in deploys[:2]], '' if deploys else DEPLOY_NEEDS))
-    for so, ten, dat_khi in ((8, 'migration lỗi khi deploy', 'deploy dừng; current vẫn là bản cũ; trang vẫn chạy'),
-                             (9, 'bản mới lỗi sau khi đổi', 'workflow tự đổi current về bản trước')):
-        out.append(item(so, ten, dat_khi, CHUA_CHAY, [], DEPLOY_NEEDS + ' Sau đó đẩy một bản cố ý hỏng theo kế hoạch.'))
-    rb = [r for r in runs if r['workflow'] == 'rollback' and r['conclusion'] == 'success']
-    out.append(item(10, 'quay lại bằng tay', 'bản trước chạy, /up trả 200', DAT if rb else CHUA_CHAY,
-                    [f'run {r["id"]}: rollback success' for r in rb[:2]], '' if rb else DEPLOY_NEEDS))
+    # 7–10. deploy và quay lại trên alwaysdata: đọc log máy chủ của từng lần (ci-results/runs)
+    out.append(deploy_item(slogs, tay.get(7)))
+    out.append(migration_fail_item(slogs))
+    out.append(auto_rollback_item(slogs))
+    out.append(manual_rollback_item(slogs))
 
     # 11. bảo mật cơ bản (Pest)
     sec = ['chưa đăng nhập vào /admin thì về trang đăng nhập', 'không lộ file .env và log',
@@ -246,9 +245,7 @@ def check(logs, runs, assumptions):
          '10 phút lịch chạy mỗi phút qua hàng đợi thì đủ 10 nhịp', 'thiếu nhịp (lịch hay hàng đợi dừng) thì kiểm nhịp báo lỗi']
     it13 = tests_item(13, 'lịch và hàng đợi', 'sau 10 phút có ít nhất 9 nhịp; job thử chạy xong; job lỗi vào failed_jobs sau 3 lần thử', php, q)
     if it13['trang_thai'] == DAT:
-        it13['trang_thai'] = MOT_PHAN
-        it13['ghi_chu'] = ('CI đã chạy lịch và hàng đợi thật (bảng jobs) qua 10 phút mô phỏng. Còn chạy thật 10 phút trên alwaysdata: '
-                           'sau khi bật tác vụ schedule:run và dịch vụ queue:work, chạy php artisan app:kiem-nhip.')
+        it13 = server_queue(it13, slogs, tay.get(13))
     out.append(it13)
 
     # 14. font và chữ (Playwright, có mất file font cố ý)
@@ -270,9 +267,264 @@ def check(logs, runs, assumptions):
     out.append(item(15, 'tương phản màu', 'mọi cặp chữ và nền đạt WCAG AA', st,
                     [f'{m.group(0)} cặp đạt; {s2} đạt ({web.ref()})'] if m else []))
 
-    # 16. phút CI (đo được) và dung lượng alwaysdata (cần deploy)
-    out.append(ci_minutes_item(runs, assumptions))
+    # 16. phút CI và dung lượng alwaysdata (log deploy)
+    out.append(ci_minutes_item(runs, assumptions, slogs))
     return out
+
+
+# ---------- log máy chủ: deploy và quay lại (ci-results/runs) ----------
+
+def mb(size):
+    """Cỡ in bởi du -h (đơn vị 1024) ra MB: '107M' → 107, '1.3G' → 1331.2, '15K' → 0.015."""
+    m = re.fullmatch(r'(\d+(?:[.,]\d+)?)([KMGT]?)', (size or '').strip())
+    if not m:
+        return None
+    return float(m.group(1).replace(',', '.')) * {'': 1 / 1048576, 'K': 1 / 1024, 'M': 1, 'G': 1024, 'T': 1048576}[m.group(2)]
+
+
+class ServerLog(Log):
+    """runs/<số>-ci-deploy.txt hay runs/<số>-rollback-rollback.txt: những gì máy chủ và bước kiểm in ra trong một lần deploy hay quay lại."""
+
+    def __init__(self, name, text):
+        super().__init__(name, text)
+        self.kind = 'rollback' if '-rollback-' in name else 'deploy'
+        t = self.text.split('----- cuối log -----', 1)[-1]
+
+        def one(pat):
+            m = re.search(pat, t, re.M)
+            return m.group(1) if m else None
+
+        def groups(pat):
+            m = re.search(pat, t, re.M)
+            return m.groups() if m else None
+
+        self.release = one(r'^== Giải nén (\S+)')
+        self.switched = one(r'^== Đổi current sang (\S+)')
+        self.kept = one(r'^✘ Deploy dừng, giữ nguyên bản đang chạy: (\S+)')
+        heads = re.findall(r'^== (\S+)', t[:t.find('✘ Deploy dừng')], re.M) if self.kept else []
+        self.stopped_at = heads[-1] if heads else None
+        # Migration hỏng: có dòng FAIL trong phần "== Migration" (tới bước kế), hoặc deploy dừng ngay ở bước đó
+        i = t.find('== Migration')
+        ends = [x for x in (t.find('\n== ', i + 1), t.find('✘ Deploy dừng', i)) if x >= 0] if i >= 0 else []
+        sec = t[i:min(ends)] if ends else (t[i:] if i >= 0 else '')
+        self.migration_failed = bool(re.search(r'\bFAIL\s*$', sec, re.M)) or self.stopped_at == 'Migration'
+        self.before_up = one(r'^Trước deploy: /up trả (\S+)')
+        self.before_current = one(r'^Bản đang chạy: (\S+)')
+        self.release_dirs = re.findall(r'^Dung lượng: \S+\s+releases/(\S+)', t, re.M)
+        self.web_on = one(r'^✔ Web đã chạy bản (\S+)')
+        self.up_ok = one(r'^✔ /up trả 200 \((\S+)\)')
+        self.web_timeout = bool(re.search(r'^✘ Sau \d+ giây trang chủ vẫn chưa báo bản', t, re.M))
+        self.public_up = one(r'^✘ /up trả (\S+), trang chủ trả')
+        self.app_up = one(r'^app tự trả /up: (\S+)')
+        self.rolled = groups(r'^Đã quay lại: (\S+) -> (\S+)')
+        self.after = groups(r'^Sau khi quay lại: web chạy (?:Bản )?(\S+), /up trả (\S+)')
+        self.beats = groups(r'^Nhịp trong (\d+) phút qua: (\d+)/\d+')
+        # Thư mục app: dòng "Thư mục app: 337M" (từ 27/11) hoặc dòng du cũ "337M<tab>/home/<tài khoản>/lernbuch"
+        self.app_mb = mb(one(r'^Thư mục app: (\S+)') or one(r'^(\S+)\t\S*/lernbuch$'))
+        self.home_mb = mb(one(r'^Cả thư mục nhà: (\S+)'))
+        self.db_mb = mb(one(r'^Database: (\S+) \('))
+
+    def ref(self):
+        return f'run {self.run}, commit {self.commit}'
+
+    @property
+    def current_after(self):
+        """Bản current trỏ tới khi lần này kết thúc."""
+        if self.rolled:
+            return self.rolled[1]
+        return self.kept or self.switched
+
+    @property
+    def new_broken(self):
+        """Bản mới đúng là hỏng: app tự trả /up khác 200 trên máy chủ, hoặc /up trên web trả 5xx."""
+        return (self.app_up is not None and self.app_up != '200') or (self.public_up or '').startswith('5')
+
+
+def load_server_logs(ci_dir):
+    """Log máy chủ của từng lần deploy và quay lại, cũ trước mới sau (số run tăng theo thời gian)."""
+    out = [ServerLog(p.name, p.read_text(encoding='utf-8', errors='replace'))
+           for p in Path(ci_dir).glob('runs/*.txt') if p.name.endswith(('-ci-deploy.txt', '-rollback-rollback.txt'))]
+    return sorted(out, key=lambda l: int(l.run or 0))
+
+
+# ---------- kết quả đo trên máy chủ mà log CI không có (--tay) ----------
+
+def load_tay(path):
+    """{số mục: bản ghi}. Mỗi bản ghi phải có 'nguon' (lệnh đã chạy, ở đâu) để truy lại."""
+    if not path:
+        return {}
+    data = json.loads(Path(path).read_text(encoding='utf-8'))
+    out = {}
+    for e in data.get('muc', []):
+        if not str(e.get('nguon', '')).strip():
+            raise ValueError(f'bằng chứng tay mục {e.get("so")} thiếu "nguon"')
+        out[int(e['so'])] = e
+    return out
+
+
+def tay_ref(e):
+    return f'{e["nguon"]}, {e.get("luc", "?")}'
+
+
+# ---------- mục 7–10 ----------
+
+def deploy_item(slogs, e):
+    ten, dat_khi = 'deploy thật', '/up trả 200; trang chào hiện; đăng nhập được /admin'
+    ok = [l for l in slogs if l.kind == 'deploy' and l.status == 'success' and l.up_ok and l.web_on == l.up_ok]
+    if not ok:
+        return item(7, ten, dat_khi, CHUA_CHAY, [], DEPLOY_NEEDS)
+    ev = [f'{l.ref()}: trang chào hiện "Bản {l.web_on}", /up trả 200' for l in reversed(ok[-2:])]
+    admin = (e or {}).get('dang_nhap_admin')
+    if admin is True:
+        return item(7, ten, dat_khi, DAT, ev + [f'đăng nhập /admin được: {tay_ref(e)}'])
+    if admin is False:
+        return item(7, ten, dat_khi, CHUA_DAT, ev + [f'đăng nhập /admin không được: {tay_ref(e)}'], 'Không đạt: không đăng nhập được /admin.')
+    return item(7, ten, dat_khi, MOT_PHAN, ev,
+                'Còn đăng nhập /admin: SSH vào alwaysdata, chạy cd ~/lernbuch/current && php artisan app:create-admin, '
+                'rồi đăng nhập ở https://lernbuch.alwaysdata.net/admin.')
+
+
+def migration_fail_item(slogs):
+    ten, dat_khi = 'migration lỗi khi deploy', 'deploy dừng; current vẫn là bản cũ; trang vẫn chạy'
+    deploys = [l for l in slogs if l.kind == 'deploy']
+    hong = [l for l in deploys if l.migration_failed]
+    if not hong:
+        return item(8, ten, dat_khi, CHUA_CHAY, [], DEPLOY_NEEDS + ' Sau đó đẩy lên main một migration cố ý hỏng.')
+    l = hong[-1]
+    ev = [f'{l.ref()}: migration của bản {l.release} hỏng' + (f', deploy dừng ở bước Migration, giữ bản {l.kept}' if l.kept else '')]
+    bad = []
+    if not l.kept or l.stopped_at != 'Migration':
+        bad.append('deploy không dừng ngay ở bước Migration')
+    if l.switched:
+        bad.append(f'vẫn đổi current sang {l.switched}')
+    if l.status != 'failure':
+        bad.append(f'job deploy báo {l.status}, không báo lỗi')
+    if bad:
+        return item(8, ten, dat_khi, CHUA_DAT, ev, 'Không đạt: ' + '; '.join(bad))
+    prev = next((x for x in reversed(deploys) if int(x.run) < int(l.run) and x.current_after), None)
+    if prev and prev.current_after == l.kept:
+        ev.append(f'đúng là bản đang chạy sau lần deploy trước ({prev.ref()})')
+    elif prev:
+        bad.append(f'bản giữ lại {l.kept} khác bản đang chạy trước đó {prev.current_after}')
+    nxt = next((x for x in deploys if int(x.run) > int(l.run)), None)
+    if not nxt or not nxt.before_current:
+        st = CHUA_DAT if bad else MOT_PHAN
+        return item(8, ten, dat_khi, st, ev, ('Không đạt: ' + '; '.join(bad)) if bad else
+                    'Chưa có lần deploy sau ghi trạng thái (bản đang chạy, /up) để xác nhận trang vẫn chạy bản cũ.')
+    ev.append(f'lần deploy sau ({nxt.ref()}), trước khi deploy: bản đang chạy {nxt.before_current}, /up trả {nxt.before_up}')
+    if nxt.before_current != l.kept:
+        bad.append(f'lần sau thấy bản đang chạy là {nxt.before_current}, không phải {l.kept}')
+    if nxt.before_up != '200':
+        bad.append(f'/up trả {nxt.before_up}')
+    if l.release and nxt.release_dirs:
+        if l.release in nxt.release_dirs:
+            bad.append(f'bản dở dang {l.release} chưa bị xoá')
+        else:
+            ev.append(f'bản dở dang {l.release} đã bị xoá (không còn trong releases/)')
+    return item(8, ten, dat_khi, CHUA_DAT if bad else DAT, ev, ('Không đạt: ' + '; '.join(bad)) if bad else '')
+
+
+def auto_rollback_item(slogs):
+    ten, dat_khi = 'bản mới lỗi sau khi đổi', 'workflow tự đổi current về bản trước'
+    lui = [l for l in slogs if l.kind == 'deploy' and l.rolled]
+    if not lui:
+        return item(9, ten, dat_khi, CHUA_CHAY, [], DEPLOY_NEEDS + ' Sau đó đẩy lên main một bản cố ý làm /up lỗi.')
+    # Ưu tiên lần bản mới đúng là hỏng hơn lần quay lại vì lý do khác (web chưa đổi bản, cấu hình site)
+    l = ([x for x in lui if x.new_broken] or lui)[-1]
+    ev = [f'{l.ref()}: đổi current sang {l.switched}']
+    if l.web_timeout:
+        ev.append('sau 240 giây web vẫn chạy bản cũ (PHP còn nhớ đường dẫn current cũ)')
+    if l.public_up and l.public_up != '?':
+        ev.append(f'/up trên web trả {l.public_up}')
+    if l.app_up:
+        ev.append(f'app tự trả /up ngay trên máy chủ: {l.app_up}')
+    ev.append(f'workflow tự quay lại: {l.rolled[0]} -> {l.rolled[1]}')
+    if not l.after:
+        return item(9, ten, dat_khi, MOT_PHAN, ev, 'Log không ghi bản web chạy và /up sau khi quay lại.')
+    ev.append(f'sau khi quay lại: web chạy bản {l.after[0]}, /up trả {l.after[1]}')
+    bad = []
+    if l.switched and l.rolled[0] != l.switched:
+        bad.append(f'quay lại từ {l.rolled[0]}, không phải từ bản mới {l.switched}')
+    if l.after[0] != l.rolled[1]:
+        bad.append(f'web chạy {l.after[0]}, không phải {l.rolled[1]}')
+    if l.after[1] != '200':
+        bad.append(f'/up trả {l.after[1]}')
+    if bad:
+        return item(9, ten, dat_khi, CHUA_DAT, ev, 'Không đạt: ' + '; '.join(bad))
+    if not l.new_broken:
+        return item(9, ten, dat_khi, MOT_PHAN, ev, 'Đã tự quay lại, nhưng log không cho thấy bản mới hỏng: cần một lần đẩy bản cố ý làm /up lỗi.')
+    note = ('Lúc thử, web còn chạy bản cũ (site chưa có 2 dòng php.ini) nên lỗi của bản mới được bắt bằng /up gọi ngay trên máy chủ; '
+            'workflow vẫn tự quay lại.') if l.web_timeout else ''
+    return item(9, ten, dat_khi, DAT, ev, note)
+
+
+def manual_rollback_item(slogs):
+    ten, dat_khi = 'quay lại bằng tay', 'bản trước chạy, /up trả 200'
+    rb = [l for l in slogs if l.kind == 'rollback']
+    if not rb:
+        return item(10, ten, dat_khi, CHUA_CHAY, [],
+                    'Chạy workflow rollback: GitHub → Actions → rollback → Run workflow. Xong thì Actions → ci → Run workflow trên main để về bản mới nhất.')
+    l = rb[-1]
+    ev = [f'{l.ref()}: workflow rollback {l.status}']
+    if l.rolled:
+        ev.append(f'quay lại: {l.rolled[0]} -> {l.rolled[1]}')
+    if l.after:
+        ev.append(f'sau khi quay lại: web chạy bản {l.after[0]}, /up trả {l.after[1]}')
+    if not l.rolled:
+        return item(10, ten, dat_khi, CHUA_DAT, ev, 'Không đạt: workflow không đổi được current (xem log run).')
+    if not l.after:
+        return item(10, ten, dat_khi, MOT_PHAN, ev, 'Log không ghi bản web chạy và /up sau khi quay lại.')
+    bad = []
+    if l.after[0] != l.rolled[1]:
+        bad.append(f'web chạy {l.after[0]}, không phải {l.rolled[1]}')
+    if l.after[1] != '200':
+        bad.append(f'/up trả {l.after[1]}')
+    return item(10, ten, dat_khi, CHUA_DAT if bad else DAT, ev, ('Không đạt: ' + '; '.join(bad)) if bad else '')
+
+
+def server_queue(it13, slogs, e):
+    """Mục 13 trên máy chủ. Nhịp: log deploy mới nhất có dòng app:kiem-nhip, không có thì lấy kết quả tay.
+    Job thử và job cố ý lỗi: kết quả tay (app:thu-hang-doi)."""
+    e = e or {}
+    bl = next((l for l in reversed(slogs) if l.beats), None)
+    if bl:
+        phut, co, nguon = int(bl.beats[0]), int(bl.beats[1]), f'app:kiem-nhip trước lần deploy {bl.ref()}'
+    elif isinstance(e.get('nhip'), int):
+        phut, co, nguon = int(e.get('trong_phut', 10)), e['nhip'], f'app:kiem-nhip; {tay_ref(e)}'
+    else:
+        phut = co = nguon = None
+    hang_doi = 'job_loi_so_lan_thu' in e
+    if co is None and not hang_doi:
+        it13['trang_thai'] = MOT_PHAN
+        it13['ghi_chu'] = ('CI đã chạy lịch và hàng đợi thật (bảng jobs) qua 10 phút mô phỏng. Còn chạy thật 10 phút trên alwaysdata: '
+                           'sau khi bật tác vụ schedule:run và queue:work, chạy php artisan app:kiem-nhip.')
+        return it13
+    bad, wait = [], []
+    if co is None:
+        wait.append('đếm nhịp trên máy chủ (php artisan app:kiem-nhip)')
+    else:
+        it13['bang_chung'].append(f'trên máy chủ: {co}/{phut} nhịp ({nguon})')
+        if co < max(1, phut - 1):
+            bad.append(f'chỉ {co}/{phut} nhịp, cần ít nhất {max(1, phut - 1)}')
+    if not hang_doi:
+        wait.append('thử hàng đợi trên máy chủ (php artisan app:thu-hang-doi, rồi lệnh --kiem=<mã> nó in ra)')
+    else:
+        xong, lan, vao = e.get('job_thu_xong') is True, e.get('job_loi_so_lan_thu'), e.get('job_loi_vao_failed_jobs') is True
+        it13['bang_chung'].append(f'trên máy chủ: job thử {"chạy xong" if xong else "chưa chạy xong"}; job cố ý lỗi thử {lan} lần, '
+                                  f'{"đã" if vao else "chưa"} vào failed_jobs (app:thu-hang-doi; {tay_ref(e)})')
+        if not xong:
+            bad.append('job thử chưa chạy xong')
+        if lan != 3:
+            bad.append(f'job lỗi thử {lan} lần, cần đúng 3')
+        if not vao:
+            bad.append('job lỗi chưa vào failed_jobs')
+    if bad:
+        it13['trang_thai'], it13['ghi_chu'] = CHUA_DAT, 'Không đạt trên máy chủ: ' + '; '.join(bad)
+    elif wait:
+        it13['trang_thai'], it13['ghi_chu'] = MOT_PHAN, 'Còn ' + '; '.join(wait) + '.'
+    else:
+        it13['trang_thai'], it13['ghi_chu'] = DAT, ''
+    return it13
 
 
 def tests_item(so, ten, dat_khi, log, titles):
@@ -290,7 +542,7 @@ def tests_item(so, ten, dat_khi, log, titles):
     return item(so, ten, dat_khi, DAT if all_ok else (CHUA_DAT if any_fail else CHUA_CHAY), ev)
 
 
-def ci_minutes_item(runs, a):
+def ci_minutes_item(runs, a, slogs=()):
     total = sum(billable(r) for r in runs)
     by = {}
     for r in runs:
@@ -302,15 +554,41 @@ def ci_minutes_item(runs, a):
     ev += [f'{k}: {len(by[k])} lần, trung bình {avg[k]:.1f} phút/lần' for k in sorted(by)]
     ev.append(f'Ước mỗi tháng: ci {a["day_code_moi_thang"]} lần + windows {a["windows_moi_thang"]} lần + nightly 30 lần = {month:.0f} phút')
     ok_ci = month < 1500
-    return item(16, 'dung lượng và phút CI', 'đĩa alwaysdata dùng dưới 60% của 1 GB; ước phút CI mỗi tháng dưới 1.500',
-                MOT_PHAN if ok_ci else CHUA_DAT, ev,
-                ('Phút CI đạt. ' if ok_ci else 'Phút CI vượt mức. ') + 'Dung lượng alwaysdata đo sau 5 lần deploy: ' + DEPLOY_NEEDS)
+    ten = 'dung lượng và phút CI'
+    dat_khi = 'đĩa alwaysdata dùng dưới 60% của 1 GB (tính chung file và database) sau ít nhất 5 lần deploy; ước phút CI mỗi tháng dưới 1.500'
+    ci_note = 'Phút CI đạt. ' if ok_ci else 'Phút CI vượt mức. '
+    deploys = [l for l in slogs if l.kind == 'deploy']
+    m = next((l for l in reversed(deploys) if l.home_mb is not None), None)
+    if not m:
+        old = next((l for l in reversed(deploys) if l.app_mb is not None), None)
+        if old:
+            ev.append(f'{old.ref()}: thư mục app {old.app_mb:.0f} MB (chưa tính phần còn lại của thư mục nhà và database)')
+        return item(16, ten, dat_khi, MOT_PHAN if ok_ci else CHUA_DAT, ev, ci_note + (
+            'Đĩa: lần deploy tới ghi cả thư mục nhà và database.' if old else 'Dung lượng alwaysdata đo sau 5 lần deploy: ' + DEPLOY_NEEDS))
+    n = sum(1 for l in deploys if l.status == 'success' and l.up_ok and int(l.run) <= int(m.run))
+    used = m.home_mb + (m.db_mb or 0)
+    pct = used / 1024
+    db = f'database {m.db_mb:.1f} MB' if m.db_mb is not None else 'database không đo được'
+    ev.append(f'{m.ref()}: cả thư mục nhà {m.home_mb:.0f} MB (thư mục app {m.app_mb or 0:.0f} MB), {db}; '
+              f'tổng {used:.0f} MB = {pct:.0%} của 1 GB; đo sau {n} lần deploy thành công')
+    if pct >= 0.6:
+        st, note = CHUA_DAT, f'Đĩa vượt mức: {pct:.0%} (cần dưới 60%).'
+    elif m.db_mb is None:
+        st, note = MOT_PHAN, 'Đĩa: chưa đo được database.'
+    elif n < 5:
+        st, note = MOT_PHAN, f'Đĩa: mới {n} lần deploy thành công, cần ít nhất 5.'
+    else:
+        st, note = DAT, 'Đĩa đạt.'
+    if not ok_ci:
+        st = CHUA_DAT
+    return item(16, ten, dat_khi, st, ev, ci_note + note)
 
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('--ci', required=True, help='thư mục bản sao nhánh ci-results')
     ap.add_argument('--runs', required=True, help='JSON từ lay_runs.py')
+    ap.add_argument('--tay', help='JSON kết quả đo trên máy chủ mà log CI không có (mục 7, 13)')
     ap.add_argument('--out', help='ghi kết quả JSON ra file này')
     ap.add_argument('--day-code-moi-thang', type=int, default=120, help='số lần đẩy code mỗi tháng để ước phút CI')
     ap.add_argument('--windows-moi-thang', type=int, default=12,
@@ -319,7 +597,12 @@ def main(argv=None):
     logs = load_logs(a.ci)
     runs = json.loads(Path(a.runs).read_text(encoding='utf-8'))
     assumptions = {'day_code_moi_thang': a.day_code_moi_thang, 'windows_moi_thang': a.windows_moi_thang}
-    items = check(logs, runs, assumptions)
+    try:
+        tay = load_tay(a.tay)
+    except (ValueError, KeyError, json.JSONDecodeError) as err:
+        print(f'Lỗi file --tay: {err}', file=sys.stderr)
+        return 2
+    items = check(logs, runs, assumptions, tay, load_server_logs(a.ci))
     tally = {s: sum(1 for i in items if i['trang_thai'] == s) for s in (DAT, MOT_PHAN, CHUA_DAT, CHUA_CHAY)}
     result = {
         'ten': 'Tự kiểm thử G0 (16 mục)',

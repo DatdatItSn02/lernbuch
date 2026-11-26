@@ -146,10 +146,12 @@ jobs:
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
           printf '%s\n' "${{ secrets.ALWAYSDATA_SSH_KEY }}" > ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
-      - name: Trạng thái trước khi deploy (bản đang chạy, /up, dung lượng)
+      - name: Trạng thái trước khi deploy (bản đang chạy, /up, dung lượng, nhịp lịch và hàng đợi)
         run: |
           { echo "Trước deploy: /up trả $(curl -sS -o /dev/null -w '%{http_code}' --max-time 15 "$SITE_URL/up" || true)"
-            ssh "$SSH_USER@$SSH_HOST" 'cd ~/lernbuch 2>/dev/null && echo "Bản đang chạy: $(basename "$(readlink -f current)")" && du -sh releases/* shared . 2>/dev/null | sed "s/^/Dung lượng: /"' || true; } 2>&1 | tee -a /tmp/deploy.log
+            ssh "$SSH_USER@$SSH_HOST" 'cd ~/lernbuch 2>/dev/null && echo "Bản đang chạy: $(basename "$(readlink -f current)")" && du -sh releases/* shared . 2>/dev/null | sed "s/^/Dung lượng: /"' || true
+            # Hai tác vụ định kỳ (schedule:run, queue:work) ghi một nhịp mỗi phút; thiếu nhịp là tác vụ trên alwaysdata đã dừng
+            ssh "$SSH_USER@$SSH_HOST" 'php ~/lernbuch/current/artisan app:kiem-nhip -n 2>/dev/null | head -1' || true; } 2>&1 | tee -a /tmp/deploy.log
       - name: Đưa lên alwaysdata, migrate, đổi bản
         run: |
           set -o pipefail
