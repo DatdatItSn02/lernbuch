@@ -4,6 +4,7 @@ import { MayDangNhap } from '../components/MayDangNhap';
 import { Sheet } from '../components/Shell';
 import { t, type Khoa } from '../i18n';
 import { LoiApi } from '../lib/api';
+import { cacMuiGio } from '../lib/muiGio';
 import { useTitle } from '../lib/useTitle';
 import { NEW_COUNTS, canPersist, useStore, type FontSize, type Lang, type NewCount, type Season, type Settings, type Theme } from '../state/store';
 import { MUC_TIEU, useTaiKhoan, type HoSoMoi, type MucTieu, type TrangThaiLuu } from '../state/taiKhoan';
@@ -244,12 +245,6 @@ function TaiKhoanPhan() {
             </form>
         </>
     );
-}
-
-/** Múi giờ chọn được: danh sách của trình duyệt (cũ quá thì không có), luôn kèm múi giờ đang dùng. */
-function cacMuiGio(dangDung: string): string[] {
-    const ds = typeof Intl.supportedValuesOf === 'function' ? Intl.supportedValuesOf('timeZone') : [];
-    return ds.includes(dangDung) ? ds : [dangDung, ...ds];
 }
 
 function maCsrf(): string {

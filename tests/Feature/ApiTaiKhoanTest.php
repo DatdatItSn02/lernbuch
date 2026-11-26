@@ -65,8 +65,8 @@ it('hồ sơ: đổi tên, múi giờ; chọn mục tiêu rồi trình độ th�
     expect($dong)->toHaveCount(1)
         ->and($dong[0]->placement_level)->toBe(2)
         ->and($dong[0]->enrolled_at)->toBeGreaterThan(0);
-    // Tên múi giờ kiểu cũ (trình duyệt hay dùng) vẫn nhận
-    $this->putJson('/api/v1/toi/ho-so', ['timezone' => 'Asia/Saigon'])->assertOk();
+    // Chỉ nhận tên múi giờ chuẩn IANA (tên cũ như Asia/Saigon thì app đổi sang tên chuẩn trước khi gửi)
+    $this->putJson('/api/v1/toi/ho-so', ['timezone' => 'Asia/Saigon'])->assertStatus(422)->assertJsonValidationErrors('timezone');
 });
 
 it('hồ sơ sai thì báo đúng ô, không ghi gì', function () {
@@ -128,7 +128,7 @@ it('danh sách máy: chỉ phiên của mình, đọc được trình duyệt, g
     chenPhien(str_repeat('b', 40), $user->id, UA_SAFARI_IPHONE, 1764100000);
     chenPhien(str_repeat('c', 40), $khac->id, UA_CHROME_WIN, 1764200000);
 
-    $r = $this->actingAs($user)->withHeaders(tuApp())->withCookie(config('session.cookie'), $hienTai)
+    $r = $this->actingAs($user)->withHeaders(tuApp())->withCredentials()->withCookie(config('session.cookie'), $hienTai)
         ->getJson('/api/v1/toi/phien')->assertOk()->assertJsonPath('supported', true);
 
     expect($r->json('data'))->toHaveCount(2);
@@ -145,7 +145,7 @@ it('đăng xuất các máy khác: sai mật khẩu thì không làm gì; đúng
     chenPhien(str_repeat('b', 40), $user->id, UA_SAFARI_IPHONE, now()->getTimestamp());
     $matKhauCu = $user->password;
 
-    $goi = fn (string $mk) => $this->actingAs($user)->withHeaders(tuApp())->withCookie(config('session.cookie'), $hienTai)
+    $goi = fn (string $mk) => $this->actingAs($user)->withHeaders(tuApp())->withCredentials()->withCookie(config('session.cookie'), $hienTai)
         ->postJson('/api/v1/toi/phien/dang-xuat-may-khac', ['password' => $mk]);
 
     $goi('sai-mat-khau-1')->assertStatus(422)->assertJsonValidationErrors('password');

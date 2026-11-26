@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Validator;
@@ -37,8 +38,10 @@ class CreateAdmin extends Command
 
         $user = new User(['name' => $name, 'email' => $email, 'password' => $password]);
         $user->forceFill(['is_staff' => true, 'status' => 'active', 'email_verified_at' => now()])->save();
+        // Vai trò có sẵn trong seed.sql (deploy nạp); database chưa nạp thì tạo luôn vai trò này
+        $user->assignRole(Role::findOrCreate(Role::CAO_NHAT, 'web'));
 
-        $this->info("Đã tạo tài khoản quản trị {$user->email}.");
+        $this->info("Đã tạo tài khoản quản trị {$user->email} (vai trò Quản trị cao nhất).");
 
         return self::SUCCESS;
     }

@@ -27,7 +27,7 @@ class ToiController extends Controller
 
         $hopLe = $request->validate([
             'name' => ['sometimes', 'required', 'string', 'max:100'],
-            'timezone' => ['sometimes', 'required', 'string', 'timezone:all_with_bc'],
+            'timezone' => ['sometimes', 'required', 'string', 'timezone:all'],
             'ui_locale' => ['sometimes', 'required', 'string', Rule::in(NgonNgu::giaoDien())],
             'goal' => ['sometimes', 'nullable', 'string', Rule::in(KhoaHoc::MUC_TIEU)],
             'level' => ['sometimes', 'nullable', 'integer', 'between:'.($khoa->level_min ?? 1).','.($khoa->level_max ?? 4)],

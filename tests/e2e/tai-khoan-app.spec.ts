@@ -9,6 +9,10 @@ test('Cài đặt có phần tài khoản từ API: email, máy này; chọn m�
     await page.goto('/app/cai-dat');
     await expect(page.getByRole('heading', { level: 2, name: 'Tài khoản' })).toBeVisible();
     await expect(page.getByText(`Email: ${NGUOI_HOC_THU.email}`)).toBeVisible();
+    // Danh sách máy đọc từ bảng sessions: phải có đúng phiên của trình duyệt này
+    const phien = await page.evaluate(async () => (await fetch('/api/v1/toi/phien', { headers: { Accept: 'application/json' } })).json());
+    expect(phien.supported).toBe(true);
+    expect(phien.data.filter((p: { is_current: boolean }) => p.is_current), JSON.stringify(phien)).toHaveLength(1);
     await expect(page.getByText('Máy này')).toBeVisible();
 
     await page.getByText('Du lịch', { exact: true }).click();

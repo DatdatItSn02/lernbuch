@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\GhiNhatKy;
 use App\Notifications\DatLaiMatKhau;
 use App\Notifications\XacMinhEmail;
 use App\Support\NgonNgu;
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
 
 /**
  * Tài khoản người học và nhân viên. Thời gian lưu dạng Unix timestamp (cột INT).
@@ -31,7 +33,7 @@ use Illuminate\Support\Str;
 class User extends Authenticatable implements FilamentUser, HasLocalePreference, MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, SoftDeletes;
+    use GhiNhatKy, HasFactory, HasRoles, Notifiable, SoftDeletes;
 
     protected $dateFormat = 'U';
 
@@ -88,7 +90,7 @@ class User extends Authenticatable implements FilamentUser, HasLocalePreference,
         $this->notify(new DatLaiMatKhau($token));
     }
 
-    /** Chỉ nhân viên đang hoạt động vào được trang quản trị. */
+    /** Chỉ nhân viên đang hoạt động vào được trang quản trị; người học bị từ chối (403). Xem được gì thì theo vai trò. */
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->is_staff && $this->status === 'active';
