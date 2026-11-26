@@ -179,14 +179,25 @@ it('thư xác minh và thư đặt lại mật khẩu viết bằng tiếng Vi�
 
     $xacMinh = (new XacMinhEmail)->toMail($user);
     expect($xacMinh->subject)->toBe('Xác minh email Lernbuch')
-        ->and($xacMinh->actionText)->toBe('Xác minh email Lernbuch')
-        ->and($xacMinh->actionUrl)->toContain('/xac-minh-email/'.$user->id.'/');
+        ->and($xacMinh->actionText)->toBe('Xác minh email')
+        ->and($xacMinh->actionUrl)->toContain('/xac-minh-email/'.$user->id.'/')
+        ->and(implode(' ', $xacMinh->outroLines))->toContain('hết hạn sau 60 phút');
 
     $datLai = (new DatLaiMatKhau('ma-thu'))->toMail($user);
     expect($datLai->subject)->toBe('Đặt lại mật khẩu Lernbuch')
+        ->and($datLai->actionText)->toBe('Đặt lại mật khẩu')
         ->and($datLai->actionUrl)->toContain('/dat-lai-mat-khau/ma-thu?email=lan%40example.com')
-        ->and(implode(' ', $datLai->introLines))->toContain('yêu cầu đặt lại mật khẩu');
+        ->and(implode(' ', $datLai->introLines))->toContain('yêu cầu đặt lại mật khẩu')
+        ->and(implode(' ', $datLai->outroLines))->toContain('hết hạn sau 60 phút');
     expect($user->preferredLocale())->toBe('vi');
+
+    // Không còn chữ tiếng Anh nào lọt vào thư (khoá dịch thiếu sẽ hiện nguyên khoá "thu.…").
+    $chu = implode(' ', [$xacMinh->subject, ...$xacMinh->introLines, ...$xacMinh->outroLines, $datLai->subject, ...$datLai->introLines, ...$datLai->outroLines]);
+    expect($chu)->not->toContain('thu.')->not->toMatch('/\b(the|your|email address|password)\b/i');
+
+    // Thư dựng thành HTML có lời chào, chữ ký và dòng chép link bằng tiếng Việt.
+    $html = (string) $xacMinh->render();
+    expect($html)->toContain('Xin chào!')->toContain('Thân mến,')->toContain('chép địa chỉ dưới đây');
 });
 
 it('đăng xuất thì về trang chào và ghi lịch sử', function () {

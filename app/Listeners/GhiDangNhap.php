@@ -22,9 +22,7 @@ class GhiDangNhap
 
     public function handleLogout(Logout $event): void
     {
-        if ($event->user) {
-            $this->ghi('logout', $event->user);
-        }
+        $this->ghi('logout', $event->user);
     }
 
     public function handleFailed(Failed $event): void
