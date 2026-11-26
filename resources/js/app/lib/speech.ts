@@ -1,6 +1,7 @@
 // Đọc tiếng Đức bằng giọng của trình duyệt (bản G0; G1 dùng audio Piper tạo sẵn, giọng trình duyệt làm dự phòng).
 
-export type SpeakResult = 'ok' | 'no-voice' | 'unsupported' | 'error';
+// interrupted: câu đang đọc bị huỷ vì người dùng bấm đọc lại hoặc bấm nút nghe khác; không phải lỗi.
+export type SpeakResult = 'ok' | 'interrupted' | 'no-voice' | 'unsupported' | 'error';
 
 function germanVoice(): SpeechSynthesisVoice | undefined {
     const voices = window.speechSynthesis.getVoices();
@@ -25,7 +26,7 @@ export function speak(text: string, slow = false): Promise<SpeakResult> {
             u.voice = voice;
             u.rate = slow ? 0.6 : 0.95;
             u.onend = () => resolve('ok');
-            u.onerror = () => resolve('error');
+            u.onerror = (e) => resolve(e.error === 'interrupted' || e.error === 'canceled' ? 'interrupted' : 'error');
             synth.speak(u);
         };
         if (synth.getVoices().length > 0) return run();
@@ -35,7 +36,7 @@ export function speak(text: string, slow = false): Promise<SpeakResult> {
     });
 }
 
-export const SPEAK_MESSAGES: Record<Exclude<SpeakResult, 'ok'>, string> = {
+export const SPEAK_MESSAGES: Record<Exclude<SpeakResult, 'ok' | 'interrupted'>, string> = {
     'no-voice': 'Máy này chưa có giọng đọc tiếng Đức. Thêm giọng Deutsch trong cài đặt giọng nói của máy, hoặc mở bằng Chrome hay Edge.',
     unsupported: 'Trình duyệt này không đọc được thành tiếng.',
     error: 'Không đọc được, thử lại.',

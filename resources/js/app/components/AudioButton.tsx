@@ -1,21 +1,25 @@
 import { Volume2, Snail } from 'lucide-react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { SPEAK_MESSAGES, speak, type SpeakResult } from '../lib/speech';
 
 type Props = { text: string; slow?: boolean; label?: string; shortcut?: string; iconOnly?: boolean; onResult?: (r: SpeakResult) => void };
 
-/** Nút nghe bằng giọng đọc của trình duyệt; báo rõ khi máy không có giọng tiếng Đức. */
+/** Nút nghe bằng giọng đọc của trình duyệt; báo rõ khi máy không có giọng tiếng Đức. Bấm lại khi đang đọc thì đọc lại từ đầu. */
 export function AudioButton({ text, slow = false, label, shortcut, iconOnly = false, onResult }: Props) {
-    const [state, setState] = useState<'idle' | 'busy' | SpeakResult>('idle');
+    const [state, setState] = useState<'idle' | 'busy' | keyof typeof SPEAK_MESSAGES>('idle');
+    const lanBam = useRef(0);
     const name = label ?? (slow ? 'Nghe chậm' : 'Nghe');
     const Icon = slow ? Snail : Volume2;
     const play = async () => {
+        const lan = ++lanBam.current;
         setState('busy');
         const r = await speak(text, slow);
-        setState(r === 'ok' ? 'idle' : r);
+        // Bấm lại khi đang đọc thì lần bấm mới thay lần cũ: bỏ qua kết quả của lần cũ
+        if (lan !== lanBam.current) return;
+        setState(r === 'ok' || r === 'interrupted' ? 'idle' : r);
         onResult?.(r);
     };
-    const error = state !== 'idle' && state !== 'busy' && state !== 'ok' ? SPEAK_MESSAGES[state] : null;
+    const error = state !== 'idle' && state !== 'busy' ? SPEAK_MESSAGES[state] : null;
     return (
         <span className="inline-flex flex-col">
             <button
