@@ -1,0 +1,54 @@
+name: deps
+
+# Môi trường của Claude không tải được gói từ Packagist, nên thêm, bỏ hay cập nhật gói PHP chạy ở đây.
+# Đẩy nhánh deps/<tên> có file .github/deps-request.txt, mỗi dòng một lệnh composer, chỉ nhận
+# require, remove, update (vd: require laravel/fortify). Workflow chạy lần lượt, rồi commit composer.json,
+# composer.lock lên chính nhánh đó và xoá file yêu cầu. Commit của bot không chạy lại workflow nào;
+# gộp nhánh vào work/** để CI kiểm.
+
+on:
+  push:
+    branches: ['deps/**']
+    paths: ['.github/deps-request.txt']
+
+permissions:
+  contents: write
+
+jobs:
+  composer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, intl, pdo_mysql, zip, bcmath
+          tools: composer:v2
+          coverage: none
+      - name: Chạy các lệnh composer trong .github/deps-request.txt
+        run: |
+          set -eo pipefail
+          while IFS= read -r line || [ -n "$line" ]; do
+            line="${line%%#*}"; line="$(echo "$line" | xargs)"
+            [ -z "$line" ] && continue
+            case "${line%% *}" in
+              require|remove|update) ;;
+              *) echo "::error::Chỉ nhận require, remove, update: $line"; exit 1 ;;
+            esac
+            echo "::group::composer $line"
+            # shellcheck disable=SC2086
+            composer $line --no-interaction --no-scripts --no-progress 2>&1 | tee -a /tmp/deps.log
+            echo "::endgroup::"
+          done < .github/deps-request.txt
+          composer validate --no-check-publish
+          composer show --direct | tee -a /tmp/deps.log
+      - name: Commit composer.json, composer.lock lên nhánh này
+        run: |
+          msg="$(grep -v '^#' .github/deps-request.txt | grep -v '^[[:space:]]*$' | paste -sd ';' -)"
+          git config user.name lernbuch-bot
+          git config user.email lernbuch-bot@users.noreply.github.com
+          git rm -q .github/deps-request.txt
+          git add composer.json composer.lock
+          git commit -q -m "deps: composer ${msg} (GitHub Actions, run ${{ github.run_id }})"
+          git push -q origin "HEAD:${GITHUB_REF_NAME}"
