@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Livewire;
 
 // Trang quản trị (mục tự kiểm 10 của G1): người học bị từ chối; nhân viên thấy theo vai trò; mọi lần sửa ghi nhật ký.
+// Cột JSON của MySQL sắp lại thứ tự khoá (MariaDB thì giữ), nên so nhật ký bằng toEqual (không xét thứ tự khoá).
 
 function nhanVien(string $vaiTro, array $doi = []): User
 {
@@ -68,7 +69,7 @@ it('sửa quyền của vai trò: có hiệu lực ngay, ghi nhật ký quyền 
     $dong = dongNhatKy('role.permissions');
     expect($dong['actor_id'])->toBe($nguoiSua->id)
         ->and($dong['subject_id'])->toBe($vaiTro->id)
-        ->and(json_decode($dong['changes'], true))->toBe([
+        ->and(json_decode($dong['changes'], true))->toEqual([
             'before' => ['permissions' => ['content.edit', 'reports.handle']],
             'after' => ['permissions' => ['content.edit', 'content.publish', 'reports.handle']],
         ]);
@@ -116,8 +117,8 @@ it('sửa nhân viên: khoá tài khoản, đổi vai trò được ghi nhật k
         ->assertHasNoFormErrors();
 
     expect($ha->fresh()->status)->toBe('suspended')->and($ha->fresh()->getRoleNames()->all())->toBe(['accountant']);
-    expect(json_decode(dongNhatKy('user.update')['changes'], true))->toBe(['before' => ['status' => 'active'], 'after' => ['status' => 'suspended']]);
-    expect(json_decode(dongNhatKy('user.roles')['changes'], true))->toBe(['before' => ['roles' => ['support']], 'after' => ['roles' => ['accountant']]]);
+    expect(json_decode(dongNhatKy('user.update')['changes'], true))->toEqual(['before' => ['status' => 'active'], 'after' => ['status' => 'suspended']]);
+    expect(json_decode(dongNhatKy('user.roles')['changes'], true))->toEqual(['before' => ['roles' => ['support']], 'after' => ['roles' => ['accountant']]]);
 
     Livewire::test(EditNhanVien::class, ['record' => $nguoiSua->getKey()])->fillForm(['status' => 'suspended'])->call('save');
     expect($nguoiSua->fresh()->status)->toBe('active');
@@ -133,7 +134,7 @@ it('nhân viên sửa nội dung thì ghi người sửa và nhật ký trước
     $dong = dongNhatKy('content_source.update');
     expect($dong['actor_id'])->toBe($bienTap->id)
         ->and($dong['subject_type'])->toBe(ContentSource::class)
-        ->and(json_decode($dong['changes'], true))->toBe([
+        ->and(json_decode($dong['changes'], true))->toEqual([
             'before' => ['notes' => 'Ghi công từng câu.'],
             'after' => ['notes' => 'Ghi công từng câu, có link về câu gốc.'],
         ]);
