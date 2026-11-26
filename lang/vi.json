@@ -1,0 +1,16 @@
+{
+    "Verify Email Address": "Xác minh email Lernbuch",
+    "Please click the button below to verify your email address.": "Bấm nút dưới đây để xác minh email và bắt đầu học.",
+    "If you did not create an account, no further action is required.": "Nếu bạn không tạo tài khoản Lernbuch, cứ bỏ qua thư này.",
+    "Reset Password Notification": "Đặt lại mật khẩu Lernbuch",
+    "You are receiving this email because we received a password reset request for your account.": "Có người vừa yêu cầu đặt lại mật khẩu cho tài khoản Lernbuch của bạn.",
+    "Reset Password": "Đặt lại mật khẩu",
+    "This password reset link will expire in :count minutes.": "Link này hết hạn sau :count phút.",
+    "If you did not request a password reset, no further action is required.": "Nếu không phải bạn yêu cầu, cứ bỏ qua thư này; mật khẩu vẫn như cũ.",
+    "Hello!": "Xin chào!",
+    "Whoops!": "Có lỗi!",
+    "Regards,": "Thân mến,",
+    "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": "Nếu bấm nút \":actionText\" không được, chép địa chỉ dưới đây dán vào trình duyệt:",
+    "All rights reserved.": "Giữ mọi quyền.",
+    "The provided password was incorrect.": "Mật khẩu không đúng."
+}

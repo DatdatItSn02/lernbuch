@@ -1,5 +1,8 @@
 import { expect, test } from '@playwright/test';
 
+// Chụp khi chưa đăng nhập: trang quản trị không cho tài khoản người học vào
+test.use({ storageState: { cookies: [], origins: [] } });
+
 // Ảnh giao cùng báo cáo G0: trang chào và trang đăng nhập quản trị ở cỡ máy tính và điện thoại.
 // CI ghi ảnh vào test-results/anh rồi đưa lên nhánh ci-results (thư mục anh/).
 const PAGES = [

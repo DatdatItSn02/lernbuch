@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Foundation\Events\DiagnosingHealth;
 use Illuminate\Support\Facades\Event;
 
@@ -15,11 +16,16 @@ it('trang chào hiện đúng chữ tiếng Việt và tiếng Đức', function
         ->assertSee('ẞ');
 });
 
-it('mở được khung app học, cả đường dẫn con', function () {
+it('mở được khung app học, cả đường dẫn con, khi đã đăng nhập và xác minh email', function () {
+    $this->actingAs(User::factory()->create());
     $this->get('/app')->assertOk()->assertSee('id="app"', false);
     $this->get('/app/hom-nay')->assertOk()->assertSee('id="app"', false);
     // Giao diện tối áp trước khi vẽ, đọc đúng khoá cài đặt của app React
     $this->get('/app/hoc')->assertOk()->assertSee("localStorage.getItem('lernbuch.caidat.v1')", false);
+});
+
+it('chưa đăng nhập thì app học về trang đăng nhập', function () {
+    $this->get('/app/hom-nay')->assertRedirect('/dang-nhap');
 });
 
 it('không lộ file .env và log', function () {

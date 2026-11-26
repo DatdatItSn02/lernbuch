@@ -39,3 +39,4 @@ graphify-out/
 /.impeccable/review/
 /.impeccable/mocks/
 /.impeccable/questions/
+/tests/e2e/.auth

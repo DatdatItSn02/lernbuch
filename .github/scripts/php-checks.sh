@@ -50,6 +50,7 @@ step "Test công cụ so khớp và quy ước" python3 -m unittest tools/schema
 step "Test trình kiểm file nhập" bash -c "cd import && python3 -m unittest test_validate_import.py"
 step "Test công cụ tự kiểm G0 (cả trường hợp lỗi)" python3 -m unittest tools/tu-kiem/test_tu_kiem.py tools/tu-kiem/test_lay_runs.py
 step "Test script deploy trên máy chủ (quay lại, giữ bản, migration hỏng)" python3 -m unittest deploy/test_remote.py
+step "Test tạo .env cho alwaysdata (mật khẩu có ký tự đặc biệt)" python3 .github/scripts/test_env_production.py
 step "Pest (database lernbuch_test)" env DB_DATABASE=lernbuch_test php artisan test
 
 echo

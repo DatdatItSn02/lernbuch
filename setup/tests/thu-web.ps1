@@ -48,8 +48,9 @@ try {
 
     Test-Page 'trang chào có chữ Việt' '/' 200 'Học tiếng Đức cho người Việt' | Out-Null
     Test-Page 'trang chào có chữ Đức' '/' 200 'Straße' | Out-Null
-    $app = Test-Page 'khung app học' '/app' 200 'id="app"'
-    Test-Page 'đường dẫn con của app học' '/app/hom-nay' 200 'id="app"' | Out-Null
+    # App học cần đăng nhập: chưa đăng nhập thì về trang đăng nhập (Invoke-WebRequest đi theo chuyển hướng)
+    Test-Page 'app học dẫn về trang đăng nhập' '/app/hom-nay' 200 'name="password"' | Out-Null
+    Test-Page 'trang tạo tài khoản' '/dang-ky' 200 'name="password_confirmation"' | Out-Null
     $admin = Test-Page 'trang đăng nhập quản trị' '/admin/login' 200 'Lernbuch'
     Test-Page 'kiểm tra sống /up' '/up' 200 '' | Out-Null
     Test-Page 'manifest PWA' '/manifest.webmanifest' 200 '"start_url"' | Out-Null

@@ -2,9 +2,13 @@
 
 namespace App\Models;
 
+use App\Notifications\DatLaiMatKhau;
+use App\Notifications\XacMinhEmail;
 use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -20,8 +24,10 @@ use Illuminate\Support\Str;
  * @property string $name
  * @property string $status
  * @property bool $is_staff
+ * @property string $ui_locale
+ * @property string $timezone
  */
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, HasLocalePreference, MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, SoftDeletes;
@@ -62,6 +68,23 @@ class User extends Authenticatable implements FilamentUser
                 $user->public_id = (string) Str::ulid();
             }
         });
+    }
+
+    /** Ngôn ngữ của email gửi cho người này (thư xác minh, đặt lại mật khẩu). */
+    public function preferredLocale(): string
+    {
+        return $this->ui_locale ?: (string) config('app.locale');
+    }
+
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new XacMinhEmail);
+    }
+
+    /** @param  string  $token */
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new DatLaiMatKhau($token));
     }
 
     /** Chỉ nhân viên đang hoạt động vào được trang quản trị. */

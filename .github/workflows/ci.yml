@@ -63,8 +63,24 @@ jobs:
     name: web (TypeScript, ESLint, Vitest, Vite, tương phản, Playwright)
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # App học cần đăng nhập: Playwright đăng nhập bằng tài khoản thử (NguoiHocThuSeeder) trên database này
+    services:
+      db:
+        image: mariadb:11.4
+        env:
+          MARIADB_ROOT_PASSWORD: root
+          MARIADB_DATABASE: lernbuch
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s --health-timeout=5s --health-retries=30
     env:
-      # Playwright chỉ mở trang không cần database
+      DB_CONNECTION: mariadb
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_DATABASE: lernbuch
+      DB_USERNAME: root
+      DB_PASSWORD: root
       SESSION_DRIVER: file
       CACHE_STORE: file
       QUEUE_CONNECTION: sync
@@ -73,7 +89,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          extensions: mbstring, intl, zip
+          extensions: mbstring, intl, pdo_mysql, zip
           tools: composer:v2
           coverage: none
       - uses: actions/cache@v4
@@ -136,11 +152,12 @@ jobs:
             tar czf "/tmp/$NAME.tgz" --exclude=./.git --exclude=./node_modules --exclude=./tests --exclude=./storage \
               --exclude=./.github --exclude=./import --exclude=./tools --exclude=./design --exclude=./public/hot \
               --exclude=./.env --exclude='*.md' .
-            python3 -c 'import os,sys; t=open(".env.production.example").read(); sys.stdout.write(t.replace("__DB_PASSWORD__", os.environ["DB_PASSWORD"]))' > "/tmp/$NAME.env"
+            python3 .github/scripts/env-production.py > "/tmp/$NAME.env"
             echo "NAME=$NAME" >> "$GITHUB_ENV"
             ls -lh "/tmp/$NAME.tgz"; } 2>&1 | tee /tmp/deploy.log
         env:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
       - name: Nạp khoá SSH
         run: |
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
