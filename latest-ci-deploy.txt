@@ -1,8 +1,8 @@
 workflow: ci  job: deploy  status: success
-commit: de3fd84277d085eb6e0c68da735ef3bef77bcb4f  ref: main  run: 45716930848
+commit: d43ee1efbe4e7b1e2bcfa4f4b1f323eefdca3ca6  ref: main  run: 45747381611
 
-✔ Web đã chạy bản 20261126030838-de3fd84 sau khoảng 0 giây
-✔ /up trả 200 (20261126030838-de3fd84)
+✔ Web đã chạy bản 20261126031437-d43ee1e sau khoảng 0 giây
+✔ /up trả 200 (20261126031437-d43ee1e)
 
 ----- cuối log -----
 Installing dependencies from lock file
@@ -354,17 +354,17 @@ public/build/assets/theme-B3htII5O.css                                 713.24 kB
 public/build/assets/app-BvRk9kiK.js                                      0.00 kB │ gzip:   0.02 kB
 public/build/assets/main-DryOi4bt.js                                   335.59 kB │ gzip: 104.92 kB
 
-[32m✓ built in 736ms[39m
--rw-r--r-- 1 runner runner 15M Nov 26 03:08 /tmp/20261126030838-de3fd84.tgz
+[32m✓ built in 627ms[39m
+-rw-r--r-- 1 runner runner 15M Nov 26 03:14 /tmp/20261126031437-d43ee1e.tgz
 Trước deploy: /up trả 200
-Bản đang chạy: 20261125222922-ca55655
+Bản đang chạy: 20261126030838-de3fd84
 Dung lượng: 107M	releases/20261125222922-ca55655
-Dung lượng: 107M	releases/20261125223718-9602d2f
 Dung lượng: 107M	releases/20261125224617-42886a0
 Dung lượng: 107M	releases/20261125225519-de3fd84
+Dung lượng: 107M	releases/20261126030838-de3fd84
 Dung lượng: 1.3M	shared
 Dung lượng: 15M	.
-== Giải nén 20261126030838-de3fd84
+== Giải nén 20261126031437-d43ee1e
 == Cập nhật .env (giữ APP_KEY cũ)
 == Migration
 
@@ -374,19 +374,19 @@ Dung lượng: 15M	.
 
    INFO  Caching framework bootstrap, configuration, and metadata.  
 
-  config ........................................................ 72.44ms DONE
-  events ......................................................... 5.69ms DONE
-  routes ....................................................... 559.53ms DONE
-  views .......................................................... 2 giây DONE
-  blade-icons .................................................... 6.62ms DONE
-  filament ...................................................... 11.83ms DONE
+  config ........................................................ 42.88ms DONE
+  events ......................................................... 3.27ms DONE
+  routes ........................................................ 41.00ms DONE
+  views ........................................................ 650.86ms DONE
+  blade-icons .................................................... 6.78ms DONE
+  filament ...................................................... 13.20ms DONE
 
-== Đổi current sang 20261126030838-de3fd84
+== Đổi current sang 20261126031437-d43ee1e
 
    INFO  Broadcasting queue restart signal.  
 
 == Giữ 3 bản gần nhất (và luôn giữ bản tốt gần nhất để còn chỗ quay lại)
-444M	/home/lernbuch/lernbuch
-Xong: 20261126030838-de3fd84
-✔ Web đã chạy bản 20261126030838-de3fd84 sau khoảng 0 giây
-✔ /up trả 200 (20261126030838-de3fd84)
+337M	/home/lernbuch/lernbuch
+Xong: 20261126031437-d43ee1e
+✔ Web đã chạy bản 20261126031437-d43ee1e sau khoảng 0 giây
+✔ /up trả 200 (20261126031437-d43ee1e)
