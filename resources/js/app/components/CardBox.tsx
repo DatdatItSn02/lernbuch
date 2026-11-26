@@ -1,11 +1,10 @@
 import { LEVEL_NAMES, STAGE_NAMES } from '../lib/srs';
-import { LevelIcon } from './LevelIcon';
 
 const EDGE = 'color-mix(in oklch, var(--color-on-box) 62%, var(--color-box))';
 
 /**
  * Hộp thẻ 6 ngăn nhìn từ trên (hộp Leitner): mỗi ngăn là một mức thuộc, chồng thẻ cao theo số từ,
- * tai thẻ ghi tên mức kèm hình cây nét mực, số thẻ đến hạn của ngăn ghi trong ô trắng chữ bút đỏ.
+ * tai thẻ ghi tên mức (hình cây quá nhỏ ở cỡ này nên chỉ ghi chữ), số thẻ đến hạn của ngăn ghi trong ô trắng chữ bút đỏ.
  * Chỉ để xem: trình đọc màn hình nghe một câu tóm tắt.
  */
 export function CardBox({ counts, due, fresh }: { counts: number[]; due: number[]; fresh: number }) {
@@ -31,10 +30,9 @@ export function CardBox({ counts, due, fresh }: { counts: number[]; due: number[
                                 </span>
                             )}
                             <span
-                                className="flex items-center gap-0.5 self-start rounded-t-sm px-1 pt-0.5 text-[calc(0.6875rem*var(--type-scale))] leading-4 font-semibold"
+                                className="flex items-center gap-0.5 self-start rounded-t-sm px-1 pt-0.5 text-[calc(0.6875rem*var(--type-scale))] leading-[1.125rem] font-semibold"
                                 style={{ background: `var(--color-level-${i})`, color: `var(--color-on-level-${i})` }}
                             >
-                                <LevelIcon level={i} size={12} title="" />
                                 {STAGE_NAMES[i]}
                             </span>
                             <span

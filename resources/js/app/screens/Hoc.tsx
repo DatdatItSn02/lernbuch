@@ -230,6 +230,7 @@ function Card(props: {
                                     <PenTick size={22} />
                                 </span>
                             )}
+                            <p className="mb-3 text-label text-ink-2">{topics.find((t) => t.id === word.topicId)?.name}</p>
                             <h1 className="max-w-full text-study-word font-extrabold break-words">
                                 <GermanWord word={word} />
                             </h1>
@@ -259,6 +260,9 @@ function Card(props: {
                                 </div>
                             )}
                         </div>
+                        {!revealed && (
+                            <p className="border-t border-dashed border-line-strong py-3 pr-5 pl-14 text-label text-ink-2 md:pl-16">Tự nhớ nghĩa và câu ví dụ, rồi lật thẻ để xem.</p>
+                        )}
                     </article>
                 </div>
             </main>

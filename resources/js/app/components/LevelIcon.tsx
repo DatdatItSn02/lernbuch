@@ -18,7 +18,8 @@ export function LevelIcon({ level, size = 24, title, className = '' }: { level: 
             className={`shrink-0 ${className}`}
             fill="none"
             stroke="currentColor"
-            strokeWidth={1.5}
+            // Ở cỡ nhỏ (tai thẻ, hộp thẻ) nét dày hơn để hình cây vẫn đọc ra
+            strokeWidth={size <= 16 ? 2.2 : size <= 20 ? 1.8 : 1.5}
             strokeLinecap="round"
             strokeLinejoin="round"
         >

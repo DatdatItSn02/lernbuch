@@ -44,7 +44,7 @@ export function InkSprig({ season, size = 40, className = '' }: { season: Exclud
             return <circle key={a} cx={x + 2.2 * Math.sin(r)} cy={y - 2.2 * Math.cos(r)} r="1.5" fill="var(--season)" />;
         });
     return (
-        <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden="true" className={`text-tim ${className}`} fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+        <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden="true" className={`text-tim ${className}`} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <path d="M6 36c5-6 10-12 15-16s9-8 13-14" />
             <path d="M15 26c-1-3.5 0-6.5 2.8-8.4M24 17c3.2.4 5.6-.6 7.3-3" />
             {season === 'spring' && <g strokeWidth="0.9">{blossom(17.8, 15.4)}{blossom(31.4, 11.6)}{blossom(25, 24)}</g>}

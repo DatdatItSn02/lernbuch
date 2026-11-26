@@ -74,7 +74,7 @@ export function HomNay({ now: fixedNow }: { now?: Date }) {
         <Sheet className="overflow-hidden">
             <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:divide-x md:divide-line">
                 <div className="pt-5 pb-6 md:pt-8 md:pb-8">
-                    <Margin aside={<InkSprig season={season} size={34} className="mt-1" />} className="pr-5 md:pr-8">
+                    <Margin aside={<InkSprig season={season} size={40} />} className="pr-5 md:pr-8">
                         <p className="text-label text-ink-2">
                             {dayLabel(now)}
                             <span className="ml-3 inline-flex items-center gap-1 align-middle tabular-nums">

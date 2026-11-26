@@ -276,7 +276,7 @@ Góc gần vuông như giấy cắt: 3 px cho vạch tiến độ và nhãn nh�
 - Ô vuông bo 5 px cao 44 px, viền dòng kẻ; đang chọn viền mực tím, nền tím nhạt. Nhóm chọn một là radio thật.
 
 ### Hộp thẻ (signature, Hôm nay)
-- Lòng hộp màu hộp, 6 ngăn từ Hạt đến Quả; chồng thẻ màu on-box cao theo số từ, hai vạch mảnh ở đầu chồng cho thấy mép thẻ; tai thẻ màu mức kèm hình cây và tên; số đến hạn (ngăn Hạt: "+số từ mới sắp học") trên ô trắng chữ bút đỏ; dưới mỗi ngăn là tổng số thẻ. Trình đọc màn hình nghe một câu tóm tắt.
+- Lòng hộp màu hộp, 6 ngăn từ Hạt đến Quả; chồng thẻ màu on-box cao theo số từ, hai vạch mảnh ở đầu chồng cho thấy mép thẻ; tai thẻ màu mức ghi tên mức (không vẽ cây vì quá nhỏ); số đến hạn (ngăn Hạt: "+số từ mới sắp học") trên ô trắng chữ bút đỏ; dưới mỗi ngăn là tổng số thẻ. Trình đọc màn hình nghe một câu tóm tắt.
 
 ### Thẻ học (signature, phiên học)
 - Thẻ trang vở bo 5 px, bóng Thẻ, hai thẻ chờ lộ mép phía trên; tai thẻ góc phải màu mức kèm hình cây và tên mức; đường lề đỏ trong thẻ, dấu tích bút đỏ ở lề khi xem lại thẻ vừa chấm Tốt hoặc Dễ; đáp án hiện tiếp dưới gạch đứt.
