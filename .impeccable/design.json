@@ -1,217 +1,292 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-26T03:11:43+00:00",
+  "generatedAt": "2026-11-26T17:11:41+00:00",
   "title": "Design System: Lernbuch Online",
   "extensions": {
     "colorMeta": {
       "paper": {
         "role": "neutral",
         "displayName": "Giấy",
-        "canonical": "oklch(97.5% 0.012 85)",
+        "canonical": "oklch(98.4% 0.006 275)",
         "tonalRamp": [
-          "oklch(15% 0.003 85)",
-          "oklch(26% 0.006 85)",
-          "oklch(37% 0.008 85)",
-          "oklch(48% 0.01 85)",
-          "oklch(59% 0.011 85)",
-          "oklch(70% 0.009 85)",
-          "oklch(82% 0.006 85)",
-          "oklch(95% 0.003 85)"
+          "oklch(15% 0.002 275)",
+          "oklch(26% 0.004 275)",
+          "oklch(37% 0.005 275)",
+          "oklch(48% 0.006 275)",
+          "oklch(59% 0.005 275)",
+          "oklch(70% 0.004 275)",
+          "oklch(82% 0.003 275)",
+          "oklch(95% 0.002 275)"
         ]
       },
       "sheet": {
         "role": "neutral",
-        "displayName": "Tờ sổ",
-        "canonical": "oklch(99.5% 0.005 85)",
+        "displayName": "Trang vở",
+        "canonical": "oklch(100% 0 0)",
         "tonalRamp": [
-          "oklch(15% 0.001 85)",
-          "oklch(26% 0.002 85)",
-          "oklch(37% 0.003 85)",
-          "oklch(48% 0.004 85)",
-          "oklch(59% 0.005 85)",
-          "oklch(70% 0.004 85)",
-          "oklch(82% 0.003 85)",
-          "oklch(95% 0.001 85)"
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(37% 0 0)",
+          "oklch(48% 0 0)",
+          "oklch(59% 0 0)",
+          "oklch(70% 0 0)",
+          "oklch(82% 0 0)",
+          "oklch(95% 0 0)"
         ]
       },
       "sunken": {
         "role": "neutral",
         "displayName": "Khay",
-        "canonical": "oklch(95% 0.016 85)",
+        "canonical": "oklch(95.6% 0.012 278)",
         "tonalRamp": [
-          "oklch(15% 0.004 85)",
-          "oklch(26% 0.008 85)",
-          "oklch(37% 0.011 85)",
-          "oklch(48% 0.014 85)",
-          "oklch(59% 0.015 85)",
-          "oklch(70% 0.012 85)",
-          "oklch(82% 0.008 85)",
-          "oklch(95% 0.004 85)"
+          "oklch(15% 0.005 278)",
+          "oklch(26% 0.007 278)",
+          "oklch(37% 0.009 278)",
+          "oklch(48% 0.012 278)",
+          "oklch(59% 0.01 278)",
+          "oklch(70% 0.008 278)",
+          "oklch(82% 0.006 278)",
+          "oklch(95% 0.003 278)"
         ]
       },
       "line": {
         "role": "neutral",
-        "displayName": "Đường kẻ",
-        "canonical": "oklch(86% 0.02 80)",
+        "displayName": "Dòng kẻ",
+        "canonical": "oklch(87.5% 0.03 278)",
         "tonalRamp": [
-          "oklch(15% 0.005 80)",
-          "oklch(26% 0.009 80)",
-          "oklch(37% 0.013 80)",
-          "oklch(48% 0.017 80)",
-          "oklch(59% 0.019 80)",
-          "oklch(70% 0.015 80)",
-          "oklch(82% 0.01 80)",
-          "oklch(95% 0.005 80)"
+          "oklch(15% 0.012 278)",
+          "oklch(26% 0.018 278)",
+          "oklch(37% 0.024 278)",
+          "oklch(48% 0.029 278)",
+          "oklch(59% 0.025 278)",
+          "oklch(70% 0.02 278)",
+          "oklch(82% 0.014 278)",
+          "oklch(95% 0.007 278)"
         ]
       },
       "line-strong": {
         "role": "neutral",
-        "displayName": "Đường kẻ đậm",
-        "canonical": "oklch(64% 0.025 75)",
+        "displayName": "Dòng kẻ đậm",
+        "canonical": "oklch(64% 0.05 280)",
         "tonalRamp": [
-          "oklch(15% 0.007 75)",
-          "oklch(26% 0.012 75)",
-          "oklch(37% 0.017 75)",
-          "oklch(48% 0.022 75)",
-          "oklch(59% 0.023 75)",
-          "oklch(70% 0.018 75)",
-          "oklch(82% 0.013 75)",
-          "oklch(95% 0.007 75)"
+          "oklch(15% 0.021 280)",
+          "oklch(26% 0.03 280)",
+          "oklch(37% 0.039 280)",
+          "oklch(48% 0.048 280)",
+          "oklch(59% 0.043 280)",
+          "oklch(70% 0.033 280)",
+          "oklch(82% 0.023 280)",
+          "oklch(95% 0.013 280)"
         ]
       },
       "ink": {
         "role": "neutral",
         "displayName": "Mực",
-        "canonical": "oklch(27% 0.025 60)",
+        "canonical": "oklch(24% 0.035 285)",
         "tonalRamp": [
-          "oklch(15% 0.007 60)",
-          "oklch(26% 0.012 60)",
-          "oklch(37% 0.017 60)",
-          "oklch(48% 0.022 60)",
-          "oklch(59% 0.023 60)",
-          "oklch(70% 0.018 60)",
-          "oklch(82% 0.013 60)",
-          "oklch(95% 0.007 60)"
+          "oklch(15% 0.015 285)",
+          "oklch(26% 0.021 285)",
+          "oklch(37% 0.027 285)",
+          "oklch(48% 0.034 285)",
+          "oklch(59% 0.03 285)",
+          "oklch(70% 0.023 285)",
+          "oklch(82% 0.016 285)",
+          "oklch(95% 0.009 285)"
         ]
       },
       "ink-2": {
         "role": "neutral",
         "displayName": "Mực nhạt",
-        "canonical": "oklch(47% 0.025 60)",
+        "canonical": "oklch(45% 0.04 282)",
         "tonalRamp": [
-          "oklch(15% 0.007 60)",
-          "oklch(26% 0.012 60)",
-          "oklch(37% 0.017 60)",
-          "oklch(48% 0.022 60)",
-          "oklch(59% 0.023 60)",
-          "oklch(70% 0.018 60)",
-          "oklch(82% 0.013 60)",
-          "oklch(95% 0.007 60)"
+          "oklch(15% 0.017 282)",
+          "oklch(26% 0.024 282)",
+          "oklch(37% 0.031 282)",
+          "oklch(48% 0.039 282)",
+          "oklch(59% 0.034 282)",
+          "oklch(70% 0.027 282)",
+          "oklch(82% 0.019 282)",
+          "oklch(95% 0.01 282)"
         ]
       },
       "ink-3": {
         "role": "neutral",
         "displayName": "Mực phai",
-        "canonical": "oklch(56% 0.022 60)",
+        "canonical": "oklch(55% 0.035 282)",
         "tonalRamp": [
-          "oklch(15% 0.006 60)",
-          "oklch(26% 0.01 60)",
-          "oklch(37% 0.015 60)",
-          "oklch(48% 0.019 60)",
-          "oklch(59% 0.02 60)",
-          "oklch(70% 0.016 60)",
-          "oklch(82% 0.011 60)",
-          "oklch(95% 0.006 60)"
+          "oklch(15% 0.015 282)",
+          "oklch(26% 0.021 282)",
+          "oklch(37% 0.027 282)",
+          "oklch(48% 0.034 282)",
+          "oklch(59% 0.03 282)",
+          "oklch(70% 0.023 282)",
+          "oklch(82% 0.016 282)",
+          "oklch(95% 0.009 282)"
         ]
       },
-      "leaf": {
+      "tim": {
         "role": "primary",
-        "displayName": "Lá non",
-        "canonical": "oklch(50% 0.12 150)",
+        "displayName": "Mực tím",
+        "canonical": "oklch(40% 0.17 285)",
         "tonalRamp": [
-          "oklch(15% 0.033 150)",
-          "oklch(26% 0.057 150)",
-          "oklch(37% 0.081 150)",
-          "oklch(48% 0.105 150)",
-          "oklch(59% 0.111 150)",
-          "oklch(70% 0.087 150)",
-          "oklch(82% 0.061 150)",
-          "oklch(95% 0.033 150)"
+          "oklch(15% 0.071 285)",
+          "oklch(26% 0.102 285)",
+          "oklch(37% 0.133 285)",
+          "oklch(48% 0.164 285)",
+          "oklch(59% 0.145 285)",
+          "oklch(70% 0.113 285)",
+          "oklch(82% 0.079 285)",
+          "oklch(95% 0.024 285)"
         ]
       },
-      "leaf-strong": {
+      "tim-strong": {
         "role": "primary",
-        "displayName": "Lá đậm",
-        "canonical": "oklch(44% 0.115 150)",
+        "displayName": "Mực tím đậm",
+        "canonical": "oklch(33.5% 0.15 285)",
         "tonalRamp": [
-          "oklch(15% 0.031 150)",
-          "oklch(26% 0.054 150)",
-          "oklch(37% 0.077 150)",
-          "oklch(48% 0.1 150)",
-          "oklch(59% 0.107 150)",
-          "oklch(70% 0.084 150)",
-          "oklch(82% 0.059 150)",
-          "oklch(95% 0.031 150)"
+          "oklch(15% 0.062 285)",
+          "oklch(26% 0.09 285)",
+          "oklch(37% 0.117 285)",
+          "oklch(48% 0.145 285)",
+          "oklch(59% 0.128 285)",
+          "oklch(70% 0.1 285)",
+          "oklch(82% 0.07 285)",
+          "oklch(95% 0.023 285)"
         ]
       },
-      "leaf-tint": {
+      "tim-tint": {
         "role": "primary",
-        "displayName": "Lá nhạt",
-        "canonical": "oklch(94% 0.04 150)",
+        "displayName": "Tím nhạt",
+        "canonical": "oklch(94.5% 0.026 285)",
         "tonalRamp": [
-          "oklch(15% 0.011 150)",
-          "oklch(26% 0.019 150)",
-          "oklch(37% 0.027 150)",
-          "oklch(48% 0.035 150)",
-          "oklch(59% 0.037 150)",
-          "oklch(70% 0.029 150)",
-          "oklch(82% 0.02 150)",
-          "oklch(95% 0.011 150)"
+          "oklch(15% 0.011 285)",
+          "oklch(26% 0.016 285)",
+          "oklch(37% 0.02 285)",
+          "oklch(48% 0.025 285)",
+          "oklch(59% 0.022 285)",
+          "oklch(70% 0.017 285)",
+          "oklch(82% 0.012 285)",
+          "oklch(95% 0.006 285)"
         ]
       },
-      "on-leaf": {
+      "on-tim": {
         "role": "primary",
-        "displayName": "Trắng lá",
-        "canonical": "oklch(99.5% 0.005 150)",
+        "displayName": "Trắng giấy",
+        "canonical": "oklch(99.5% 0.002 285)",
         "tonalRamp": [
-          "oklch(15% 0.001 150)",
-          "oklch(26% 0.002 150)",
-          "oklch(37% 0.003 150)",
-          "oklch(48% 0.004 150)",
-          "oklch(59% 0.005 150)",
-          "oklch(70% 0.004 150)",
-          "oklch(82% 0.003 150)",
-          "oklch(95% 0.001 150)"
+          "oklch(15% 0.001 285)",
+          "oklch(26% 0.001 285)",
+          "oklch(37% 0.002 285)",
+          "oklch(48% 0.002 285)",
+          "oklch(59% 0.002 285)",
+          "oklch(70% 0.001 285)",
+          "oklch(82% 0.001 285)",
+          "oklch(95% 0.001 285)"
+        ]
+      },
+      "pen": {
+        "role": "semantic",
+        "displayName": "Bút đỏ",
+        "canonical": "oklch(53% 0.2 27)",
+        "tonalRamp": [
+          "oklch(15% 0.061 27)",
+          "oklch(26% 0.106 27)",
+          "oklch(37% 0.151 27)",
+          "oklch(48% 0.193 27)",
+          "oklch(59% 0.17 27)",
+          "oklch(70% 0.133 27)",
+          "oklch(82% 0.093 27)",
+          "oklch(95% 0.024 27)"
+        ]
+      },
+      "pen-tint": {
+        "role": "semantic",
+        "displayName": "Bút đỏ nhạt",
+        "canonical": "oklch(95.5% 0.02 27)",
+        "tonalRamp": [
+          "oklch(15% 0.008 27)",
+          "oklch(26% 0.012 27)",
+          "oklch(37% 0.016 27)",
+          "oklch(48% 0.019 27)",
+          "oklch(59% 0.017 27)",
+          "oklch(70% 0.013 27)",
+          "oklch(82% 0.009 27)",
+          "oklch(95% 0.005 27)"
+        ]
+      },
+      "box": {
+        "role": "primary",
+        "displayName": "Hộp",
+        "canonical": "oklch(31% 0.11 285)",
+        "tonalRamp": [
+          "oklch(15% 0.046 285)",
+          "oklch(26% 0.066 285)",
+          "oklch(37% 0.086 285)",
+          "oklch(48% 0.106 285)",
+          "oklch(59% 0.093 285)",
+          "oklch(70% 0.073 285)",
+          "oklch(82% 0.051 285)",
+          "oklch(95% 0.024 285)"
+        ]
+      },
+      "on-box": {
+        "role": "primary",
+        "displayName": "Chữ trên hộp",
+        "canonical": "oklch(96% 0.012 285)",
+        "tonalRamp": [
+          "oklch(15% 0.005 285)",
+          "oklch(26% 0.007 285)",
+          "oklch(37% 0.009 285)",
+          "oklch(48% 0.012 285)",
+          "oklch(59% 0.01 285)",
+          "oklch(70% 0.008 285)",
+          "oklch(82% 0.006 285)",
+          "oklch(95% 0.003 285)"
+        ]
+      },
+      "box-pen": {
+        "role": "semantic",
+        "displayName": "Bút đỏ trên hộp",
+        "canonical": "oklch(53% 0.2 27)",
+        "tonalRamp": [
+          "oklch(15% 0.061 27)",
+          "oklch(26% 0.106 27)",
+          "oklch(37% 0.151 27)",
+          "oklch(48% 0.193 27)",
+          "oklch(59% 0.17 27)",
+          "oklch(70% 0.133 27)",
+          "oklch(82% 0.093 27)",
+          "oklch(95% 0.024 27)"
         ]
       },
       "danger": {
         "role": "semantic",
         "displayName": "Gạch",
-        "canonical": "oklch(52% 0.17 28)",
+        "canonical": "oklch(50% 0.19 25)",
         "tonalRamp": [
-          "oklch(15% 0.046 28)",
-          "oklch(26% 0.08 28)",
-          "oklch(37% 0.114 28)",
-          "oklch(48% 0.148 28)",
-          "oklch(59% 0.158 28)",
-          "oklch(70% 0.124 28)",
-          "oklch(82% 0.087 28)",
-          "oklch(95% 0.046 28)"
+          "oklch(15% 0.061 25)",
+          "oklch(26% 0.104 25)",
+          "oklch(37% 0.149 25)",
+          "oklch(48% 0.184 25)",
+          "oklch(59% 0.162 25)",
+          "oklch(70% 0.127 25)",
+          "oklch(82% 0.089 25)",
+          "oklch(95% 0.023 25)"
         ]
       },
       "danger-tint": {
         "role": "semantic",
         "displayName": "Gạch nhạt",
-        "canonical": "oklch(95% 0.024 28)",
+        "canonical": "oklch(95.5% 0.02 25)",
         "tonalRamp": [
-          "oklch(15% 0.007 28)",
-          "oklch(26% 0.011 28)",
-          "oklch(37% 0.016 28)",
-          "oklch(48% 0.021 28)",
-          "oklch(59% 0.022 28)",
-          "oklch(70% 0.017 28)",
-          "oklch(82% 0.012 28)",
-          "oklch(95% 0.007 28)"
+          "oklch(15% 0.008 25)",
+          "oklch(26% 0.012 25)",
+          "oklch(37% 0.016 25)",
+          "oklch(48% 0.019 25)",
+          "oklch(59% 0.017 25)",
+          "oklch(70% 0.013 25)",
+          "oklch(82% 0.009 25)",
+          "oklch(95% 0.005 25)"
         ]
       },
       "warning-ink": {
@@ -219,190 +294,190 @@
         "displayName": "Mật ong",
         "canonical": "oklch(45% 0.09 70)",
         "tonalRamp": [
-          "oklch(15% 0.025 70)",
-          "oklch(26% 0.043 70)",
-          "oklch(37% 0.061 70)",
-          "oklch(48% 0.079 70)",
-          "oklch(59% 0.083 70)",
-          "oklch(70% 0.065 70)",
-          "oklch(82% 0.046 70)",
-          "oklch(95% 0.025 70)"
+          "oklch(15% 0.033 70)",
+          "oklch(26% 0.054 70)",
+          "oklch(37% 0.07 70)",
+          "oklch(48% 0.087 70)",
+          "oklch(59% 0.076 70)",
+          "oklch(70% 0.06 70)",
+          "oklch(82% 0.042 70)",
+          "oklch(95% 0.022 70)"
         ]
       },
       "focus": {
         "role": "semantic",
         "displayName": "Focus",
-        "canonical": "oklch(52% 0.15 255)",
+        "canonical": "oklch(52% 0.16 255)",
         "tonalRamp": [
-          "oklch(15% 0.041 255)",
-          "oklch(26% 0.071 255)",
-          "oklch(37% 0.101 255)",
-          "oklch(48% 0.131 255)",
-          "oklch(59% 0.139 255)",
-          "oklch(70% 0.109 255)",
-          "oklch(82% 0.076 255)",
-          "oklch(95% 0.041 255)"
+          "oklch(15% 0.051 255)",
+          "oklch(26% 0.086 255)",
+          "oklch(37% 0.121 255)",
+          "oklch(48% 0.155 255)",
+          "oklch(59% 0.136 255)",
+          "oklch(70% 0.107 255)",
+          "oklch(82% 0.075 255)",
+          "oklch(95% 0.024 255)"
         ]
       },
       "der": {
         "role": "semantic",
-        "displayName": "Mạo từ der",
-        "canonical": "oklch(50% 0.13 255)",
+        "displayName": "der",
+        "canonical": "oklch(47% 0.15 255)",
         "tonalRamp": [
-          "oklch(15% 0.035 255)",
-          "oklch(26% 0.061 255)",
-          "oklch(37% 0.087 255)",
-          "oklch(48% 0.113 255)",
-          "oklch(59% 0.121 255)",
-          "oklch(70% 0.095 255)",
-          "oklch(82% 0.066 255)",
-          "oklch(95% 0.035 255)"
+          "oklch(15% 0.05 255)",
+          "oklch(26% 0.086 255)",
+          "oklch(37% 0.117 255)",
+          "oklch(48% 0.145 255)",
+          "oklch(59% 0.128 255)",
+          "oklch(70% 0.1 255)",
+          "oklch(82% 0.07 255)",
+          "oklch(95% 0.023 255)"
         ]
       },
       "die": {
         "role": "semantic",
-        "displayName": "Mạo từ die",
-        "canonical": "oklch(52% 0.16 15)",
+        "displayName": "die",
+        "canonical": "oklch(48% 0.19 350)",
         "tonalRamp": [
-          "oklch(15% 0.044 15)",
-          "oklch(26% 0.076 15)",
-          "oklch(37% 0.108 15)",
-          "oklch(48% 0.14 15)",
-          "oklch(59% 0.148 15)",
-          "oklch(70% 0.116 15)",
-          "oklch(82% 0.081 15)",
-          "oklch(95% 0.044 15)"
+          "oklch(15% 0.063 350)",
+          "oklch(26% 0.108 350)",
+          "oklch(37% 0.149 350)",
+          "oklch(48% 0.184 350)",
+          "oklch(59% 0.162 350)",
+          "oklch(70% 0.127 350)",
+          "oklch(82% 0.089 350)",
+          "oklch(95% 0.027 350)"
         ]
       },
       "das": {
         "role": "semantic",
-        "displayName": "Mạo từ das",
-        "canonical": "oklch(50% 0.092 170)",
+        "displayName": "das",
+        "canonical": "oklch(48% 0.1 165)",
         "tonalRamp": [
-          "oklch(15% 0.025 170)",
-          "oklch(26% 0.043 170)",
-          "oklch(37% 0.062 170)",
-          "oklch(48% 0.08 170)",
-          "oklch(59% 0.085 170)",
-          "oklch(70% 0.067 170)",
-          "oklch(82% 0.047 170)",
-          "oklch(95% 0.025 170)"
+          "oklch(15% 0.032 165)",
+          "oklch(26% 0.054 165)",
+          "oklch(37% 0.076 165)",
+          "oklch(48% 0.097 165)",
+          "oklch(59% 0.085 165)",
+          "oklch(70% 0.067 165)",
+          "oklch(82% 0.047 165)",
+          "oklch(95% 0.025 165)"
         ]
       },
       "plural": {
         "role": "semantic",
         "displayName": "Số nhiều",
-        "canonical": "oklch(52% 0.11 60)",
+        "canonical": "oklch(50% 0.11 60)",
         "tonalRamp": [
-          "oklch(15% 0.03 60)",
-          "oklch(26% 0.052 60)",
-          "oklch(37% 0.074 60)",
-          "oklch(48% 0.096 60)",
-          "oklch(59% 0.102 60)",
-          "oklch(70% 0.08 60)",
-          "oklch(82% 0.056 60)",
-          "oklch(95% 0.03 60)"
+          "oklch(15% 0.036 60)",
+          "oklch(26% 0.06 60)",
+          "oklch(37% 0.086 60)",
+          "oklch(48% 0.106 60)",
+          "oklch(59% 0.093 60)",
+          "oklch(70% 0.073 60)",
+          "oklch(82% 0.051 60)",
+          "oklch(95% 0.028 60)"
         ]
       },
       "level-0": {
         "role": "semantic",
         "displayName": "Mức 0: Hạt",
-        "canonical": "oklch(90% 0.01 80)",
+        "canonical": "oklch(92.5% 0.014 280)",
         "tonalRamp": [
-          "oklch(15% 0.003 80)",
-          "oklch(26% 0.005 80)",
-          "oklch(37% 0.007 80)",
-          "oklch(48% 0.009 80)",
-          "oklch(59% 0.009 80)",
-          "oklch(70% 0.007 80)",
-          "oklch(82% 0.005 80)",
-          "oklch(95% 0.003 80)"
+          "oklch(15% 0.006 280)",
+          "oklch(26% 0.008 280)",
+          "oklch(37% 0.011 280)",
+          "oklch(48% 0.014 280)",
+          "oklch(59% 0.012 280)",
+          "oklch(70% 0.009 280)",
+          "oklch(82% 0.007 280)",
+          "oklch(95% 0.004 280)"
         ]
       },
       "level-1": {
         "role": "semantic",
         "displayName": "Mức 1: Mầm",
-        "canonical": "oklch(86% 0.06 115)",
+        "canonical": "oklch(86% 0.045 283)",
         "tonalRamp": [
-          "oklch(15% 0.016 115)",
-          "oklch(26% 0.028 115)",
-          "oklch(37% 0.04 115)",
-          "oklch(48% 0.052 115)",
-          "oklch(59% 0.056 115)",
-          "oklch(70% 0.044 115)",
-          "oklch(82% 0.031 115)",
-          "oklch(95% 0.016 115)"
+          "oklch(15% 0.019 283)",
+          "oklch(26% 0.027 283)",
+          "oklch(37% 0.035 283)",
+          "oklch(48% 0.043 283)",
+          "oklch(59% 0.038 283)",
+          "oklch(70% 0.03 283)",
+          "oklch(82% 0.021 283)",
+          "oklch(95% 0.011 283)"
         ]
       },
       "level-2": {
         "role": "semantic",
         "displayName": "Mức 2: Lá",
-        "canonical": "oklch(78% 0.09 130)",
+        "canonical": "oklch(77% 0.08 284)",
         "tonalRamp": [
-          "oklch(15% 0.025 130)",
-          "oklch(26% 0.043 130)",
-          "oklch(37% 0.061 130)",
-          "oklch(48% 0.079 130)",
-          "oklch(59% 0.083 130)",
-          "oklch(70% 0.065 130)",
-          "oklch(82% 0.046 130)",
-          "oklch(95% 0.025 130)"
+          "oklch(15% 0.033 284)",
+          "oklch(26% 0.048 284)",
+          "oklch(37% 0.063 284)",
+          "oklch(48% 0.077 284)",
+          "oklch(59% 0.068 284)",
+          "oklch(70% 0.053 284)",
+          "oklch(82% 0.037 284)",
+          "oklch(95% 0.02 284)"
         ]
       },
       "level-3": {
         "role": "semantic",
         "displayName": "Mức 3: Nụ",
-        "canonical": "oklch(68% 0.11 140)",
+        "canonical": "oklch(65% 0.12 285)",
         "tonalRamp": [
-          "oklch(15% 0.03 140)",
-          "oklch(26% 0.052 140)",
-          "oklch(37% 0.074 140)",
-          "oklch(48% 0.096 140)",
-          "oklch(59% 0.102 140)",
-          "oklch(70% 0.08 140)",
-          "oklch(82% 0.056 140)",
-          "oklch(95% 0.03 140)"
+          "oklch(15% 0.05 285)",
+          "oklch(26% 0.072 285)",
+          "oklch(37% 0.094 285)",
+          "oklch(48% 0.116 285)",
+          "oklch(59% 0.102 285)",
+          "oklch(70% 0.08 285)",
+          "oklch(82% 0.056 285)",
+          "oklch(95% 0.024 285)"
         ]
       },
       "level-4": {
         "role": "semantic",
         "displayName": "Mức 4: Hoa",
-        "canonical": "oklch(57% 0.12 148)",
+        "canonical": "oklch(52% 0.15 285)",
         "tonalRamp": [
-          "oklch(15% 0.033 148)",
-          "oklch(26% 0.057 148)",
-          "oklch(37% 0.081 148)",
-          "oklch(48% 0.105 148)",
-          "oklch(59% 0.111 148)",
-          "oklch(70% 0.087 148)",
-          "oklch(82% 0.061 148)",
-          "oklch(95% 0.033 148)"
+          "oklch(15% 0.062 285)",
+          "oklch(26% 0.09 285)",
+          "oklch(37% 0.117 285)",
+          "oklch(48% 0.145 285)",
+          "oklch(59% 0.128 285)",
+          "oklch(70% 0.1 285)",
+          "oklch(82% 0.07 285)",
+          "oklch(95% 0.023 285)"
         ]
       },
       "level-5": {
         "role": "semantic",
         "displayName": "Mức 5: Quả",
-        "canonical": "oklch(46% 0.11 152)",
+        "canonical": "oklch(38% 0.16 286)",
         "tonalRamp": [
-          "oklch(15% 0.03 152)",
-          "oklch(26% 0.052 152)",
-          "oklch(37% 0.074 152)",
-          "oklch(48% 0.096 152)",
-          "oklch(59% 0.102 152)",
-          "oklch(70% 0.08 152)",
-          "oklch(82% 0.056 152)",
-          "oklch(95% 0.03 152)"
+          "oklch(15% 0.067 286)",
+          "oklch(26% 0.096 286)",
+          "oklch(37% 0.125 286)",
+          "oklch(48% 0.155 286)",
+          "oklch(59% 0.136 286)",
+          "oklch(70% 0.107 286)",
+          "oklch(82% 0.075 286)",
+          "oklch(95% 0.024 286)"
         ]
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Tiêu đề trang giới thiệu (Baloo 2); chính từ trên thẻ từ dùng cỡ này bằng Nunito 800."
+        "purpose": "Tên Lernbuch ở trang chào."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Lời chào Hôm nay, tên chủ đề, Xong phiên, tên trang."
+        "purpose": "Câu việc hôm nay, tên chủ đề, tên trang, Xong phiên."
       },
       "title": {
         "displayName": "Title",
@@ -410,41 +485,36 @@
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Nghĩa, câu ví dụ, nội dung; cột đọc 65–75 ký tự."
+        "purpose": "Nghĩa, câu ví dụ, nội dung."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Nút nhỏ, tab, bộ lọc, nhãn, số liệu chữ số đều nhau."
+        "purpose": "Nút nhỏ, tab, nhãn, số liệu."
       },
       "study-word": {
         "displayName": "Study word",
-        "purpose": "Từ đang học, chữ lớn nhất màn hình học, co giãn theo màn hình."
+        "purpose": "Từ tiếng Đức đang học, chữ lớn nhất màn hình học."
       },
       "handwritten": {
         "displayName": "Handwritten",
-        "purpose": "Mẹo ghi tay trên thẻ từ, tối đa một khối."
+        "purpose": "Ghi chú của người học."
       }
     },
     "shadows": [
       {
-        "name": "sheet",
-        "value": "0 1px 2px oklch(27% 0.025 60 / 0.08), 0 4px 12px oklch(27% 0.025 60 / 0.06)",
-        "purpose": "Tờ sổ trên nền giấy (máy tính)."
+        "name": "card",
+        "value": "0 1px 2px oklch(30% 0.06 285 / 0.10), 0 3px 8px oklch(30% 0.06 285 / 0.06)",
+        "purpose": "Thẻ học nổi trên chồng thẻ."
       },
       {
         "name": "raised",
-        "value": "0 2px 4px oklch(27% 0.025 60 / 0.10), 0 12px 28px oklch(27% 0.025 60 / 0.12)",
+        "value": "0 2px 4px oklch(30% 0.06 285 / 0.12), 0 10px 24px oklch(30% 0.06 285 / 0.14)",
         "purpose": "Bảng mở, menu."
       },
       {
-        "name": "sheet-dark",
+        "name": "card-dark",
         "value": "0 1px 2px oklch(0% 0 0 / 0.40), 0 4px 12px oklch(0% 0 0 / 0.30)",
-        "purpose": "Tờ sổ ở giao diện tối."
-      },
-      {
-        "name": "raised-dark",
-        "value": "0 2px 4px oklch(0% 0 0 / 0.45), 0 12px 28px oklch(0% 0 0 / 0.40)",
-        "purpose": "Bảng mở ở giao diện tối."
+        "purpose": "Thẻ học, nền tối."
       }
     ],
     "motion": [
@@ -494,132 +564,130 @@
       "kind": "button",
       "refersTo": "button-primary",
       "description": "Hành động chính duy nhất của màn hình: Học ngay, Lật thẻ, Học tiếp.",
-      "html": "<a class=\"ds-btn-primary\" href=\"#\"><span><span class=\"ds-btn-primary__title\">Học ngay</span><span class=\"ds-btn-primary__sub\">12 thẻ đến hạn · 9 từ mới</span></span><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m9 18 6-6-6-6\"/></svg></a>",
-      "css": ".ds-btn-primary { display: flex; min-height: 56px; width: 100%; max-width: 360px; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 20px; border-radius: var(--radius-md); background: var(--color-leaf); color: var(--color-on-leaf); font-family: var(--font-body); text-decoration: none; transition: background-color 200ms var(--ease-out); } .ds-btn-primary:hover { background: var(--color-leaf-strong); } .ds-btn-primary:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; } .ds-btn-primary__title { display: block; font-size: 1.25rem; line-height: 1.3; font-weight: 700; } .ds-btn-primary__sub { display: block; font-size: 0.875rem; font-variant-numeric: tabular-nums; }"
+      "html": "<a class=\"ds-btn-primary\" href=\"#\"><span class=\"ds-btn-primary__title\">Học ngay</span><span class=\"ds-btn-primary__sub\">12 thẻ đến hạn · 9 từ mới →</span></a>",
+      "css": ".ds-btn-primary { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; padding: 12px 20px; border-radius: var(--radius-md); background: var(--color-tim); color: var(--color-on-tim); text-decoration: none; transition: background-color 200ms var(--ease-out); } .ds-btn-primary:hover { background: var(--color-tim-strong); } .ds-btn-primary__title { font: 700 1.25rem/1.3 var(--font-body); } .ds-btn-primary__sub { font: 600 0.875rem/1.3 var(--font-body); } .ds-btn-primary:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }"
     },
     {
       "name": "Nút phụ",
       "kind": "button",
       "refersTo": "button-secondary",
-      "description": "Hành động phụ: Ôn 5 thẻ, Về Hôm nay, Bỏ lọc.",
+      "description": "Hành động phụ: Flashcard, Ôn 5 thẻ, Về Hôm nay.",
       "html": "<button class=\"ds-btn-secondary\" type=\"button\">Ôn 5 thẻ</button>",
-      "css": ".ds-btn-secondary { min-height: 48px; padding: 12px 20px; border: 1px solid var(--color-line-strong); border-radius: var(--radius-md); background: var(--color-sheet); color: var(--color-ink); font: 600 1rem/1.3 var(--font-body); cursor: pointer; transition: background-color 200ms var(--ease-out); } .ds-btn-secondary:hover { background: var(--color-sunken); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }"
+      "css": ".ds-btn-secondary { min-height: 44px; padding: 0 16px; border: 1px solid var(--color-tim); border-radius: var(--radius-md); background: var(--color-sheet); color: var(--color-tim); font: 600 0.875rem/1.3 var(--font-body); cursor: pointer; transition: background-color 200ms var(--ease-out); } .ds-btn-secondary:hover { background: var(--color-tim-tint); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }"
     },
     {
       "name": "Nút chấm",
-      "kind": "custom",
-      "refersTo": "grade-good",
-      "description": "Bốn nút tự chấm sát đáy màn hình học; mỗi nút ghi hạn ôn mới và phím 1–4.",
-      "html": "<div class=\"ds-grades\" role=\"group\" aria-label=\"Tự chấm\"><button type=\"button\" class=\"ds-grade ds-grade--forgot\"><b>Quên</b><span>10 phút <kbd>1</kbd></span></button><button type=\"button\" class=\"ds-grade ds-grade--hard\"><b>Khó</b><span>1,5 ngày <kbd>2</kbd></span></button><button type=\"button\" class=\"ds-grade ds-grade--good\"><b>Tốt</b><span>7 ngày <kbd>3</kbd></span></button><button type=\"button\" class=\"ds-grade ds-grade--easy\"><b>Dễ</b><span>14 ngày <kbd>4</kbd></span></button></div>",
-      "css": ".ds-grades { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; max-width: 640px; } .ds-grade { display: flex; min-height: 56px; flex-direction: column; align-items: center; justify-content: center; border: 2px solid; border-radius: var(--radius-md); background: var(--color-sheet); font-family: var(--font-body); cursor: pointer; transition: background-color 200ms var(--ease-out); } .ds-grade b { font-weight: 700; } .ds-grade span { font-size: 0.875rem; font-variant-numeric: tabular-nums; } .ds-grade kbd { border: 1px solid currentColor; border-radius: var(--radius-sm); padding: 0 6px; font: inherit; } .ds-grade--forgot { border-color: var(--color-danger); color: var(--color-danger); } .ds-grade--forgot:hover { background: var(--color-danger-tint); } .ds-grade--hard { border-color: var(--color-warning-ink); color: var(--color-warning-ink); } .ds-grade--hard:hover { background: var(--color-sunken); } .ds-grade--good { border-color: var(--color-leaf); background: var(--color-leaf); color: var(--color-on-leaf); } .ds-grade--good:hover { background: var(--color-leaf-strong); border-color: var(--color-leaf-strong); } .ds-grade--easy { border-color: var(--color-leaf); color: var(--color-leaf); } .ds-grade--easy:hover { background: var(--color-leaf-tint); } .ds-grade:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }"
+      "kind": "button",
+      "description": "Bốn nút Quên, Khó, Tốt, Dễ sát đáy màn hình học; mỗi nút ghi hạn ôn mới.",
+      "html": "<div class=\"ds-grades\"><button class=\"ds-grade ds-grade--quen\">Quên<small>10 phút</small></button><button class=\"ds-grade ds-grade--kho\">Khó<small>1,5 ngày</small></button><button class=\"ds-grade ds-grade--tot\">Tốt<small>7 ngày</small></button><button class=\"ds-grade ds-grade--de\">Dễ<small>14 ngày</small></button></div>",
+      "css": ".ds-grades { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; } .ds-grade { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 56px; border: 1.5px solid; border-radius: var(--radius-md); background: var(--color-sheet); font: 700 1rem/1.3 var(--font-body); cursor: pointer; } .ds-grade small { font-weight: 400; font-size: 0.75rem; } .ds-grade--quen { border-color: var(--color-danger); color: var(--color-danger); } .ds-grade--kho { border-color: var(--color-warning-ink); color: var(--color-warning-ink); } .ds-grade--tot { border-color: var(--color-tim); background: var(--color-tim); color: var(--color-on-tim); } .ds-grade--de { border-color: var(--color-tim); color: var(--color-tim); } .ds-grade:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }"
     },
     {
-      "name": "Viên chọn",
+      "name": "Ô chọn",
       "kind": "chip",
       "refersTo": "chip",
-      "description": "Nhóm chọn một (radio thật): số từ mới mỗi lượt, che cột, giao diện.",
-      "html": "<fieldset class=\"ds-choice\"><legend>Số từ mới mỗi lượt</legend><label class=\"is-on\"><input type=\"radio\" name=\"n\" checked>10</label><label><input type=\"radio\" name=\"n\">20</label><label><input type=\"radio\" name=\"n\">30</label><label><input type=\"radio\" name=\"n\">Tất cả</label></fieldset>",
-      "css": ".ds-choice { display: flex; flex-wrap: wrap; gap: 6px; border: 0; padding: 0; margin: 0; font-family: var(--font-body); } .ds-choice legend { width: 100%; margin-bottom: 8px; font-size: 0.875rem; font-weight: 600; color: var(--color-ink); } .ds-choice label { display: flex; min-height: 44px; min-width: 44px; align-items: center; justify-content: center; padding: 0 14px; border: 1px solid var(--color-line); border-radius: var(--radius-pill); color: var(--color-ink-2); font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: border-color 200ms var(--ease-out), background-color 200ms var(--ease-out); } .ds-choice label:hover { border-color: var(--color-line-strong); color: var(--color-ink); } .ds-choice label.is-on, .ds-choice label:has(input:checked) { border-color: var(--color-leaf); background: var(--color-leaf-tint); color: var(--color-ink); } .ds-choice label:has(input:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: 2px; } .ds-choice input { position: absolute; opacity: 0; width: 1px; height: 1px; }"
+      "description": "Nhóm chọn một (radio): số từ mới mỗi lượt, cỡ chữ, giao diện.",
+      "html": "<div class=\"ds-chips\"><label class=\"ds-chip ds-chip--on\"><input type=\"radio\" name=\"n\" checked>10</label><label class=\"ds-chip\"><input type=\"radio\" name=\"n\">20</label><label class=\"ds-chip\"><input type=\"radio\" name=\"n\">Tất cả</label></div>",
+      "css": ".ds-chips { display: flex; gap: 8px; } .ds-chip { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; justify-content: center; padding: 0 14px; border: 1px solid var(--color-line); border-radius: var(--radius-md); background: var(--color-sheet); color: var(--color-ink-2); font: 600 0.875rem/1.3 var(--font-body); cursor: pointer; } .ds-chip input { position: absolute; opacity: 0; } .ds-chip--on { border-color: var(--color-tim); background: var(--color-tim-tint); color: var(--color-ink); }"
     },
     {
       "name": "Ô tìm",
       "kind": "input",
       "refersTo": "input",
-      "description": "Ô nhập trên nền giấy, viền đường kẻ đậm; ô tìm có kính lúp và phím gợi ý /.",
-      "html": "<div class=\"ds-search\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg><input type=\"search\" aria-label=\"Tìm trong chủ đề\" placeholder=\"Tìm từ hoặc nghĩa\"><kbd>/</kbd></div>",
-      "css": ".ds-search { position: relative; max-width: 420px; color: var(--color-ink-2); font-family: var(--font-body); } .ds-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); } .ds-search input { box-sizing: border-box; width: 100%; min-height: 44px; padding: 8px 40px 8px 36px; border: 1px solid var(--color-line-strong); border-radius: var(--radius-md); background: var(--color-paper); color: var(--color-ink); font: 400 1rem/1.55 var(--font-body); } .ds-search input::placeholder { color: var(--color-ink-2); } .ds-search input:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; } .ds-search kbd { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); border: 1px solid currentColor; border-radius: var(--radius-sm); padding: 0 6px; font: 600 0.875rem var(--font-body); }"
+      "description": "Ô tìm từ hoặc nghĩa ở trang chủ đề.",
+      "html": "<input class=\"ds-input\" type=\"search\" placeholder=\"Tìm từ hoặc nghĩa\">",
+      "css": ".ds-input { min-height: 44px; padding: 8px 12px; border: 1px solid var(--color-line-strong); border-radius: var(--radius-md); background: var(--color-paper); color: var(--color-ink); font: 400 1rem/1.55 var(--font-body); } .ds-input::placeholder { color: var(--color-ink-2); } .ds-input:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }"
     },
     {
-      "name": "Tab",
-      "kind": "nav",
-      "refersTo": "tab",
-      "description": "Tab chuẩn của thẻ từ: vạch lá dưới tab đang mở.",
-      "html": "<div class=\"ds-tabs\" role=\"tablist\" aria-label=\"Thông tin về từ\"><button role=\"tab\" aria-selected=\"true\">Nghĩa và ví dụ</button><button role=\"tab\" aria-selected=\"false\" tabindex=\"-1\">Ngữ pháp</button><button role=\"tab\" aria-selected=\"false\" tabindex=\"-1\">Ghi chú</button></div>",
-      "css": ".ds-tabs { display: flex; border-bottom: 1px solid var(--color-line); font-family: var(--font-body); } .ds-tabs button { min-height: 48px; margin-bottom: -1px; padding: 0 12px; border: 0; border-bottom: 2px solid transparent; background: none; color: var(--color-ink-2); font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: color 200ms var(--ease-out); } .ds-tabs button:hover { color: var(--color-ink); } .ds-tabs button[aria-selected=\"true\"] { border-bottom-color: var(--color-leaf); color: var(--color-ink); } .ds-tabs button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }"
+      "name": "Thanh trên cùng",
+      "kind": "navigation",
+      "refersTo": "top-bar",
+      "description": "Thanh màu hộp: tên Lernbuch, điều hướng (máy tính), Dữ liệu mẫu.",
+      "html": "<header class=\"ds-topbar\"><b>Lernbuch</b><nav><a aria-current=\"page\" href=\"#\">Hôm nay</a><a href=\"#\">Chủ đề</a><a href=\"#\">Cài đặt</a></nav><span>Dữ liệu mẫu</span></header>",
+      "css": ".ds-topbar { display: flex; align-items: center; gap: 32px; height: 56px; padding: 0 24px; background: var(--color-box); color: var(--color-on-box); font: 600 0.875rem/1.3 var(--font-body); } .ds-topbar b { font-weight: 800; font-size: 1.25rem; } .ds-topbar nav { display: flex; align-self: stretch; } .ds-topbar a { display: flex; align-items: center; padding: 3px 12px 0; color: inherit; opacity: .75; text-decoration: none; border-bottom: 3px solid transparent; } .ds-topbar a[aria-current] { opacity: 1; border-bottom-color: var(--color-on-box); } .ds-topbar span { margin-left: auto; opacity: .8; }"
     },
     {
-      "name": "Điều hướng",
-      "kind": "nav",
-      "refersTo": "nav-item",
-      "description": "Thanh trên ở máy tính: mục đang mở chữ lá, vạch lá dưới.",
-      "html": "<nav class=\"ds-nav\" aria-label=\"Điều hướng chính\"><b>Lernbuch</b><a href=\"#\" aria-current=\"page\">Hôm nay</a><a href=\"#\">Chủ đề</a><a href=\"#\">Ngữ pháp</a><a href=\"#\">Cài đặt</a></nav>",
-      "css": ".ds-nav { display: flex; height: 64px; align-items: stretch; gap: 4px; border-bottom: 1px solid var(--color-line); background: var(--color-paper); padding: 0 24px; font-family: var(--font-body); } .ds-nav b { display: flex; align-items: center; margin-right: 28px; font-family: var(--font-display); font-size: 1.25rem; color: var(--color-ink); } .ds-nav a { display: flex; align-items: center; padding: 0 12px; border-bottom: 2px solid transparent; color: var(--color-ink-2); font-size: 0.875rem; font-weight: 600; text-decoration: none; } .ds-nav a:hover { color: var(--color-ink); } .ds-nav a[aria-current=\"page\"] { border-bottom-color: var(--color-leaf); color: var(--color-leaf); } .ds-nav a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -2px; }"
+      "name": "Hộp thẻ",
+      "kind": "signature",
+      "refersTo": "card-box",
+      "description": "Hộp 6 ngăn ở Hôm nay: chồng thẻ theo mức, số đến hạn chữ bút đỏ.",
+      "html": "<div class=\"ds-box\"><div class=\"ds-box__slot\"><i class=\"ds-box__due\">+9</i><span class=\"ds-box__tab\" style=\"background:var(--color-level-0);color:var(--color-on-level-0)\">Hạt</span><span class=\"ds-box__stack\" style=\"height:80%\"></span><b>12</b></div><div class=\"ds-box__slot\"><i class=\"ds-box__due\">4</i><span class=\"ds-box__tab\" style=\"background:var(--color-level-1);color:var(--color-on-level-1)\">Mầm</span><span class=\"ds-box__stack\" style=\"height:50%\"></span><b>7</b></div><div class=\"ds-box__slot\"><i class=\"ds-box__due\">5</i><span class=\"ds-box__tab\" style=\"background:var(--color-level-2);color:var(--color-on-level-2)\">Lá</span><span class=\"ds-box__stack\" style=\"height:50%\"></span><b>7</b></div><div class=\"ds-box__slot\"><i class=\"ds-box__due\">2</i><span class=\"ds-box__tab\" style=\"background:var(--color-level-3);color:var(--color-on-level-3)\">Nụ</span><span class=\"ds-box__stack\" style=\"height:40%\"></span><b>5</b></div><div class=\"ds-box__slot\"><i class=\"ds-box__due\">1</i><span class=\"ds-box__tab\" style=\"background:var(--color-level-4);color:var(--color-on-level-4)\">Hoa</span><span class=\"ds-box__stack\" style=\"height:30%\"></span><b>3</b></div><div class=\"ds-box__slot\"><i class=\"ds-box__due\"></i><span class=\"ds-box__tab\" style=\"background:var(--color-level-5);color:var(--color-on-level-5)\">Quả</span><span class=\"ds-box__stack\" style=\"height:22%\"></span><b>2</b></div></div>",
+      "css": ".ds-box { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; height: 170px; padding: 12px 10px 6px; border-radius: var(--radius-md); background: var(--color-box); color: var(--color-on-box); } .ds-box__slot { display: flex; flex-direction: column; justify-content: flex-end; } .ds-box__due { align-self: flex-end; margin-bottom: 4px; padding: 0 6px; border-radius: var(--radius-sm); background: var(--color-on-box); color: var(--color-box-pen); font: normal 700 0.75rem/1.25rem var(--font-body); } .ds-box__due:empty { display: none; } .ds-box__tab { align-self: flex-start; padding: 1px 4px 0; border-radius: var(--radius-sm) var(--radius-sm) 0 0; font: 600 0.6875rem/1rem var(--font-body); } .ds-box__stack { background: var(--color-on-box); box-shadow: inset 0 3px 0 var(--color-on-box), inset 0 4px 0 color-mix(in oklch, var(--color-on-box) 62%, var(--color-box)); } .ds-box b { padding-top: 6px; text-align: center; font: 600 0.875rem/1.3 var(--font-body); }"
     },
     {
-      "name": "Tờ sổ",
+      "name": "Thẻ học",
+      "kind": "signature",
+      "refersTo": "study-card",
+      "description": "Thẻ trang vở có lề đỏ, tai thẻ màu mức, hai thẻ chờ phía sau; dấu tích bút đỏ khi chấm đúng.",
+      "html": "<div class=\"ds-study\"><article><p class=\"ds-study__tab\">Lá · Quen</p><span class=\"ds-study__tick\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2.6 8.9c1.2.8 2.2 1.8 3 3.1C7.7 8 10.2 5.1 13.6 2.9\"/></svg></span><h3 lang=\"de\"><span style=\"color:var(--color-die)\">die</span> Orange</h3><p>die Orangen</p></article></div>",
+      "css": ".ds-study { position: relative; padding-top: 24px; } .ds-study::before, .ds-study::after { content: \"\"; position: absolute; top: 16px; left: 16px; right: 16px; height: 16px; border: 1px solid var(--color-line); border-bottom: 0; border-radius: var(--radius-md) var(--radius-md) 0 0; background: var(--color-sheet); } .ds-study::after { top: 20px; left: 8px; right: 8px; } .ds-study article { position: relative; z-index: 1; padding: 24px 20px 24px 56px; border: 1px solid var(--color-line); border-radius: var(--radius-md); background: var(--color-sheet); box-shadow: var(--shadow-sheet); } .ds-study article::before { content: \"\"; position: absolute; top: 0; bottom: 0; left: 40px; width: 1.5px; background: var(--color-pen); opacity: .45; } .ds-study__tab { position: absolute; top: -24px; right: 16px; margin: 0; padding: 0 10px; line-height: 24px; border-radius: var(--radius-md) var(--radius-md) 0 0; background: var(--color-level-2); color: var(--color-on-level-2); font: 600 0.875rem/24px var(--font-body); } .ds-study__tick { position: absolute; left: 10px; top: 30px; color: var(--color-pen); } .ds-study h3 { margin: 0; font: 800 2.5rem/1.1 var(--font-body); letter-spacing: -0.02em; } .ds-study p { color: var(--color-ink-2); }"
+    },
+    {
+      "name": "Thẻ chủ đề",
       "kind": "card",
-      "refersTo": "sheet",
-      "description": "Khung nội dung giữa nền giấy; điện thoại tràn mép, không viền.",
-      "html": "<section class=\"ds-sheet\"><h2>Bánh mì · bánh ngọt · tiệm bánh</h2><p>24 từ · 5 đến hạn · 9 từ mới</p></section>",
-      "css": ".ds-sheet { max-width: 560px; padding: 32px; border: 1px solid var(--color-line); border-radius: var(--radius-lg); background: var(--color-sheet); box-shadow: var(--shadow-sheet); color: var(--color-ink); font-family: var(--font-body); } .ds-sheet h2 { margin: 0; font: 600 1.75rem/1.2 var(--font-display); text-wrap: balance; } .ds-sheet p { margin: 8px 0 0; font-size: 0.875rem; font-weight: 600; font-variant-numeric: tabular-nums; }"
+      "refersTo": "topic-card",
+      "description": "Tên chủ đề trên vạch bút đỏ, câu tóm tắt, thanh 6 mức.",
+      "html": "<a class=\"ds-topic\" href=\"#\"><span class=\"ds-topic__head\">Bánh mì · bánh ngọt · tiệm bánh</span><span class=\"ds-topic__body\"><span><b>5 đến hạn</b> · 9 từ mới · 2 đã thành quả</span><span class=\"ds-topic__bar\"><i style=\"flex:9;background:var(--color-level-0)\"></i><i style=\"flex:3;background:var(--color-level-1)\"></i><i style=\"flex:4;background:var(--color-level-2)\"></i><i style=\"flex:4;background:var(--color-level-3)\"></i><i style=\"flex:2;background:var(--color-level-4)\"></i><i style=\"flex:2;background:var(--color-level-5)\"></i></span></span></a>",
+      "css": ".ds-topic { display: block; border: 1px solid var(--color-line); border-radius: var(--radius-md); background: var(--color-sheet); color: var(--color-ink); text-decoration: none; } .ds-topic:hover { border-color: var(--color-line-strong); } .ds-topic__head { display: block; padding: 10px 16px; border-bottom: 2px solid color-mix(in oklch, var(--color-pen) 70%, transparent); font: 600 1rem/1.4 var(--font-body); } .ds-topic__body { display: block; padding: 8px 16px 12px; color: var(--color-ink-2); font: 400 0.875rem/1.3 var(--font-body); } .ds-topic__body b { color: var(--color-pen); font-weight: 600; } .ds-topic__bar { display: flex; gap: 1px; height: 8px; margin-top: 8px; border-radius: var(--radius-sm); overflow: hidden; background: var(--color-sunken); }"
     },
     {
-      "name": "Thanh 6 mức thuộc",
-      "kind": "custom",
-      "description": "Dấu ấn: dải màu theo số thẻ từng mức và hình cây kèm số; ở trang chủ đề mỗi mức là nút lọc.",
-      "html": "<div class=\"ds-levels\" role=\"img\" aria-label=\"Mức thuộc: Hạt 9, Mầm 3, Lá 4, Nụ 4, Hoa 2, Quả 2\"><div class=\"ds-levels__bar\"><span style=\"width:37.5%;background:var(--color-level-0)\"></span><span style=\"width:12.5%;background:var(--color-level-1)\"></span><span style=\"width:16.7%;background:var(--color-level-2)\"></span><span style=\"width:16.7%;background:var(--color-level-3)\"></span><span style=\"width:8.3%;background:var(--color-level-4)\"></span><span style=\"width:8.3%;background:var(--color-level-5)\"></span></div><div class=\"ds-levels__row\"><span><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--color-ink-2)\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 20.5h14\" stroke=\"var(--color-line-strong)\"/><path d=\"M12 20.5V9.8\"/><path d=\"M12 17c-3.3 0-5.4-1.9-5.4-4.7 3.1 0 5.4 1.8 5.4 4.7z\" fill=\"var(--color-level-2)\"/><path d=\"M12 13.6c0-2.9 2.2-4.9 5.4-4.9 0 2.8-2.2 4.9-5.4 4.9z\" fill=\"var(--color-level-2)\"/></svg><b>4</b> Lá</span></div></div>",
-      "css": ".ds-levels { max-width: 448px; font-family: var(--font-body); } .ds-levels__bar { display: flex; height: 8px; overflow: hidden; border-radius: var(--radius-pill); background: var(--color-sunken); } .ds-levels__row { display: flex; gap: 16px; margin-top: 8px; } .ds-levels__row span { display: flex; align-items: center; gap: 4px; font-size: 0.875rem; color: var(--color-ink-2); font-variant-numeric: tabular-nums; } .ds-levels__row b { color: var(--color-ink); font-weight: 600; }"
-    },
-    {
-      "name": "Mầm của dải 14 ngày",
-      "kind": "custom",
-      "description": "Dấu ấn: mỗi ngày một mầm, thân cao theo số thẻ đã ôn; hôm nay màu lá, ngày tới nét đứt.",
-      "html": "<div class=\"ds-days\"><button type=\"button\"><svg viewBox=\"0 0 20 48\" width=\"20\" height=\"48\" aria-hidden=\"true\"><path d=\"M10 47V22\" stroke=\"var(--color-ink-3)\" stroke-width=\"2\" stroke-linecap=\"round\" fill=\"none\"/><path d=\"M10 24Q5 24.6 3.4 19.6Q8.6 19 10 24Z\" fill=\"var(--color-level-4)\" stroke=\"var(--color-ink-3)\" stroke-width=\"1.2\"/><path d=\"M10 22Q15 22.6 16.6 17.6Q11.4 17 10 22Z\" fill=\"var(--color-level-4)\" stroke=\"var(--color-ink-3)\" stroke-width=\"1.2\"/></svg><small>T4</small><b>25</b></button><button type=\"button\" class=\"is-today\" aria-pressed=\"true\"><svg viewBox=\"0 0 20 48\" width=\"20\" height=\"48\" aria-hidden=\"true\"><path d=\"M10 47V36\" stroke=\"var(--color-leaf)\" stroke-width=\"2\" stroke-linecap=\"round\" fill=\"none\"/><path d=\"M10 38Q5 38.6 3.4 33.6Q8.6 33 10 38Z\" fill=\"var(--color-leaf)\" stroke=\"var(--color-leaf)\" stroke-width=\"1.2\"/><path d=\"M10 36Q15 36.6 16.6 31.6Q11.4 31 10 36Z\" fill=\"var(--color-leaf)\" stroke=\"var(--color-leaf)\" stroke-width=\"1.2\"/></svg><small>Nay</small><b>26</b></button></div>",
-      "css": ".ds-days { display: flex; gap: 4px; font-family: var(--font-body); } .ds-days button { display: flex; min-height: 96px; width: 52px; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; padding: 8px 0 6px; border: 1px solid transparent; border-radius: var(--radius-md); background: none; color: var(--color-ink); cursor: pointer; } .ds-days button:hover { background: var(--color-sunken); } .ds-days button.is-today { border-color: var(--color-leaf); background: var(--color-leaf-tint); } .ds-days small { font-size: 0.6875rem; color: var(--color-ink-2); } .ds-days .is-today small { color: var(--color-leaf); font-weight: 700; } .ds-days b { font-size: 0.875rem; font-weight: 600; font-variant-numeric: tabular-nums; } .ds-days button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }"
+      "name": "Dải 14 ngày",
+      "kind": "signature",
+      "description": "Ô ngày kẻ như ô vở: dấu tích bút đỏ ngày có học, khoanh đỏ hôm nay.",
+      "html": "<div class=\"ds-days\"><span class=\"ds-day\"><small>T2</small><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2.6 8.9c1.2.8 2.2 1.8 3 3.1C7.7 8 10.2 5.1 13.6 2.9\"/></svg><b>23</b></span><span class=\"ds-day\"><small>T3</small><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2.6 8.9c1.2.8 2.2 1.8 3 3.1C7.7 8 10.2 5.1 13.6 2.9\"/></svg><b>24</b></span><span class=\"ds-day\"><small>T4</small><i></i><b>25</b></span><span class=\"ds-day\"><small>T5</small><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2.6 8.9c1.2.8 2.2 1.8 3 3.1C7.7 8 10.2 5.1 13.6 2.9\"/></svg><b>26</b></span><span class=\"ds-day ds-day--today\"><small>Nay</small><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2.6 8.9c1.2.8 2.2 1.8 3 3.1C7.7 8 10.2 5.1 13.6 2.9\"/></svg><b>27</b></span></div>",
+      "css": ".ds-days { display: grid; grid-template-columns: repeat(5, 44px); border-top: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); } .ds-day { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 64px; padding: 6px 0; border-right: 1px solid var(--color-line); color: var(--color-ink-2); } .ds-day svg { color: var(--color-pen); } .ds-day i { height: 16px; } .ds-day small { font: 400 0.6875rem/1 var(--font-body); } .ds-day b { color: var(--color-ink); font: 600 0.875rem/1 var(--font-body); } .ds-day--today small, .ds-day--today b { color: var(--color-pen); font-weight: 700; } .ds-day--today::after { content: \"\"; position: absolute; inset: 2px; border: 1.6px solid var(--color-pen); border-radius: 50%; transform: rotate(-4deg); }"
     }
   ],
   "narrative": {
-    "northStar": "Sổ tay khu vườn",
-    "overview": "Một cuốn sổ học tiếng Đức đặt trong khu vườn đổi theo mùa; mỗi từ là một cây con, ôn đều thì cây lớn. Tính cách: ấm, tỉ mỉ, khích lệ. Trên màn hình học, khu vườn chỉ góp màu, chữ, mật độ và một dấu ấn riêng; điều khiển, điều hướng và bố cục theo chuẩn mà người dùng đã quen.\n\nApp học và trang quản trị theo chế độ Operate: gọn, đều, trang trí đặt ở lúc nghỉ. Trang giới thiệu và bảng giá theo chế độ Persuade: khu vườn được làm chủ trang. Bài ngữ pháp và từ điển công khai theo chế độ Read: khu vườn ở khung, cột chữ yên tĩnh.\n\nDấu ấn là cây: 6 mức thuộc vẽ thành 6 giai đoạn hạt, mầm, lá, nụ, hoa, quả; lượng ôn mỗi ngày vẽ thành một mầm cao thấp trong dải 14 ngày; lúc một thẻ lên mức, hình cây của nó lớn lên. Chữ tiếng Đức luôn đi kèm mạo từ tô màu giống.",
+    "northStar": "Vở ô li và hộp thẻ",
+    "overview": "Trang vở của học sinh Việt Nam (giấy trắng lạnh, đường lề đỏ, mực tím, bút đỏ thầy cô chấm) gặp chiếc hộp thẻ có ngăn của Leitner, nơi phương pháp ôn ngắt quãng bắt đầu. Mỗi từ là một tấm thẻ nằm trong một ngăn của hộp; ôn đúng thì thẻ sang ngăn sau, ngăn đánh dấu bằng 6 giai đoạn của cây. Tính cách: rõ, chăm, kiểu thầy cô chấm bài tận tình, không ồn ào. Thế giới này thay \"Sổ tay khu vườn\" ngày 26/11/2026, vì bản cũ (nền kem, xanh lá, chữ tròn, minh hoạ đồi) trông như mọi app học làm bằng AI.\n\nApp học và trang quản trị theo chế độ Operate: điều hướng, nút, bảng theo chuẩn người dùng đã quen; thế giới chỉ góp màu, chữ, mật độ và vài dấu ấn. Trang giới thiệu (Persuade) và bài đọc (Read) chưa làm; khi làm thì dùng cùng giấy, mực và bút đỏ.",
     "keyCharacteristics": [
-      "Giấy ấm, tờ sổ trắng ngà, mực nâu đậm, một màu lá cho hành động.",
-      "6 mức thuộc vẽ thành 6 giai đoạn của cây: hạt, mầm, lá, nụ, hoa, quả.",
-      "Dải 14 ngày ở Hôm nay: mỗi ngày một mầm cây, cao theo số thẻ đã ôn.",
-      "Cảnh mùa (xuân, hạ, thu, đông) chỉ ở đầu trang Hôm nay; phiên học trên nền giấy trơn.",
+      "Giấy trắng hơi lạnh, chữ mực đậm ngả tím, một màu mực tím cho hành động và mức thuộc.",
+      "Bút đỏ chỉ để chấm: tích ngày đã học, khoanh hôm nay, số thẻ đến hạn, dấu đúng ở lề thẻ.",
+      "Đường lề đỏ nhạt ở đầu Hôm nay, trên thẻ học và trang chào, như lề vở ô li.",
+      "Hộp thẻ 6 ngăn ở Hôm nay; thẻ học có tai màu theo mức và hai thẻ chờ phía sau.",
+      "Cây 6 giai đoạn vẽ nét mực, luôn có tên mức đi kèm.",
       "Từ tiếng Đức luôn là chữ lớn nhất trên màn hình học."
     ],
     "rules": [
       {
-        "name": "The One Leaf Rule",
-        "body": "Màu lá chỉ dành cho hành động chính, trạng thái đúng và mục đang chọn.",
-        "section": "colors"
+        "name": "The One Ink Rule",
+        "body": "Mực tím chỉ dành cho hành động chính, mục đang chọn và mức thuộc."
+      },
+      {
+        "name": "The Red Pen Rule",
+        "body": "Bút đỏ chỉ để chấm (tích, khoanh, số đến hạn, lề); không dùng cho nút, chữ thường hay lỗi."
       },
       {
         "name": "The Spoken Article Rule",
-        "body": "Màu der/die/das chỉ làm nổi chính mạo từ; người mù màu vẫn đọc được mạo từ.",
-        "section": "colors"
+        "body": "Màu der/die/das chỉ làm nổi chính mạo từ; người mù màu vẫn đọc được mạo từ."
       },
       {
-        "name": "The Season Frame Rule",
-        "body": "Màu mùa không dùng cho nút, chữ hay trạng thái.",
-        "section": "colors"
+        "name": "The Season Sprig Rule",
+        "body": "Màu mùa chỉ tô cành nhỏ cạnh ngày; không dùng cho nút, chữ hay trạng thái."
       },
       {
-        "name": "The Working Type Rule",
-        "body": "Baloo 2 không dùng cho nút, nhãn, số liệu.",
-        "section": "typography"
-      },
-      {
-        "name": "The Soft Shadow Rule",
-        "body": "Không dùng bóng đổ phẳng không nhoè (kiểu `4px 4px 0`).",
-        "section": "elevation"
+        "name": "The Thin Line Rule",
+        "body": "Trang, thẻ chủ đề, ô ngày dùng viền 1 px, không bóng; không bóng đổ phẳng không nhoè."
       }
     ],
     "dos": [
-      "**Do** giữ từ tiếng Đức là chữ lớn nhất trên màn hình học.",
-      "**Do** đi kèm chữ và biểu tượng với mọi màu trạng thái.",
-      "**Do** đặt `lang=\"de\"` và `hyphens: auto` cho chữ tiếng Đức.",
-      "**Do** theo màu hệ thống cho chữ được chọn, con trỏ nhập, thanh cuộn, vòng focus.",
-      "**Do** để tên đọc của nút bắt đầu bằng đúng chữ nhìn thấy trên nút.",
-      "**Do** dùng 6 hình hạt, mầm, lá, nụ, hoa, quả chỉ để chỉ mức thuộc."
+      "giữ từ tiếng Đức là chữ lớn nhất trên màn hình học.",
+      "nói số liệu bằng câu (\"Hôm nay có 12 thẻ cần ôn và 9 từ mới\") và kèm tên mức bên cạnh hình cây.",
+      "đi kèm chữ và biểu tượng với mọi màu trạng thái.",
+      "đặt `lang=\"de\"` cho chữ tiếng Đức.",
+      "để tên đọc của nút bắt đầu bằng đúng chữ nhìn thấy trên nút.",
+      "chỉ hiện chức năng đã có; chức năng sắp có ghi một câu, không vẽ ô giả."
     ],
     "donts": [
-      "**Don't** đặt cảnh mùa hay minh hoạ giữa phiên học.",
-      "**Don't** dùng bóng đổ phẳng không nhoè, chữ gradient, kính mờ trang trí.",
-      "**Don't** đặt nhãn nhỏ phía trên tiêu đề.",
-      "**Don't** dùng emoji hay ký tự thay biểu tượng; biểu tượng vẽ bằng Lucide hoặc SVG riêng; OpenMoji chỉ là minh hoạ cho từ.",
-      "**Don't** dùng ô số lớn kèm nhãn nhỏ kiểu bảng số liệu; số liệu nói bằng câu hoặc bằng cây.",
-      "**Don't** chen bảng nâng cấp vào giữa phiên học."
+      "dùng nền kem, giấy ngả vàng hay be làm nền.",
+      "dùng chữ tròn kiểu app thiếu nhi, nút viên thuốc, bo góc lớn.",
+      "vẽ minh hoạ cảnh (đồi, cây tròn, mặt trời) hay hình nền sọc lặp.",
+      "dùng bút đỏ cho nút hay lỗi; lỗi dùng màu gạch kèm chữ.",
+      "đặt nhãn nhỏ phía trên tiêu đề, lời chào chung chung ở đầu trang.",
+      "dùng emoji thay biểu tượng; dùng Lucide hoặc SVG riêng.",
+      "dùng ô số lớn kèm nhãn nhỏ kiểu bảng số liệu.",
+      "chen bảng nâng cấp vào giữa phiên học."
     ]
   }
 }
