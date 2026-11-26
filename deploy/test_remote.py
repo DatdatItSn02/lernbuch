@@ -13,10 +13,12 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 
 PHP_GIA = """#!/usr/bin/env bash
-# php giả: ghi lại lệnh, cho migrate hỏng khi có biến MIGRATE_HONG, không đo được database khi có DUNG_LUONG_HONG
+# php giả: ghi lại lệnh, cho migrate hỏng khi có biến MIGRATE_HONG, seed hỏng khi có SEED_HONG,
+# không đo được database khi có DUNG_LUONG_HONG
 echo "$*" >> "$HOME/php.log"
 case "$*" in
   *"migrate"*) [ -n "${MIGRATE_HONG:-}" ] && { echo "migrate hỏng"; exit 1; } ;;
+  *"db:seed"*) [ -n "${SEED_HONG:-}" ] && { echo "seed hỏng"; exit 1; } ;;
   *"app:dung-luong"*) [ -n "${DUNG_LUONG_HONG:-}" ] && { echo "Database: không đo được"; exit 1; }
                       echo "Database: 1.0M (3 bảng)" ;;
 esac
@@ -127,6 +129,10 @@ class RemoteScriptsTest(unittest.TestCase):
         self.assertRegex(r.stdout, r"(?m)^Cả thư mục nhà: \S+$")
         self.assertIn("Database: 1.0M (3 bảng)", r.stdout)
         self.assertLess(r.stdout.index("Database:"), r.stdout.index(f"Xong: {name}"))
+        # Dữ liệu khởi tạo nạp ngay sau migration, trước khi đổi current
+        lenh = (self.home / "php.log").read_text().splitlines()
+        self.assertIn("artisan db:seed --force -n", lenh)
+        self.assertEqual(lenh.index("artisan db:seed --force -n"), lenh.index("artisan migrate --force -n") + 1)
 
     def test_deploy_khong_do_duoc_database_van_xong(self):
         self.ban("20260101000000-aaaaaaa", tot=True)
@@ -159,6 +165,17 @@ class RemoteScriptsTest(unittest.TestCase):
         r = self.chay("remote-deploy.sh", name, MIGRATE_HONG="1")
         self.assertNotEqual(r.returncode, 0)
         self.assertIn("giữ nguyên bản đang chạy: 20260101000000-aaaaaaa", r.stdout)
+        self.assertEqual(self.current(), "20260101000000-aaaaaaa")
+        self.assertFalse((self.app / "releases" / name).exists())
+
+    def test_deploy_seed_hong_giu_ban_dang_chay(self):
+        self.ban("20260101000000-aaaaaaa", tot=True)
+        self.dat_current("20260101000000-aaaaaaa")
+        name = "20260102000000-bbbbbbb"
+        self.goi_ban(name)
+        r = self.chay("remote-deploy.sh", name, SEED_HONG="1")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("seed hỏng", r.stdout)
         self.assertEqual(self.current(), "20260101000000-aaaaaaa")
         self.assertFalse((self.app / "releases" / name).exists())
 

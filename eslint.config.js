@@ -13,7 +13,7 @@ export default tseslint.config(
         rules: { ...reactHooks.configs.recommended.rules },
     },
     {
-        files: ['tests/e2e/**/*.ts', 'playwright.config.ts'],
+        files: ['tests/e2e/**/*.ts', 'tests/js/**/*.ts', 'playwright.config.ts'],
         extends: [js.configs.recommended, ...tseslint.configs.recommended],
         languageOptions: { globals: globals.node },
     },

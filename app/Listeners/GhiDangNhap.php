@@ -6,12 +6,13 @@ use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
+use Illuminate\Auth\Events\OtherDeviceLogout;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-/** Ghi lịch sử đăng nhập vào login_events (giữ 90 ngày): đăng nhập, đăng xuất, sai, bị chặn tạm, đặt lại mật khẩu. */
+/** Ghi lịch sử đăng nhập vào login_events (giữ 90 ngày): đăng nhập, đăng xuất, sai, bị chặn tạm, đặt lại mật khẩu, đăng xuất các máy khác. */
 class GhiDangNhap
 {
     public function handleLogin(Login $event): void
@@ -40,6 +41,11 @@ class GhiDangNhap
     public function handlePasswordReset(PasswordReset $event): void
     {
         $this->ghi('password_reset', $event->user);
+    }
+
+    public function handleOtherDeviceLogout(OtherDeviceLogout $event): void
+    {
+        $this->ghi('logout_others', $event->user);
     }
 
     private function ghi(string $event, ?Authenticatable $user, ?string $email = null): void

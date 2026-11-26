@@ -12,6 +12,7 @@ import { isDue, isNew, levelCounts } from '../lib/session';
 import { useStore } from '../state/store';
 import { KhongThay } from './KhongThay';
 import { useTitle } from '../lib/useTitle';
+import { t } from '../i18n';
 
 export const PAGE_SIZE = 20;
 
@@ -19,11 +20,11 @@ type Cover = 'none' | 'de' | 'vi';
 type PosFilter = 'all' | Word['pos'];
 type LevelFilter = 'all' | 0 | 1 | 2 | 3 | 4 | 5;
 
-const POS_FILTERS: { id: PosFilter; label: string }[] = [
-    { id: 'all', label: 'Mọi loại từ' },
-    { id: 'noun', label: 'Danh từ' },
-    { id: 'verb', label: 'Động từ' },
-    { id: 'adj', label: 'Tính từ' },
+const POS_FILTERS: { id: PosFilter; readonly label: string }[] = [
+    { id: 'all', get label() { return t('chuDe.moiLoaiTu'); } },
+    { id: 'noun', get label() { return t('chuDe.danhTu'); } },
+    { id: 'verb', get label() { return t('chuDe.dongTu'); } },
+    { id: 'adj', get label() { return t('chuDe.tinhTu'); } },
 ];
 
 /** Bỏ dấu và viết thường: gõ "brotchen" ra "Brötchen", gõ "banh" ra "bánh". */
@@ -35,9 +36,9 @@ const isTyping = (el: EventTarget | null) => el instanceof HTMLElement && (el.is
 
 export function ChuDe() {
     const { ma } = useParams();
-    const topic = topics.find((t) => t.id === ma);
+    const topic = topics.find((cd) => cd.id === ma);
     if (!topic) {
-        return <KhongThay title="Không có chủ đề này" message="Chủ đề này không có trong dữ liệu mẫu." back={{ to: '/chu-de', label: 'Về danh sách chủ đề' }} />;
+        return <KhongThay title={t('chuDe.khongCo')} message={t('chuDe.khongCoTrongMau')} back={{ to: '/chu-de', label: t('chung.veDanhSachChuDe') }} />;
     }
     return <TopicPage key={topic.id} topic={topic} />;
 }
@@ -112,11 +113,11 @@ function TopicPage({ topic }: { topic: Topic }) {
     return (
         <Sheet>
             <header className="px-5 pt-3 pb-4 md:px-8 md:pt-6 md:pb-5">
-                <nav aria-label="Vị trí">
+                <nav aria-label={t('chung.viTri')}>
                     <ol className="flex flex-wrap items-center gap-x-1 text-label text-ink-2">
                         <li>
                             <Link to="/chu-de" className="inline-flex min-h-11 items-center underline-offset-2 hover:text-ink hover:underline">
-                                Chủ đề
+                                {t('khung.chuDe')}
                             </Link>
                         </li>
                         <li className="flex items-center gap-1">
@@ -137,7 +138,7 @@ function TopicPage({ topic }: { topic: Topic }) {
                             {topic.nameEn}
                         </p>
                         <p className="mt-2 text-label font-semibold tabular-nums">
-                            {all.length} từ · {due} đến hạn · {fresh} từ mới
+                            {t('chuDe.demTu', { tu: all.length, denHan: due, moi: fresh })}
                         </p>
                         <div className="mt-3 max-w-lg xl:max-w-2xl">
                             <LevelBar counts={counts} picked={level === 'all' ? null : level} onPick={(v) => refilter(() => setLevel(v === null ? 'all' : (v as LevelFilter)))} />
@@ -150,24 +151,24 @@ function TopicPage({ topic }: { topic: Topic }) {
                                 to={`/hoc?chu-de=${topic.id}`}
                                 className="flex min-h-14 flex-col justify-center rounded-md bg-tim px-4 py-2 text-on-tim transition-colors duration-200 hover:bg-tim-strong"
                             >
-                                <span className="font-bold">Học tiếp</span>
+                                <span className="font-bold">{t('chuDe.hocTiep')}</span>
                                 <span className="text-label tabular-nums">
-                                    {due} ôn · {newNext} mới
+                                    {t('chuDe.onVaMoi', { on: due, moi: newNext })}
                                 </span>
                             </Link>
                         ) : (
-                            <p className="flex min-h-14 items-center rounded-md border border-line px-4 text-label text-ink-2">Đã học hết chủ đề này</p>
+                            <p className="flex min-h-14 items-center rounded-md border border-line px-4 text-label text-ink-2">{t('chuDe.daHocHet')}</p>
                         )}
                         {due > 0 ? (
                             <Link
                                 to={`/hoc?chu-de=${topic.id}&on=1`}
                                 className="flex min-h-14 items-center justify-center rounded-md border border-line-strong px-4 font-semibold transition-colors duration-200 hover:bg-sunken"
                             >
-                                Ôn {due} thẻ
+                                {t('chuDe.onThe', { n: due })}
                             </Link>
                         ) : (
                             <p className="flex min-h-14 items-center justify-center rounded-md border border-line px-4 text-center text-label text-ink-2">
-                                Không có thẻ đến hạn
+                                {t('chuDe.khongDenHan')}
                             </p>
                         )}
                     </div>
@@ -177,7 +178,7 @@ function TopicPage({ topic }: { topic: Topic }) {
             <div className="flex flex-col gap-3 border-y border-line px-5 py-3 md:flex-row md:flex-wrap md:items-end md:gap-x-8 md:px-8 md:py-4">
                 <div className="flex flex-wrap items-end gap-2">
                     <Choice
-                        legend="Che cột để tự kiểm"
+                        legend={t('chuDe.cheCot')}
                         name={`${uid}-che`}
                         value={cover}
                         onChange={(v) => {
@@ -185,9 +186,9 @@ function TopicPage({ topic }: { topic: Topic }) {
                             setShown({});
                         }}
                         options={[
-                            { value: 'none', label: 'Không che' },
-                            { value: 'de', label: 'Tiếng Đức' },
-                            { value: 'vi', label: 'Tiếng Việt' },
+                            { value: 'none', label: t('chuDe.khongChe') },
+                            { value: 'de', label: t('ngonNgu.de') },
+                            { value: 'vi', label: t('ngonNgu.vi') },
                         ]}
                     />
                     {cover !== 'none' && (
@@ -196,14 +197,14 @@ function TopicPage({ topic }: { topic: Topic }) {
                             onClick={() => setShown(hiddenCount > 0 ? Object.fromEntries(rows.map((w) => [w.id, true])) : {})}
                             className="min-h-11 rounded-md px-3 text-label font-semibold text-tim underline-offset-2 hover:underline"
                         >
-                            {hiddenCount > 0 ? 'Hiện hết' : 'Che lại'}
+                            {hiddenCount > 0 ? t('chuDe.hienHet') : t('chuDe.cheLai')}
                         </button>
                     )}
                 </div>
 
                 <div className="flex min-w-0 flex-1 gap-2 lg:min-w-80">
                     <label className="sr-only" htmlFor={`${uid}-loai`}>
-                        Loại từ
+                        {t('chuDe.loaiTu')}
                     </label>
                     <select
                         id={`${uid}-loai`}
@@ -230,9 +231,9 @@ function TopicPage({ topic }: { topic: Topic }) {
                                     refilter(() => setQuery(''));
                                 }
                             }}
-                            aria-label="Tìm trong chủ đề"
+                            aria-label={t('chuDe.timTrong')}
                             aria-keyshortcuts="/"
-                            placeholder="Tìm từ hoặc nghĩa"
+                            placeholder={t('chuDe.timGoiY')}
                             className="min-h-11 w-full rounded-md border border-line-strong bg-paper pr-10 pl-9 placeholder:text-ink-2"
                         />
                         <span className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-ink-2">
@@ -245,26 +246,26 @@ function TopicPage({ topic }: { topic: Topic }) {
             <section aria-labelledby={`${uid}-ds`}>
                 <div className="flex min-h-11 items-center gap-3 px-5 pt-2 md:px-8">
                     <h2 id={`${uid}-ds`} ref={listRef} tabIndex={-1} className="text-label font-semibold text-ink-2 tabular-nums">
-                        {filtered ? `${list.length}/${all.length} từ khớp bộ lọc` : `${all.length} từ`}
+                        {filtered ? t('chuDe.khopLoc', { khop: list.length, tong: all.length }) : t('chuDe.soTu', { n: all.length })}
                         {pages > 1 && ` · trang ${page}/${pages}`}
                     </h2>
                     {filtered && rows.length > 0 && (
                         <button type="button" onClick={clearFilters} className="min-h-11 px-2 text-label font-semibold text-tim underline-offset-2 hover:underline">
-                            Bỏ lọc
+                            {t('chuDe.boLoc')}
                         </button>
                     )}
                 </div>
 
                 {rows.length === 0 ? (
                     <div className="px-5 py-8 md:px-8">
-                        <p className="font-semibold">Không có từ nào khớp bộ lọc.</p>
+                        <p className="font-semibold">{t('chuDe.khongKhop')}</p>
                         <button type="button" onClick={clearFilters} className="mt-3 min-h-11 rounded-md border border-line-strong px-4 font-semibold hover:bg-sunken">
-                            Bỏ lọc
+                            {t('chuDe.boLoc')}
                         </button>
                     </div>
                 ) : (
                     <table className="mt-2 w-full table-fixed border-collapse text-left">
-                        <caption className="sr-only">Danh sách từ: cột tiếng Đức và cột tiếng Việt</caption>
+                        <caption className="sr-only">{t('chuDe.bangTu')}</caption>
                         <colgroup>
                             <col className="w-12 md:w-16" />
                             <col />
@@ -273,13 +274,13 @@ function TopicPage({ topic }: { topic: Topic }) {
                         <thead>
                             <tr className="border-b border-line text-label text-ink-2">
                                 <th scope="col" className="py-2 pl-5 font-semibold md:pl-8">
-                                    <span className="sr-only">Mức</span>
+                                    <span className="sr-only">{t('chuDe.cotMuc')}</span>
                                 </th>
                                 <th scope="col" className="py-2 pr-3 font-semibold">
-                                    Tiếng Đức
+                                    {t('ngonNgu.de')}
                                 </th>
                                 <th scope="col" className="py-2 pr-5 font-semibold md:pr-8">
-                                    Tiếng Việt
+                                    {t('ngonNgu.vi')}
                                 </th>
                             </tr>
                         </thead>
@@ -295,7 +296,7 @@ function TopicPage({ topic }: { topic: Topic }) {
                                         </td>
                                         <td className="py-3 pr-3">
                                             {cover === 'de' && !open ? (
-                                                <Covered label={`Xem tiếng Đức của “${w.vi}”`} onClick={reveal} />
+                                                <Covered label={t('chuDe.xemTiengDuc', { nghia: w.vi })} onClick={reveal} />
                                             ) : (
                                                 <>
                                                     <Link to={`/tu/${w.id}`} className="font-semibold break-words underline-offset-2 hover:underline">
@@ -309,7 +310,7 @@ function TopicPage({ topic }: { topic: Topic }) {
                                         </td>
                                         <td className="py-3 pr-5 md:pr-8">
                                             {cover === 'vi' && !open ? (
-                                                <Covered label={`Xem tiếng Việt của “${w.lemma}”`} onClick={reveal} />
+                                                <Covered label={t('chuDe.xemTiengViet', { tu: w.lemma })} onClick={reveal} />
                                             ) : (
                                                 <span className="break-words">{w.vi}</span>
                                             )}
@@ -323,21 +324,21 @@ function TopicPage({ topic }: { topic: Topic }) {
             </section>
 
             {pages > 1 && (
-                <nav aria-label="Phân trang" className="flex items-center justify-between gap-3 border-t border-line px-5 py-3 md:px-8">
+                <nav aria-label={t('chuDe.phanTrang')} className="flex items-center justify-between gap-3 border-t border-line px-5 py-3 md:px-8">
                     {page > 1 ? (
                         <Link to={pageLink(page - 1)} className="inline-flex min-h-11 items-center gap-1 font-semibold hover:underline">
                             <ChevronLeft size={18} aria-hidden="true" />
-                            Trang trước
+                            {t('chuDe.trangTruoc')}
                         </Link>
                     ) : (
                         <span />
                     )}
                     <span className="text-label text-ink-2 tabular-nums">
-                        Trang {page}/{pages}
+                        {t('chuDe.trang', { trang: page, tong: pages })}
                     </span>
                     {page < pages ? (
                         <Link to={pageLink(page + 1)} className="inline-flex min-h-11 items-center gap-1 font-semibold hover:underline">
-                            Trang sau
+                            {t('chuDe.trangSau')}
                             <ChevronRight size={18} aria-hidden="true" />
                         </Link>
                     ) : (
@@ -358,7 +359,7 @@ function Covered({ label, onClick }: { label: string; onClick: () => void }) {
             aria-label={label}
             className="flex min-h-11 w-full max-w-48 items-center rounded-sm border border-dashed border-line-strong bg-sunken px-3 text-label text-ink-2 transition-colors duration-200 hover:border-ink-3"
         >
-            Xem
+            {t('chuDe.xem')}
         </button>
     );
 }

@@ -37,6 +37,9 @@ if [ -z "$KEY" ]; then php artisan key:generate --force -n; fi
 echo "== Migration"
 php artisan migrate --force -n
 
+echo "== Dữ liệu khởi tạo (seed.sql: ngôn ngữ, khoá học, vai trò; chạy lại không nhân đôi, không đè chỗ đã sửa trong admin)"
+php artisan db:seed --force -n
+
 echo "== Cache cấu hình, route, view"
 php artisan optimize -n
 

@@ -7,40 +7,42 @@ import { LevelIcon } from '../components/LevelIcon';
 import { Sheet } from '../components/Shell';
 import { topics, words, type Gender, type Word } from '../data/demo';
 import { dueDay } from '../lib/session';
-import { LEVEL_NAMES, STAGE_NAMES } from '../lib/srs';
+import { levelName, stageName } from '../lib/srs';
 import { useStore, type Lang } from '../state/store';
 import { KhongThay } from './KhongThay';
 import { useTitle } from '../lib/useTitle';
+import { t, type Khoa } from '../i18n';
 
 const TABS = [
-    { id: 'nghia', label: 'Nghĩa và ví dụ' },
-    { id: 'ngu-phap', label: 'Ngữ pháp' },
-    { id: 'ghi-chu', label: 'Ghi chú' },
+    { id: 'nghia', get label() { return t('theTu.tabNghia'); } },
+    { id: 'ngu-phap', get label() { return t('khung.nguPhap'); } },
+    { id: 'ghi-chu', get label() { return t('theTu.tabGhiChu'); } },
 ] as const;
 type TabId = (typeof TABS)[number]['id'];
 
-const LANGS: { id: Lang; short: string; name: string }[] = [
-    { id: 'vi', short: 'VI', name: 'tiếng Việt' },
-    { id: 'en', short: 'EN', name: 'tiếng Anh' },
-    { id: 'zh', short: '中', name: 'tiếng Trung' },
+// short: mã ngắn trên nút (giữ nguyên ở mọi ngôn ngữ giao diện)
+const LANGS: { id: Lang; short: string; readonly name: string }[] = [
+    { id: 'vi', short: 'VI', get name() { return t('theTu.tenVi'); } },
+    { id: 'en', short: 'EN', get name() { return t('theTu.tenEn'); } },
+    { id: 'zh', short: '中', get name() { return t('theTu.tenZh'); } },
 ];
 
-const GENDER_NAME: Record<Gender, string> = { der: 'giống đực', die: 'giống cái', das: 'giống trung' };
+const GENDER_NAME = { der: 'theTu.giongDuc', die: 'theTu.giongCai', das: 'theTu.giongTrung' } as const satisfies Record<Gender, Khoa>;
 const PRONOUNS = ['ich', 'du', 'er/sie/es', 'wir', 'ihr', 'sie/Sie'];
 const NOTE_MAX = 500;
 
 function dueText(level: number, day: number | null) {
-    if (level === 0 || day === null) return 'Chưa học';
-    if (day === 0) return 'Ôn hôm nay';
-    if (day === 1) return 'Ôn ngày mai';
-    return `Ôn sau ${day} ngày`;
+    if (level === 0 || day === null) return t('theTu.chuaHoc');
+    if (day === 0) return t('theTu.onHomNay');
+    if (day === 1) return t('theTu.onNgayMai');
+    return t('theTu.onSau', { n: day });
 }
 
 export function TheTu() {
     const { ma } = useParams();
     const word = words.find((w) => w.id === ma);
     if (!word) {
-        return <KhongThay title="Không có từ này" message="Từ này không có trong dữ liệu mẫu." back={{ to: '/chu-de', label: 'Về danh sách chủ đề' }} />;
+        return <KhongThay title={t('theTu.khongCo')} message={t('theTu.khongCoTrongMau')} back={{ to: '/chu-de', label: t('chung.veDanhSachChuDe') }} />;
     }
     return <WordSheet key={word.id} word={word} />;
 }
@@ -51,7 +53,7 @@ function WordSheet({ word }: { word: Word }) {
     const [tab, setTab] = useState<TabId>('nghia');
     const tabsRef = useRef<HTMLDivElement>(null);
     const baseId = useId();
-    const topic = topics.find((t) => t.id === word.topicId)!;
+    const topic = topics.find((cd) => cd.id === word.topicId)!;
     const inTopic = words.filter((w) => w.topicId === word.topicId);
     const index = inTopic.findIndex((w) => w.id === word.id);
     const prev = inTopic[index - 1];
@@ -61,7 +63,7 @@ function WordSheet({ word }: { word: Word }) {
     const isStarred = !!starred[word.id];
 
     const onTabKey = (e: KeyboardEvent<HTMLDivElement>) => {
-        const i = TABS.findIndex((t) => t.id === tab);
+        const i = TABS.findIndex((tb) => tb.id === tab);
         const to =
             e.key === 'ArrowRight' ? (i + 1) % TABS.length
             : e.key === 'ArrowLeft' ? (i - 1 + TABS.length) % TABS.length
@@ -76,7 +78,7 @@ function WordSheet({ word }: { word: Word }) {
 
     return (
         <div className="mx-auto max-w-[720px]">
-            <nav aria-label="Vị trí" className="px-5 pt-4 pb-2 md:px-0 md:pt-0">
+            <nav aria-label={t('chung.viTri')} className="px-5 pt-4 pb-2 md:px-0 md:pt-0">
                 <Link to={`/chu-de/${topic.id}`} className="inline-flex min-h-11 items-center gap-1 text-label font-semibold text-ink-2 hover:text-ink">
                     <ChevronLeft size={18} aria-hidden="true" />
                     {topic.name}
@@ -103,7 +105,7 @@ function WordSheet({ word }: { word: Word }) {
                             }`}
                         >
                             <Star size={22} aria-hidden="true" fill={isStarred ? 'currentColor' : 'none'} />
-                            <span className="sr-only">Đánh dấu sao</span>
+                            <span className="sr-only">{t('theTu.danhDauSao')}</span>
                         </button>
                     </div>
                     <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-label text-ink-2">
@@ -112,7 +114,7 @@ function WordSheet({ word }: { word: Word }) {
                         </span>
                         <span className="inline-flex items-center gap-1.5">
                             <LevelIcon level={level} size={20} title="" className="text-tim" />
-                            {STAGE_NAMES[level]} · {LEVEL_NAMES[level]}
+                            {stageName(level)} · {levelName(level)}
                         </span>
                         <span>{dueText(level, dueDay(p))}</span>
                     </p>
@@ -122,25 +124,25 @@ function WordSheet({ word }: { word: Word }) {
                     </div>
                 </header>
 
-                <div ref={tabsRef} role="tablist" aria-label="Thông tin về từ" onKeyDown={onTabKey} className="flex overflow-x-auto border-b border-line px-2 md:px-6">
-                    {TABS.map((t) => {
-                        const on = t.id === tab;
+                <div ref={tabsRef} role="tablist" aria-label={t('theTu.thongTin')} onKeyDown={onTabKey} className="flex overflow-x-auto border-b border-line px-2 md:px-6">
+                    {TABS.map((tb) => {
+                        const on = tb.id === tab;
                         return (
                             <button
-                                key={t.id}
+                                key={tb.id}
                                 type="button"
                                 role="tab"
-                                data-tab={t.id}
-                                id={`${baseId}-tab-${t.id}`}
+                                data-tab={tb.id}
+                                id={`${baseId}-tab-${tb.id}`}
                                 aria-selected={on}
-                                aria-controls={on ? `${baseId}-panel-${t.id}` : undefined}
+                                aria-controls={on ? `${baseId}-panel-${tb.id}` : undefined}
                                 tabIndex={on ? 0 : -1}
-                                onClick={() => setTab(t.id)}
+                                onClick={() => setTab(tb.id)}
                                 className={`-mb-px min-h-12 shrink-0 border-b-2 px-3 text-label font-semibold whitespace-nowrap transition-colors duration-200 ${
                                     on ? 'border-tim text-ink' : 'border-transparent text-ink-2 hover:text-ink'
                                 }`}
                             >
-                                {t.label}
+                                {tb.label}
                             </button>
                         );
                     })}
@@ -153,9 +155,9 @@ function WordSheet({ word }: { word: Word }) {
                 </div>
             </Sheet>
 
-            <nav aria-label="Từ khác trong chủ đề" className="flex items-center justify-between gap-3 px-5 py-4 md:px-0">
+            <nav aria-label={t('theTu.tuKhac')} className="flex items-center justify-between gap-3 px-5 py-4 md:px-0">
                 {prev ? (
-                    <Link to={`/tu/${prev.id}`} aria-label={`Từ trước: ${prev.lemma}`} className="inline-flex min-h-11 items-center gap-1 font-semibold hover:underline">
+                    <Link to={`/tu/${prev.id}`} aria-label={t('theTu.tuTruoc', { tu: prev.lemma })} className="inline-flex min-h-11 items-center gap-1 font-semibold hover:underline">
                         <ChevronLeft size={18} aria-hidden="true" />
                         <span lang="de">{prev.lemma}</span>
                     </Link>
@@ -166,7 +168,7 @@ function WordSheet({ word }: { word: Word }) {
                     {index + 1}/{inTopic.length}
                 </span>
                 {next ? (
-                    <Link to={`/tu/${next.id}`} aria-label={`Từ sau: ${next.lemma}`} className="inline-flex min-h-11 items-center gap-1 font-semibold hover:underline">
+                    <Link to={`/tu/${next.id}`} aria-label={t('theTu.tuSau', { tu: next.lemma })} className="inline-flex min-h-11 items-center gap-1 font-semibold hover:underline">
                         <span lang="de">{next.lemma}</span>
                         <ChevronRight size={18} aria-hidden="true" />
                     </Link>
@@ -185,7 +187,7 @@ function MeaningTab({ word }: { word: Word }) {
     const toggle = (id: Lang) => dispatch({ type: 'settings', patch: { langs: { ...langs, [id]: !langs[id] } } });
     return (
         <>
-            <div role="group" aria-label="Hiện nghĩa bằng" className="flex gap-2">
+            <div role="group" aria-label={t('theTu.hienNghia')} className="flex gap-2">
                 {LANGS.map((l) => (
                     <button
                         key={l.id}
@@ -205,33 +207,33 @@ function MeaningTab({ word }: { word: Word }) {
             <dl className="mt-4 space-y-2">
                 {langs.vi && (
                     <div>
-                        <dt className="sr-only">Tiếng Việt</dt>
+                        <dt className="sr-only">{t('ngonNgu.vi')}</dt>
                         <dd className="text-title font-bold">{word.vi}</dd>
                     </div>
                 )}
                 {langs.en && (
                     <div>
-                        <dt className="sr-only">Tiếng Anh</dt>
+                        <dt className="sr-only">{t('ngonNgu.en')}</dt>
                         <dd lang="en" className="text-ink-2">{word.en}</dd>
                     </div>
                 )}
                 {langs.zh && (
                     <div>
-                        <dt className="sr-only">Tiếng Trung</dt>
+                        <dt className="sr-only">{t('ngonNgu.zh')}</dt>
                         <dd lang="zh" className="font-zh text-ink-2">{word.zh}</dd>
                     </div>
                 )}
             </dl>
-            {none && <p className="mt-4 text-ink-2">Đang tắt cả ba thứ tiếng. Bật một nút ở trên để xem nghĩa.</p>}
+            {none && <p className="mt-4 text-ink-2">{t('theTu.tatNghia')}</p>}
 
-            <h2 className="mt-6 text-label font-semibold text-ink-2">Ví dụ</h2>
+            <h2 className="mt-6 text-label font-semibold text-ink-2">{t('theTu.viDu')}</h2>
             {word.examples.length === 0 ? (
-                <p className="mt-2 text-ink-2">Chưa có câu ví dụ cho từ này.</p>
+                <p className="mt-2 text-ink-2">{t('theTu.chuaCoViDu')}</p>
             ) : (
                 <ul className="mt-2 divide-y divide-line">
                     {word.examples.slice(0, 3).map((ex) => (
                         <li key={ex.de} className="flex items-start gap-3 py-3">
-                            <AudioButton text={ex.de} label="Nghe câu ví dụ" iconOnly />
+                            <AudioButton text={ex.de} label={t('nghe.viDu')} iconOnly />
                             <p className="min-w-0 pt-2">
                                 <span lang="de" className="block font-semibold">{ex.de}</span>
                                 <span className="block text-ink-2">{ex.vi}</span>
@@ -243,7 +245,7 @@ function MeaningTab({ word }: { word: Word }) {
 
             {word.tip && (
                 <p className="mt-5 rounded-md border border-dashed border-line-strong px-4 py-3 font-hand text-hand">
-                    <span className="sr-only">Mẹo: </span>
+                    <span className="sr-only">{t('theTu.meo')} </span>
                     {word.tip}
                 </p>
             )}
@@ -257,17 +259,17 @@ function GrammarTab({ word }: { word: Word }) {
             <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-6 gap-y-3">
                 {word.gender && (
                     <>
-                        <dt className="text-ink-2">Giống</dt>
+                        <dt className="text-ink-2">{t('theTu.giong')}</dt>
                         <dd>
-                            <span lang="de"><Article gender={word.gender} /></span> ({GENDER_NAME[word.gender]})
+                            <span lang="de"><Article gender={word.gender} /></span> ({t(GENDER_NAME[word.gender])})
                         </dd>
                     </>
                 )}
-                <dt className="text-ink-2">Số ít</dt>
+                <dt className="text-ink-2">{t('theTu.soIt')}</dt>
                 <dd>
                     <GermanWord word={word} />
                 </dd>
-                <dt className="text-ink-2">Số nhiều</dt>
+                <dt className="text-ink-2">{t('theTu.soNhieu')}</dt>
                 <dd>
                     <PluralLine word={word} />
                 </dd>
@@ -280,12 +282,12 @@ function GrammarTab({ word }: { word: Word }) {
             <>
                 {parts.length === 3 && (
                     <table className="w-full text-left">
-                        <caption className="mb-2 text-left text-label font-semibold text-ink-2">Ba dạng chính</caption>
+                        <caption className="mb-2 text-left text-label font-semibold text-ink-2">{t('theTu.baDang')}</caption>
                         <thead>
                             <tr className="border-b border-line text-label text-ink-2">
-                                <th scope="col" className="py-2 pr-4 font-semibold">Hiện tại (ngôi 3)</th>
-                                <th scope="col" className="py-2 pr-4 font-semibold">Quá khứ</th>
-                                <th scope="col" className="py-2 font-semibold">Perfekt</th>
+                                <th scope="col" className="py-2 pr-4 font-semibold">{t('theTu.hienTai3')}</th>
+                                <th scope="col" className="py-2 pr-4 font-semibold">{t('theTu.quaKhu')}</th>
+                                <th scope="col" className="py-2 font-semibold">{t('theTu.perfekt')}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -299,7 +301,7 @@ function GrammarTab({ word }: { word: Word }) {
                 )}
                 {word.present && (
                     <table className="mt-6 w-full max-w-sm text-left">
-                        <caption className="mb-2 text-left text-label font-semibold text-ink-2">Chia thì hiện tại (Präsens)</caption>
+                        <caption className="mb-2 text-left text-label font-semibold text-ink-2">{t('theTu.chiaHienTai')}</caption>
                         <tbody lang="de" className="divide-y divide-line">
                             {word.present.map((form, i) => (
                                 <tr key={PRONOUNS[i]}>
@@ -315,15 +317,15 @@ function GrammarTab({ word }: { word: Word }) {
     }
     return word.comparison ? (
         <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-6 gap-y-3">
-            <dt className="text-ink-2">Nguyên dạng</dt>
+            <dt className="text-ink-2">{t('theTu.nguyenDang')}</dt>
             <dd lang="de" className="font-semibold">{word.lemma}</dd>
-            <dt className="text-ink-2">So sánh hơn</dt>
+            <dt className="text-ink-2">{t('theTu.soSanhHon')}</dt>
             <dd lang="de" className="font-semibold">{word.comparison.split(' · ')[0]}</dd>
-            <dt className="text-ink-2">So sánh nhất</dt>
+            <dt className="text-ink-2">{t('theTu.soSanhNhat')}</dt>
             <dd lang="de" className="font-semibold">{word.comparison.split(' · ')[1]}</dd>
         </dl>
     ) : (
-        <p className="text-ink-2">Chưa có ghi chú ngữ pháp cho từ này.</p>
+        <p className="text-ink-2">{t('theTu.chuaCoNguPhap')}</p>
     );
 }
 
@@ -334,7 +336,7 @@ function NoteTab({ word }: { word: Word }) {
     return (
         <>
             <label htmlFor={id} className="text-label font-semibold">
-                Ghi chú riêng cho từ này
+                {t('theTu.ghiChuRieng')}
             </label>
             <textarea
                 id={id}
@@ -344,10 +346,10 @@ function NoteTab({ word }: { word: Word }) {
                 aria-describedby={`${id}-goi-y`}
                 onChange={(e) => dispatch({ type: 'note', id: word.id, text: e.target.value })}
                 className="mt-2 block w-full rounded-md border border-line-strong bg-paper px-3 py-2 text-body placeholder:text-ink-2"
-                placeholder="Ví dụ: hay gặp ở tiệm bánh gần nhà"
+                placeholder={t('theTu.ghiChuGoiY')}
             />
             <p id={`${id}-goi-y`} className="mt-2 flex justify-between gap-4 text-label text-ink-2">
-                <span>Dữ liệu mẫu: ghi chú mất khi tải lại trang.</span>
+                <span>{t('theTu.ghiChuMat')}</span>
                 <span className="tabular-nums">
                     {text.length}/{NOTE_MAX}
                 </span>

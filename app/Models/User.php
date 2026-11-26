@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Notifications\DatLaiMatKhau;
 use App\Notifications\XacMinhEmail;
+use App\Support\NgonNgu;
 use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
@@ -70,10 +71,10 @@ class User extends Authenticatable implements FilamentUser, HasLocalePreference,
         });
     }
 
-    /** Ngôn ngữ của email gửi cho người này (thư xác minh, đặt lại mật khẩu). */
+    /** Ngôn ngữ của email gửi cho người này (thư xác minh, đặt lại mật khẩu): ngôn ngữ giao diện nếu đã có bản dịch, không thì tiếng Việt. */
     public function preferredLocale(): string
     {
-        return $this->ui_locale ?: (string) config('app.locale');
+        return NgonNgu::chon($this->ui_locale);
     }
 
     public function sendEmailVerificationNotification(): void

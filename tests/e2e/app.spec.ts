@@ -24,7 +24,11 @@ async function open(page: Page, path: string, theme: 'light' | 'dark' = 'light')
     page.on('console', (m) => {
         if (m.type() === 'error') errors.push(m.text());
     });
-    await page.addInitScript((t) => window.localStorage.setItem('lernbuch.caidat.v1', JSON.stringify({ theme: t })), theme);
+    // Cài đặt lưu theo tài khoản: đặt giao diện như một thay đổi đang chờ gửi (lernbuch.caidat.cho) để thắng bản trên máy chủ
+    await page.addInitScript((t) => {
+        window.localStorage.setItem('lernbuch.caidat.v1', JSON.stringify({ theme: t }));
+        window.localStorage.setItem('lernbuch.caidat.cho', JSON.stringify({ theme: t }));
+    }, theme);
     await page.goto(path);
     await expect(page.locator('#app')).not.toBeEmpty();
     await page.evaluate(() => document.fonts.ready);

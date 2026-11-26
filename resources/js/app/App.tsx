@@ -9,6 +9,8 @@ import { KhongThay } from './screens/KhongThay';
 import { SapCo } from './screens/SapCo';
 import { TheTu } from './screens/TheTu';
 import { StoreProvider } from './state/store';
+import { TaiKhoanProvider } from './state/taiKhoan';
+import { t } from './i18n';
 
 function ShellLayout() {
     return (
@@ -35,8 +37,8 @@ export function AppRoutes() {
                 <Route path="chu-de" element={<ChuDeIndex />} />
                 <Route path="chu-de/:ma" element={<ChuDe />} />
                 <Route path="tu/:ma" element={<TheTu />} />
-                <Route path="ngu-phap" element={<SapCo title="Ngữ pháp" what="218 bài ngữ pháp A1–B2 giải thích bằng tiếng Việt, kèm bài tập." />} />
-                <Route path="tra-tu" element={<SapCo title="Tra từ" what="Tra từ bằng tiếng Đức, Việt, Anh hoặc Trung, gõ không cần dấu." />} />
+                <Route path="ngu-phap" element={<SapCo title={t('khung.nguPhap')} what={t('sapCo.nguPhap')} />} />
+                <Route path="tra-tu" element={<SapCo title={t('khung.traTu')} what={t('sapCo.traTu')} />} />
                 <Route path="cai-dat" element={<CaiDat />} />
                 <Route path="*" element={<KhongThay />} />
             </Route>
@@ -47,9 +49,11 @@ export function AppRoutes() {
 export default function App() {
     return (
         <StoreProvider>
-            <BrowserRouter basename="/app">
-                <AppRoutes />
-            </BrowserRouter>
+            <TaiKhoanProvider>
+                <BrowserRouter basename="/app">
+                    <AppRoutes />
+                </BrowserRouter>
+            </TaiKhoanProvider>
         </StoreProvider>
     );
 }

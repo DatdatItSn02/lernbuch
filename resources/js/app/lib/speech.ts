@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 // Đọc tiếng Đức bằng giọng của trình duyệt (bản G0; G1 dùng audio Piper tạo sẵn, giọng trình duyệt làm dự phòng).
 
 // interrupted: câu đang đọc bị huỷ vì người dùng bấm đọc lại hoặc bấm nút nghe khác; không phải lỗi.
@@ -36,8 +37,9 @@ export function speak(text: string, slow = false): Promise<SpeakResult> {
     });
 }
 
+// Lấy từ từ điển mỗi lần đọc (getter), nên đúng ngôn ngữ giao diện hiện tại.
 export const SPEAK_MESSAGES: Record<Exclude<SpeakResult, 'ok' | 'interrupted'>, string> = {
-    'no-voice': 'Máy này chưa có giọng đọc tiếng Đức. Thêm giọng Deutsch trong cài đặt giọng nói của máy, hoặc mở bằng Chrome hay Edge.',
-    unsupported: 'Trình duyệt này không đọc được thành tiếng.',
-    error: 'Không đọc được, thử lại.',
+    get 'no-voice'() { return t('docTieng.khongCoGiong'); },
+    get unsupported() { return t('docTieng.khongHoTro'); },
+    get error() { return t('docTieng.loi'); },
 };

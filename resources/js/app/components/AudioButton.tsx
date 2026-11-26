@@ -1,6 +1,7 @@
 import { Volume2, Snail } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { SPEAK_MESSAGES, speak, type SpeakResult } from '../lib/speech';
+import { t } from '../i18n';
 
 type Props = { text: string; slow?: boolean; label?: string; shortcut?: string; iconOnly?: boolean; onResult?: (r: SpeakResult) => void };
 
@@ -8,7 +9,7 @@ type Props = { text: string; slow?: boolean; label?: string; shortcut?: string; 
 export function AudioButton({ text, slow = false, label, shortcut, iconOnly = false, onResult }: Props) {
     const [state, setState] = useState<'idle' | 'busy' | keyof typeof SPEAK_MESSAGES>('idle');
     const lanBam = useRef(0);
-    const name = label ?? (slow ? 'Nghe chậm' : 'Nghe');
+    const name = label ?? (slow ? t('nghe.cham') : t('nghe.nghe'));
     const Icon = slow ? Snail : Volume2;
     const play = async () => {
         const lan = ++lanBam.current;
@@ -26,7 +27,7 @@ export function AudioButton({ text, slow = false, label, shortcut, iconOnly = fa
                 type="button"
                 onClick={play}
                 aria-busy={state === 'busy'}
-                aria-label={iconOnly ? `${name}${shortcut ? ` (phím ${shortcut})` : ''}` : undefined}
+                aria-label={iconOnly ? (shortcut ? t('nghe.coPhim', { ten: name, phim: shortcut }) : name) : undefined}
                 className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-md border border-line bg-sheet px-3 text-label font-semibold text-ink transition-colors duration-200 hover:border-line-strong hover:bg-sunken disabled:opacity-60"
             >
                 <Icon size={18} aria-hidden="true" className={state === 'busy' ? 'animate-pulse' : ''} />

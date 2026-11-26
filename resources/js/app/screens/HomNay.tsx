@@ -10,19 +10,22 @@ import { currentTopicId, dailyGoal, pastReviews, topics, words } from '../data/d
 import { dueDay, isDue, isNew, levelCounts } from '../lib/session';
 import { NEW_COUNTS, useStore, type NewCount } from '../state/store';
 import { useTitle } from '../lib/useTitle';
+import { so, t } from '../i18n';
+import { tGhep } from '../i18n/ghep';
 
-const WEEKDAY_SHORT = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
-const WEEKDAY_LONG = ['Chủ nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+// Tên thứ trong tuần theo Date.getDay() (0 = Chủ nhật)
+const THU_NGAN = ['ngay.cnNgan', 'ngay.t2Ngan', 'ngay.t3Ngan', 'ngay.t4Ngan', 'ngay.t5Ngan', 'ngay.t6Ngan', 'ngay.t7Ngan'] as const;
+const THU_DAI = ['ngay.cn', 'ngay.t2', 'ngay.t3', 'ngay.t4', 'ngay.t5', 'ngay.t6', 'ngay.t7'] as const;
 const PAST_DAYS = pastReviews.length; // 10 ngày qua
 const FUTURE_DAYS = 3;
 
-const dayLabel = (d: Date) => `${WEEKDAY_LONG[d.getDay()]}, ${d.getDate()}/${d.getMonth() + 1}`;
+const dayLabel = (d: Date) => t('ngay.nhan', { thu: t(THU_DAI[d.getDay()]), ngay: d.getDate(), thang: d.getMonth() + 1 });
 
 type Day = { offset: number; date: Date; count: number; kind: 'past' | 'today' | 'future' };
 
 export function HomNay({ now: fixedNow }: { now?: Date }) {
     const { progress, reviewedToday, coins, season, settings, dispatch } = useStore();
-    useTitle('Hôm nay');
+    useTitle(t('khung.homNay'));
     // Giữ một mốc giờ cho cả lần mở trang (test truyền giờ cố định)
     const [now] = useState(() => fixedNow ?? new Date());
     const [selected, setSelected] = useState(0);
@@ -51,7 +54,7 @@ export function HomNay({ now: fixedNow }: { now?: Date }) {
     }, [reviewedToday]);
 
     const due = words.filter((w) => isDue(progress[w.id]));
-    const currentTopic = topics.find((t) => t.id === currentTopicId)!;
+    const currentTopic = topics.find((cd) => cd.id === currentTopicId)!;
     const newInTopic = words.filter((w) => w.topicId === currentTopicId && isNew(progress[w.id])).length;
     const newNext = settings.newPerSession === 'all' ? newInTopic : Math.min(newInTopic, settings.newPerSession);
     const allIds = useMemo(() => words.map((w) => w.id), []);
@@ -79,19 +82,19 @@ export function HomNay({ now: fixedNow }: { now?: Date }) {
                             {dayLabel(now)}
                             <span className="ml-3 inline-flex items-center gap-1 align-middle tabular-nums">
                                 <Flame size={15} aria-hidden="true" className="text-pen" />
-                                Chuỗi {streak} ngày
+                                {t('homNay.chuoi', { n: streak })}
                             </span>
                             <span className="ml-3 inline-flex items-center gap-1 align-middle tabular-nums">
                                 <Coins size={15} aria-hidden="true" className="text-warning-ink" />
-                                {Math.floor(coins)} xu
+                                {t('homNay.xu', { n: so(Math.floor(coins)) })}
                             </span>
                         </p>
                         <h1 className="mt-2 text-headline font-bold">
                             {due.length === 0 && newNext === 0 ? (
-                                'Hôm nay đã ôn hết thẻ đến hạn.'
+                                t('homNay.daOnHet')
                             ) : (
                                 <>
-                                    Hôm nay có <Mark>{due.length} thẻ cần ôn</Mark> và <Mark>{newNext} từ mới</Mark>.
+                                    {tGhep('homNay.homNayCo', { on: <Mark>{t('homNay.theCanOn', { n: due.length })}</Mark>, moi: <Mark>{t('homNay.tuMoiN', { n: newNext })}</Mark> })}
                                 </>
                             )}
                         </h1>
@@ -102,28 +105,28 @@ export function HomNay({ now: fixedNow }: { now?: Date }) {
                         <TodayPanel due={due.length} newNext={newNext} reviewedToday={reviewedToday} topicName={currentTopic.name} topicId={currentTopic.id} />
                         <Choice<NewCount>
                             className="mt-6"
-                            legend="Số từ mới mỗi lượt"
+                            legend={t('homNay.soTuMoi')}
                             name={`${panelId}-tu-moi`}
                             value={settings.newPerSession}
                             onChange={(n) => dispatch({ type: 'settings', patch: { newPerSession: n } })}
-                            options={NEW_COUNTS.map((n) => ({ value: n, label: n === 'all' ? 'Tất cả' : String(n) }))}
+                            options={NEW_COUNTS.map((n) => ({ value: n, label: n === 'all' ? t('chung.tatCa') : String(n) }))}
                         />
                     </div>
                 </div>
 
                 <div className="border-t border-line py-6 md:border-t-0 md:py-8">
                     <section aria-labelledby="chuoi-ngay" className="px-5 md:px-8">
-                        <h2 id="chuoi-ngay" className="text-title font-bold">14 ngày</h2>
+                        <h2 id="chuoi-ngay" className="text-title font-bold">{t('homNay.muoiBonNgay')}</h2>
                         <div
                             ref={tabsRef}
                             role="tablist"
-                            aria-label="Chọn ngày"
+                            aria-label={t('homNay.chonNgay')}
                             onKeyDown={onStripKey}
                             className="mt-3 grid grid-cols-14 border-y border-line"
                         >
                             {days.map((d) => {
                                 const active = d.offset === selected;
-                                const what = d.kind === 'future' ? `${d.count} thẻ sẽ đến hạn` : d.count === 0 ? 'không học' : `ôn ${d.count} thẻ`;
+                                const what = d.kind === 'future' ? t('homNay.seDenHan', { n: d.count }) : d.count === 0 ? t('homNay.khongHoc') : t('homNay.onN', { n: d.count });
                                 return (
                                     <button
                                         key={d.offset}
@@ -140,7 +143,7 @@ export function HomNay({ now: fixedNow }: { now?: Date }) {
                                     >
                                         {/* Tên đọc ra bắt đầu bằng chữ nhìn thấy (T2 16), rồi tới ngày đủ và số thẻ */}
                                         <span className={`text-[calc(0.6875rem*var(--type-scale))] leading-none ${d.kind === 'today' ? 'font-bold text-pen' : ''}`}>
-                                            {d.kind === 'today' ? 'Nay' : WEEKDAY_SHORT[d.date.getDay()]}
+                                            {d.kind === 'today' ? t('ngay.nayNgan') : t(THU_NGAN[d.date.getDay()])}
                                         </span>
                                         <span className="flex h-4 items-center" aria-hidden="true">
                                             {d.kind === 'past' && d.count > 0 && <PenTick size={15} />}
@@ -151,34 +154,34 @@ export function HomNay({ now: fixedNow }: { now?: Date }) {
                                             {d.date.getDate()}
                                         </span>
                                         {d.kind === 'today' && <TodayRing />}
-                                        <span className="sr-only">{`, ${dayLabel(d.date)}: ${what}`}</span>
+                                        <span className="sr-only">{t('homNay.ngayVaViec', { ngay: dayLabel(d.date), viec: what })}</span>
                                     </button>
                                 );
                             })}
                         </div>
-                        <section id={panelId} role="tabpanel" aria-label={day.kind === 'today' ? 'Hôm nay' : dayLabel(day.date)} className="mt-3 text-label text-ink-2">
+                        <section id={panelId} role="tabpanel" aria-label={day.kind === 'today' ? t('khung.homNay') : dayLabel(day.date)} className="mt-3 text-label text-ink-2">
                             {day.kind === 'today' ? <TodayLine reviewed={reviewedToday} /> : <OtherDayPanel day={day} />}
                         </section>
                     </section>
 
                     <section aria-labelledby="den-han" className="mt-8 px-5 md:px-8">
-                        <h2 id="den-han" className="text-title font-bold">Đến hạn theo chủ đề</h2>
+                        <h2 id="den-han" className="text-title font-bold">{t('homNay.denHanTheoChuDe')}</h2>
                         <ul className="mt-3 space-y-3">
-                            {topics.map((t) => {
-                                const ids = words.filter((w) => w.topicId === t.id).map((w) => w.id);
+                            {topics.map((cd) => {
+                                const ids = words.filter((w) => w.topicId === cd.id).map((w) => w.id);
                                 const dueN = ids.filter((id) => isDue(progress[id])).length;
                                 const newN = ids.filter((id) => isNew(progress[id])).length;
                                 const lc = levelCounts(ids, progress);
                                 return (
-                                    <li key={t.id}>
-                                        <Link to={`/chu-de/${t.id}`} className="group block rounded-md border border-line bg-sheet transition-colors duration-200 hover:border-line-strong">
+                                    <li key={cd.id}>
+                                        <Link to={`/chu-de/${cd.id}`} className="group block rounded-md border border-line bg-sheet transition-colors duration-200 hover:border-line-strong">
                                             <span className="flex items-center justify-between gap-3 border-b-2 border-pen/70 px-4 py-2.5">
-                                                <span className="min-w-0 font-semibold group-hover:underline">{t.name}</span>
+                                                <span className="min-w-0 font-semibold group-hover:underline">{cd.name}</span>
                                                 <ChevronRight size={18} aria-hidden="true" className="shrink-0 text-ink-3" />
                                             </span>
                                             <span className="block px-4 pt-2 pb-3">
                                                 <span className="block text-label text-ink-2 tabular-nums">
-                                                    <span className="font-semibold text-pen">{dueN} đến hạn</span> · {newN} từ mới · {lc[5]} đã thành quả
+                                                    {tGhep('homNay.chuDeDem', { denHan: <span className="font-semibold text-pen">{t('homNay.denHanN', { n: dueN })}</span>, moi: newN, qua: lc[5] })}
                                                 </span>
                                                 <span className="mt-2 block">
                                                     <LevelBar counts={lc} compact />
@@ -192,13 +195,13 @@ export function HomNay({ now: fixedNow }: { now?: Date }) {
                     </section>
 
                     <section aria-labelledby="che-do" className="mt-8 px-5 md:px-8">
-                        <h2 id="che-do" className="text-title font-bold">Chế độ học</h2>
+                        <h2 id="che-do" className="text-title font-bold">{t('homNay.cheDoHoc')}</h2>
                         <p className="mt-2">
                             <Link to="/hoc" className="inline-flex min-h-11 items-center gap-2 rounded-md border border-tim px-4 font-semibold text-tim transition-colors duration-200 hover:bg-tim-tint">
-                                Flashcard
+                                {t('cheDo.flashcard')}
                             </Link>
                         </p>
-                        <p className="mt-2 text-label text-ink-2">Quiz, Nghe, Gõ từ, Ghép cặp và Đặc biệt sẽ có ở bản G1.</p>
+                        <p className="mt-2 text-label text-ink-2">{t('homNay.cheDoSapCo')}</p>
                     </section>
                 </div>
             </div>
@@ -221,7 +224,7 @@ function TodayRing() {
 }
 
 function TodayLine({ reviewed }: { reviewed: number }) {
-    return <p>{reviewed === 0 ? 'Hôm nay chưa ôn thẻ nào.' : `Hôm nay đã ôn ${reviewed} thẻ.`} Dấu tích đỏ là ngày có học.</p>;
+    return <p>{reviewed === 0 ? t('homNay.chuaOn') : t('homNay.daOnN', { n: reviewed })} {t('homNay.dauTich')}</p>;
 }
 
 function TodayPanel({ due, newNext, reviewedToday, topicName, topicId }: { due: number; newNext: number; reviewedToday: number; topicName: string; topicId: string }) {
@@ -230,21 +233,21 @@ function TodayPanel({ due, newNext, reviewedToday, topicName, topicId }: { due: 
     return (
         <>
             {nothing ? (
-                <p className="mt-4 text-ink-2">Chọn thêm từ mới ở chủ đề kế tiếp.</p>
+                <p className="mt-4 text-ink-2">{t('homNay.chonThem')}</p>
             ) : (
                 <Link
                     to="/hoc"
                     className="mt-4 flex min-h-14 w-full items-center justify-between gap-4 rounded-md bg-tim px-5 py-3 text-on-tim transition-colors duration-200 hover:bg-tim-strong"
                 >
-                    <span className="text-title font-bold">Học ngay</span>
+                    <span className="text-title font-bold">{t('homNay.hocNgay')}</span>
                     <span className="flex items-center gap-2 text-label tabular-nums">
-                        {due} thẻ đến hạn · {newNext} từ mới
+                        {t('homNay.denHanVaMoi', { denHan: due, moi: newNext })}
                         <ArrowRight size={20} aria-hidden="true" />
                     </span>
                 </Link>
             )}
             <p className="mt-3 text-label text-ink-2">
-                Đang học:{' '}
+                {t('homNay.dangHoc')}{' '}
                 <Link to={`/chu-de/${topicId}`} className="font-semibold text-ink underline underline-offset-2">
                     {topicName}
                 </Link>
@@ -252,9 +255,9 @@ function TodayPanel({ due, newNext, reviewedToday, topicName, topicId }: { due: 
 
             <div className="mt-6">
                 <div className="flex items-baseline justify-between text-label">
-                    <span id="muc-tieu" className="font-semibold">Mục tiêu ngày</span>
+                    <span id="muc-tieu" className="font-semibold">{t('homNay.mucTieuNgay')}</span>
                     <span className="tabular-nums text-ink-2">
-                        {reviewedToday}/{dailyGoal} thẻ
+                        {t('homNay.mucTieuDem', { da: reviewedToday, can: dailyGoal })}
                     </span>
                 </div>
                 <div
@@ -277,13 +280,13 @@ function OtherDayPanel({ day }: { day: Day }) {
         return (
             <p>
                 <span className="font-semibold text-ink">{dayLabel(day.date)}:</span>{' '}
-                {day.count === 0 ? 'Chưa có thẻ nào đến hạn ngày này.' : `${day.count} thẻ sẽ đến hạn. Ôn đều mỗi ngày để không dồn lại.`}
+                {day.count === 0 ? t('homNay.ngayKhongDenHan') : t('homNay.ngaySeDenHan', { n: day.count })}
             </p>
         );
     }
     return (
         <p>
-            <span className="font-semibold text-ink">{dayLabel(day.date)}:</span> {day.count === 0 ? 'Không học ngày này.' : `Đã ôn ${day.count} thẻ.`}
+            <span className="font-semibold text-ink">{dayLabel(day.date)}:</span> {day.count === 0 ? t('homNay.ngayKhongHoc') : t('homNay.ngayDaOn', { n: day.count })}
         </p>
     );
 }

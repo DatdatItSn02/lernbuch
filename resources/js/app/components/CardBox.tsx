@@ -1,4 +1,5 @@
-import { LEVEL_NAMES, STAGE_NAMES } from '../lib/srs';
+import { levelName, stageName } from '../lib/srs';
+import { t } from '../i18n';
 
 const EDGE = 'color-mix(in oklch, var(--color-on-box) 62%, var(--color-box))';
 
@@ -11,12 +12,12 @@ export function CardBox({ counts, due, fresh }: { counts: number[]; due: number[
     const max = Math.max(...counts, 1);
     const said = counts
         .map((n, i) => {
-            const d = i === 0 ? (fresh > 0 ? `, ${fresh} sắp học` : '') : due[i] > 0 ? `, ${due[i]} đến hạn` : '';
-            return `${STAGE_NAMES[i]} (${LEVEL_NAMES[i]}) ${n} thẻ${d}`;
+            const d = i === 0 ? (fresh > 0 ? t('hopThe.sapHoc', { n: fresh }) : '') : due[i] > 0 ? t('hopThe.denHan', { n: due[i] }) : '';
+            return t('hopThe.ngan', { giaiDoan: stageName(i), muc: levelName(i), n }) + d;
         })
         .join('; ');
     return (
-        <figure role="img" aria-label={`Hộp thẻ theo mức thuộc: ${said}`} className="rounded-md bg-box px-2.5 pt-3 text-on-box">
+        <figure role="img" aria-label={t('hopThe.tomTat', { cacNgan: said })} className="rounded-md bg-box px-2.5 pt-3 text-on-box">
             <div className="grid h-36 grid-cols-6 items-end gap-1.5" aria-hidden="true">
                 {counts.map((n, i) => {
                     const mark = i === 0 ? fresh : due[i];
@@ -33,7 +34,7 @@ export function CardBox({ counts, due, fresh }: { counts: number[]; due: number[
                                 className="flex items-center gap-0.5 self-start rounded-t-sm px-1 pt-0.5 text-[calc(0.6875rem*var(--type-scale))] leading-[1.125rem] font-semibold"
                                 style={{ background: `var(--color-level-${i})`, color: `var(--color-on-level-${i})` }}
                             >
-                                {STAGE_NAMES[i]}
+                                {stageName(i)}
                             </span>
                             <span
                                 className="block w-full rounded-tr-sm border-t border-box"

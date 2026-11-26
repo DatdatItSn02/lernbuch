@@ -1,9 +1,12 @@
 import type { Gender, Word } from '../data/demo';
+import { t, type Khoa } from '../i18n';
 
 const COLOR: Record<Gender, string> = { der: 'text-der', die: 'text-die', das: 'text-das' };
-const POS: Record<Word['pos'], string> = { noun: 'danh từ', verb: 'động từ', adj: 'tính từ' };
+const POS = { noun: 'loaiTu.danhTu', verb: 'loaiTu.dongTu', adj: 'loaiTu.tinhTu' } as const satisfies Record<Word['pos'], Khoa>;
+/** Mạo từ số nhiều của tiếng Đức (chữ của ngôn ngữ đang học, không dịch). */
+const DIE = 'die';
 
-export const posLabel = (w: Word) => POS[w.pos];
+export const posLabel = (w: Word) => t(POS[w.pos]);
 
 /** Mạo từ tô màu theo giống, luôn có chữ mạo từ để người mù màu vẫn đọc được. */
 export function Article({ gender }: { gender?: Gender }) {
@@ -28,10 +31,10 @@ export function GermanWord({ word, className = '' }: { word: Word; className?: s
 export function PluralLine({ word }: { word: Word }) {
     if (word.pos === 'verb' && word.principalParts) return <span lang="de">{word.principalParts}</span>;
     if (word.pos !== 'noun') return null;
-    if (word.plural === null || word.plural === undefined) return <span>thường chỉ dùng số ít</span>;
+    if (word.plural === null || word.plural === undefined) return <span>{t('loaiTu.chiSoIt')}</span>;
     return (
         <span lang="de">
-            <span className="font-bold text-plural">die</span> {word.plural}
+            <span className="font-bold text-plural">{DIE}</span> {word.plural}
         </span>
     );
 }

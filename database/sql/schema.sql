@@ -1,5 +1,5 @@
 -- =====================================================================
--- Lernbuch Online — schema database v0.1 (2026-11-25)
+-- Lernbuch Online — schema database v0.2 (2026-11-27: base_lang cho bài ngữ pháp, bộ bài tập)
 -- Đích: MySQL 8.4 LTS. Cú pháp giữ ở mức chạy được cả MariaDB 10.6+ (máy dev).
 --
 -- Quy ước (theo LoWo):
@@ -533,6 +533,7 @@ CREATE TABLE grammar_chapters (
 CREATE TABLE grammar_lessons (
   id            INT UNSIGNED NOT NULL AUTO_INCREMENT,
   lang          VARCHAR(8) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  base_lang     VARCHAR(8) CHARACTER SET ascii COLLATE ascii_bin NOT NULL DEFAULT 'vi' COMMENT 'ngôn ngữ giải thích',
   chapter_id    SMALLINT UNSIGNED NULL,
   slug          VARCHAR(160) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   level         TINYINT UNSIGNED NULL COMMENT '1–4 = A1–B2; NULL = chuyên đề',
@@ -553,8 +554,8 @@ CREATE TABLE grammar_lessons (
   deleted_at    INT UNSIGNED NULL,
   deleted_by    BIGINT UNSIGNED NULL,
   PRIMARY KEY (id),
-  UNIQUE KEY uq_grammar_lessons_slug (lang, slug),
-  KEY ix_glessons_browse (lang, level, chapter_id, sort),
+  UNIQUE KEY uq_grammar_lessons_slug (lang, base_lang, slug),
+  KEY ix_glessons_browse (lang, base_lang, level, chapter_id, sort),
   KEY ix_glessons_chapter (chapter_id),
   KEY ix_glessons_source (source_id),
   KEY ix_glessons_created_by (created_by),
@@ -565,6 +566,7 @@ CREATE TABLE grammar_lessons (
 CREATE TABLE exercise_sets (
   id                 INT UNSIGNED NOT NULL AUTO_INCREMENT,
   lang               VARCHAR(8) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  base_lang          VARCHAR(8) CHARACTER SET ascii COLLATE ascii_bin NOT NULL DEFAULT 'vi' COMMENT 'ngôn ngữ giải thích',
   slug               VARCHAR(160) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   title              VARCHAR(200) NOT NULL,
   section            VARCHAR(20) CHARACTER SET ascii COLLATE ascii_bin NOT NULL COMMENT 'level (theo cấp), review (Ôn tập), plural (Số nhiều)',
@@ -584,8 +586,8 @@ CREATE TABLE exercise_sets (
   deleted_at         INT UNSIGNED NULL,
   deleted_by         BIGINT UNSIGNED NULL,
   PRIMARY KEY (id),
-  UNIQUE KEY uq_exercise_sets_slug (lang, slug),
-  KEY ix_exsets_browse (lang, section, level, sort),
+  UNIQUE KEY uq_exercise_sets_slug (lang, base_lang, slug),
+  KEY ix_exsets_browse (lang, base_lang, section, level, sort),
   KEY ix_exsets_lesson (grammar_lesson_id),
   KEY ix_exsets_topic (topic_id),
   KEY ix_exsets_source (source_id),

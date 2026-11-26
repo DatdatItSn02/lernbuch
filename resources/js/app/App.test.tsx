@@ -25,10 +25,10 @@ describe('App: điều hướng', () => {
         expect(where()).toBe('/hom-nay');
     });
 
-    it('Ngữ pháp và Tra từ báo rõ là làm ở G1', () => {
+    it('Ngữ pháp và Tra từ báo rõ là sẽ có trong bản G1', () => {
         renderApp('/ngu-phap');
         expect(screen.getByRole('heading', { level: 1, name: 'Ngữ pháp' })).toBeTruthy();
-        expect(screen.getByText(/làm ở G1/)).toBeTruthy();
+        expect(screen.getByText(/sẽ có trong bản G1/)).toBeTruthy();
     });
 
     it('bấm mục điều hướng thì đổi màn hình, đổi tiêu đề và đặt tiêu điểm vào nội dung', () => {

@@ -1,4 +1,5 @@
-import { LEVEL_NAMES, STAGE_NAMES } from '../lib/srs';
+import { levelName, stageName } from '../lib/srs';
+import { t } from '../i18n';
 
 // Dấu ấn của Lernbuch: 6 mức thuộc vẽ thành 6 giai đoạn của cây (hạt, mầm, lá, nụ, hoa, quả).
 // Vẽ bằng nét mực như hình vẽ tay trong vở: chỉ nét, không tô màu; nét theo màu chữ (currentColor).
@@ -7,7 +8,7 @@ import { LEVEL_NAMES, STAGE_NAMES } from '../lib/srs';
 export function LevelIcon({ level, size = 24, title, className = '' }: { level: number; size?: number; title?: string; className?: string }) {
     const lv = Math.min(5, Math.max(0, Math.round(level)));
     // title="" là hình trang trí (chữ bên cạnh đã nói mức): ẩn khỏi trình đọc màn hình.
-    const label = title ?? `${STAGE_NAMES[lv]}: mức ${LEVEL_NAMES[lv]}`;
+    const label = title ?? t('thanhMuc.hinh', { giaiDoan: stageName(lv), muc: levelName(lv) });
     const a11y = label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true as const, focusable: 'false' as const };
     return (
         <svg

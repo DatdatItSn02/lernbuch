@@ -1,14 +1,15 @@
 import { Link } from 'react-router';
 import { Sheet } from '../components/Shell';
 import { useTitle } from '../lib/useTitle';
+import { t } from '../i18n';
 
 type Props = { title?: string; message?: string; back?: { to: string; label: string } };
 
 /** Trang báo không tìm thấy: đường dẫn sai, từ hay chủ đề không có. */
 export function KhongThay({
-    title = 'Không tìm thấy trang này',
-    message = 'Đường dẫn có thể đã đổi hoặc gõ nhầm.',
-    back = { to: '/hom-nay', label: 'Về Hôm nay' },
+    title = t('khongThay.tieuDe'),
+    message = t('khongThay.loiNhan'),
+    back = { to: '/hom-nay', label: t('chung.veHomNay') },
 }: Props) {
     useTitle(title);
     return (

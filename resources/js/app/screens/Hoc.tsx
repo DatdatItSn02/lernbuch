@@ -9,9 +9,11 @@ import { PenTick } from '../components/Vo';
 import { currentTopicId, topics, words, type Word } from '../data/demo';
 import { buildSession, isDue, isNew } from '../lib/session';
 import { speak } from '../lib/speech';
-import { GRADES, LEVEL_NAMES, STAGE_NAMES, formatInterval, grade as gradeCard, type Grade } from '../lib/srs';
+import { GRADES, levelName, stageName, formatInterval, grade as gradeCard, type Grade } from '../lib/srs';
 import { useStore } from '../state/store';
 import { useTitle } from '../lib/useTitle';
+import { t } from '../i18n';
+import { tGhep } from '../i18n/ghep';
 
 type Done = { id: string; grade: Grade; before: number; after: number };
 
@@ -33,10 +35,10 @@ export function Hoc() {
     const [params] = useSearchParams();
     const navigate = useNavigate();
     const { progress, settings, dispatch } = useStore();
-    useTitle('Học');
+    useTitle(t('hoc.tieuDe'));
     const topicId = params.get('chu-de') ?? undefined;
     const reviewOnly = params.get('on') === '1';
-    const topic = topicId ? topics.find((t) => t.id === topicId) : undefined;
+    const topic = topicId ? topics.find((cd) => cd.id === topicId) : undefined;
 
     // Lập phiên một lần khi mở trang; chấm thẻ không làm phiên đổi theo (trừ thẻ Quên được chèn lại)
     const [queue, setQueue] = useState<string[]>(() =>
@@ -110,11 +112,11 @@ export function Hoc() {
     const lastRequeued = !!last && last.grade === 'quen' && queue.indexOf(last.id, pos) >= pos;
     let status: ReactNode = null;
     if (reviewing) {
-        status = <>Đang xem lại thẻ đã chấm: {GRADES.find((g) => g.id === reviewing.grade)?.label}</>;
+        status = <>{t('hoc.dangXemLai', { cham: GRADES.find((g) => g.id === reviewing.grade)?.label ?? '' })}</>;
     } else if (!finished && lastWord && last && last.after > last.before) {
         status = (
             <span className="inline-flex items-center gap-1">
-                <span lang="de">{lastWord.lemma}</span> lên mức {LEVEL_NAMES[last.after]}
+                {tGhep('hoc.lenMuc', { tu: <span lang="de">{lastWord.lemma}</span>, muc: levelName(last.after) })}
                 <span className="lb-grow inline-flex">
                     <LevelIcon level={last.after} size={20} className="text-tim" />
                 </span>
@@ -123,7 +125,7 @@ export function Hoc() {
     } else if (!finished && lastWord && lastRequeued) {
         status = (
             <>
-                <span lang="de">{lastWord.lemma}</span> sẽ quay lại sau vài thẻ
+                {tGhep('hoc.quayLai', { tu: <span lang="de">{lastWord.lemma}</span> })}
             </>
         );
     }
@@ -136,14 +138,14 @@ export function Hoc() {
                 <button
                     type="button"
                     onClick={exit}
-                    aria-label="Thoát phiên học (Esc)"
+                    aria-label={t('hoc.thoat')}
                     className="flex size-11 items-center justify-center rounded-md text-ink-2 hover:bg-sunken hover:text-ink"
                 >
                     <X size={24} aria-hidden="true" />
                 </button>
                 <div
                     role="progressbar"
-                    aria-label="Tiến độ phiên học"
+                    aria-label={t('hoc.tienDo')}
                     aria-valuemin={0}
                     aria-valuemax={queue.length}
                     aria-valuenow={Math.min(pos, queue.length)}
@@ -221,7 +223,7 @@ function Card(props: {
                             style={{ background: `var(--color-level-${level})`, color: `var(--color-on-level-${level})` }}
                         >
                             <LevelIcon level={level} size={16} title="" className="text-tim" />
-                            {level === 0 ? 'Từ mới' : `${STAGE_NAMES[level]} · ${LEVEL_NAMES[level]}`}
+                            {level === 0 ? t('hoc.tuMoi') : `${stageName(level)} · ${levelName(level)}`}
                         </p>
                         <div className="relative flex-1 py-6 pr-5 pl-14 md:pl-16">
                             <span aria-hidden="true" className="absolute inset-y-0 left-10 w-[1.5px] bg-pen opacity-45 md:left-12" />
@@ -243,14 +245,14 @@ function Card(props: {
                             </div>
 
                             {revealed && (
-                                <div ref={answerRef} tabIndex={-1} aria-label="Đáp án" className="lb-reveal mt-6 border-t border-dashed border-line-strong pt-5">
+                                <div ref={answerRef} tabIndex={-1} aria-label={t('hoc.dapAn')} className="lb-reveal mt-6 border-t border-dashed border-line-strong pt-5">
                                     {langs.vi && <p className="text-title font-bold">{word.vi}</p>}
                                     {langs.en && <p lang="en" className="mt-1 text-ink-2">{word.en}</p>}
                                     {langs.zh && <p lang="zh" className="mt-1 font-zh text-ink-2">{word.zh}</p>}
-                                    {!langs.vi && !langs.en && !langs.zh && <p className="text-ink-2">Đang tắt cả ba thứ tiếng của nghĩa (bật lại ở Cài đặt).</p>}
+                                    {!langs.vi && !langs.en && !langs.zh && <p className="text-ink-2">{t('hoc.tatNghia')}</p>}
                                     {example && (
                                         <div className="mt-5 flex items-start gap-3">
-                                            <AudioButton text={example.de} label="Nghe câu ví dụ" shortcut="E" iconOnly />
+                                            <AudioButton text={example.de} label={t('nghe.viDu')} shortcut="E" iconOnly />
                                             <p>
                                                 <span lang="de" className="block font-semibold">{example.de}</span>
                                                 <span className="block text-ink-2">{example.vi}</span>
@@ -261,7 +263,7 @@ function Card(props: {
                             )}
                         </div>
                         {!revealed && (
-                            <p className="border-t border-dashed border-line-strong py-3 pr-5 pl-14 text-label text-ink-2 md:pl-16">Tự nhớ nghĩa và câu ví dụ, rồi lật thẻ để xem.</p>
+                            <p className="border-t border-dashed border-line-strong py-3 pr-5 pl-14 text-label text-ink-2 md:pl-16">{t('hoc.tuNho')}</p>
                         )}
                     </article>
                 </div>
@@ -271,7 +273,7 @@ function Card(props: {
                 <div className="mx-auto max-w-[640px] px-4 py-3">
                     {reviewing ? (
                         <button type="button" onClick={props.onBack} className="flex min-h-14 w-full items-center justify-center gap-3 rounded-md border border-line-strong bg-sheet font-semibold hover:bg-sunken">
-                            Về thẻ đang học <Kbd>→</Kbd>
+                            {t('hoc.veTheDangHoc')} <Kbd>→</Kbd>
                         </button>
                     ) : !revealed ? (
                         <button
@@ -280,10 +282,10 @@ function Card(props: {
                             onClick={props.onReveal}
                             className="flex min-h-14 w-full items-center justify-center gap-3 rounded-md bg-tim text-title font-bold text-on-tim transition-colors duration-200 hover:bg-tim-strong"
                         >
-                            Lật thẻ <Kbd>Space</Kbd>
+                            {t('hoc.latThe')} <Kbd>{t('phim.space')}</Kbd>
                         </button>
                     ) : (
-                        <div role="group" aria-label="Tự chấm" className="grid grid-cols-4 gap-2">
+                        <div role="group" aria-label={t('hoc.tuCham')} className="grid grid-cols-4 gap-2">
                             {GRADES.map((g) => (
                                 <button
                                     key={g.id}
@@ -308,9 +310,9 @@ function Card(props: {
 
 /** Một câu tổng kết thay cho ô số: bỏ phần bằng 0 cho dễ đọc. */
 export function sessionLine(total: number, fresh: number) {
-    if (fresh === 0) return `Đã học ${total} thẻ ôn.`;
-    if (fresh === total) return `Đã học ${total} từ mới.`;
-    return `Đã học ${total} thẻ: ${fresh} từ mới, ${total - fresh} thẻ ôn.`;
+    if (fresh === 0) return t('hoc.tongKetOn', { n: total });
+    if (fresh === total) return t('hoc.tongKetMoi', { n: total });
+    return t('hoc.tongKet', { n: total, moi: fresh, on: total - fresh });
 }
 
 function Summary({ done, topicId, topicName, newTopicId }: { done: Done[]; topicId?: string; topicName?: string; newTopicId: string }) {
@@ -334,22 +336,22 @@ function Summary({ done, topicId, topicName, newTopicId }: { done: Done[]; topic
     const moreDue = words.filter((w) => (!topicId || w.topicId === topicId) && isDue(progress[w.id])).length;
     const moreNew = words.filter((w) => w.topicId === newTopicId && isNew(progress[w.id])).length;
     const more = moreDue + moreNew > 0;
-    const back = topicId ? { to: `/chu-de/${topicId}`, label: 'Về chủ đề' } : { to: '/hom-nay', label: 'Về Hôm nay' };
+    const back = topicId ? { to: `/chu-de/${topicId}`, label: t('hoc.veChuDe') } : { to: '/hom-nay', label: t('chung.veHomNay') };
 
     return (
         <main className="mx-auto w-full max-w-[640px] flex-1 px-5 py-6">
-            <h1 className="text-headline font-bold">Xong phiên</h1>
+            <h1 className="text-headline font-bold">{t('hoc.xongPhien')}</h1>
             {topicName && <p className="text-ink-2">{topicName}</p>}
             <p className="mt-4 text-title">
                 {sessionLine(stats.total, stats.fresh)}{' '}
-                {stats.grown.length > 0 ? `${stats.grown.length} thẻ lên mức.` : 'Chưa có thẻ nào lên mức.'}
+                {stats.grown.length > 0 ? t('hoc.theLenMuc', { n: stats.grown.length }) : t('hoc.chuaLenMuc')}
             </p>
             <p className="mt-1 text-label text-ink-2 tabular-nums">{GRADES.map((g) => `${g.label} ${stats.perGrade[g.id]}`).join(' · ')}</p>
 
             {stats.grown.length > 0 && (
                 <section aria-labelledby="cay-lon" className="mt-8">
                     <h2 id="cay-lon" className="text-title font-bold">
-                        Cây lớn lên
+                        {t('hoc.cayLonLen')}
                     </h2>
                     <ul className="mt-2 grid gap-x-8 sm:grid-cols-2">
                         {stats.grown.map((c, i) => {
@@ -365,8 +367,8 @@ function Summary({ done, topicId, topicName, newTopicId }: { done: Done[]; topic
                                         <span className="lb-grow inline-flex" style={{ animationDelay: `${i * 80}ms` }}>
                                             <LevelIcon level={c.to} size={28} title="" className="text-tim" />
                                         </span>
-                                        <span className="sr-only">{`từ ${LEVEL_NAMES[c.from]} lên`}</span>
-                                        {LEVEL_NAMES[c.to]}
+                                        <span className="sr-only">{t('hoc.tuMucLen', { muc: levelName(c.from) })}</span>
+                                        {levelName(c.to)}
                                     </span>
                                 </li>
                             );
@@ -375,16 +377,16 @@ function Summary({ done, topicId, topicName, newTopicId }: { done: Done[]; topic
                 </section>
             )}
 
-            {!more && <p className="mt-8 font-semibold">Đã học hết thẻ đến hạn và từ mới ở đây.</p>}
+            {!more && <p className="mt-8 font-semibold">{t('hoc.hetChoNay')}</p>}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 {more && (
                     <Link
                         to={topicId ? `/hoc?chu-de=${topicId}` : '/hoc'}
                         className="flex min-h-12 items-center justify-center rounded-md bg-tim px-6 font-bold text-on-tim hover:bg-tim-strong"
                     >
-                        {moreNew > 0 ? 'Học tiếp' : 'Ôn tiếp'}
+                        {moreNew > 0 ? t('chuDe.hocTiep') : t('hoc.onTiep')}
                         <span className="ml-2 text-label font-semibold tabular-nums">
-                            {moreDue} ôn · {Math.min(moreNew, newLimit)} mới
+                            {t('chuDe.onVaMoi', { on: moreDue, moi: Math.min(moreNew, newLimit) })}
                         </span>
                     </Link>
                 )}
@@ -404,10 +406,10 @@ function Summary({ done, topicId, topicName, newTopicId }: { done: Done[]; topic
 function Empty({ onExit }: { onExit: () => void }) {
     return (
         <main className="mx-auto flex w-full max-w-[640px] flex-1 flex-col items-center justify-center px-5 text-center">
-            <h1 className="text-headline font-bold">Chưa có thẻ nào để học</h1>
-            <p className="mt-2 text-ink-2">Thẻ đến hạn đã ôn hết và chủ đề này hết từ mới.</p>
+            <h1 className="text-headline font-bold">{t('hoc.khongCoThe')}</h1>
+            <p className="mt-2 text-ink-2">{t('hoc.khongCoTheLyDo')}</p>
             <button type="button" onClick={onExit} className="mt-6 min-h-12 rounded-md border border-line-strong px-6 font-semibold hover:bg-sunken">
-                Quay lại
+                {t('chung.quayLai')}
             </button>
         </main>
     );

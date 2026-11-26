@@ -1,5 +1,6 @@
-import { LEVEL_NAMES, STAGE_NAMES } from '../lib/srs';
+import { levelName, stageName } from '../lib/srs';
 import { LevelIcon } from './LevelIcon';
+import { t } from '../i18n';
 
 type Props = {
     counts: number[];
@@ -11,8 +12,8 @@ type Props = {
 };
 
 /** Tên nút bắt đầu bằng đúng chữ nhìn thấy (số thẻ, rồi tên giai đoạn) để điều khiển bằng giọng nói gọi được. */
-const label = (i: number, n: number) => `${n} ${STAGE_NAMES[i]} (${LEVEL_NAMES[i]})`;
-const summary = (counts: number[]) => `Mức thuộc: ${counts.map((n, i) => `${STAGE_NAMES[i]} (${LEVEL_NAMES[i]}) ${n}`).join(', ')}`;
+const label = (i: number, n: number) => `${n} ${stageName(i)} (${levelName(i)})`;
+const summary = (counts: number[]) => t('thanhMuc.tomTat', { cacMuc: counts.map((n, i) => `${stageName(i)} (${levelName(i)}) ${n}`).join(', ') });
 
 /**
  * Thanh 6 mức thuộc: dải mực tím từ nhạt (hạt) đến đậm (quả) theo tỉ lệ, kèm hình cây nét mực, tên và số thẻ từng mức.
@@ -39,7 +40,7 @@ export function LevelBar({ counts, compact = false, picked = null, onPick }: Pro
         return (
             <div className="min-w-0">
                 {bar}
-                <div role="group" aria-label="Lọc theo mức thuộc" className="mt-2 grid grid-cols-6 gap-1">
+                <div role="group" aria-label={t('thanhMuc.loc')} className="mt-2 grid grid-cols-6 gap-1">
                     {counts.map((n, i) => {
                         const on = picked === i;
                         return (
@@ -57,7 +58,7 @@ export function LevelBar({ counts, compact = false, picked = null, onPick }: Pro
                                     <LevelIcon level={i} size={20} title="" className="text-tim" />
                                     <span className={`text-label tabular-nums ${n === 0 ? 'text-ink-2' : 'font-semibold text-ink'}`}>{n}</span>
                                 </span>
-                                <span className="text-[calc(0.75rem*var(--type-scale))] leading-tight text-ink-2">{` ${STAGE_NAMES[i]}`}</span>
+                                <span className="text-[calc(0.75rem*var(--type-scale))] leading-tight text-ink-2">{` ${stageName(i)}`}</span>
                             </button>
                         );
                     })}
@@ -73,7 +74,7 @@ export function LevelBar({ counts, compact = false, picked = null, onPick }: Pro
                 {counts.map((n, i) => (
                     <li key={i} className="flex items-center gap-1 text-label">
                         <LevelIcon level={i} size={18} title="" className="text-tim" />
-                        <span className="text-ink-2">{STAGE_NAMES[i]}</span>
+                        <span className="text-ink-2">{stageName(i)}</span>
                         <span className={`tabular-nums ${n === 0 ? 'text-ink-2' : 'font-semibold text-ink'}`}>{n}</span>
                     </li>
                 ))}

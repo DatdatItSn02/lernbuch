@@ -1,3 +1,4 @@
+import { so, t } from '../i18n';
 // Lặp lại ngắt quãng 6 mức, theo luật của Lernbuch (srs.py):
 // - Khoảng ôn theo mức mới: 1 → 1 ngày, 2 → 3, 3 → 7, 4 → 14, 5 → 30.
 // - Quên: mức 1 trở xuống về mức 1, cao hơn lùi 2 mức (thấp nhất 1); ôn lại sau 10 phút, tính 1 lần quên.
@@ -6,15 +7,20 @@
 
 export type Grade = 'quen' | 'kho' | 'tot' | 'de';
 
-export const GRADES: { id: Grade; label: string; key: string }[] = [
-    { id: 'quen', label: 'Quên', key: '1' },
-    { id: 'kho', label: 'Khó', key: '2' },
-    { id: 'tot', label: 'Tốt', key: '3' },
-    { id: 'de', label: 'Dễ', key: '4' },
+// Tên nút chấm lấy từ từ điển mỗi lần đọc (getter), nên đúng ngôn ngữ giao diện hiện tại.
+export const GRADES: { id: Grade; readonly label: string; key: string }[] = [
+    { id: 'quen', key: '1', get label() { return t('cham.quen'); } },
+    { id: 'kho', key: '2', get label() { return t('cham.kho'); } },
+    { id: 'tot', key: '3', get label() { return t('cham.tot'); } },
+    { id: 'de', key: '4', get label() { return t('cham.de'); } },
 ];
 
-export const LEVEL_NAMES = ['Mới', 'Đang học', 'Quen', 'Khá', 'Thuộc', 'Thành thạo'] as const;
-export const STAGE_NAMES = ['Hạt', 'Mầm', 'Lá', 'Nụ', 'Hoa', 'Quả'] as const;
+const TEN_MUC = ['muc.moi', 'muc.dangHoc', 'muc.quen', 'muc.kha', 'muc.thuoc', 'muc.thanhThao'] as const;
+const TEN_GIAI_DOAN = ['giaiDoan.hat', 'giaiDoan.mam', 'giaiDoan.la', 'giaiDoan.nu', 'giaiDoan.hoa', 'giaiDoan.qua'] as const;
+/** Tên mức thuộc 0–5 (Mới … Thành thạo). */
+export const levelName = (i: number) => t(TEN_MUC[i]);
+/** Tên giai đoạn cây của mức 0–5 (Hạt … Quả). */
+export const stageName = (i: number) => t(TEN_GIAI_DOAN[i]);
 export const MAX_LEVEL = 5;
 const INTERVAL_DAYS = [0, 1, 3, 7, 14, 30];
 export const RELEARN_MINUTES = 10;
@@ -56,7 +62,6 @@ export function grade(level: number, g: Grade): GradeResult {
 
 /** Hạn ôn ghi ngắn trên nút chấm: "10 phút", "1 ngày", "1,5 ngày", "30 ngày". */
 export function formatInterval(days: number): string {
-    if (days < 1) return `${Math.round(days * 1440)} phút`;
-    const text = Number.isInteger(days) ? String(days) : days.toFixed(1).replace('.', ',');
-    return `${text} ngày`;
+    if (days < 1) return t('thoiGian.phut', { n: Math.round(days * 1440) });
+    return t('thoiGian.ngay', { n: so(days) });
 }

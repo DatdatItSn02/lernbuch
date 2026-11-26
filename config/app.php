@@ -85,9 +85,15 @@ return [
     |
     */
 
-    'locale' => env('APP_LOCALE', 'en'),
+    // Tiếng Việt là ngôn ngữ gốc của Lernbuch: chữ thiếu bản dịch ở ngôn ngữ khác thì hiện tiếng Việt, không hiện mã khoá.
+    // Ngôn ngữ dự phòng cố định (không lấy từ .env) để máy nào cũng giống nhau.
+    'locale' => env('APP_LOCALE', 'vi'),
 
-    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
+    'fallback_locale' => 'vi',
+
+    // Ngôn ngữ giao diện đã có bản dịch (lang/<mã>/, lang/<mã>.json và từ điển của app học).
+    // Người dùng chọn ngôn ngữ khác danh sách này thì vẫn thấy tiếng Việt. Thêm 'en', 'zh' khi đã dịch xong.
+    'ngon_ngu_giao_dien' => ['vi'],
 
     'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
 

@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { MemoryRouter, useLocation } from 'react-router';
 import { AppRoutes } from '../app/App';
 import { StoreProvider, initialState } from '../app/state/store';
+import { TaiKhoanProvider } from '../app/state/taiKhoan';
 
 type State = ReturnType<typeof initialState>;
 
@@ -30,6 +31,20 @@ export function renderWith(node: ReactNode, path = '/', state: State = initialSt
                 {node}
                 <Where />
             </MemoryRouter>
+        </StoreProvider>,
+    );
+}
+
+/** Mở app có tài khoản: TaiKhoanProvider tải /api/v1/toi (dùng cùng giaApi trong fakeApi.ts). */
+export function renderAppCoTaiKhoan(path: string, state: State = initialState()) {
+    return render(
+        <StoreProvider initial={state}>
+            <TaiKhoanProvider>
+                <MemoryRouter initialEntries={[path]}>
+                    <AppRoutes />
+                    <Where />
+                </MemoryRouter>
+            </TaiKhoanProvider>
         </StoreProvider>,
     );
 }

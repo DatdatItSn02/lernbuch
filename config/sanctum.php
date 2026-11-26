@@ -18,11 +18,13 @@ return [
     |
     */
 
+    // App học React chạy cùng tên miền với Laravel: tên miền của chính yêu cầu luôn được dùng cookie phiên
+    // (currentRequestHost), nên chạy ở cổng nào (8001 trên máy, 8002 khi test trình duyệt) cũng đăng nhập được.
     'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', sprintf(
-        '%s%s',
+        '%s%s%s',
         'localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1',
         Sanctum::currentApplicationUrlWithPort(),
-        // Sanctum::currentRequestHost(),
+        Sanctum::currentRequestHost(),
     ))),
 
     /*
