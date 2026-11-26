@@ -58,6 +58,20 @@ Cuối cùng bật deploy: cùng trang đó, tab **Variables** → New repositor
 
 Mỗi lần deploy, log của job deploy (và nhánh `ci-results`) ghi thêm: số nhịp 10 phút qua trước khi deploy, dung lượng thư mục app, cả thư mục nhà và database sau khi dọn bản cũ. Gói Free có 1 GB tính chung file, mail và database.
 
+## 5. Hộp thư gửi email (cho G1)
+
+Web gửi email xác minh tài khoản và quên mật khẩu qua máy chủ thư của alwaysdata ([hướng dẫn tạo địa chỉ](https://help.alwaysdata.com/en/docs/emails/create-an-email-address/)). Bạn tạo một hộp thư chỉ để gửi:
+
+1. admin.alwaysdata.com → **Emails → Addresses**, bấm nút thêm địa chỉ mới.
+2. **Domain:** chọn `lernbuch.alwaysdata.net`. alwaysdata chỉ cho tạo hộp thư trên tên miền đã có trong tài khoản; ô này không có tên miền nào để chọn thì dừng lại và báo mình (khi đó dùng Brevo, hoặc mua tên miền riêng).
+3. **Local part** (phần trước @): `noreply`, thành địa chỉ `noreply@lernbuch.alwaysdata.net`.
+4. **Password:** một mật khẩu dài, chỉ dùng cho hộp thư này; lưu vào trình quản lý mật khẩu.
+5. **Quota:** 50 MB, để thư trả về không chiếm 1 GB dùng chung với web. Các phần khác (Antispam, Redirect, Auto-reply) để mặc định, rồi lưu.
+6. GitHub → repo `lernbuch` → Settings → Secrets and variables → Actions → New repository secret: tên `MAIL_PASSWORD`, giá trị là mật khẩu vừa đặt. Claude không thấy giá trị này.
+7. Báo Claude địa chỉ vừa tạo (không gửi mật khẩu).
+
+Web gửi qua `smtp-lernbuch.alwaysdata.net`, cổng 465 (SSL/TLS), tên đăng nhập là địa chỉ email đầy đủ ([thông số SMTP](https://help.alwaysdata.com/en/docs/emails/use-an-email-address/)). Thư trả về (địa chỉ sai, hộp thư đầy) đọc ở webmail Roundcube của alwaysdata, đăng nhập bằng địa chỉ và mật khẩu trên. Thư gửi từ `@lernbuch.alwaysdata.net` có thể vào thư rác, đủ cho giai đoạn thử; trước khi bán nên dùng tên miền riêng và bật SPF, DKIM, DMARC.
+
 ## Quay lại bản trước
 
 GitHub → Actions → rollback → Run workflow. Workflow đổi `current` về bản tốt gần nhất trước bản đang chạy, chờ trang chủ báo đúng bản đó rồi kiểm `/up`; log ghi `Sau khi quay lại: web chạy Bản …, /up trả 200`. Database giữ nguyên. Muốn về bản mới: Actions → ci → Run workflow trên nhánh `main`.
