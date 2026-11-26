@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\GhiNhatKy;
+use App\Support\GhiNhatKy;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 /**

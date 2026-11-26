@@ -46,7 +46,11 @@ class VaiTroResource extends Resource
     /** Quản trị cao nhất đã có mọi quyền (Gate::before) và vai trò người học không dùng ở trang quản trị: không sửa. */
     public static function canEdit(Model $record): bool
     {
-        return $record instanceof Role && ! in_array($record->name, [Role::CAO_NHAT, Role::NGUOI_HOC], true) && static::canAccess();
+        if (! $record instanceof Role || in_array($record->name, [Role::CAO_NHAT, Role::NGUOI_HOC], true)) {
+            return false;
+        }
+
+        return static::canAccess();
     }
 
     public static function canCreate(): bool

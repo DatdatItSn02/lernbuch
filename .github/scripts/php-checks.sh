@@ -35,7 +35,7 @@ php -v | head -1
 [ -f .env ] || cp .env.example .env
 php artisan key:generate --force -n >/dev/null
 
-step "Pint (định dạng code)" vendor/bin/pint --test
+step "Pint (định dạng code)" vendor/bin/pint --test -v
 step "Larastan (phân tích tĩnh)" vendor/bin/phpstan analyse --no-progress --memory-limit=1G
 step "Dựng database tham chiếu từ schema.sql" build_ref
 step "Migrate lên" php artisan migrate --force -n

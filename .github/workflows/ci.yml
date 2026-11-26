@@ -81,7 +81,8 @@ jobs:
       DB_DATABASE: lernbuch
       DB_USERNAME: root
       DB_PASSWORD: root
-      SESSION_DRIVER: file
+      # Phiên lưu trong database như trên alwaysdata (Cài đặt đọc danh sách máy đang đăng nhập từ bảng sessions)
+      SESSION_DRIVER: database
       CACHE_STORE: file
       QUEUE_CONNECTION: sync
     steps:

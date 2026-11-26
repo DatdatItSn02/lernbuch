@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Models\Concerns;
+namespace App\Support;
 
-use App\Support\NhatKy;
 use Illuminate\Database\Eloquent\Model;
 
 /**

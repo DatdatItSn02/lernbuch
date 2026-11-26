@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\GhiNhatKy;
 use App\Notifications\DatLaiMatKhau;
 use App\Notifications\XacMinhEmail;
+use App\Support\GhiNhatKy;
 use App\Support\NgonNgu;
 use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;

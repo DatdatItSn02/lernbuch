@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\GhiNhatKy;
+use App\Support\GhiNhatKy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
