@@ -49,8 +49,12 @@ Lệnh đọc và ghi theo lô 500 thẻ nên vừa bộ nhớ của gói Free.
 | Bài tập | 364 bộ, 6.887 câu |
 | Động từ | 889 |
 | Bỏ qua | 700 thẻ đã tắt trong Lernbuch cũ; 1 thẻ có mặt trước rỗng (báo ở phần cảnh báo) |
+| Ghi lần đầu (database trống) | mới: 654 chủ đề (7 + 27 + 620), 11.882 thẻ, 33 chương, 219 bài, 364 bộ, 6.887 câu, 889 động từ; kèm 35.646 nghĩa (thẻ nào cũng đủ vi, en, zh), 13.222 câu ví dụ, 16.733 dạng từ để tra |
+| Chạy lại | mới 0, mọi dòng là cập nhật; nghĩa, câu ví dụ, dạng từ vẫn ra đúng 3 số trên (ghi lại cho thẻ đã nhập) |
 
 Số này khác bản tóm tắt x14 ngày 25/11 (12.227 thẻ, 2.466 chủ đề nhỏ): bản x19 tắt thêm thẻ trùng và gom chủ đề nhỏ thành 192 chủ đề gốc.
+
+Ngày 27/11 máy của bạn (MySQL 9.7) đã nhập đủ, tổng khớp đúng các số trên; 3 số nghĩa, câu ví dụ, dạng từ cũng khớp khi đếm lại độc lập từ `seed.db`.
 
 ## Thử trên máy dev khi chưa có dữ liệu
 
