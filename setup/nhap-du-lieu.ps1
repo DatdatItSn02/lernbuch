@@ -1,6 +1,7 @@
 ﻿# Lernbuch - nhập nội dung Lernbuch cũ (thẻ, chủ đề, ngữ pháp, bài tập, động từ) vào database trên máy này.
 # Bước 1 chạy thử: đọc, kiểm quy tắc dữ liệu, in báo cáo, chưa ghi gì. Bước 2 hỏi bạn rồi mới ghi (hoặc chạy với -Ghi).
-# Nguồn mặc định: nguon-cu\lernweb.zip trong thư mục dự án; muốn chỗ khác thì kéo file hoặc thư mục vào nhap-du-lieu.bat.
+# Nguồn mặc định: nguon-cu\lernweb.zip trong thư mục dự án, hoặc cạnh thư mục dự án (F:\CongViec\lernbuch\nguon-cu khi code ở
+# F:\CongViec\lernbuch\app); muốn chỗ khác thì kéo file hoặc thư mục vào nhap-du-lieu.bat.
 # Chỉ nhập nguồn có quyền dùng để bán. Kết quả ghi vào setup\ket-qua-nhap-du-lieu.txt.
 param([string]$Nguon = '', [switch]$Ghi)
 
@@ -9,21 +10,26 @@ $ErrorActionPreference = 'Stop'
 
 $Log = Join-Path $PSScriptRoot 'ket-qua-nhap-du-lieu.txt'
 
-# Tìm dữ liệu Lernbuch cũ: đường dẫn bạn đưa, không có thì nguon-cu\lernweb.zip, nguon-cu\lernweb, nguon-cu\content.
+# Tìm dữ liệu Lernbuch cũ: đường dẫn bạn đưa; không có thì trong nguon-cu\ của dự án, rồi nguon-cu\ cạnh thư mục dự án;
+# trong mỗi chỗ thử lernweb.zip, thư mục lernweb, rồi chính nguon-cu (có content\seed.db hoặc data\app.db).
 function Find-LernbuchSource([string]$given, [string]$project) {
     if ($given -ne '') {
         if (Test-Path -LiteralPath $given) { return (Resolve-Path -LiteralPath $given).Path }
         throw "Không thấy $given."
     }
-    $dir = Join-Path $project 'nguon-cu'
-    foreach ($c in @('lernweb.zip', 'lernweb', '.')) {
-        $p = Join-Path $dir $c
-        if ((Test-Path -LiteralPath $p -PathType Leaf) -and $p.ToLower().EndsWith('.zip')) { return (Resolve-Path -LiteralPath $p).Path }
-        if ((Test-Path -LiteralPath $p -PathType Container) -and ((Test-Path -LiteralPath (Join-Path $p 'content\seed.db')) -or (Test-Path -LiteralPath (Join-Path $p 'data\app.db')))) {
-            return (Resolve-Path -LiteralPath $p).Path
+    $dirs = @((Join-Path $project 'nguon-cu'))
+    $parent = Split-Path $project -Parent
+    if ($parent) { $dirs += (Join-Path $parent 'nguon-cu') }
+    foreach ($dir in $dirs) {
+        foreach ($c in @('lernweb.zip', 'lernweb', '.')) {
+            $p = Join-Path $dir $c
+            if ((Test-Path -LiteralPath $p -PathType Leaf) -and $p.ToLower().EndsWith('.zip')) { return (Resolve-Path -LiteralPath $p).Path }
+            if ((Test-Path -LiteralPath $p -PathType Container) -and ((Test-Path -LiteralPath (Join-Path $p 'content\seed.db')) -or (Test-Path -LiteralPath (Join-Path $p 'data\app.db')))) {
+                return (Resolve-Path -LiteralPath $p).Path
+            }
         }
     }
-    throw 'Không thấy dữ liệu Lernbuch cũ. Chép lernweb.zip vào thư mục nguon-cu\ của dự án, hoặc kéo file vào nhap-du-lieu.bat.'
+    throw 'Không thấy dữ liệu Lernbuch cũ. Chép lernweb.zip vào thư mục nguon-cu\ cạnh thư mục app\ (hoặc trong app\), hoặc kéo file vào nhap-du-lieu.bat.'
 }
 
 function Invoke-Import([string]$source, [bool]$write) {

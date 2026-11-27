@@ -13,7 +13,7 @@ use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /** Số lần gọi API mỗi phút cho một người (chưa đăng nhập thì tính theo IP). App gửi lượt chấm theo lô nên dư nhiều. */
+    /** Số lần gọi API mỗi phút mặc định cho một người (chưa đăng nhập thì tính theo IP); đổi bằng config app.api_moi_phut. */
     public const API_MOI_PHUT = 120;
 
     public function register(): void
@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         // Quản trị cao nhất có mọi quyền, kể cả quyền thêm sau này; vai trò khác theo bảng role_has_permissions.
         Gate::before(fn ($user) => $user instanceof User && $user->is_staff && $user->hasRole(Role::CAO_NHAT) ? true : null);
 
-        RateLimiter::for('api', fn (Request $request) => Limit::perMinute(self::API_MOI_PHUT)
+        RateLimiter::for('api', fn (Request $request) => Limit::perMinute(max(1, (int) config('app.api_moi_phut', self::API_MOI_PHUT)))
             ->by($request->user()?->getAuthIdentifier() ?? $request->ip()));
     }
 }

@@ -83,6 +83,8 @@ jobs:
       DB_PASSWORD: root
       # Phiên lưu trong database như trên alwaysdata (Cài đặt đọc danh sách máy đang đăng nhập từ bảng sessions)
       SESSION_DRIVER: database
+      # Mọi test trình duyệt dùng chung một tài khoản thử và chạy song song: nới giới hạn API (mặc định 120 lần mỗi phút)
+      API_MOI_PHUT: 5000
       CACHE_STORE: file
       QUEUE_CONNECTION: sync
     steps:

@@ -177,6 +177,12 @@ it('giới hạn chung của API: 120 lần mỗi phút cho mỗi người', fun
 
     expect($limit->maxAttempts)->toBe(AppServiceProvider::API_MOI_PHUT)->and(AppServiceProvider::API_MOI_PHUT)->toBe(120)
         ->and($limit->key)->toBe($user->id);
+
+    // Đổi được bằng cấu hình (test trình duyệt đặt cao hơn); giá trị hỏng thì vẫn ít nhất 1
+    config(['app.api_moi_phut' => 600]);
+    expect(RateLimiter::limiter('api')($request)->maxAttempts)->toBe(600);
+    config(['app.api_moi_phut' => 0]);
+    expect(RateLimiter::limiter('api')($request)->maxAttempts)->toBe(1);
 });
 
 it('đoán trình duyệt và loại máy từ User-Agent', function (string $ua, ?string $trinhDuyet, ?string $heDieuHanh, string $loai) {

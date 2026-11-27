@@ -95,6 +95,10 @@ return [
     // Người dùng chọn ngôn ngữ khác danh sách này thì vẫn thấy tiếng Việt. Thêm 'en', 'zh' khi đã dịch xong.
     'ngon_ngu_giao_dien' => ['vi'],
 
+    // Số lần gọi API mỗi phút cho một người (chưa đăng nhập thì theo IP). Test trình duyệt cho nhiều test chạy song song
+    // trên cùng một tài khoản thử nên đặt cao hơn qua API_MOI_PHUT.
+    'api_moi_phut' => (int) env('API_MOI_PHUT', 120),
+
     'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
 
     /*
