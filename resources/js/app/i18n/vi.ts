@@ -101,6 +101,7 @@ export const vi = {
         matMang: 'Không có mạng. Kiểm tra kết nối rồi thử lại.',
         thuLai: 'Thử lại',
         khongCoChuDe: 'Không có chủ đề nào khớp bộ lọc.',
+        chuaCoNoiDung: 'Chưa có chủ đề nào. Nội dung có sau khi nhập dữ liệu Lernbuch.',
         goiYBoLoc: 'Bỏ bớt cấp hoặc loại từ để xem thêm.',
         locCap: 'Lọc theo cấp',
         loaiThe: 'Loại thẻ',

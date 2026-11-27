@@ -279,16 +279,17 @@ function MeaningTab({ word }: { word: TheChiTiet }) {
                             <li key={ex.sentence} className="flex items-start gap-3 py-3">
                                 <AudioButton text={ex.sentence} label={t('nghe.viDu')} iconOnly />
                                 <div className="min-w-0 flex-1 pt-2">
-                                    <p className="font-semibold">
-                                        <CauBamDuoc cau={ex.sentence} />
-                                    </p>
-                                    {(['vi', 'en', 'zh'] as const).map((l) =>
-                                        langs[l] && ex.translations[l] ? (
-                                            <p key={l} lang={l} className={`text-ink-2 ${l === 'zh' ? 'font-zh' : ''}`}>
-                                                {ex.translations[l]}
-                                            </p>
-                                        ) : null,
-                                    )}
+                                    <CauBamDuoc
+                                        cau={ex.sentence}
+                                        className="font-semibold"
+                                        sauCau={(['vi', 'en', 'zh'] as const).map((l) =>
+                                            langs[l] && ex.translations[l] ? (
+                                                <p key={l} lang={l} className={`text-ink-2 ${l === 'zh' ? 'font-zh' : ''}`}>
+                                                    {ex.translations[l]}
+                                                </p>
+                                            ) : null,
+                                        )}
+                                    />
                                 </div>
                             </li>
                         ))}
@@ -309,7 +310,7 @@ function MeaningTab({ word }: { word: TheChiTiet }) {
 /** Bảng chia 6 ngôi (ich … sie/Sie). */
 function BangChia({ tieuDe, dang }: { tieuDe: string; dang: string[] }) {
     return (
-        <table className="mt-6 w-full max-w-sm text-left">
+        <table className="w-full max-w-sm text-left">
             <caption className="mb-2 text-left text-label font-semibold text-ink-2">{tieuDe}</caption>
             <tbody lang="de" className="divide-y divide-line">
                 {dang.slice(0, 6).map((form, i) => (
@@ -392,9 +393,14 @@ function GrammarTab({ word }: { word: TheChiTiet }) {
                     </p>
                 )}
                 {v.is_separable && v.prefix && <p className="mt-1 text-label text-ink-2">{t('theTu.tienTo', { tienTo: v.prefix })}</p>}
-                {chia?.pres && <BangChia tieuDe={t('theTu.chiaHienTai')} dang={chia.pres} />}
-                {chia?.prat && <BangChia tieuDe={t('theTu.chiaQuaKhu')} dang={chia.prat} />}
-                {chia?.perf && <BangChia tieuDe={t('theTu.chiaPerfekt')} dang={chia.perf} />}
+                {/* Máy tính: ba thì đứng cạnh nhau; điện thoại: xếp dọc */}
+                {(chia?.pres || chia?.prat || chia?.perf) && (
+                    <div className="mt-6 grid gap-6 md:grid-cols-3 md:gap-5">
+                        {chia?.pres && <BangChia tieuDe={t('theTu.chiaHienTai')} dang={chia.pres} />}
+                        {chia?.prat && <BangChia tieuDe={t('theTu.chiaQuaKhu')} dang={chia.prat} />}
+                        {chia?.perf && <BangChia tieuDe={t('theTu.chiaPerfekt')} dang={chia.perf} />}
+                    </div>
+                )}
                 {chia?.imp && (
                     <table className="mt-6 w-full max-w-sm text-left">
                         <caption className="mb-2 text-left text-label font-semibold text-ink-2">{t('theTu.menhLenh')}</caption>

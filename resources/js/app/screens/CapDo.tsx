@@ -107,7 +107,11 @@ export function CapDo() {
                             </div>
                         )}
                         {coLoc && (
-                            <button type="button" onClick={() => doi({ cap: [], loai: '' })} className="min-h-11 px-2 text-label font-semibold text-tim underline-offset-2 hover:underline">
+                            <button
+                                type="button"
+                                onClick={() => doi({ cap: [], loai: '' })}
+                                className="min-h-11 self-start px-2 text-label font-semibold text-tim underline-offset-2 hover:underline md:self-auto"
+                            >
                                 {t('chuDe.boLoc')}
                             </button>
                         )}
@@ -120,7 +124,9 @@ export function CapDo() {
                             <p aria-live="polite" className="mt-4 text-label font-semibold tabular-nums">
                                 {t('noiDung.tong', { chuDe: so(dl.topic_count), the: demThe(bo, dl.card_count) })}
                             </p>
-                            {dl.groups.length === 0 ? (
+                            {dl.groups.length === 0 && !coLoc ? (
+                                <p className="mt-4 text-ink-2">{t('noiDung.chuaCoNoiDung')}</p>
+                            ) : dl.groups.length === 0 ? (
                                 <div className="mt-4">
                                     <p className="font-semibold">{t('noiDung.khongCoChuDe')}</p>
                                     <p className="mt-1 text-ink-2">{t('noiDung.goiYBoLoc')}</p>

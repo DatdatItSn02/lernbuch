@@ -59,7 +59,7 @@ describe('Chủ đề, Cấp độ, Giao tiếp: cây chủ đề từ API', () 
         renderApp('/chu-de');
         expect(await screen.findByText('Không tải được nội dung.')).toBeTruthy();
         fireEvent.click(screen.getByRole('button', { name: 'Thử lại' }));
-        expect(await screen.findByText('Không có chủ đề nào khớp bộ lọc.')).toBeTruthy();
+        expect(await screen.findByText('Chưa có chủ đề nào. Nội dung có sau khi nhập dữ liệu Lernbuch.')).toBeTruthy();
     });
 
     it('Cấp độ: tab loại thẻ (không có Giao tiếp), chọn cấp và loại từ thì đường dẫn và câu hỏi máy chủ đổi theo', async () => {

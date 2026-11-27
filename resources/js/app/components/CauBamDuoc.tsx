@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-import { useId, useRef, useState, type KeyboardEvent } from 'react';
+import { useId, useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
 import { Link } from 'react-router';
 import { DongDang, TuDuc } from './Article';
 import type { TheTomTat } from '../lib/noiDung';
@@ -22,9 +22,9 @@ export function tachChu(cau: string): { chu: string; laTu: boolean }[] {
 
 /**
  * Câu tiếng Đức bấm từng chữ để tra (GET /tra-chu). Cả câu là một điểm dừng Tab; mũi tên trái/phải đi giữa các chữ,
- * Enter hay Space để tra. Kết quả hiện ngay dưới câu.
+ * Enter hay Space để tra. sauCau (vd bản dịch) nằm ngay dưới câu; bảng tra hiện sau đó, không chen giữa câu và bản dịch.
  */
-export function CauBamDuoc({ cau, className = '' }: { cau: string; className?: string }) {
+export function CauBamDuoc({ cau, className = '', sauCau }: { cau: string; className?: string; sauCau?: ReactNode }) {
     const phan = tachChu(cau);
     const tu = phan.flatMap((p, i) => (p.laTu ? [i] : []));
     const [chon, setChon] = useState<number | null>(null);
@@ -43,29 +43,32 @@ export function CauBamDuoc({ cau, className = '' }: { cau: string; className?: s
 
     return (
         <>
-            <span ref={nhom} role="group" aria-label={t('theTu.bamChu')} onKeyDown={diChuyen} lang="de" className={className}>
-                {phan.map((p, i) =>
-                    p.laTu ? (
-                        <button
-                            key={i}
-                            type="button"
-                            data-o={i}
-                            tabIndex={i === dungO ? 0 : -1}
-                            aria-expanded={chon === i}
-                            aria-controls={chon === i ? panelId : undefined}
-                            onFocus={() => setDungO(i)}
-                            onClick={() => setChon(chon === i ? null : i)}
-                            className={`rounded-sm underline decoration-ink-3 decoration-dotted underline-offset-4 transition-colors duration-200 hover:bg-tim-tint ${
-                                chon === i ? 'bg-tim-tint decoration-tim' : ''
-                            }`}
-                        >
-                            {p.chu}
-                        </button>
-                    ) : (
-                        <span key={i}>{p.chu}</span>
-                    ),
-                )}
-            </span>
+            <p className={className}>
+                <span ref={nhom} role="group" aria-label={t('theTu.bamChu')} onKeyDown={diChuyen} lang="de">
+                    {phan.map((p, i) =>
+                        p.laTu ? (
+                            <button
+                                key={i}
+                                type="button"
+                                data-o={i}
+                                tabIndex={i === dungO ? 0 : -1}
+                                aria-expanded={chon === i}
+                                aria-controls={chon === i ? panelId : undefined}
+                                onFocus={() => setDungO(i)}
+                                onClick={() => setChon(chon === i ? null : i)}
+                                className={`rounded-sm underline decoration-ink-3 decoration-dotted underline-offset-4 transition-colors duration-200 hover:bg-tim-tint ${
+                                    chon === i ? 'bg-tim-tint decoration-tim' : ''
+                                }`}
+                            >
+                                {p.chu}
+                            </button>
+                        ) : (
+                            <span key={i}>{p.chu}</span>
+                        ),
+                    )}
+                </span>
+            </p>
+            {sauCau}
             {chon !== null && <BangTraChu key={chon} id={panelId} chu={phan[chon].chu} onDong={() => setChon(null)} />}
         </>
     );

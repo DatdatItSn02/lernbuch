@@ -57,6 +57,8 @@ describe('Sổ tay', () => {
         renderApp('/so-tay');
         expect(await screen.findByText(/Sổ tay còn trống/)).toBeTruthy();
         expect(screen.queryByRole('navigation', { name: 'Lọc sổ tay' })).toBeNull();
+        const ds = screen.getByRole('region', { name: 'Thẻ trong sổ tay' });
+        expect(within(ds).getAllByRole('link').map((a) => a.getAttribute('href'))).toEqual(['/chu-de', '/tra-tu']);
     });
 
     it('tìm trong sổ tay: ngừng gõ thì hỏi máy chủ; không khớp thì báo', async () => {

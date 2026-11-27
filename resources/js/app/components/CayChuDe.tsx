@@ -65,9 +65,10 @@ export function CayChuDeView({ cay, duongChuDe }: { cay: CayChuDe; duongChuDe: (
                     {g.parents.map((p) => (
                         <div key={p.slug} className="mt-4">
                             <h3 className="text-label font-semibold text-ink-2">{p.name}</h3>
-                            <ul className="mt-1 divide-y divide-line border-y border-line">
+                            {/* Máy tính lớn: hai cột để danh sách dài (gần 200 chủ đề) ngắn đi một nửa */}
+                            <ul className="mt-1 border-t border-line lg:grid lg:grid-cols-2 lg:gap-x-10">
                                 {p.topics.map((cd) => (
-                                    <li key={cd.slug}>
+                                    <li key={cd.slug} className="border-b border-line">
                                         <Link to={duongChuDe(cd.slug)} className="group flex min-h-12 items-center gap-4 py-2.5">
                                             <span className="min-w-0 flex-1 font-semibold break-words group-hover:underline">{cd.name}</span>
                                             <span className="shrink-0 text-label text-ink-2 tabular-nums">{demThe(bo, cd.card_count)}</span>

@@ -31,7 +31,7 @@ export function ChuDeIndex({ kieu = 'chu-de' }: { kieu?: Kieu }) {
                 )}
                 {cay ? (
                     cay.groups.length === 0 ? (
-                        <p className="mt-6 text-ink-2">{t('noiDung.khongCoChuDe')}</p>
+                        <p className="mt-6 text-ink-2">{t('noiDung.chuaCoNoiDung')}</p>
                     ) : (
                         <CayChuDeView cay={cay} duongChuDe={(slug) => `/chu-de/${slug}`} />
                     )

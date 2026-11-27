@@ -100,7 +100,19 @@ export function SoTay() {
                 {!ds || !meta ? (
                     loi ? <LoiTai loi={loi} taiLai={taiLai} className="px-5 md:px-8" /> : <DangTai className="px-5 md:px-8" />
                 ) : ds.length === 0 ? (
-                    <p className="px-5 py-8 text-ink-2 md:px-8">{meta.counts.all === 0 ? t('soTay.trong') : t('soTay.khongKhop')}</p>
+                    <div className="px-5 py-8 md:px-8">
+                        <p className="text-ink-2">{meta.counts.all === 0 ? t('soTay.trong') : t('soTay.khongKhop')}</p>
+                        {meta.counts.all === 0 && (
+                            <p className="mt-4 flex flex-wrap gap-2">
+                                <Link to="/chu-de" className="inline-flex min-h-11 items-center rounded-md border border-line-strong px-4 font-semibold transition-colors duration-200 hover:bg-sunken">
+                                    {t('khung.chuDe')}
+                                </Link>
+                                <Link to="/tra-tu" className="inline-flex min-h-11 items-center rounded-md border border-line-strong px-4 font-semibold transition-colors duration-200 hover:bg-sunken">
+                                    {t('khung.traTu')}
+                                </Link>
+                            </p>
+                        )}
+                    </div>
                 ) : (
                     <ul className="divide-y divide-line">
                         {ds.map((the) => (
