@@ -140,7 +140,7 @@ it('dữ liệu cỡ thật: tạo phiên p95 dưới 150 ms, các API học và
         $this->postJson('/api/v1/hoc/luot-cham', ['reviews' => $lo])->assertOk()->assertJsonPath('data.received', 20);
     });
 
-    $bang = collect($ketQua)->map(fn (array $t, string $api) => sprintf('  %-30s p50 %6.1f ms   p95 %6.1f ms   max %6.1f ms', $api, $t['p50'], $t['p95'], $t['max']))->implode("\n");
+    $bang = collect($ketQua)->map(fn (array $t, string $api) => sprintf('  %s p50 %6.1f ms   p95 %6.1f ms   max %6.1f ms', mb_str_pad($api, 30), $t['p50'], $t['p95'], $t['max']))->implode("\n");
     fwrite(STDERR, "\nHiệu năng (".SO_THE_LON.' thẻ, '.SO_CHU_DE_NHO.' chủ đề nhỏ, '.SO_TIEN_DO." dòng tiến độ):\n{$bang}\n");
 
     expect(DB::table('cards')->count())->toBe(SO_THE_LON)

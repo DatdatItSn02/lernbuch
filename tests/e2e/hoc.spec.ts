@@ -51,6 +51,8 @@ test('phiên học bằng bàn phím: Space lật, 1–4 chấm, ← xem lại, 
 test('đi hết một phiên, xem tổng kết, Học tiếp mở phiên mới với từ mới kế tiếp', async ({ page }, info) => {
     await dangNhap(page, emailHoc(info.project.name, 2));
     await page.goto('/app/hoc');
+    // Chờ phiên tải xong (đang tải thì chưa có thẻ để lật)
+    await expect(page.getByText('1/10', { exact: true })).toBeVisible();
     for (let i = 1; i <= 10; i++) await chamTot(page, i, 10);
     await expect(page.getByRole('heading', { name: 'Xong phiên' })).toBeVisible();
     await expect(page.getByText('Đã học 10 từ mới. 10 thẻ lên mức.')).toBeVisible();

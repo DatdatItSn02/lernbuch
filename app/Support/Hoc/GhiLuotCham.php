@@ -112,7 +112,7 @@ final class GhiLuotCham
         foreach ($ds as $k => $l) {
             $muc = $nguong[$l['mode']];
             $truocMs = $k > 0 ? $ds[$k - 1]['ms'] : ($cuoiDaGhi !== null ? (int) $cuoiDaGhi * 1000 : null);
-            $nhanh = ($l['duration_ms'] !== null && $l['duration_ms'] < $muc) || ($truocMs !== null && $l['ms'] >= $truocMs && $l['ms'] - $truocMs < $muc);
+            $nhanh = ($l['duration_ms'] !== null && $l['duration_ms'] < $muc) || ($truocMs !== null && $l['ms'] >= $truocMs && $muc > $l['ms'] - $truocMs);
             $ds[$k]['xu'] = $nhanh ? 0 : CaiDatHoc::xu($l['mode'], $l['rating']);
             $ds[$k]['ly_do'] = $nhanh ? CaiDatHoc::CHAM_QUA_NHANH : null;
             $quaNhanh += $nhanh ? 1 : 0;
@@ -367,7 +367,7 @@ final class GhiLuotCham
                     'correct' => min(65535, $x['correct']),
                     'coins' => $x['coins'],
                     'study_seconds' => $giay,
-                    'goal_met' => $x['reviews'] + $x['new_cards'] >= $mucTieu ? 1 : 0,
+                    'goal_met' => $mucTieu <= $x['reviews'] + $x['new_cards'] ? 1 : 0,
                 ]);
 
                 continue;

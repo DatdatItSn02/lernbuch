@@ -1,5 +1,5 @@
 import { ArrowRight, X } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router';
 import { DongDang, TuDuc } from '../components/Article';
 import { AudioButton } from '../components/AudioButton';
@@ -162,7 +162,8 @@ function Phien({ phien, chuDe, chiOn, onExit }: { phien: PhienHoc; chuDe: string
         [card, reviewing, revealed, levels, phien.id, requeued, pos],
     );
 
-    useEffect(() => {
+    // Gắn phím ngay khi thẻ hiện (layout effect chạy cùng lúc vẽ thẻ): bấm Space ngay lúc thẻ đầu vừa hiện không bị mất
+    useLayoutEffect(() => {
         const onKey = (e: KeyboardEvent) => {
             if (isTyping(e.target) || e.altKey || e.ctrlKey || e.metaKey) return;
             const k = e.key.toLowerCase();
