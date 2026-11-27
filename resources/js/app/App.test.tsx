@@ -1,5 +1,5 @@
-import { fireEvent, screen, within } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { act, fireEvent, screen, within } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 import { renderApp } from '../test/render';
 
 const where = () => screen.getByTestId('duong-dan').textContent;
@@ -19,6 +19,19 @@ describe('App: điều hướng', () => {
             expect(screen.getAllByRole('link', { name: label })).toHaveLength(2);
         }
         expect(document.title).toBe('Hôm nay · Lernbuch');
+    });
+
+    it('mất mạng thì báo ngay dưới thanh trên cùng (vẫn học được chủ đề đã tải); có mạng lại thì ẩn', () => {
+        const coMang = vi.spyOn(navigator, 'onLine', 'get').mockReturnValue(false);
+        renderApp('/chu-de');
+        const bao = 'Không có mạng: vẫn học được chủ đề đã tải về máy; lượt chấm sẽ tự gửi khi có mạng.';
+        expect(screen.getByText(bao).closest('[role="status"]')).toBeTruthy();
+
+        coMang.mockReturnValue(true);
+        act(() => {
+            window.dispatchEvent(new Event('online'));
+        });
+        expect(screen.queryByText(bao)).toBeNull();
     });
 
     it('đường dẫn lạ hiện trang không tìm thấy, có đường về Hôm nay', () => {

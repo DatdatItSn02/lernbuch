@@ -28,7 +28,8 @@ export type TheHoc = TheTomTat & {
 };
 
 export type PhienHoc = {
-    id: number;
+    /** Mã phiên trên máy chủ; null là phiên app lập trên máy lúc mất mạng (lượt chấm gửi sau, không gắn phiên). */
+    id: number | null;
     mode: CheDo;
     started_at: number;
     /** Học riêng chủ đề này; null là ôn mọi chủ đề, từ mới theo chủ đề đang học. */
@@ -36,6 +37,8 @@ export type PhienHoc = {
     new_topic: TenGon | null;
     counts: { review: number; new: number };
     cards: TheHoc[];
+    /** Học khi mất mạng: phiên dở học tiếp, hoặc phiên lập trên máy từ chủ đề đã tải. */
+    offline?: boolean;
 };
 
 export type ConLai = { review: number; new: number };

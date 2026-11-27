@@ -1,10 +1,13 @@
-import { useId, useState } from 'react';
+import { Download } from 'lucide-react';
+import { useId, useState, type FormEvent } from 'react';
 import { Choice } from '../components/Choice';
 import { MayDangNhap } from '../components/MayDangNhap';
 import { Sheet } from '../components/Shell';
 import { t, type Khoa } from '../i18n';
 import { LoiApi } from '../lib/api';
+import { useCaiApp } from '../lib/caiApp';
 import { cacMuiGio } from '../lib/muiGio';
+import { donMay } from '../lib/offline';
 import { useTitle } from '../lib/useTitle';
 import { NEW_COUNTS, canPersist, useStore, type FontSize, type Lang, type NewCount, type Season, type Settings, type Theme } from '../state/store';
 import { MUC_TIEU, useTaiKhoan, type HoSoMoi, type MucTieu, type TrangThaiLuu } from '../state/taiKhoan';
@@ -237,13 +240,70 @@ function TaiKhoanPhan() {
 
             <MayDangNhap />
 
-            <form method="post" action="/dang-xuat" className="mt-10 border-t border-line pt-6">
-                <input type="hidden" name="_token" value={maCsrf()} />
-                <button type="submit" className="min-h-12 rounded-md border border-line-strong px-5 font-semibold hover:bg-sunken">
-                    {t('caiDat.dangXuat')}
-                </button>
-            </form>
+            <CaiApp />
+
+            <DangXuat />
         </>
+    );
+}
+
+/** Cài app lên máy (PWA): nút cài của trình duyệt nếu có, iPhone thì cách thêm vào màn hình chính, đã cài thì báo. */
+function CaiApp() {
+    const uid = useId();
+    const { cach, cai } = useCaiApp();
+    return (
+        <section aria-labelledby={`${uid}-cai`} className="mt-10 border-t border-line pt-6">
+            <h2 id={`${uid}-cai`} className="text-title font-bold">
+                {t('caiDat.caiApp')}
+            </h2>
+            <p className="mt-1.5 text-ink-2">{cach === 'da-cai' ? t('caiDat.daCaiApp') : t('caiDat.caiAppMoTa')}</p>
+            {cach === 'nut' && (
+                <button
+                    type="button"
+                    onClick={() => void cai()}
+                    className="mt-3 inline-flex min-h-12 items-center gap-2 rounded-md bg-tim px-5 font-semibold text-on-tim transition-colors duration-200 hover:bg-tim-strong"
+                >
+                    <Download size={18} aria-hidden="true" />
+                    {t('caiDat.caiAppNut')}
+                </button>
+            )}
+            {cach === 'ios' && <p className="mt-2 text-label">{t('caiDat.caiAppIos')}</p>}
+            {cach === 'menu' && <p className="mt-2 text-label">{t('caiDat.caiAppKhac')}</p>}
+        </section>
+    );
+}
+
+/**
+ * Đăng xuất bằng trang của máy chủ; trước đó gửi nốt lượt chấm và dọn dữ liệu của người này trên máy (chủ đề đã tải,
+ * bản lưu khi mất mạng), để người dùng máy sau không thấy. Không có mạng thì không đăng xuất được: báo như vậy.
+ */
+function DangXuat() {
+    const [tinh, setTinh] = useState<'yen' | 'dang-don' | 'can-mang'>('yen');
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (tinh === 'dang-don') return;
+        if (!navigator.onLine) {
+            setTinh('can-mang');
+            return;
+        }
+        const form = e.currentTarget;
+        setTinh('dang-don');
+        void donMay().finally(() => form.submit());
+    };
+    return (
+        <form method="post" action="/dang-xuat" onSubmit={onSubmit} className="mt-10 border-t border-line pt-6">
+            <input type="hidden" name="_token" value={maCsrf()} />
+            <button
+                type="submit"
+                disabled={tinh === 'dang-don'}
+                className="min-h-12 rounded-md border border-line-strong px-5 font-semibold hover:bg-sunken disabled:opacity-60"
+            >
+                {t('caiDat.dangXuat')}
+            </button>
+            <p role="status" className="mt-2 min-h-6 text-label text-ink-2">
+                {tinh === 'dang-don' ? t('caiDat.dangDon') : tinh === 'can-mang' ? t('caiDat.canMang') : null}
+            </p>
+        </form>
     );
 }
 

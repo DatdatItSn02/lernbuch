@@ -1,5 +1,5 @@
 // Phần dùng chung của mọi chế độ học: thanh trên cùng, gửi lượt khi xong phiên, bảng tổng kết, phiên rỗng.
-import { ArrowRight, Check, X } from 'lucide-react';
+import { ArrowRight, Check, CloudOff, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, type ReactNode, type Ref } from 'react';
 import { Link } from 'react-router';
 import { TuDuc } from '../../components/Article';
@@ -10,6 +10,7 @@ import { api } from '../../lib/api';
 import { guiDi, themLuot, useHangCho } from '../../lib/hangCho';
 import type { CheDo, ConLai, TheHoc } from '../../lib/hoc';
 import { truyVan } from '../../lib/noiDung';
+import { boPhienDo, chamTrenMay, danhDauDaCham } from '../../lib/offline';
 import { GRADES, SO_CHAM, grade as gradeCard, levelName, type Grade } from '../../lib/srs';
 import { ulidTangDan } from '../../lib/ulid';
 import { useStore } from '../../state/store';
@@ -26,7 +27,7 @@ export const duongHoc = (chuDe: string | null, chiOn: boolean, cheDo: CheDo) =>
  * Ghi lượt chấm của phiên như Lernbuch: chỉ lượt đầu của mỗi thẻ được tính (vào hàng chờ trên máy, rồi gửi theo lô);
  * thẻ Quên quay lại trong phiên chỉ để luyện, không đổi mức. Xong phiên thì chờ ghi hết vào hàng chờ, gửi ngay.
  */
-export function useGhiLuot(phienId: number, cheDo: CheDo, finished: boolean) {
+export function useGhiLuot(phienId: number | null, cheDo: CheDo, finished: boolean) {
     const daGhi = useRef(new Set<number>());
     const dangGhi = useRef<Promise<void>[]>([]);
     // Lúc ghi lượt trước: thời gian một lượt tính từ lúc thẻ hiện, hoặc từ lượt trước nếu muộn hơn (Ghép cặp chấm nhiều thẻ một vòng)
@@ -36,13 +37,15 @@ export function useGhiLuot(phienId: number, cheDo: CheDo, finished: boolean) {
     useEffect(() => {
         if (!finished) return;
         let bo = false;
+        // Xong phiên: không giữ phiên dở trên máy nữa (mở lại app lúc mất mạng thì lập phiên mới từ chủ đề đã tải)
+        void boPhienDo(phienId);
         void Promise.all(dangGhi.current)
             .then(() => guiDi())
             .then(() => !bo && setDaGuiHet(true));
         return () => {
             bo = true;
         };
-    }, [finished]);
+    }, [finished, phienId]);
 
     /** Ghi lượt; trả về true nếu là lượt được tính (lượt đầu của thẻ). */
     const ghi = (the: TheHoc, g: Grade, hienLuc: number): boolean => {
@@ -61,6 +64,9 @@ export function useGhiLuot(phienId: number, cheDo: CheDo, finished: boolean) {
             duration_ms: Math.max(0, now - bat),
         });
         dangGhi.current.push(viec.catch(() => {}));
+        // Chủ đề đã tải và phiên dở trên máy: thẻ này đã ôn (mất mạng mở lại app thì không hỏi lại)
+        void chamTrenMay(the.id, SO_CHAM[g], Math.floor(now / 1000));
+        void danhDauDaCham(phienId, the.id);
         return true;
     };
 
@@ -72,33 +78,42 @@ export function ketQua(the: TheHoc, g: Grade, before: number, ghi: boolean): Don
     return { id: the.id, grade: g, before, after: ghi ? gradeCard(before, g).level : before, ghi };
 }
 
-export function Header({ onExit, pos, total, finished = false }: { onExit: () => void; pos: number; total: number; finished?: boolean }) {
+export function Header(props: { onExit: () => void; pos: number; total: number; finished?: boolean; offline?: boolean }) {
+    const { onExit, pos, total, finished = false, offline = false } = props;
     const pct = total === 0 ? 0 : Math.round((Math.min(pos, total) / total) * 100);
     return (
-        <header className="mx-auto flex w-full max-w-[640px] items-center gap-4 px-4 pt-3 pb-2">
-            <button
-                type="button"
-                onClick={onExit}
-                aria-label={t('hoc.thoat')}
-                className="flex size-11 items-center justify-center rounded-md text-ink-2 hover:bg-sunken hover:text-ink"
-            >
-                <X size={24} aria-hidden="true" />
-            </button>
-            <div
-                role="progressbar"
-                aria-label={t('hoc.tienDo')}
-                aria-valuemin={0}
-                aria-valuemax={total}
-                aria-valuenow={Math.min(pos, total)}
-                className="h-2 flex-1 overflow-hidden rounded-sm bg-sunken"
-            >
-                <div className="h-full bg-tim transition-[width] duration-300" style={{ width: `${pct}%` }} />
-            </div>
-            <span className="min-w-12 text-right text-label font-semibold tabular-nums text-ink-2">
-                {Math.min(pos + (finished || total === 0 ? 0 : 1), total)}/{total}
-            </span>
-            <ChoGui />
-        </header>
+        <>
+            <header className="mx-auto flex w-full max-w-[640px] items-center gap-4 px-4 pt-3 pb-2">
+                <button
+                    type="button"
+                    onClick={onExit}
+                    aria-label={t('hoc.thoat')}
+                    className="flex size-11 items-center justify-center rounded-md text-ink-2 hover:bg-sunken hover:text-ink"
+                >
+                    <X size={24} aria-hidden="true" />
+                </button>
+                <div
+                    role="progressbar"
+                    aria-label={t('hoc.tienDo')}
+                    aria-valuemin={0}
+                    aria-valuemax={total}
+                    aria-valuenow={Math.min(pos, total)}
+                    className="h-2 flex-1 overflow-hidden rounded-sm bg-sunken"
+                >
+                    <div className="h-full bg-tim transition-[width] duration-300" style={{ width: `${pct}%` }} />
+                </div>
+                <span className="min-w-12 text-right text-label font-semibold tabular-nums text-ink-2">
+                    {Math.min(pos + (finished || total === 0 ? 0 : 1), total)}/{total}
+                </span>
+                <ChoGui />
+            </header>
+            {offline && (
+                <p className="mx-auto flex w-full max-w-[640px] items-center gap-2 px-5 pb-1 text-label text-ink-2">
+                    <CloudOff size={16} aria-hidden="true" className="shrink-0" />
+                    {t('hoc.dangOffline')}
+                </p>
+            )}
+        </>
     );
 }
 

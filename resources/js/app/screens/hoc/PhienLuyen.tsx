@@ -115,7 +115,7 @@ export function PhienLuyen({ phien, chuDe, chiOn, onExit }: { phien: PhienHoc; c
     const level = muc && muc.kieu !== 'match' ? (levels[muc.the.id] ?? 0) : 0;
     return (
         <div className="flex min-h-dvh flex-col bg-paper text-ink">
-            <Header onExit={onExit} pos={xong} total={phien.cards.length} finished={finished} />
+            <Header onExit={onExit} pos={xong} total={phien.cards.length} finished={finished} offline={phien.offline} />
             {phien.cards.length === 0 ? (
                 <Empty onExit={onExit} lyDo={cheDo === 'sentence' ? t('hoc.khongCoCau') : undefined} />
             ) : finished || !muc ? (

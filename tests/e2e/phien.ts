@@ -6,7 +6,7 @@ export const NGUOI_HOC_THU = { email: 'nguoi-hoc@lernbuch.test', matKhau: 'thu-l
 
 /**
  * Tài khoản riêng cho test có chấm thẻ (tiến độ không lẫn với test khác): theo cỡ màn hình (tên dự án Playwright)
- * và số thứ tự của test, 1–10 (NguoiHocThuSeeder::emailHoc; 1–3 cho hoc.spec.ts, 4–10 cho che-do.spec.ts).
+ * và số thứ tự của test, 1–11 (NguoiHocThuSeeder::emailHoc; 1–3 cho hoc.spec.ts, 4–10 cho che-do.spec.ts, 11 cho pwa.spec.ts).
  */
 export const emailHoc = (duAn: string, so: number) => `hoc-${duAn}-${so}@lernbuch.test`;
 

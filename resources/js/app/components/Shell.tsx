@@ -1,7 +1,8 @@
-import { BookOpen, CalendarDays, Library, PencilLine, Search, Settings, Star } from 'lucide-react';
+import { BookOpen, CalendarDays, CloudOff, Library, PencilLine, Search, Settings, Star } from 'lucide-react';
 import { useEffect, useRef, type ReactNode } from 'react';
 import { Link, NavLink, useLocation } from 'react-router';
 import { ChoGui } from './ChoGui';
+import { useCoMang } from '../lib/mang';
 import { t, type Khoa } from '../i18n';
 
 type MucDieuHuong = { to: string; khoa: Khoa; icon: typeof CalendarDays; cung?: string[]; dienThoai?: boolean };
@@ -25,6 +26,7 @@ export function Shell({ children }: { children: ReactNode }) {
     const { pathname } = useLocation();
     const mainRef = useRef<HTMLElement>(null);
     const firstPath = useRef(pathname);
+    const coMang = useCoMang();
 
     // Chuyển màn hình: lên đầu trang và đặt tiêu điểm vào nội dung mới (lần mở trang đầu thì để nguyên).
     useEffect(() => {
@@ -86,6 +88,14 @@ export function Shell({ children }: { children: ReactNode }) {
                     </span>
                 </div>
             </header>
+            {!coMang && (
+                <p role="status" className="border-b border-line bg-sunken">
+                    <span className="mx-auto flex max-w-[var(--sheet-max)] items-start gap-2 px-5 py-2 text-label md:px-6">
+                        <CloudOff size={18} aria-hidden="true" className="mt-0.5 shrink-0" />
+                        {t('khung.matMang')}
+                    </span>
+                </p>
+            )}
 
             <main ref={mainRef} id="noi-dung" tabIndex={-1} className="mx-auto max-w-[var(--sheet-max)] pb-24 md:px-6 md:pt-6 md:pb-12">
                 {children}

@@ -35,6 +35,9 @@ final class PhienHoc
     /** Số đáp án nhiễu mỗi thẻ (Quiz cần 3; Ghép cặp lấy thêm cặp nhiễu khi một vòng có ít thẻ). */
     public const SO_NHIEU = 6;
 
+    /** Số thẻ tối đa của một gói học khi mất mạng (chủ đề nhỏ của Lernbuch thường dưới 100 thẻ). */
+    public const GOI_TOI_DA = 500;
+
     /** Thẻ người học được xem, kèm tiến độ của họ (p.*; thẻ chưa học thì p.card_id là NULL). */
     public static function theVaTienDo(User $user): Builder
     {
@@ -84,6 +87,27 @@ final class PhienHoc
             'new_topic' => $chuDeMoi !== null ? NoiDung::tenGon($chuDeMoi) : null,
             'counts' => ['review' => count($on), 'new' => count($moi)],
             'cards' => self::theChoPhien($user, self::xenKe($on, $moi), $cheDo),
+        ];
+    }
+
+    /**
+     * Gói học khi mất mạng của một chủ đề: mọi thẻ người học xem được theo thứ tự trong chủ đề, như thẻ của phiên
+     * (câu ví dụ chính, mức và hạn ôn hiện tại, đáp án nhiễu để chạy đủ 7 chế độ), kèm múi giờ và số từ mới mỗi phiên
+     * để app tự lập phiên như máy chủ. Không ghi gì; lượt chấm khi mất mạng gửi sau, không có mã phiên.
+     *
+     * @return array<string, mixed>
+     */
+    public static function goiOffline(User $user, stdClass $chuDe): array
+    {
+        $ids = NoiDung::xepThe(NoiDung::cacThe($user)->where('cards.topic_id', $chuDe->id))
+            ->limit(self::GOI_TOI_DA)->pluck('cards.id')->map(fn ($v) => (int) $v)->all();
+
+        return [
+            'topic' => [...NoiDung::tenGon($chuDe), 'collection' => (string) $chuDe->collection],
+            'timezone' => $user->timezone,
+            'new_per_session' => UserSetting::cua($user)['new_per_session'],
+            'saved_at' => now()->getTimestamp(),
+            'cards' => self::theChoPhien($user, $ids, 'mixed'),
         ];
     }
 

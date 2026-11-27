@@ -4,6 +4,8 @@ import { PHIEN_NGUOI_HOC } from './tests/e2e/phien';
 // Test trình duyệt thật cho các trang đã build (npm run build trước khi chạy).
 // Cỡ máy tính và cỡ điện thoại đều dùng Chromium để đọc được font máy đã vẽ qua DevTools.
 const port = Number(process.env.E2E_PORT ?? 8002);
+// Yêu cầu mạng của service worker cũng đi qua context.route và setOffline (tests/e2e/pwa.spec.ts giả mất mạng thật)
+process.env.PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS ??= '1';
 
 export default defineConfig({
     testDir: 'tests/e2e',
@@ -14,6 +16,8 @@ export default defineConfig({
     use: {
         baseURL: `http://127.0.0.1:${port}`,
         trace: 'retain-on-failure',
+        // Service worker (PWA) chặn ở mọi test để page.route giả API được; chỉ pwa.spec.ts bật lại
+        serviceWorkers: 'block',
         // Máy không tải được Chromium của Playwright thì dùng Chrome đã cài: PW_CHANNEL=chrome
         ...(process.env.PW_CHANNEL ? { channel: process.env.PW_CHANNEL } : {}),
     },

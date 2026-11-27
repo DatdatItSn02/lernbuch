@@ -6,6 +6,7 @@ import { fakeSpeech } from '../../test/fakeSpeech';
 import { phienMau, theHoc } from '../../test/noiDungGia';
 import { renderApp } from '../../test/render';
 import { cacLuot, datLaiChoTest, type LuotCham } from '../lib/hangCho';
+import { danhDauDaCham, datLaiOfflineChoTest, giuPhien, goiCua, phamVi, phienDoCon, taiChuDe } from '../lib/offline';
 import type { ConLai, PhienHoc } from '../lib/hoc';
 import { LA_ULID } from '../lib/ulid';
 import { initialState } from '../state/store';
@@ -275,6 +276,85 @@ describe('Học: phiên flashcard từ máy chủ', () => {
         moPhien();
         fireEvent.click(await screen.findByRole('button', { name: 'Nghe (phím P)' }));
         expect(await screen.findByText('Trình duyệt này không đọc được thành tiếng.')).toBeTruthy();
+    });
+});
+
+describe('Học khi mất mạng (PWA)', () => {
+    const giay = () => Math.floor(Date.now() / 1000);
+    const goiSoDem = () => ({
+        topic: { slug: 'so-dem-tu-vung', name: 'Số đếm', collection: 'vocab' },
+        timezone: 'UTC',
+        new_per_session: 10,
+        saved_at: giay() - 3600,
+        cards: [{ ...theHoc(10, 2), due_at: giay() - 3600 }, theHoc(8), { ...theHoc(2, 3), due_at: giay() + 5 * 86400 }],
+    });
+
+    /** Mất mạng: lập phiên, gửi lượt (POST) không tới được máy chủ; các tuyến khác như giaApi. */
+    function matMang(doi: Record<string, Tuyen> = {}): LanGoi[] {
+        const goi = giaApi(doi);
+        const fetchGia = globalThis.fetch;
+        vi.stubGlobal(
+            'fetch',
+            vi.fn((url: string, init?: RequestInit) => (init?.method === 'POST' ? Promise.reject(new TypeError('Failed to fetch')) : fetchGia(url, init))),
+        );
+        return goi;
+    }
+
+    beforeEach(() => datLaiOfflineChoTest());
+
+    it('chủ đề đã tải: lập phiên trên máy, báo đang học khi không có mạng; lượt chấm chờ gửi, không có mã phiên, gói đổi mức', async () => {
+        giaApi({ 'GET /api/v1/hoc/tai/so-dem-tu-vung': () => ({ json: { data: goiSoDem() } }) });
+        await taiChuDe('so-dem-tu-vung');
+        matMang();
+        renderApp('/hoc?chu-de=so-dem-tu-vung');
+
+        // Ôn die Zahl (đến hạn), rồi từ mới zahlen; das Brot hạn 5 ngày nữa thì chưa
+        expect(await screen.findByRole('heading', { level: 1, name: 'die Zahl' })).toBeTruthy();
+        expect(counter()).toBe('1/2');
+        expect(screen.getByText('Đang học khi không có mạng: lượt chấm nằm trên máy, có mạng sẽ tự gửi.')).toBeTruthy();
+        cham();
+        expect(word()).toBe('zahlen');
+
+        await waitFor(async () => expect((await cacLuot()).map((l) => [l.card_id, l.session_id, l.rating])).toEqual([[10, null, 2]]));
+        await waitFor(async () => expect((await goiCua('so-dem-tu-vung'))?.cards[0].box).toBe(3));
+    });
+
+    it('có phiên dở cùng phạm vi (mở lúc có mạng): học tiếp từ thẻ chưa chấm, lượt chấm giữ mã phiên', async () => {
+        // Phiên mẫu mở từ trước (giờ cố định): đặt lại là vừa mở hôm nay; die Zahl đã chấm trước lúc mất mạng
+        await giuPhien({ ...PHIEN(), started_at: giay() - 1 }, phamVi(null, false, 'flashcard'));
+        await danhDauDaCham(77, 10);
+        matMang();
+        renderApp('/hoc');
+
+        expect(await screen.findByRole('heading', { level: 1, name: 'zahlen' })).toBeTruthy();
+        expect(counter()).toBe('1/3');
+        cham();
+        await waitFor(async () => expect((await cacLuot()).map((l) => [l.card_id, l.session_id])).toEqual([[8, 77]]));
+    });
+
+    it('chưa tải chủ đề: báo không có mạng và cách tải chủ đề, có nút thử lại; có mạng lại thì vào phiên', async () => {
+        matMang();
+        renderApp('/hoc?chu-de=so-dem-tu-vung');
+        expect(await screen.findByText(/Chủ đề này chưa tải về máy/)).toBeTruthy();
+        expect(screen.getByText(/Tải để học khi không có mạng/)).toBeTruthy();
+        expect(screen.getByRole('link', { name: 'Về chủ đề' }).getAttribute('href')).toBe('/chu-de/so-dem-tu-vung');
+
+        giaApi({ 'POST /api/v1/hoc/phien': () => ({ status: 201, json: { data: PHIEN() } }), 'POST /api/v1/hoc/luot-cham': nhan });
+        fireEvent.click(screen.getByRole('button', { name: 'Thử lại' }));
+        expect(await screen.findByRole('heading', { level: 1, name: 'die Zahl' })).toBeTruthy();
+    });
+
+    it('có mạng: phiên máy chủ lập được giữ trên máy, chấm thẻ nào đánh dấu thẻ đó, xong phiên thì bỏ', async () => {
+        moPhien('/hoc', phienMau([theHoc(10, 2), theHoc(8)], { started_at: giay() - 1 }));
+        await screen.findByRole('heading', { level: 1, name: 'die Zahl' });
+        const pv = phamVi(null, false, 'flashcard');
+        await waitFor(async () => expect((await phienDoCon(pv, giay(), 'UTC'))?.cards.map((c) => c.id)).toEqual([10, 8]));
+
+        cham();
+        await waitFor(async () => expect((await phienDoCon(pv, giay(), 'UTC'))?.cards.map((c) => c.id)).toEqual([8]));
+        cham();
+        await screen.findByText('Xong phiên');
+        await waitFor(async () => expect(await phienDoCon(pv, giay(), 'UTC')).toBeNull());
     });
 });
 

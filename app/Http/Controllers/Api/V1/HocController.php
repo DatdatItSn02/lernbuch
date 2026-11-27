@@ -41,6 +41,16 @@ class HocController extends Controller
         return response()->json(['data' => $phien], 201);
     }
 
+    /** Gói học khi mất mạng của một chủ đề nhỏ (app lưu trên máy, tự lập phiên khi không gọi được máy chủ). */
+    public function taiChuDe(Request $request, string $slug): JsonResponse
+    {
+        $user = $this->nguoiDung($request);
+        $chuDe = self::chuDe($slug);
+        assert($chuDe !== null);
+
+        return response()->json(['data' => PhienHoc::goiOffline($user, $chuDe)]);
+    }
+
     public function conLai(Request $request): JsonResponse
     {
         $user = $this->nguoiDung($request);

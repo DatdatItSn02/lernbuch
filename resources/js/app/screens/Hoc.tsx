@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { useNavigate, useSearchParams } from 'react-router';
+import { Link, useNavigate, useSearchParams } from 'react-router';
 import { DongDang, TuDuc } from '../components/Article';
 import { AudioButton } from '../components/AudioButton';
 import { Kbd } from '../components/Kbd';
@@ -10,8 +10,10 @@ import { api, LoiApi } from '../lib/api';
 import { guiDi } from '../lib/hangCho';
 import { laCheDo, type CheDo, type PhienHoc, type TheHoc } from '../lib/hoc';
 import { nghe } from '../lib/amThanh';
+import { giuPhien, phamVi, phienKhiMatMang } from '../lib/offline';
 import { GRADES, formatInterval, grade as gradeCard, levelName, stageName, type Grade } from '../lib/srs';
 import { useStore } from '../state/store';
+import { useTaiKhoan } from '../state/taiKhoan';
 import { useTitle } from '../lib/useTitle';
 import { t } from '../i18n';
 import { tGhep } from '../i18n/ghep';
@@ -34,11 +36,12 @@ const isTyping = (el: EventTarget | null) => el instanceof HTMLElement && (el.is
 /** Space/Enter trên nút hay liên kết đang có tiêu điểm thì để trình duyệt bấm chính nút đó. */
 const onControl = (el: EventTarget | null) => el instanceof HTMLElement && !!el.closest('button, a');
 
-type Tai = { trangThai: 'dang-tai' } | { trangThai: 'loi'; loi: LoiApi } | { trangThai: 'xong'; phien: PhienHoc };
+type Tai = { trangThai: 'dang-tai' } | { trangThai: 'loi'; loi: LoiApi } | { trangThai: 'mat-mang' } | { trangThai: 'xong'; phien: PhienHoc };
 
 /**
  * Phiên học: máy chủ lập phiên (thẻ đến hạn và từ mới, xen kẽ), app chạy phiên theo chế độ đã chọn (?che-do=, mặc định Flashcard),
  * mỗi lượt chấm vào hàng chờ trên máy rồi gửi theo lô. Mất mạng giữa phiên vẫn chấm tiếp được; lượt chờ gửi khi có mạng.
+ * Không gọi được máy chủ lúc mở phiên: học tiếp phiên dở cùng phạm vi, hoặc lập phiên trên máy từ chủ đề đã tải (offline.ts).
  */
 export function Hoc() {
     const [params] = useSearchParams();
@@ -51,6 +54,12 @@ export function Hoc() {
     const [tai, setTai] = useState<Tai>({ trangThai: 'dang-tai' });
     const [lan, setLan] = useState(0);
     const daGoi = useRef(-1);
+    const { toi } = useTaiKhoan();
+    // Múi giờ của người học (để biết phiên dở có phải của hôm nay), đọc lúc mất mạng
+    const muiGio = useRef<string | null>(null);
+    useEffect(() => {
+        muiGio.current = toi?.timezone ?? null;
+    }, [toi]);
 
     // Mở trang là lập một phiên (StrictMode chạy effect hai lần: chỉ gọi một lần cho mỗi lần thử).
     // Mỗi lần mở /hoc (kể cả "Học tiếp") trang được dựng lại (App.tsx: HocRoute), nên đây luôn là phiên mới.
@@ -58,8 +67,16 @@ export function Hoc() {
         if (daGoi.current === lan) return;
         daGoi.current = lan;
         api.gui<{ data: PhienHoc }>('/hoc/phien', { topic: chuDe, review_only: chiOn, mode: cheDo }).then(
-            ({ data }) => setTai({ trangThai: 'xong', phien: data }),
-            (e: unknown) => setTai({ trangThai: 'loi', loi: e instanceof LoiApi ? e : new LoiApi(0, 'mat_mang') }),
+            ({ data }) => {
+                void giuPhien(data, phamVi(chuDe, chiOn, cheDo));
+                setTai({ trangThai: 'xong', phien: data });
+            },
+            async (e: unknown) => {
+                const loi = e instanceof LoiApi ? e : new LoiApi(0, 'mat_mang');
+                if (loi.trangThai !== 0) return setTai({ trangThai: 'loi', loi });
+                const kq = await phienKhiMatMang(chuDe, { cheDo, chiOn, now: Math.floor(Date.now() / 1000) }, muiGio.current);
+                setTai(kq ? { trangThai: 'xong', phien: kq.phien } : { trangThai: 'mat-mang' });
+            },
         );
     }, [chuDe, chiOn, cheDo, lan]);
 
@@ -67,6 +84,11 @@ export function Hoc() {
         void guiDi();
         navigate(chuDe ? `/chu-de/${chuDe}` : '/hom-nay');
     }, [navigate, chuDe]);
+
+    const thuLai = () => {
+        setTai({ trangThai: 'dang-tai' });
+        setLan((n) => n + 1);
+    };
 
     if (tai.trangThai !== 'xong') {
         return (
@@ -76,14 +98,17 @@ export function Hoc() {
                     <h1 className="sr-only">{t('hoc.tieuDe')}</h1>
                     {tai.trangThai === 'dang-tai' ? (
                         <DangTai />
+                    ) : tai.trangThai === 'mat-mang' ? (
+                        <LoiTai loi={new LoiApi(0, 'mat_mang')} taiLai={thuLai}>
+                            <p className="mt-1 text-ink-2">{t(chuDe ? 'hoc.matMangChuDe' : 'hoc.matMangChung', { nut: t('taiVe.nut') })}</p>
+                            {chuDe && (
+                                <Link to={`/chu-de/${chuDe}`} className="mt-2 inline-flex min-h-11 items-center font-semibold text-tim underline-offset-2 hover:underline">
+                                    {t('chuDe.veChuDe')}
+                                </Link>
+                            )}
+                        </LoiTai>
                     ) : (
-                        <LoiTai
-                            loi={tai.loi}
-                            taiLai={() => {
-                                setTai({ trangThai: 'dang-tai' });
-                                setLan((n) => n + 1);
-                            }}
-                        />
+                        <LoiTai loi={tai.loi} taiLai={thuLai} />
                     )}
                 </main>
             </div>
@@ -189,7 +214,7 @@ function Phien({ phien, chuDe, chiOn, onExit }: { phien: PhienHoc; chuDe: string
 
     return (
         <div className="flex min-h-dvh flex-col bg-paper text-ink">
-            <Header onExit={onExit} pos={pos} total={queue.length} finished={finished} />
+            <Header onExit={onExit} pos={pos} total={queue.length} finished={finished} offline={phien.offline} />
             <p role="status" className="mx-auto min-h-6 w-full max-w-[640px] px-5 text-center text-label text-ink-2">
                 {status}
             </p>

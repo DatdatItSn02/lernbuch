@@ -1,16 +1,24 @@
 {
+    "id": "/app",
     "name": "Lernbuch",
     "short_name": "Lernbuch",
     "description": "Học tiếng Đức cho người Việt",
     "lang": "vi",
+    "dir": "ltr",
     "start_url": "/app",
     "scope": "/",
     "display": "standalone",
+    "orientation": "any",
+    "categories": ["education"],
     "background_color": "#f8f9fe",
     "theme_color": "#2d2364",
     "icons": [
         { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
         { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
         { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    ],
+    "shortcuts": [
+        { "name": "Học hôm nay", "short_name": "Học", "url": "/app/hoc", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" }] },
+        { "name": "Tra từ", "short_name": "Tra từ", "url": "/app/tra-tu", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" }] }
     ]
 }

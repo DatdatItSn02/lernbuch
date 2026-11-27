@@ -122,6 +122,8 @@ it('khoá: đăng xuất mọi máy, API trả 403, trang app về đăng nhập
     auth()->guard('web')->logout();
     $this->post('/dang-nhap', ['email' => 'hoc@vidu.test', 'password' => 'password'])->assertRedirect('/app/hom-nay');
     $this->assertAuthenticatedAs($hoc->fresh());
+    // Yêu cầu thật nào cũng dựng guard mới; trong test guard sanctum còn nhớ người dùng (bị khoá) của lần gọi API trước
+    auth()->guard('sanctum')->forgetUser();
     $this->getJson('/api/v1/hom-nay')->assertOk();
 });
 

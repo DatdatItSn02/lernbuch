@@ -6,6 +6,7 @@ import { Choice } from '../components/Choice';
 import { Kbd } from '../components/Kbd';
 import { LevelBar } from '../components/LevelBar';
 import { Sheet } from '../components/Shell';
+import { TaiVeMay } from '../components/TaiVeMay';
 import { DangTai, LoiTai } from '../components/TaiNoiDung';
 import { demThe, docCap, tenCap, tenLoaiTu, trangCuaBo, truyVan, type TheTomTat, type TrangChuDe } from '../lib/noiDung';
 import type { TienDoChuDe } from '../lib/hoc';
@@ -145,6 +146,7 @@ function TopicPage({ slug }: { slug: string }) {
                     {dl.topic.collection.name} · {demThe(bo, dl.topic.card_count)}
                 </p>
                 <HocChuDe slug={dl.topic.slug} tienDo={dl.progress} />
+                <TaiVeMay slug={dl.topic.slug} bo={bo} soThe={dl.topic.card_count} />
 
                 {dl.levels.length > 1 && (
                     <div role="group" aria-label={t('chuDe.locCapThe')} className="mt-4 flex flex-wrap gap-1.5">

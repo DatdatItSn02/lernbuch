@@ -4,6 +4,7 @@
 import { useSyncExternalStore } from 'react';
 import { api, LoiApi } from './api';
 import type { CheDoCham } from './hoc';
+import { BANG_LUOT, giaoDich, xoaKhoChoTest } from './khoMay';
 import { quenDaTai } from './useApi';
 
 export type LuotCham = {
@@ -41,53 +42,19 @@ export const CHO_GUI_MS = 1500;
 /** Gửi hỏng thì thử lại sau 5 giây, rồi lâu dần tới 1 phút. */
 const THU_LAI_MS = [5000, 15000, 30000, 60000];
 
-const TEN_DB = 'lernbuch';
-const BANG = 'luot-cham';
-
 type Kho = {
     them(l: LuotCham): Promise<void>;
     tatCa(): Promise<LuotCham[]>;
     xoa(uids: string[]): Promise<void>;
 };
 
-let moDb: Promise<IDBDatabase> | null = null;
-
-function db(): Promise<IDBDatabase> {
-    moDb ??= new Promise<IDBDatabase>((xong, hong) => {
-        const r = indexedDB.open(TEN_DB, 1);
-        r.onupgradeneeded = () => {
-            if (!r.result.objectStoreNames.contains(BANG)) r.result.createObjectStore(BANG, { keyPath: 'uid' });
-        };
-        r.onsuccess = () => xong(r.result);
-        r.onerror = () => hong(r.error);
-        r.onblocked = () => hong(new DOMException('IndexedDB blocked', 'InvalidStateError'));
-    }).catch((e: unknown) => {
-        moDb = null;
-        throw e;
-    });
-    return moDb;
-}
-
-function giaoDich<T>(kieu: IDBTransactionMode, viec: (bang: IDBObjectStore) => IDBRequest<T> | void): Promise<T | undefined> {
-    return db().then(
-        (d) =>
-            new Promise<T | undefined>((xong, hong) => {
-                const gd = d.transaction(BANG, kieu);
-                const yc = viec(gd.objectStore(BANG));
-                gd.oncomplete = () => xong(yc ? yc.result : undefined);
-                gd.onerror = () => hong(gd.error);
-                gd.onabort = () => hong(gd.error);
-            }),
-    );
-}
-
 const khoIdb: Kho = {
     them: async (l) => {
-        await giaoDich('readwrite', (b) => b.put(l));
+        await giaoDich(BANG_LUOT, 'readwrite', (b) => b.put(l));
     },
-    tatCa: async () => ((await giaoDich<LuotCham[]>('readonly', (b) => b.getAll())) ?? []) as LuotCham[],
+    tatCa: async () => ((await giaoDich<LuotCham[]>(BANG_LUOT, 'readonly', (b) => b.getAll())) ?? []) as LuotCham[],
     xoa: async (uids) => {
-        await giaoDich('readwrite', (b) => {
+        await giaoDich(BANG_LUOT, 'readwrite', (b) => {
             for (const u of uids) b.delete(u);
         });
     },
@@ -231,23 +198,19 @@ export function batDauHangCho(): void {
     void guiDi();
 }
 
+/** Đăng xuất: bỏ hết lượt còn chờ trên máy (để người đăng nhập sau trên máy này không gửi lượt của người trước). */
+export async function boHetLuot(): Promise<void> {
+    await voiKho(async (k) => k.xoa((await k.tatCa()).map((l) => l.uid)));
+    dat({ cho: 0, loi: null });
+}
+
 /** Chỉ dùng trong test: xoá hết, quên trạng thái. */
 export async function datLaiChoTest(): Promise<void> {
     if (henGui !== null) clearTimeout(henGui);
     henGui = null;
     await dangChay?.catch(() => {});
     nho.clear();
-    if (moDb) {
-        const d = await moDb.catch(() => null);
-        d?.close();
-        moDb = null;
-    }
-    if (typeof indexedDB !== 'undefined') {
-        await new Promise<void>((xong) => {
-            const r = indexedDB.deleteDatabase(TEN_DB);
-            r.onsuccess = r.onerror = r.onblocked = () => xong();
-        });
-    }
+    await xoaKhoChoTest();
     kho = typeof indexedDB === 'undefined' ? khoNho : khoIdb;
     lanThuLai = 0;
     daBatDau = false;

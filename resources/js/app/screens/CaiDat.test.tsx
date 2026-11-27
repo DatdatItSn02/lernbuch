@@ -1,9 +1,14 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import 'fake-indexeddb/auto';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { AppRoutes } from '../App';
+import { cacLuot, datLaiChoTest, themLuot } from '../lib/hangCho';
+import { KHO_API, cacGoi, datLaiOfflineChoTest, giuPhien, phamVi, phienDoCon, taiChuDe } from '../lib/offline';
 import { SETTINGS_KEY, StoreProvider } from '../state/store';
 import { giaApi, toiMau } from '../../test/fakeApi';
+import { giaCaches } from '../../test/fakeCaches';
+import { phienMau, theHoc } from '../../test/noiDungGia';
 import { renderApp, renderAppCoTaiKhoan } from '../../test/render';
 
 const saved = () => JSON.parse(window.localStorage.getItem(SETTINGS_KEY) ?? 'null');
@@ -152,5 +157,70 @@ describe('Cài đặt: phần tài khoản', () => {
         const form = nut.closest('form')!;
         expect(form.getAttribute('method')).toBe('post');
         expect(form.getAttribute('action')).toBe('/dang-xuat');
+    });
+});
+
+describe('Cài đặt: cài app và đăng xuất trên máy học offline', () => {
+    const toi = { 'GET /api/v1/toi': () => ({ json: { data: toiMau() } }), 'GET /api/v1/toi/phien': () => ({ json: { data: [], supported: true } }) };
+
+    afterEach(async () => {
+        datLaiOfflineChoTest();
+        await datLaiChoTest();
+    });
+
+    it('đăng xuất: gửi nốt lượt chấm, dọn chủ đề đã tải, phiên dở và bản lưu trên máy, rồi mới gửi form', async () => {
+        const gui = vi.spyOn(HTMLFormElement.prototype, 'submit').mockImplementation(() => {});
+        const kho = giaCaches();
+        const goi = giaApi({
+            ...toi,
+            'GET /api/v1/hoc/tai/so': () => ({ json: { data: { topic: { slug: 'so', name: 'Số', collection: 'vocab' }, timezone: 'UTC', new_per_session: 10, saved_at: 1, cards: [theHoc(8)] } } }),
+            'POST /api/v1/hoc/luot-cham': () => ({
+                json: { data: { received: 1, duplicates: 0, skipped: [], coins: 0, too_fast: 0, cards: [], today: { reviewed: 1, goal: 20, coins: 0, streak: 1 } } },
+            }),
+        });
+        await taiChuDe('so');
+        await giuPhien(phienMau([theHoc(8)], { started_at: Math.floor(Date.now() / 1000) }), phamVi(null, false, 'flashcard'));
+        await (await caches.open(KHO_API)).put('/api/v1/toi', new Response('{}'));
+        await themLuot({ uid: '01JDTEST0000000000000000AB', card_id: 8, session_id: null, mode: 'flashcard', rating: 2, reviewed_at_ms: Date.now(), duration_ms: 3000 });
+        renderAppCoTaiKhoan('/cai-dat');
+
+        fireEvent.click(await screen.findByRole('button', { name: 'Đăng xuất' }));
+        expect(screen.getByText('Đang gửi nốt lượt chấm và dọn dữ liệu trên máy…')).toBeTruthy();
+        await waitFor(() => expect(gui).toHaveBeenCalledTimes(1));
+        expect(goi.filter((g) => g.url === '/api/v1/hoc/luot-cham')).toHaveLength(1);
+        expect(await cacLuot()).toEqual([]);
+        expect(await cacGoi()).toEqual([]);
+        expect(await phienDoCon(phamVi(null, false, 'flashcard'), Math.floor(Date.now() / 1000), 'UTC')).toBeNull();
+        expect(kho.has(KHO_API)).toBe(false);
+    });
+
+    it('không có mạng thì báo cần có mạng để đăng xuất, không gửi form', async () => {
+        const gui = vi.spyOn(HTMLFormElement.prototype, 'submit').mockImplementation(() => {});
+        giaApi(toi);
+        renderAppCoTaiKhoan('/cai-dat');
+        const nut = await screen.findByRole('button', { name: 'Đăng xuất' });
+        vi.spyOn(navigator, 'onLine', 'get').mockReturnValue(false);
+        fireEvent.click(nut);
+        expect(screen.getByText('Cần có mạng để đăng xuất.')).toBeTruthy();
+        expect(gui).not.toHaveBeenCalled();
+    });
+
+    it('cài app: trình duyệt cho cài thì có nút mở hộp cài; chưa cho thì hướng dẫn cài từ menu trình duyệt', async () => {
+        giaApi(toi);
+        renderAppCoTaiKhoan('/cai-dat');
+        expect(await screen.findByRole('heading', { name: 'Cài app lên máy' })).toBeTruthy();
+        expect(screen.getByText(/mở menu của trình duyệt và chọn “Cài đặt ứng dụng”/)).toBeTruthy();
+        expect(screen.queryByRole('button', { name: 'Cài Lernbuch' })).toBeNull();
+
+        const prompt = vi.fn(async () => {});
+        const suKien = Object.assign(new Event('beforeinstallprompt', { cancelable: true }), { prompt, userChoice: Promise.resolve({ outcome: 'accepted' }) });
+        act(() => {
+            window.dispatchEvent(suKien);
+        });
+        expect(suKien.defaultPrevented).toBe(true);
+        fireEvent.click(await screen.findByRole('button', { name: 'Cài Lernbuch' }));
+        await waitFor(() => expect(prompt).toHaveBeenCalledTimes(1));
+        // Đã đồng ý cài: không mở hộp cài lần nữa
+        await waitFor(() => expect(screen.queryByRole('button', { name: 'Cài Lernbuch' })).toBeNull());
     });
 });

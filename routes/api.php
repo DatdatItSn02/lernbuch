@@ -39,6 +39,8 @@ Route::prefix('v1')->middleware(['auth:sanctum', 'con-hoat-dong', 'da-xac-minh',
     Route::get('hom-nay', [HocController::class, 'homNay']);
     Route::post('hoc/phien', [HocController::class, 'taoPhien']);
     Route::get('hoc/con-lai', [HocController::class, 'conLai']);
+    // Tải một chủ đề để học khi mất mạng (app lưu trên máy)
+    Route::get('hoc/tai/{slug}', [HocController::class, 'taiChuDe'])->where('slug', '[a-z0-9-]{1,160}');
     Route::post('hoc/luot-cham', [HocController::class, 'luotCham']);
 
     // Luyện tập: ngữ pháp, bài tập (kết quả máy chủ chấm lại, chống gửi trùng theo mã), Điền câu, động từ

@@ -4,6 +4,7 @@ import App from './App';
 import { datNgonNgu } from './i18n';
 import { guiLaiKetQua } from './lib/baiTap';
 import { batDauHangCho } from './lib/hangCho';
+import { batDauOffline } from './lib/offline';
 import { registerServiceWorker } from './registerServiceWorker';
 
 // Ngôn ngữ giao diện máy chủ đã đặt ở <html lang> theo tài khoản; đặt trước khi vẽ để mọi chữ đúng ngôn ngữ
@@ -21,6 +22,7 @@ if (root) {
 
 registerServiceWorker();
 // Lượt chấm và kết quả bài tập còn nằm trên máy từ lần trước (mất mạng, đóng tab): gửi ngay; có mạng lại thì gửi tiếp
+batDauOffline();
 batDauHangCho();
 void guiLaiKetQua();
 window.addEventListener('online', () => void guiLaiKetQua());

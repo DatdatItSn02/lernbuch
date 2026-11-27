@@ -37,12 +37,21 @@ it('không lộ file .env và log', function () {
         ->and($log->getContent())->not->toContain('local.ERROR');
 });
 
-it('có manifest để cài app', function () {
+it('có manifest đủ điều kiện cài app: tên, trang mở đầu, mở như app, biểu tượng 192 và 512 có trên máy chủ', function () {
     $manifest = json_decode((string) file_get_contents(public_path('manifest.webmanifest')), true);
 
     expect($manifest['start_url'])->toBe('/app')
+        ->and($manifest['id'])->toBe('/app')
+        ->and($manifest['name'])->toBe('Lernbuch')
         ->and($manifest['display'])->toBe('standalone')
-        ->and($manifest['icons'])->toHaveCount(3);
+        ->and($manifest['icons'])->toHaveCount(3)
+        ->and(array_column($manifest['icons'], 'sizes'))->toContain('192x192', '512x512')
+        ->and(array_column($manifest['shortcuts'], 'url'))->toBe(['/app/hoc', '/app/tra-tu']);
+
+    foreach ($manifest['icons'] as $icon) {
+        [$rong, $cao] = getimagesize(public_path(ltrim($icon['src'], '/')));
+        expect("{$rong}x{$cao}")->toBe($icon['sizes']);
+    }
 });
 
 it('trang kiểm chữ có đủ vai trò chữ và không cho máy tìm kiếm lập chỉ mục', function () {
