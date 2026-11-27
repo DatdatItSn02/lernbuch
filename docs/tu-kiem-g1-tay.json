@@ -8,6 +8,14 @@
    "luc": "2026-11-27 19:26 (giờ máy bạn)",
    "ket_qua": "máy bạn: 654 chủ đề (7 + 27 + 620), 11.882 thẻ, 33 chương, 219 bài ngữ pháp, 364 bộ, 6.887 câu bài tập, 889 động từ; 35.646 nghĩa, 13.222 câu ví dụ, 16.733 dạng từ, đúng số mong đợi ở docs/nhap-lernbuch-cu.md",
    "khop": true
+  },
+  {
+   "so": 14,
+   "nguon": "python3 tools/tu-kiem/chay_impeccable.py --dom <ci-results>/ket-qua/web/dom (impeccable 4.10.0; DOM của commit 71dcf83, run 46067145126); tóm tắt ở docs/impeccable-g1.json",
+   "luc": "2026-11-28",
+   "loi_impeccable": 0,
+   "luu_y_impeccable": 2063,
+   "ket_qua": "108 trang (app học, tài khoản, trang chào, PWA, quản trị), sáng và tối, cỡ 1280x800 và 390x844: 0 lỗi; 2.063 lưu ý về màu, bo góc ngoài bảng token của DESIGN.md (màu giao diện tối của app, màu và bo góc của Filament); bỏ qua có lý do 2 quy tắc chỉ ở trang quản trị Filament (.impeccable/config.json)"
   }
  ]
 }

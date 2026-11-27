@@ -1,0 +1,55 @@
+{
+ "ten": "Bộ dò Impeccable trên DOM đã vẽ của mọi màn (mục 14 tự kiểm G1)",
+ "luc": "2026-11-27T21:16:53+00:00",
+ "impeccable": "4.10.0",
+ "nguon_dom": "ci-results ket-qua/web/dom: commit 71dcf83, run 46067145126",
+ "so_trang": 108,
+ "bo_qua_co_ly_do": [
+  {
+   "rule": "nested-cards",
+   "value": "*",
+   "files": [
+    "ket-qua/dom/quan-tri-*.html"
+   ],
+   "createdAt": "2026-11-27T20:25:56.666Z",
+   "reason": "Trang quản trị Filament: ô nhập, ô chọn có viền nằm trong khung form, khung bảng; là ô nhập của Filament, không phải thẻ lồng thẻ"
+  },
+  {
+   "rule": "first-viewport-column-overflow",
+   "value": "*",
+   "files": [
+    "ket-qua/dom/quan-tri-*.html"
+   ],
+   "createdAt": "2026-11-27T20:25:56.675Z",
+   "reason": "Trang quản trị Filament: thanh bên đứng yên, form và bảng cuộn dài là bố cục chuẩn của trang quản trị"
+  }
+ ],
+ "loi": 0,
+ "luu_y": 2063,
+ "theo_co_man_hinh": {
+  "may-tinh": {
+   "khung": "1280x800",
+   "loi": 0,
+   "luu_y": 1025,
+   "theo_quy_tac": {},
+   "luu_y_theo_quy_tac": {
+    "design-system-color (app)": 410,
+    "design-system-color (quan-tri)": 501,
+    "design-system-radius (quan-tri)": 114
+   },
+   "chi_tiet": []
+  },
+  "dien-thoai": {
+   "khung": "390x844",
+   "loi": 0,
+   "luu_y": 1038,
+   "theo_quy_tac": {},
+   "luu_y_theo_quy_tac": {
+    "design-system-color (app)": 376,
+    "design-system-color (quan-tri)": 549,
+    "design-system-radius (quan-tri)": 113
+   },
+   "chi_tiet": []
+  }
+ }
+}

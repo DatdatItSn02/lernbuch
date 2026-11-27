@@ -78,7 +78,7 @@ def deploy_log(run=300, nha='438M', db='40.1M', noi_dung=NOI_DUNG_DUNG):
 TAY = {'muc': [
     {'so': 1, 'nguon': 'php artisan app:nhap-lernbuch trên máy bạn (setup\\ket-qua-nhap.txt)', 'luc': '2026-11-27',
      'ket_qua': '11.882 thẻ, 620 chủ đề nhỏ, 219 bài ngữ pháp, 6.887 câu, 889 động từ', 'khop': True},
-    {'so': 14, 'nguon': 'impeccable detect trên các trang đã build', 'luc': '2026-11-28', 'loi_impeccable': 0, 'canh_bao_impeccable': 2},
+    {'so': 14, 'nguon': 'impeccable detect trên các trang đã build', 'luc': '2026-11-28', 'loi_impeccable': 0, 'luu_y_impeccable': 2},
 ]}
 
 
@@ -130,7 +130,7 @@ class TuKiemG1(unittest.TestCase):
             self.assertTrue(m['bang_chung'], m['so'])
         self.assertIn('khớp số liệu nhập', ' '.join(muc[1]['bang_chung']))
         self.assertIn('tổng 478 MB = 47% của 1 GB', muc[18]['bang_chung'])
-        self.assertIn('bộ dò Impeccable: 0 lỗi, 2 cảnh báo', ' '.join(muc[14]['bang_chung']))
+        self.assertIn('bộ dò Impeccable: 0 lỗi, 2 lưu ý', ' '.join(muc[14]['bang_chung']))
 
     def test_pest_co_bo_du_lieu_van_khop_ten(self):
         ten = 'tính đúng như bảng ca thử chung'

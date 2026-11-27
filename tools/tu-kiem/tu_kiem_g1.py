@@ -306,7 +306,7 @@ def muc_tro_nang(kq, logs, tay):
         them.append('thieu')
     e = tay.get(14)
     if e and 'loi_impeccable' in e:
-        ev.append(f'bộ dò Impeccable: {e["loi_impeccable"]} lỗi, {e.get("canh_bao_impeccable", 0)} cảnh báo ({g0.tay_ref(e)})')
+        ev.append(f'bộ dò Impeccable: {e["loi_impeccable"]} lỗi, {e.get("luu_y_impeccable", 0)} lưu ý ({g0.tay_ref(e)})')
         them.append('dat' if e['loi_impeccable'] == 0 else 'hong')
     else:
         them.append('thieu')

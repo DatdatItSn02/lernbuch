@@ -1,0 +1,253 @@
+{
+ "ten": "Tự kiểm thử G1 (19 mục)",
+ "luc": "2026-11-27T21:17:07+00:00",
+ "tong": {
+  "dat": 18,
+  "dat_mot_phan": 1,
+  "chua_dat": 0,
+  "chua_chay": 0
+ },
+ "nguon_ket_qua_test": "ket-qua/php/ket-qua.tsv, ket-qua/web/ket-qua.tsv",
+ "migration_moi": {
+  "trang_thai": "dat",
+  "bang_chung": [
+   "6/6 bước database của G0 đạt: Migrate lên, Khớp với schema.sql (0 khác biệt), Quy ước LoWo (không khoá ngoại, thời gian số nguyên), Migrate xuống hết, Sau khi xuống chỉ còn bảng migrations, Migrate lên lại (latest-ci-php.txt (commit 71dcf83, run 46067145126))"
+  ]
+ },
+ "muc": [
+  {
+   "so": 1,
+   "ten": "nhập đủ và đúng",
+   "dat_khi": "số liệu khớp Lernbuch cũ (11.882 thẻ, 620 chủ đề nhỏ, 219 bài ngữ pháp, 6.887 câu, 889 động từ); lần hai không thêm dòng; nguồn \"Không\" không có dòng nào",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Pest \"chạy thử: đếm đúng theo loại, nguồn, cấp; bỏ thẻ đã tắt và dòng rỗng; không ghi gì\": đạt",
+    "Pest \"ghi: thẻ, chủ đề 3 tầng, nghĩa, câu ví dụ, dạng từ, ngữ pháp, bài tập, động từ đúng nội dung\": đạt",
+    "Pest \"chạy lại lần hai: không thêm dòng nào, giữ id (nên giữ tiến độ học)\": đạt",
+    "Pest \"nguồn đánh dấu \"Không\" thì không có dòng nào của nguồn đó, kể cả dòng đã nhập lần trước\": đạt",
+    "máy bạn: 654 chủ đề (7 + 27 + 620), 11.882 thẻ, 33 chương, 219 bài ngữ pháp, 364 bộ, 6.887 câu bài tập, 889 động từ; 35.646 nghĩa, 13.222 câu ví dụ, 16.733 dạng từ, đúng số mong đợi ở docs/nhap-lernbuch-cu.md (bạn chạy setup\\nhap-du-lieu.bat trên máy (MySQL 9.7), lernweb.zip bản x19; kết quả ở app\\setup\\ket-qua-nhap-du-lieu.txt, 2026-11-27 19:26 (giờ máy bạn))"
+   ],
+   "ghi_chu": "Số liệu trên máy chủ: lần deploy tới ghi dòng \"Nội dung:\" (app:dung-luong)."
+  },
+  {
+   "so": 2,
+   "ten": "quy tắc dữ liệu",
+   "dat_khi": "báo đúng dòng, không ghi gì",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Pest \"quy tắc dữ liệu: cụm từ trong Từ vựng, thẻ không có chủ đề thì báo đúng dòng, không ghi gì\": đạt",
+    "Pest \"quy tắc bài tập: sig trùng hoặc dài quá 64 ký tự thì báo đúng câu, không ghi gì\": đạt"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 3,
+   "ten": "lặp lại ngắt quãng",
+   "dat_khi": "đúng mọi nhánh của bảng ca thử chung ở Pest và Vitest, cả đổi giờ mùa hè, đổi múi giờ",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Pest \"tính đúng như bảng ca thử chung\": đạt 41 test",
+    "Pest \"bảng ca thử phủ đủ 6 mức × 4 cách chấm và có ca đổi giờ, đổi múi giờ\": đạt",
+    "Pest \"đầu ngày mai và đầu ngày trước đúng cả ngày 23 giờ và 25 giờ\": đạt",
+    "Vitest resources/js/app/lib/srs.test.ts (cả file): đạt 51 test"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 4,
+   "ten": "lượt chấm gửi trùng",
+   "dat_khi": "ghi một lần, xu cộng một lần",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Pest \"mục 4: gửi một lô hai lần (và trùng ngay trong lô) thì ghi một lần, xu cộng một lần\": đạt"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 5,
+   "ten": "mất mạng giữa phiên",
+   "dat_khi": "đủ 8 lượt tới máy chủ, mỗi lượt một lần",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Playwright \"mục 5: mất mạng sau thẻ 3, chấm tiếp 5 thẻ, tải lại trang, có mạng lại: đủ 8 lượt tới máy chủ, mỗi lượt một lần\": đạt 2/2 cỡ màn hình",
+    "Vitest resources/js/app/lib/hangCho.test.ts (cả file): đạt 10 test"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 6,
+   "ten": "hai máy chấm cùng thẻ",
+   "dat_khi": "kết quả theo giờ chấm, giống nhau dù lô nào tới trước",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Pest \"mục 6: hai máy chấm cùng thẻ, lô tới lệch thứ tự: kết quả theo giờ chấm, như nhau dù lô nào tới trước\": đạt"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 7,
+   "ten": "chấm quá nhanh",
+   "dat_khi": "tiến độ vẫn ghi, xu không cộng, nhật ký ghi lý do",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Pest \"mục 7: chấm 20 thẻ trong 2 giây thì tiến độ vẫn ghi, xu không cộng, nhật ký ghi lý do; chấm thong thả thì có xu\": đạt"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 8,
+   "ten": "người A không đọc được dữ liệu người B",
+   "dat_khi": "trả 404, không lộ dữ liệu",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Pest \"mục 8: phiên của người khác thì 404 và không ghi gì; thẻ riêng của người khác thì bỏ lượt; số liệu tách theo người\": đạt",
+    "Pest \"người A không đọc, không sửa được sổ tay của người B; thẻ không xem được thì 404 (mục tự kiểm 8)\": đạt",
+    "Pest \"xoá lịch sử: chỉ mục của mình; mục của người khác thì 404 và vẫn còn (mục tự kiểm 8)\": đạt"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 9,
+   "ten": "tài khoản",
+   "dat_khi": "báo đúng lỗi; link cũ không dùng được; chưa xác minh thì về trang gửi lại email; sai mật khẩu lần thứ 6 bị chặn tạm; quá 5 lần đăng ký một giờ từ một IP thì bị chặn tạm",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Pest \"đăng ký: email đã có thì báo lỗi ngay ô email\": đạt",
+    "Pest \"link xác minh hết hạn hoặc không khớp email thì không dùng được\": đạt",
+    "Pest \"quên mật khẩu: gửi link, đặt mật khẩu mới, dùng lại link thì không được\": đạt",
+    "Pest \"chưa xác minh email mà vào học thì được dẫn tới trang gửi lại thư\": đạt",
+    "Pest \"sai mật khẩu 5 lần thì lần thứ 6 bị chặn tạm, kể cả đúng mật khẩu\": đạt",
+    "Pest \"đăng ký: mỗi địa chỉ IP tạo tối đa 5 tài khoản mỗi giờ, lần thứ 6 bị chặn tạm\": đạt"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 10,
+   "ten": "quản trị",
+   "dat_khi": "người học bị từ chối; mọi lần sửa nội dung ghi nhật ký",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Pest \"người học (không phải nhân viên) vào /admin thì bị từ chối 403; nhân viên bị khoá cũng vậy\": đạt",
+    "Pest \"nhân viên sửa nội dung thì ghi người sửa và nhật ký trước/sau; người học tự sửa hồ sơ thì không ghi nhật ký\": đạt",
+    "Pest tests/Feature/QuanTriNoiDungTest.php (cả file): đạt 10 test",
+    "Pest tests/Feature/QuanTriNguoiHocTest.php (cả file): đạt 6 test",
+    "Playwright \"trang quản trị (sáng): không lỗi, không tràn ngang, đạt WCAG 2.2 AA\": đạt 2/2 cỡ màn hình",
+    "Playwright \"trang quản trị (tối): không lỗi, không tràn ngang, đạt WCAG 2.2 AA\": đạt 2/2 cỡ màn hình"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 11,
+   "ten": "audio dự phòng",
+   "dat_khi": "thiếu file, file 404, không có giọng Đức: tự chuyển sang giọng trình duyệt; không có giọng nào thì báo nhẹ, trang không lỗi",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Vitest resources/js/app/lib/amThanh.test.ts (cả file): đạt 8 test",
+    "Vitest resources/js/app/lib/speech.test.ts (cả file): đạt 6 test",
+    "Pest \"API: thẻ có file thì kèm địa chỉ audio, chưa có thì null; đổi AUDIO_URL thì đổi địa chỉ\": đạt"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 12,
+   "ten": "giọng có giấy phép",
+   "dat_khi": "workflow dừng, báo giọng này không được dùng để bán",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "workflow audio chọn pavoque: dừng, \"Giọng pavoque không được dùng để bán\" (latest-audio-nghe-thu.txt (commit 15a67df, run 46044958352), trạng thái failure)",
+    "Test công cụ audio (giọng được dùng để bán, tên file theo hash): đạt (latest-ci-php.txt (commit 71dcf83, run 46067145126))"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 13,
+   "ten": "7 chế độ và phím tắt",
+   "dat_khi": "chấm đúng, tổng kết đúng số, không tràn khung, ở cỡ máy tính và điện thoại",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Playwright \"Flashcard: Space lật, 1–4 chấm, P, S, E nghe, ← → xem lại, Esc thoát\": đạt 2/2 cỡ màn hình",
+    "Playwright \"Quiz: phím 1–4 chọn, Enter và Space đi tiếp, P và S nghe; chọn sai thì câu quay lại sau 3 câu\": đạt 2/2 cỡ màn hình",
+    "Playwright \"Listening: đọc từ khi câu hiện; đang gõ thì Alt+P, Alt+S nghe lại, P là chữ p; gợi ý nghĩa là Khó; gõ sai thì câu quay lại\": đạt 2/2 cỡ màn hình",
+    "Playwright \"Typing: chưa trả lời thì không nghe được, trả lời rồi P, S nghe; nút ä; thiếu mạo từ, gợi ý chữ đầu là Khó; gõ sai thì câu quay lại\": đạt 2/2 cỡ màn hình",
+    "Playwright \"Ghép cặp: Enter chọn ô, P và S nghe từ vừa chọn; nối sai thì báo, thẻ đó chỉ được Khó; 10 thẻ thành 2 vòng 5 cặp\": đạt 2/2 cỡ màn hình",
+    "Playwright \"Hỗn hợp: thẻ mới có câu ví dụ thành Đặt câu, thẻ khác thành Quiz; xem đáp án là sai, câu quay lại\": đạt 2/2 cỡ màn hình",
+    "Playwright \"Đặt câu: P và S nghe câu; sai thứ tự thì thử lại, Backspace bỏ chữ cuối, sửa rồi đúng là Khó; Enter kiểm tra và đi tiếp\": đạt 2/2 cỡ màn hình"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 14,
+   "ten": "trợ năng và giao diện",
+   "dat_khi": "0 lỗi WCAG 2.2 AA trên mọi màn mới, sáng và tối; mọi cặp màu đạt tương phản; bộ dò Impeccable 0 lỗi",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "62/62 test Playwright có axe WCAG 2.2 AA đạt ở cả hai cỡ màn hình",
+    "Pest tests/Feature/MauQuanTriTest.php (cả file): đạt 11 test",
+    "Tương phản màu WCAG AA (palette_check.py trên tokens.css): đạt, Tương phản: 94/94 cặp (latest-ci-web.txt (commit 71dcf83, run 46067145126))",
+    "bộ dò Impeccable: 0 lỗi, 2063 lưu ý (python3 tools/tu-kiem/chay_impeccable.py --dom <ci-results>/ket-qua/web/dom (impeccable 4.10.0; DOM của commit 71dcf83, run 46067145126); tóm tắt ở docs/impeccable-g1.json, 2026-11-28)"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 15,
+   "ten": "PWA",
+   "dat_khi": "cài được; mất mạng vẫn mở app và học tiếp chủ đề đã tải",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Playwright \"cài app và học khi mất mạng › đủ điều kiện cài; mất mạng vẫn mở app và học tiếp chủ đề đã tải; có mạng lại thì gửi lượt chấm\": đạt 2/2 cỡ màn hình",
+    "Playwright \"màn mới của PWA ở giao diện tối › ô tải chủ đề, dòng báo mất mạng, phiên học từ chủ đề đã tải, phần cài app: đạt WCAG 2.2 AA\": đạt 2/2 cỡ màn hình",
+    "Pest tests/Feature/HocOfflineTest.php (cả file): đạt 4 test",
+    "Vitest resources/js/app/lib/offline.test.ts (cả file): đạt 14 test"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 16,
+   "ten": "tra từ",
+   "dat_khi": "gõ không dấu ở 4 thứ tiếng ra đúng thẻ; \"zahlen\" và \"zählen\" khớp đúng chữ đứng đầu",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Pest \"\"zahlen\" và \"zählen\": từ đúng từng chữ đứng đầu, rồi dạng khác (số nhiều), rồi từ gần giống\": đạt",
+    "Pest \"gõ không dấu ở 4 thứ tiếng: Đức (ö → o hoặc oe), Việt, Anh, Trung; nghĩa trùng đứng trước nghĩa chứa\": đạt",
+    "Playwright \"tra từ: \"zahlen\" và \"zählen\" ra đúng thẻ đứng đầu; gõ không dấu tiếng Việt, tiếng Đức (mục tự kiểm 16)\": đạt 2/2 cỡ màn hình"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 17,
+   "ten": "hiệu năng",
+   "dat_khi": "11.882 thẻ, 5.000 dòng tiến độ: tạo phiên dưới 150 ms, API p95 dưới 200 ms",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Pest \"dữ liệu cỡ thật: tạo phiên p95 dưới 150 ms, các API học và nội dung p95 dưới 200 ms\": đạt",
+    "tạo phiên p95 cao nhất 93.0 ms, API khác p95 cao nhất 57.5 ms (18 API, latest-ci-php.txt (commit 71dcf83, run 46067145126))"
+   ],
+   "ghi_chu": ""
+  },
+  {
+   "so": 18,
+   "ten": "dung lượng",
+   "dat_khi": "dưới 60% của 1 GB sau khi nhập và tạo audio",
+   "trang_thai": "dat_mot_phan",
+   "bang_chung": [
+    "thư mục nhà 438 MB (4-audio-tao-het.txt, run 46048279485), trong đó audio 68 MB",
+    "database 36.2 MB (91-ci-deploy.txt, run 46047290302)",
+    "tổng 474 MB = 46% của 1 GB"
+   ],
+   "ghi_chu": "Database đo trước lần đổi dung lượng gần nhất: lần deploy tới đo lại cả hai."
+  },
+  {
+   "so": 19,
+   "ten": "chuẩn bị đa ngôn ngữ",
+   "dat_khi": "không còn chữ viết thẳng trong code giao diện; thiếu bản dịch thì hiện tiếng Việt, không hiện mã khoá",
+   "trang_thai": "dat",
+   "bang_chung": [
+    "Vitest tests/js/chuVietThang.test.ts (cả file): đạt 3 test",
+    "Pest \"chọn ngôn ngữ chưa có bản dịch (tiếng Anh khi G1 chỉ có tiếng Việt): trang, API và email đều tiếng Việt\": đạt",
+    "Pest \"ngôn ngữ đã bật nhưng còn thiếu bản dịch: chữ thiếu hiện tiếng Việt, không bao giờ hiện mã khoá\": đạt",
+    "Pest tests/Feature/BanDichFilamentTest.php (cả file): đạt 3 test"
+   ],
+   "ghi_chu": ""
+  }
+ ]
+}

@@ -90,9 +90,10 @@ class ChayImpeccable(unittest.TestCase):
         mt, dt = kq['theo_co_man_hinh']['may-tinh'], kq['theo_co_man_hinh']['dien-thoai']
         self.assertEqual((mt['loi'], mt['theo_quy_tac']), (1, {'low-contrast': 1}))
         self.assertEqual((dt['loi'], dt['theo_quy_tac']), (2, {'low-contrast': 1, 'tiny-text': 1}))
-        self.assertEqual(mt['chi_tiet'][0], {'trang': 'app-hom-nay-light.html', 'quy_tac': 'low-contrast', 'muc': 'warning',
-                                             'chi_tiet': '3.2:1 ở 1280x800', 'cho': 'input'})
-        self.assertEqual(mt['chi_tiet'][1]['muc'], 'advisory')
+        self.assertEqual(mt['chi_tiet'], [{'trang': 'app-hom-nay-light.html', 'quy_tac': 'low-contrast', 'muc': 'warning',
+                                           'chi_tiet': '3.2:1 ở 1280x800', 'cho': 'input'}])
+        # Lưu ý chỉ đếm theo quy tắc và nhóm trang (app hay quản trị), không ghi từng dòng
+        self.assertEqual(mt['luu_y_theo_quy_tac'], {'low-contrast (quan-tri)': 1})
 
     def test_bo_do_hong_thi_ma_thoat_1_khong_ghi_ket_qua(self):
         code, kq, err = self.chay('hong')

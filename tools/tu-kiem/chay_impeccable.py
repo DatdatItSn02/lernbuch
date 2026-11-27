@@ -35,16 +35,18 @@ def quet(impeccable, trang, khung, cwd):
 
 
 def tom_tat(phat_hien):
-    """Phát hiện chính (lỗi) và lưu ý (advisory), đếm theo quy tắc, kèm từng dòng gọn."""
+    """Phát hiện chính (lỗi) kèm từng dòng gọn; lưu ý (advisory) chỉ đếm theo quy tắc và theo nhóm trang."""
     chinh = [f for f in phat_hien if f.get('severity') != 'advisory']
     luu_y = [f for f in phat_hien if f.get('severity') == 'advisory']
     gon = lambda f: {'trang': Path(f.get('file', '')).name, 'quy_tac': f.get('antipattern'), 'muc': f.get('severity'),
                      'chi_tiet': f.get('snippet', ''), 'cho': f.get('selector', '')}
+    nhom = lambda f: 'quan-tri' if Path(f.get('file', '')).name.startswith('quan-tri') else 'app'
     return {
         'loi': len(chinh),
         'luu_y': len(luu_y),
         'theo_quy_tac': dict(collections.Counter(f.get('antipattern') for f in chinh)),
-        'chi_tiet': [gon(f) for f in chinh + luu_y],
+        'luu_y_theo_quy_tac': {f'{q} ({n})': c for (q, n), c in sorted(collections.Counter((f.get('antipattern'), nhom(f)) for f in luu_y).items())},
+        'chi_tiet': [gon(f) for f in chinh],
     }
 
 
