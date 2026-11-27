@@ -42,7 +42,7 @@ export function AudioButton({ text, url = null, slow = false, label, shortcut, i
             >
                 <Icon size={18} aria-hidden="true" className={state === 'busy' ? 'animate-pulse' : ''} />
                 {!iconOnly && <span>{name}</span>}
-                {!iconOnly && shortcut && <kbd className="hidden rounded-sm border border-line px-1.5 text-label text-ink-2 sm:inline">{shortcut}</kbd>}
+                {!iconOnly && shortcut && <kbd className="hidden rounded-sm border border-line px-1.5 font-sans text-label text-ink-2 sm:inline">{shortcut}</kbd>}
             </button>
             {error && (
                 <span role="status" className="mt-1 max-w-72 text-label text-danger">

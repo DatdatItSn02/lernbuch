@@ -113,6 +113,16 @@ class NguoiHocResource extends Resource
             ->recordActions([ViewAction::make()]);
     }
 
+    /** Đường dẫn trang người học dùng mã ULID (public_id) như khi mở trang, không dùng id tăng dần của User. */
+    public static function getUrl(?string $name = null, array $parameters = [], bool $isAbsolute = true, ?string $panel = null, ?Model $tenant = null, bool $shouldGuessMissingParameters = false, ?string $configuration = null): string
+    {
+        if (($parameters['record'] ?? null) instanceof User) {
+            $parameters['record'] = $parameters['record']->public_id;
+        }
+
+        return parent::getUrl($name, $parameters, $isAbsolute, $panel, $tenant, $shouldGuessMissingParameters, $configuration);
+    }
+
     public static function getPages(): array
     {
         return [

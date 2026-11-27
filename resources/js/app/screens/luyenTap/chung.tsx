@@ -7,7 +7,7 @@ import { t } from '../../i18n';
 /** Cấp có nội dung luyện tập (A1–B2). */
 export const CAC_CAP = [1, 2, 3, 4] as const;
 
-const NUT = 'inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-4 font-semibold transition-colors duration-200';
+const NUT = 'inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-4 py-2 text-center font-semibold transition-colors duration-200';
 export const LOP_NUT_CHINH = `${NUT} bg-tim font-bold text-on-tim hover:bg-tim-strong`;
 export const LOP_NUT_PHU = `${NUT} border border-line-strong hover:bg-sunken`;
 export const LOP_CHIP = (on: boolean) =>

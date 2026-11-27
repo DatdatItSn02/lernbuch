@@ -11,3 +11,15 @@
 .fi-in-entry .fi-in-placeholder {
     @apply text-gray-500 dark:text-gray-400;
 }
+
+/* Chữ gợi ý trong ô nhập, ô chọn, ô tìm: Filament dùng gray-400 (sáng, 2.6:1 trên nền trắng) và gray-500 (tối, 3.3:1).
+   Viết thẳng ::placeholder (biến thể dark: của Tailwind không gắn được sau phần tử giả). */
+.fi-input::placeholder,
+.fi-select-input-placeholder {
+    color: var(--gray-500);
+}
+
+.dark .fi-input::placeholder,
+.dark .fi-select-input-placeholder {
+    color: var(--gray-400);
+}

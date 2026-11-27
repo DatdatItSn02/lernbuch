@@ -72,6 +72,16 @@ typography:
     fontSize: "1.125rem"
     fontWeight: 400
     lineHeight: 1.4
+  chinese:
+    fontFamily: "PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif"
+    fontSize: "1rem"
+    fontWeight: 400
+    lineHeight: 1.55
+  mono:
+    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+    fontSize: "1.25rem"
+    fontWeight: 400
+    lineHeight: 1.3
 rounded:
   sm: "3px"
   md: "5px"
@@ -179,7 +189,7 @@ components:
 <!-- impeccable:design-map -->
 Name: Lernbuch Online
 Colors: primary: tim oklch(40% 0.17 285); neutral: paper oklch(98.4% 0.006 275); semantic: pen oklch(53% 0.2 27); primary: tim-strong oklch(33.5% 0.15 285); primary: tim-tint oklch(94.5% 0.026 285) (+26 more in the sidecar)
-Fonts: Be Vietnam Pro (display, headline, title, body, label, study-word); Patrick Hand (handwritten)
+Fonts: Be Vietnam Pro (display, headline, title, body, label, study-word); Patrick Hand (handwritten); PingFang SC (chinese, nghĩa tiếng Trung); ui-monospace (mono, ô gợi ý chữ cái, mã trong trang quản trị)
 Spacing: 1 4px, 2 8px, 3 12px, 4 16px, 5 24px, 6 32px, 7 48px, 8 64px
 Radius: sm 3px, md 5px, lg 8px
 North Star: "Vở ô li và hộp thẻ"

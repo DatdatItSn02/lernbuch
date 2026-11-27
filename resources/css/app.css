@@ -43,6 +43,13 @@
     li {
         text-wrap: pretty;
     }
+
+    /* Chữ gợi ý trong ô nhập: mặc định của Tailwind (màu chữ mờ một nửa) chỉ khoảng 3:1; ink-2 đạt 4.5:1 trên nền giấy */
+    input::placeholder,
+    textarea::placeholder {
+        color: var(--color-ink-2);
+        opacity: 1;
+    }
 }
 
 /* Vùng chỉ nhận tiêu điểm bằng lệnh (tabindex="-1": nội dung chính, đáp án, đầu danh sách): không vẽ vòng focus */

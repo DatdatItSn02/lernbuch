@@ -5,5 +5,29 @@
       "maxFindings": 5,
       "maxChars": 8000
     }
+  },
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "nested-cards",
+        "value": "*",
+        "files": [
+          "ket-qua/dom/quan-tri-*.html"
+        ],
+        "createdAt": "2026-11-27T20:25:56.666Z",
+        "reason": "Trang quản trị Filament: ô nhập, ô chọn có viền nằm trong khung form, khung bảng; là ô nhập của Filament, không phải thẻ lồng thẻ"
+      },
+      {
+        "rule": "first-viewport-column-overflow",
+        "value": "*",
+        "files": [
+          "ket-qua/dom/quan-tri-*.html"
+        ],
+        "createdAt": "2026-11-27T20:25:56.675Z",
+        "reason": "Trang quản trị Filament: thanh bên đứng yên, form và bảng cuộn dài là bố cục chuẩn của trang quản trị"
+      }
+    ]
   }
 }

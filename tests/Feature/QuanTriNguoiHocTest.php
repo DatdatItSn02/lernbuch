@@ -1,5 +1,6 @@
 <?php
 
+use App\Filament\Resources\NguoiHocs\NguoiHocResource;
 use App\Filament\Resources\NguoiHocs\Pages\ListNguoiHocs;
 use App\Filament\Resources\NguoiHocs\Pages\ViewNguoiHoc;
 use App\Models\User;
@@ -158,4 +159,15 @@ it('nút Lọc của bảng có tên đọc được kèm số bộ lọc đang 
         ->filterTable('email_verified_at', true)
         ->assertSeeHtml('aria-label="Lọc, đang dùng 2"')
         ->assertDontSeeHtml('aria-label="Lọc"');
+});
+
+it('danh sách mở trang người học bằng mã ULID (không bằng id); nhãn tiếng Việt chỉ viết hoa chữ đầu', function () {
+    $lan = User::factory()->create(['name' => 'Lan', 'email' => 'lan@vidu.test']);
+    $this->actingAs(nhanVien('super_admin'));
+
+    $trang = $this->get('/admin/nguoi-hoc')->assertOk()->assertSee('Nguồn và giấy phép')->assertDontSee('Nguồn Và Giấy Phép')->getContent();
+    expect($trang)->toContain('/admin/nguoi-hoc/'.$lan->public_id.'"')
+        ->not->toContain('/admin/nguoi-hoc/'.$lan->id.'"')
+        ->and(NguoiHocResource::getUrl('view', ['record' => $lan]))->toEndWith('/admin/nguoi-hoc/'.$lan->public_id);
+    $this->get(NguoiHocResource::getUrl('view', ['record' => $lan]))->assertOk()->assertSee('lan@vidu.test');
 });

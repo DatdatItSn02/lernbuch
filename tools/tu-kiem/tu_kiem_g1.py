@@ -241,6 +241,8 @@ PEST_NHAP = [
 PEST_HIEU_NANG = 'dữ liệu cỡ thật: tạo phiên p95 dưới 150 ms, các API học và nội dung p95 dưới 200 ms'
 BUOC_AUDIO = 'Test công cụ audio (giọng được dùng để bán, tên file theo hash)'
 BUOC_TUONG_PHAN = 'Tương phản màu WCAG AA (palette_check.py trên tokens.css)'
+# Mục 14, ngoài các test Playwright có axe: bảng màu trang quản trị (nút Filament, sáng và tối)
+TRO_NANG_THEM = [('pest-file', None, 'tests/Feature/MauQuanTriTest.php', 3)]
 
 
 def muc_nhap(kq, logs_may_chu, tay):
@@ -291,6 +293,10 @@ def muc_tro_nang(kq, logs, tay):
     ev = [f'{sum(1 for k, _ in ds if k == "dat")}/{len(ds)} test Playwright có axe WCAG 2.2 AA đạt ở cả hai cỡ màn hình']
     ev += [m for k, m in ds if k != 'dat']
     them = ['dat' if ds else 'thieu']
+    for s in TRO_NANG_THEM:
+        k, m = bang_chung(kq, *s)
+        ev.append(m)
+        them.append(k)
     m = re.search(r'Tương phản: (\d+)/(\d+)', web.text) if web else None
     if web and BUOC_TUONG_PHAN in web.steps:
         ev.append(f'{BUOC_TUONG_PHAN}: {"đạt" if web.ok(BUOC_TUONG_PHAN) else "hỏng"}' + (f', {m.group(0)} cặp' if m else '') + f' ({web.ref()})')

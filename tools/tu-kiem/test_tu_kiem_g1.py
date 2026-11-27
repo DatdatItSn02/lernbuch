@@ -32,6 +32,8 @@ def tat_ca_spec():
             yield so, s
     for t in g1.PEST_NHAP:
         yield 1, ('pest', t)
+    for s in g1.TRO_NANG_THEM:
+        yield 14, s
     yield 17, ('pest', g1.PEST_HIEU_NANG)
 
 

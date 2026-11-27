@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Support\QuanTri\MauQuanTri;
 use Filament\Actions\Action;
 use Filament\FontProviders\LocalFontProvider;
 use Filament\Http\Middleware\Authenticate;
@@ -11,7 +12,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
-use Filament\Support\Colors\Color;
+use Filament\Resources\Resource;
 use Filament\Support\Facades\FilamentTimezone;
 use Filament\Tables\Table;
 use Filament\Widgets\AccountWidget;
@@ -38,6 +39,9 @@ class AdminPanelProvider extends PanelProvider
     {
         FilamentTimezone::set(self::MUI_GIO);
 
+        // Tiếng Việt chỉ viết hoa chữ đầu ("Nguồn và giấy phép"), không viết hoa mọi chữ như tiêu đề tiếng Anh
+        Resource::titleCaseModelLabel(false);
+
         // Nút Lọc của bảng là nút biểu tượng kèm số bộ lọc đang dùng; tên đọc được phải chứa chữ nhìn thấy (WCAG 2.5.3)
         Table::configureUsing(fn (Table $table) => $table->filtersTriggerAction(
             fn (Action $action) => $action->label(fn (): string => self::nhanNutLoc($table->getActiveFiltersCount())),
@@ -52,15 +56,9 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('Lernbuch')
             ->path('admin')
             ->login()
-            // Cùng bảng màu với app học (design/tokens.css, bản sáng); font tự lưu trữ nằm trong theme.
-            ->colors([
-                'primary' => Color::hex('#442e9d'),
-                'success' => Color::hex('#21763c'),
-                'danger' => Color::hex('#b71824'),
-                'warning' => Color::hex('#e6ac3d'),
-                'info' => Color::hex('#2266a4'),
-                'gray' => Color::Slate,
-            ])
+            // Cùng bảng màu với app học (design/tokens.css), bậc tối đủ tương phản cho nút ở cả hai giao diện (MauQuanTri);
+            // font tự lưu trữ nằm trong theme.
+            ->colors(MauQuanTri::tatCa())
             ->font('Be Vietnam Pro', provider: LocalFontProvider::class)
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->navigationGroups(['Người dùng', 'Nội dung', 'Hệ thống'])

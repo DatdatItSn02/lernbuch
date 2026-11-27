@@ -360,7 +360,7 @@ function HocChuDe({ slug, tienDo }: { slug: string; tienDo: TienDoChuDe }) {
     const on = Math.min(tienDo.due, ON_MOI_PHIEN);
     return (
         <>
-            <div className="mt-4 flex max-w-2xl flex-col gap-3 rounded-md border border-line px-4 py-3 sm:flex-row sm:items-center sm:gap-5">
+            <div className="mt-4 flex max-w-2xl flex-col gap-3 border-y border-line py-3 sm:flex-row sm:items-center sm:gap-5">
                 <div className="min-w-0 flex-1">
                     <p className="text-label font-semibold">{t('chuDe.tienDo')}</p>
                     <p className="text-label text-ink-2 tabular-nums">{t('chuDe.demTienDo', { denHan: tienDo.due, moi: tienDo.new, qua: tienDo.levels[5] ?? 0 })}</p>

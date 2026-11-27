@@ -757,7 +757,7 @@ export function PhieuBai({
                 {loiDan && <p className="mt-3 font-semibold">{loiDan}</p>}
 
                 {diem && (
-                    <section aria-label={t('lamBai.ketQuaPhieu', { ok: so(dung.length), tong: so(cau.length) })} className="mt-4 rounded-md border border-line px-4 py-3">
+                    <section aria-label={t('lamBai.ketQuaPhieu', { ok: so(dung.length), tong: so(cau.length) })} className="mt-4 border-y border-line py-3">
                         <p className="text-title font-bold">
                             {sai.length === 0 ? t('lamBai.dungHet', { tong: so(cau.length) }) : t('lamBai.ketQuaPhieu', { ok: so(dung.length), tong: so(cau.length) })}
                         </p>

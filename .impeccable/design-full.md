@@ -72,6 +72,16 @@ typography:
     fontSize: "1.125rem"
     fontWeight: 400
     lineHeight: 1.4
+  chinese:
+    fontFamily: "PingFang SC, Microsoft YaHei, Noto Sans CJK SC, sans-serif"
+    fontSize: "1rem"
+    fontWeight: 400
+    lineHeight: 1.55
+  mono:
+    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+    fontSize: "1.25rem"
+    fontWeight: 400
+    lineHeight: 1.3
 rounded:
   sm: "3px"
   md: "5px"
@@ -226,6 +236,7 @@ Giấy trắng lạnh, mực đậm; mực tím cho hành động và mức thu�
 **Font:** Be Vietnam Pro cho mọi chữ, kể cả tiêu đề (thiết kế cho tiếng Việt, đủ ä ö ü ß ẞ)
 **Handwriting:** Patrick Hand, chỉ cho ghi chú của người học
 **Tiếng Trung:** phông hệ thống (PingFang SC, Microsoft YaHei, Noto Sans CJK SC)
+**Đơn cách:** phông hệ thống (ui-monospace, SFMono-Regular, Menlo, Consolas), chỉ cho ô gợi ý chữ cái ở Typing, Listening (các ô trống thẳng hàng) và mã, JSON trong trang quản trị. Phím tắt (kbd) dùng Be Vietnam Pro.
 
 **Character:** một họ chữ không chân, nét thẳng, đậm nhạt rõ; tiêu đề phân biệt bằng độ đậm 700–800 và khoảng chữ hơi khít, không cần font thứ hai. Tự lưu trữ (OFL) từ @fontsource, chỉ ba bộ chữ latin, latin-ext, vietnamese.
 
@@ -295,6 +306,22 @@ Góc gần vuông như giấy cắt: 3 px cho vạch tiến độ và nhãn nh�
 
 ### Lúc cây lớn
 - Thẻ lên mức thì hình cây mới nở từ 55% lên đủ cỡ trong 320 ms, ease-out; giảm chuyển động thì chỉ hiện dần.
+
+### Dải kẻ trong trang
+- Khối phụ nằm trong trang (tiến độ của chủ đề, "Luyện bài này" ở bài ngữ pháp, kết quả phiếu bài tập) là một dải có dòng kẻ trên và dưới, không viền bốn phía, không bo góc: trang đã là một khung, khung lồng khung làm rối và lệch với dòng kẻ của vở.
+
+### Dòng báo mất mạng (G1 tuần 5)
+- Một dòng ngay dưới thanh hộp, nền lõm (sunken), viền dòng kẻ dưới, chữ nhãn màu mực, biểu tượng mây gạch (CloudOff, Lucide) đứng trước; nói việc vẫn làm được ("vẫn học được chủ đề đã tải về máy; lượt chấm sẽ tự gửi khi có mạng"). Là `role="status"`, không có nút đóng; có mạng lại thì tự mất. Không dùng màu lỗi: mất mạng là trạng thái, không phải lỗi.
+- Trong phiên học lập trên máy, dưới đầu phiên có ghi chú cùng kiểu (nhỏ, màu mực nhạt, biểu tượng mây gạch).
+
+### Ô tải chủ đề về máy (G1 tuần 5)
+- Ở trang chủ đề, dưới nút học: một câu trạng thái chữ nhãn (chưa tải: số thẻ sẽ tải; đang tải: thẻ rồi audio, có số; đã tải: dấu tích mực tím và giờ tải) và nút phụ cao 44 px viền dòng kẻ đậm. Đã tải thì hai nút chữ: "Tải lại bản mới" (mực tím) và "Xoá khỏi máy" (mực nhạt). Lỗi ghi bằng chữ màu gạch kèm câu nói cách làm tiếp. Trình duyệt không có IndexedDB thì không hiện.
+
+### Phần cài app (Cài đặt, G1 tuần 5)
+- Một mục trong Cài đặt như các mục khác: tiêu đề mục, một câu nói lợi ích, rồi nút phụ "Cài Lernbuch" khi trình duyệt cho cài; iPhone, iPad thì một câu hướng dẫn (Chia sẻ, Thêm vào MH chính); trình duyệt khác thì câu chỉ chỗ cài trong menu; đã cài thì chỉ một câu báo đã cài.
+
+### Trang quản trị (Filament)
+- Giao diện Filament, đổi bảng màu sang mực tím, xanh, gạch, mật ong của app và nền xám slate; font Be Vietnam Pro tự lưu trữ. Chữ thay ô trống đậm hơn mặc định một bậc (gray-500 sáng, gray-400 tối) cho đủ tương phản; nút Lọc của bảng có tên đọc được kèm số bộ lọc đang dùng. Sáng và tối theo nút đổi giao diện của Filament.
 
 ## Do's and Don'ts
 

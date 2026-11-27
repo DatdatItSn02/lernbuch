@@ -214,7 +214,7 @@ export function BaiNguPhap() {
                         <p className="mt-1 text-ink-2">{[ten.viet, bai.level, bai.chapter ? tenChuong(bai.chapter) : null].filter(Boolean).join(' · ')}</p>
 
                         {bai.sets.length > 0 && (
-                            <section aria-labelledby="luyen-bai" className="mt-5 rounded-md border border-line px-4 py-3">
+                            <section aria-labelledby="luyen-bai" className="mt-5 border-y border-line py-3">
                                 <h2 id="luyen-bai" className="font-bold">
                                     {t('nguPhap.luyenBaiNay')}
                                 </h2>
