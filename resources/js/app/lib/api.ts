@@ -1,5 +1,6 @@
 // Gọi API /api/v1 của Lernbuch bằng cookie phiên (cùng tên miền), kèm mã chống giả mạo XSRF do Laravel đặt trong cookie.
 // Lỗi trả về dạng LoiApi: trangThai (401, 403, 422…), ma (vd chua_xac_minh) và lỗi từng ô khi nhập sai.
+import { baoMayChu } from './mang';
 
 export class LoiApi extends Error {
     constructor(
@@ -47,8 +48,11 @@ async function goi<T>(phuongThuc: 'GET' | 'PUT' | 'POST' | 'DELETE', duong: stri
     try {
         r = await fetch(`/api/v1${duong}`, yeuCau(phuongThuc, duLieu));
     } catch {
+        baoMayChu(false);
         throw new LoiApi(0, 'mat_mang');
     }
+    // Service worker trả bản đã lưu (mất mạng) thì có đầu này: vẫn dùng được, nhưng là chưa tới máy chủ
+    baoMayChu(r.headers?.get?.('X-Lernbuch-Ban-Luu') !== '1');
 
     const json = (await r.json().catch(() => null)) as { code?: string; message?: string; errors?: Record<string, string[]> } | null;
     if (r.ok) return json as T;

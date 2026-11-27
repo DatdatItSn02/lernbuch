@@ -111,6 +111,8 @@ export function TaiKhoanProvider({ children }: { children: ReactNode }) {
     // Cài đặt máy chủ đang có (lần tải hoặc lần lưu gần nhất); null khi chưa tải xong
     const daDongBo = useRef<Settings | null>(null);
     const moiNhat = useRef(settings);
+    // Cài đặt lúc mở app: người dùng đổi gì trước khi hồ sơ tải xong thì giữ lựa chọn đó (rồi gửi lên), không để bản máy chủ đè
+    const lucMo = useRef(settings);
 
     useEffect(() => {
         moiNhat.current = settings;
@@ -123,8 +125,9 @@ export function TaiKhoanProvider({ children }: { children: ReactNode }) {
                 if (huy) return;
                 const mayChu = tuApi(data.settings);
                 const cho = docCho();
+                const doiTruocKhiTai = khacNhau(lucMo.current, moiNhat.current);
                 daDongBo.current = mayChu;
-                dispatch({ type: 'settings', patch: cho ? sanitizeSettings({ ...mayChu, ...cho }) : mayChu });
+                dispatch({ type: 'settings', patch: cho || doiTruocKhiTai ? sanitizeSettings({ ...mayChu, ...cho, ...doiTruocKhiTai }) : mayChu });
                 setToi(data);
                 setTrangThai('xong');
             })

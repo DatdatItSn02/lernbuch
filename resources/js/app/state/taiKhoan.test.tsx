@@ -68,6 +68,31 @@ describe('TaiKhoanProvider', () => {
         expect(document.documentElement.dataset.theme).toBe('dark');
     });
 
+    it('đổi cài đặt khi hồ sơ chưa tải xong (mạng chậm): giữ lựa chọn của người dùng, bản máy chủ không đè, rồi gửi lên', async () => {
+        const goi = giaApi({ 'PUT /api/v1/toi/cai-dat': (b) => ({ json: { data: { ...toiMau().settings, ...(b as object) } } }) });
+        const fetchGia = globalThis.fetch;
+        let traToi = () => {};
+        const choToi = new Promise<void>((xong) => {
+            traToi = xong;
+        });
+        vi.stubGlobal(
+            'fetch',
+            vi.fn(async (url: string, init?: RequestInit) => {
+                if (url !== '/api/v1/toi') return fetchGia(url, init);
+                await choToi;
+                return new Response(JSON.stringify({ data: toiMau() }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+            }),
+        );
+        renderAppCoTaiKhoan('/cai-dat');
+        fireEvent.click(screen.getByRole('radio', { name: 'Tối' }));
+        expect(document.documentElement.dataset.theme).toBe('dark');
+
+        await act(async () => traToi());
+        await screen.findByText(/lưu theo tài khoản/);
+        expect(document.documentElement.dataset.theme).toBe('dark');
+        await vi.waitFor(() => expect(goi.filter((g) => g.method === 'PUT').map((g) => g.body)).toEqual([{ theme: 'dark' }]), { timeout: 2000 });
+    });
+
     it('đổi rồi tải lại trang ngay (chưa kịp gửi): lần mở sau, phần chờ trên máy thắng và được gửi tiếp', async () => {
         window.localStorage.setItem(CHO_KEY, JSON.stringify({ theme: 'dark', fontSize: 'cuc-lon' }));
         const goi = giaApi({

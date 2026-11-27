@@ -92,7 +92,9 @@ test.describe('cài app và học khi mất mạng', () => {
             return { homNay: await lay('/api/v1/hom-nay'), conLai: await lay('/api/v1/hoc/con-lai') };
         });
         expect(thu).toEqual({ homNay: '1', conLai: 'hong' });
+        // Dòng báo hiện khi trình duyệt báo mất mạng, hoặc khi dữ liệu trên trang là bản đã lưu (gọi máy chủ không tới)
         await expect(page.getByText(BAO_MAT_MANG)).toBeVisible();
+        info.annotations.push({ type: 'navigator.onLine khi mất mạng', description: String(await page.evaluate(() => navigator.onLine)) });
         await wcag(page, 'trang chủ đề khi mất mạng');
         await page.screenshot({ path: `test-results/anh/pwa-mat-mang-chu-de-${info.project.name}.png` });
 
@@ -112,6 +114,8 @@ test.describe('cài app và học khi mất mạng', () => {
 
         // Có mạng lại: lượt chấm tự gửi, máy chủ nhận đủ 3 lượt; dòng báo mất mạng không còn
         await matMang(context, false);
+        // Trình duyệt thật báo "online" khi có mạng lại (app gửi ngay, không chờ hẹn thử lại)
+        await page.evaluate(() => window.dispatchEvent(new Event('online')));
         await expect.poll(async () => (await homNay(page)).reviewed_today, { timeout: 30_000 }).toBe(3);
         await expect(page.getByText('3 lượt chờ gửi')).toHaveCount(0);
     });
