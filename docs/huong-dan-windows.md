@@ -22,6 +22,7 @@ Cách chạy giống LoWo: công cụ dùng chung trong `F:\dev` (PHP 8.5, Compo
 | Cửa sổ lệnh có sẵn PHP 8.5, Node.js 26 | `setup\moi-truong.bat` |
 | Bật, tắt MySQL | `setup\mysql-bat.bat`, `setup\mysql-tat.bat` (MySQL dùng chung: tắt thì LoWo cũng mất database) |
 | Gửi thông tin máy khi có lỗi | `setup\kiem-tra.bat`, rồi gửi `setup\ket-qua-kiem-tra.txt` (file này không chứa nội dung `.env`) |
+| Nhập nội dung Lernbuch cũ | `setup\nhap-du-lieu.bat`: đọc `nguon-cu\lernweb.zip`, chạy thử và in báo cáo, hỏi rồi mới ghi; kết quả ở `setup\ket-qua-nhap-du-lieu.txt` (chi tiết: `nhap-lernbuch-cu.md`) |
 
 ## Xem các trang
 
@@ -29,14 +30,15 @@ Cách chạy giống LoWo: công cụ dùng chung trong `F:\dev` (PHP 8.5, Compo
 | --- | --- |
 | http://127.0.0.1:8001 | trang chào |
 | http://127.0.0.1:8001/kiem-chu | trang kiểm chữ: 20 mẫu chữ tiếng Việt, tiếng Đức theo từng font |
-| http://127.0.0.1:8001/app/hom-nay | app học, màn hình Hôm nay (dữ liệu mẫu) |
-| http://127.0.0.1:8001/app/hoc | phiên học: Space lật thẻ, phím 1–4 chấm, P nghe, ←/→ xem lại, Esc thoát |
-| http://127.0.0.1:8001/app/tu/broetchen | thẻ từ |
-| http://127.0.0.1:8001/app/chu-de/tiem-banh | trang chủ đề: che cột, lọc theo mức, phím / để tìm |
+| http://127.0.0.1:8001/app/hom-nay | app học, màn hình Hôm nay (dữ liệu mẫu tới tuần 3) |
+| http://127.0.0.1:8001/app/hoc | phiên học (dữ liệu mẫu): Space lật thẻ, phím 1–4 chấm, P nghe, ←/→ xem lại, Esc thoát |
+| http://127.0.0.1:8001/app/chu-de | Chủ đề, Cấp độ, Giao tiếp; bấm vào chủ đề để xem thẻ, bấm vào từ để mở thẻ từ |
+| http://127.0.0.1:8001/app/tra-tu | tra từ: gõ tiếng Đức, Việt, Anh hoặc Trung, không cần dấu |
+| http://127.0.0.1:8001/app/so-tay | sổ tay: thẻ có sao và ghi chú riêng |
 | http://127.0.0.1:8001/app/cai-dat | cài đặt: giao diện tối, cỡ chữ, mùa |
 | http://127.0.0.1:8001/admin | trang quản trị (đăng nhập bằng tài khoản vừa tạo) |
 
-App học G0 chạy bằng dữ liệu mẫu: tiến độ và ghi chú mất khi tải lại trang, cài đặt thì được nhớ.
+Chủ đề, Cấp độ, Giao tiếp, thẻ từ, Tra từ, Sổ tay đọc dữ liệu thật: cần nhập Lernbuch cũ trước (`setup\nhap-du-lieu.bat`), chưa nhập thì các trang này báo chưa có chủ đề. Sao và ghi chú lưu theo tài khoản. Hôm nay và phiên học còn dùng dữ liệu mẫu (tiến độ mất khi tải lại trang) tới tuần 3.
 
 ## Thử lịch và hàng đợi (mục 13 của phần tự kiểm)
 

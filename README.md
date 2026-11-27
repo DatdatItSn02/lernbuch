@@ -36,6 +36,7 @@ Web chạy ở `127.0.0.1:8001`, không dùng `localhost:8000` để không trù
 | `deploy/`, `docs/huong-dan-alwaysdata.md` | deploy lên alwaysdata (đang tắt; bật bằng biến `DEPLOY_ENABLED`) |
 | `tools/tu-kiem/` | chấm 16 mục tự kiểm của G0 từ log CI và log máy chủ của từng lần deploy, quay lại (nhánh `ci-results`), cộng kết quả đo tay trên máy chủ (`docs/tu-kiem-g0-tay.json`); kết quả ở `docs/tu-kiem-g0.json`, báo cáo ở `docs/bao-cao-g0.md` |
 | `docs/huong-dan-windows.md` | chạy trên Windows từng bước, kể cả thử lịch và hàng đợi |
+| `app/Support/NhapLernbuch/`, `docs/nhap-lernbuch-cu.md` | lệnh `app:nhap-lernbuch` nhập nội dung Lernbuch cũ (chạy thử, báo cáo, rồi mới ghi), cách chạy trên máy và trên alwaysdata |
 
 ## Quy ước database
 
