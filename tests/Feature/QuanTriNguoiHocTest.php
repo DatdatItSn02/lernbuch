@@ -98,7 +98,8 @@ it('khoá: đăng xuất mọi máy, API trả 403, trang app về đăng nhập
     auth()->guard('web')->logout();
     $this->actingAs($hoc->fresh())->getJson('/api/v1/hom-nay')->assertForbidden()->assertJson(['code' => 'tai_khoan_bi_khoa']);
     $this->assertGuest('web');
-    $this->actingAs($hoc->fresh())->get('/app/hom-nay')->assertRedirect('/dang-nhap')->assertSessionHasErrors(['email' => __('auth.bi_khoa')]);
+    // Gọi API xong thì guard mặc định của lần test này là sanctum: trang web đăng nhập lại bằng guard web như trình duyệt
+    $this->actingAs($hoc->fresh(), 'web')->get('/app/hom-nay')->assertRedirect('/dang-nhap')->assertSessionHasErrors(['email' => __('auth.bi_khoa')]);
     $this->assertGuest('web');
 
     // Đăng nhập lại: đúng mật khẩu thì báo bị khoá; sai mật khẩu thì báo như mọi lần sai (không lộ là tài khoản bị khoá)

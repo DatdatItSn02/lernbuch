@@ -127,7 +127,7 @@ class EditThe extends EditRecord
 
         foreach ($cau as $i => $c) {
             $goc = $cuTheoCau->get($c['sentence']);
-            $dich = array_filter([...($goc?->translations ?? []), 'vi' => $c['vi'], 'en' => $c['en']], fn ($v) => $v !== '' && $v !== null);
+            $dich = array_filter([...($goc->translations ?? []), 'vi' => $c['vi'], 'en' => $c['en']], fn ($v) => $v !== '');
             $dong[] = [
                 'card_id' => $the->id,
                 'sort' => $i,

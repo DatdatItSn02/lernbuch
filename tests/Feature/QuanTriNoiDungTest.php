@@ -124,7 +124,8 @@ it('người duyệt đổi trạng thái: thẻ ẩn thì người học không
     $this->actingAs($nguoiHoc)->getJson('/api/v1/the/'.$id)->assertNotFound();
 
     $theRieng = $this->m->themThe('t-banh.v', 'der Hefezopf', 'noun', 'die Hefezöpfe', 2, 2, 2, ['vi' => 'bánh mì bện'], [], 'der', chu: $nguoiHoc->id);
-    $this->actingAs(nhanVien('content_reviewer'))->get('/admin/the/'.$theRieng.'/edit')->assertNotFound();
+    // Sau lần gọi API (guard sanctum), trang quản trị đăng nhập bằng guard web như trình duyệt
+    $this->actingAs(nhanVien('content_reviewer'), 'web')->get('/admin/the/'.$theRieng.'/edit')->assertNotFound();
 });
 
 it('sửa chủ đề: đổi tên, ghi nhật ký; mã và đường dẫn không đổi', function () {
