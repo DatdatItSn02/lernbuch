@@ -27,7 +27,8 @@ describe('Trang chủ đề (API): sổ từ hai cột', () => {
         expect(within(crumbs[0]).getByRole('link').getAttribute('href')).toBe('/chu-de');
         expect(screen.getByText('Từ vựng · 5 từ')).toBeTruthy();
         expect(screen.getByText(/Học và ôn theo chủ đề này có ở bản tiếp theo/)).toBeTruthy();
-        expect(document.title).toBe('Bánh mì · bánh ngọt · Lernbuch');
+        // Tiêu đề trang đặt trong useEffect, có thể chạy sau lúc bảng đã hiện: chờ chứ không kiểm ngay
+        await waitFor(() => expect(document.title).toBe('Bánh mì · bánh ngọt · Lernbuch'));
     });
 
     it('bảng: mạo từ tách riêng, link sang thẻ, dòng dạng từ và cấp; "–" là không có số nhiều; thẻ chưa xếp cấp không ghi cấp', async () => {
@@ -107,7 +108,8 @@ describe('Trang chủ đề (API): sổ từ hai cột', () => {
         expect(where()).toBe('/chu-de/so-dem-tu-vung?trang=2');
         expect(words()).toEqual(['siebzehn', 'achtzehn', 'neunzehn', 'zwanzig', 'dreißig']);
         expect(screen.queryByRole('link', { name: 'Trang sau' })).toBeNull();
-        expect(document.activeElement?.textContent).toContain('trang 2/2');
+        // Tiêu điểm dời trong useEffect sau khi trang mới hiện
+        await waitFor(() => expect(document.activeElement?.textContent).toContain('trang 2/2'));
     });
 
     it('số trang quá lớn thì hiện trang cuối (máy chủ trả trang cuối)', async () => {

@@ -28,7 +28,8 @@ describe('Thẻ từ (API)', () => {
         expect(ve.getAttribute('href')).toBe('/chu-de/banh-mi-tu-vung');
         expect(screen.getByRole('button', { name: 'Nghe' })).toBeTruthy();
         expect(screen.getByRole('button', { name: 'Nghe chậm' })).toBeTruthy();
-        expect(document.title).toBe('das Brötchen · Lernbuch');
+        // Tiêu đề trang đặt trong useEffect, có thể chạy sau lúc tiêu đề h1 đã hiện: chờ chứ không kiểm ngay
+        await waitFor(() => expect(document.title).toBe('das Brötchen · Lernbuch'));
     });
 
     it('tab Nghĩa và ví dụ: ba thứ tiếng, câu ví dụ kèm bản dịch, mẹo viết tay', async () => {
