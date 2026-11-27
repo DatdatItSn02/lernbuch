@@ -1,8 +1,8 @@
 workflow: ci  job: deploy  status: success
-commit: 4f3b262c6bc930c3409c6f14014f0545810643d1  ref: main  run: 45909528683
+commit: b9f97b13e4405b6a5f6a0d12313512fcac3e66a1  ref: main  run: 45986038017
 
-✔ Web đã chạy bản 20261126231523-4f3b262 sau khoảng 0 giây
-✔ /up trả 200 (20261126231523-4f3b262)
+✔ Web đã chạy bản 20261127105804-b9f97b1 sau khoảng 0 giây
+✔ /up trả 200 (20261127105804-b9f97b1)
 
 ----- cuối log -----
 Installing dependencies from lock file
@@ -373,7 +373,7 @@ added 302 packages in 5s
 
 [36mvite v8.3.8 [32mbuilding client environment for production...[36m[39m
 transforming...
-✓ 2257 modules transformed.
+✓ 2265 modules transformed.
 rendering chunks...
 computing gzip size...
 public/build/manifest.json                                                 9.17 kB │ gzip:   0.82 kB
@@ -398,26 +398,29 @@ public/build/assets/be-vietnam-pro-latin-600-normal-BZDkUTrt.woff2        22.03 
 public/build/assets/be-vietnam-pro-latin-700-normal-DlW1Zbsh.woff2        22.15 kB
 public/build/assets/be-vietnam-pro-latin-800-normal-BpHZASpI.woff2        22.32 kB
 public/build/assets/patrick-hand-latin-400-normal-B7HHA2Vw.woff2          23.94 kB
-public/build/assets/app-DqnAutcL.css                                      43.68 kB │ gzip:   9.04 kB
+public/build/assets/app-Yfj0mvsK.css                                      44.47 kB │ gzip:   9.16 kB
 public/build/assets/theme-DVHi_9sl.css                                   716.36 kB │ gzip:  72.98 kB
 public/build/assets/app-BvRk9kiK.js                                        0.00 kB │ gzip:   0.02 kB
-public/build/assets/main-VEeq8UGc.js                                     361.78 kB │ gzip: 113.66 kB
+public/build/assets/main-B70Jf7P4.js                                     391.89 kB │ gzip: 121.08 kB
 
-[32m✓ built in 925ms[39m
--rw-r--r-- 1 runner runner 16M Nov 26 23:15 /tmp/20261126231523-4f3b262.tgz
+[32m✓ built in 968ms[39m
+-rw-r--r-- 1 runner runner 16M Nov 27 10:58 /tmp/20261127105804-b9f97b1.tgz
 Trước deploy: /up trả 200
-Bản đang chạy: 20261126230606-4f3b262
-Dung lượng: 108M	releases/20261126191123-7e2d2a5
+Bản đang chạy: 20261126231523-4f3b262
 Dung lượng: 108M	releases/20261126193657-accbc61
 Dung lượng: 117M	releases/20261126230606-4f3b262
+Dung lượng: 117M	releases/20261126231523-4f3b262
 Dung lượng: 1.4M	shared
 Dung lượng: 15M	.
-Nhịp trong 10 phút qua: 10/10 (cần ít nhất 9).
-== Giải nén 20261126231523-4f3b262
+Nhịp trong 10 phút qua: 9/10 (cần ít nhất 9).
+== Giải nén 20261127105804-b9f97b1
 == Cập nhật .env (giữ APP_KEY cũ)
 == Migration
 
-   INFO  Nothing to migrate.  
+   INFO  Running migrations.  
+
+  2026_11_27_000002_add_group_name_and_extra_to_exercises ....... 49.59ms DONE
+  2026_11_27_000003_mark_lernbuch_sources_allowed ............... 20.67ms DONE
 
 == Dữ liệu khởi tạo (seed.sql: ngôn ngữ, khoá học, vai trò; chạy lại không nhân đôi, không đè chỗ đã sửa trong admin)
 
@@ -427,22 +430,22 @@ Nhịp trong 10 phút qua: 10/10 (cần ít nhất 9).
 
    INFO  Caching framework bootstrap, configuration, and metadata.  
 
-  config ........................................................ 73.71ms DONE
-  events ......................................................... 5.77ms DONE
-  routes ........................................................ 70.20ms DONE
-  views ........................................................ 976.60ms DONE
-  blade-icons .................................................... 5.56ms DONE
-  filament ...................................................... 10.58ms DONE
+  config ........................................................ 62.79ms DONE
+  events ......................................................... 4.39ms DONE
+  routes ........................................................ 54.27ms DONE
+  views ........................................................ 786.67ms DONE
+  blade-icons .................................................... 4.20ms DONE
+  filament ....................................................... 8.19ms DONE
 
-== Đổi current sang 20261126231523-4f3b262
+== Đổi current sang 20261127105804-b9f97b1
 
    INFO  Broadcasting queue restart signal.  
 
 == Giữ 3 bản gần nhất (và luôn giữ bản tốt gần nhất để còn chỗ quay lại)
 == Dung lượng (gói Free: 1 GB tính chung file, mail và database)
-Thư mục app: 355M
-Cả thư mục nhà: 358M
-Database: 6.2M (92 bảng)
-Xong: 20261126231523-4f3b262
-✔ Web đã chạy bản 20261126231523-4f3b262 sau khoảng 0 giây
-✔ /up trả 200 (20261126231523-4f3b262)
+Thư mục app: 365M
+Cả thư mục nhà: 368M
+Database: 6.3M (92 bảng)
+Xong: 20261127105804-b9f97b1
+✔ Web đã chạy bản 20261127105804-b9f97b1 sau khoảng 0 giây
+✔ /up trả 200 (20261127105804-b9f97b1)
