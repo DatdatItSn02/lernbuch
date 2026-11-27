@@ -1,0 +1,21 @@
+== de_DE-thorsten-medium
+Model: 61M
+Giọng de_DE-thorsten-medium: 20 chữ, tạo 20, đã có 0, lỗi 0
+Trung bình: từ 3.9 KB (14 file), câu 8.3 KB (6 file)
+Thời gian đọc: 2.2 giây, 0.11 giây mỗi chữ
+Dung lượng mới: 0.1 MB
+File nghe thử: 148K
+== de_DE-thorsten-high
+Model: 109M
+Giọng de_DE-thorsten-high: 20 chữ, tạo 20, đã có 0, lỗi 0
+Trung bình: từ 3.9 KB (14 file), câu 8.3 KB (6 file)
+Thời gian đọc: 9.2 giây, 0.46 giây mỗi chữ
+Dung lượng mới: 0.1 MB
+File nghe thử: 148K
+== de_DE-kerstin-low
+Model: 61M
+Giọng de_DE-kerstin-low: 20 chữ, tạo 20, đã có 0, lỗi 0
+Trung bình: từ 3.6 KB (14 file), câu 9.1 KB (6 file)
+Thời gian đọc: 1.9 giây, 0.09 giây mỗi chữ
+Dung lượng mới: 0.1 MB
+File nghe thử: 146K
