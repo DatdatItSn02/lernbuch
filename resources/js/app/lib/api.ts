@@ -23,7 +23,7 @@ function maXsrf(): string | null {
     return dong ? decodeURIComponent(dong.slice('XSRF-TOKEN='.length)) : null;
 }
 
-/** Hết đăng nhập hoặc chưa xác minh email: đưa về trang của máy chủ (đăng nhập, gửi lại thư). Test thay hàm này. */
+/** Hết đăng nhập, bị khoá hoặc chưa xác minh email: đưa về trang của máy chủ (đăng nhập, gửi lại thư). Test thay hàm này. */
 export const chuyenTrang = { toi: (duong: string) => window.location.assign(duong) };
 
 function yeuCau(phuongThuc: string, duLieu: unknown, keepalive = false): RequestInit {
@@ -54,7 +54,8 @@ async function goi<T>(phuongThuc: 'GET' | 'PUT' | 'POST' | 'DELETE', duong: stri
     if (r.ok) return json as T;
 
     const loi = new LoiApi(r.status, json?.code ?? null, json?.errors ?? {}, json?.message);
-    if (r.status === 401) chuyenTrang.toi('/dang-nhap');
+    // Hết đăng nhập, hoặc tài khoản bị khoá (máy chủ đã đăng xuất phiên này): về trang đăng nhập
+    if (r.status === 401 || (r.status === 403 && loi.ma === 'tai_khoan_bi_khoa')) chuyenTrang.toi('/dang-nhap');
     else if (r.status === 403 && loi.ma === 'chua_xac_minh') chuyenTrang.toi('/xac-minh-email');
     throw loi;
 }

@@ -13,8 +13,8 @@ use App\Http\Controllers\Api\V1\TraTuController;
 use Illuminate\Support\Facades\Route;
 
 // API cho app học. Cần đăng nhập (cookie phiên của app cùng tên miền, hoặc token của app di động sau này)
-// và email đã xác minh. Người dùng ra ngoài bằng mã ULID (public_id), không lộ id số.
-Route::prefix('v1')->middleware(['auth:sanctum', 'da-xac-minh', 'ngon-ngu'])->group(function () {
+// và email đã xác minh; tài khoản bị khoá thì bị đăng xuất. Người dùng ra ngoài bằng mã ULID (public_id), không lộ id số.
+Route::prefix('v1')->middleware(['auth:sanctum', 'con-hoat-dong', 'da-xac-minh', 'ngon-ngu'])->group(function () {
     Route::get('toi', [ToiController::class, 'show']);
     Route::put('toi/ho-so', [ToiController::class, 'capNhatHoSo']);
 

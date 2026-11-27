@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\ConHoatDong;
 use App\Http\Middleware\DatNgonNgu;
 use App\Http\Middleware\DaXacMinhEmail;
 use App\Support\LoiApi;
@@ -23,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // Đổi mật khẩu hoặc "đăng xuất các máy khác" thì phiên trên máy khác hết hiệu lực, kể cả máy đã chọn "Ghi nhớ".
         $middleware->authenticateSessions();
         $middleware->web(append: [DatNgonNgu::class]);
-        $middleware->alias(['da-xac-minh' => DaXacMinhEmail::class, 'ngon-ngu' => DatNgonNgu::class]);
+        $middleware->alias(['da-xac-minh' => DaXacMinhEmail::class, 'ngon-ngu' => DatNgonNgu::class, 'con-hoat-dong' => ConHoatDong::class]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -33,4 +35,25 @@ function luot(int $the, int $cham, CarbonImmutable $luc, ?int $phien = null, ?in
         'reviewed_at_ms' => (int) $luc->getTimestampMs(),
         'duration_ms' => $thoiGian,
     ];
+}
+
+// Dùng chung cho các test trang quản trị (QuanTriTest, QuanTriNguoiHocTest, QuanTriNoiDungTest).
+
+/** Nhân viên đang làm, có một vai trò (cần seed trước: vai trò và quyền nằm trong seed.sql). */
+function nhanVien(string $vaiTro, array $doi = []): User
+{
+    $user = User::factory()->create($doi);
+    $user->forceFill(['is_staff' => true])->save();
+    $user->assignRole($vaiTro);
+
+    return $user;
+}
+
+/** @return array<string, mixed> dòng nhật ký thao tác mới nhất của một việc */
+function dongNhatKy(string $viec): array
+{
+    $dong = DB::table('audit_logs')->where('action', $viec)->latest('id')->first();
+    expect($dong)->not->toBeNull("không có nhật ký {$viec}");
+
+    return (array) $dong;
 }

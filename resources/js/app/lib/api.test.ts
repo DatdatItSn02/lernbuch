@@ -36,6 +36,18 @@ describe('api: gọi /api/v1', () => {
         expect(diToi).toHaveBeenCalledWith('/xac-minh-email');
     });
 
+    it('403 tài khoản bị khoá: chuyển về trang đăng nhập (máy chủ đã đăng xuất phiên)', async () => {
+        giaApi({ 'GET /api/v1/hom-nay': () => ({ status: 403, json: { code: 'tai_khoan_bi_khoa', message: 'Tài khoản này đã bị khoá.' } }) });
+        await expect(api.lay('/hom-nay')).rejects.toMatchObject({ trangThai: 403, ma: 'tai_khoan_bi_khoa' });
+        expect(diToi).toHaveBeenCalledWith('/dang-nhap');
+    });
+
+    it('403 khác (không có quyền): không chuyển trang', async () => {
+        giaApi({ 'GET /api/v1/hom-nay': () => ({ status: 403, json: { code: 'khong_co_quyen', message: '' } }) });
+        await expect(api.lay('/hom-nay')).rejects.toMatchObject({ trangThai: 403, ma: 'khong_co_quyen' });
+        expect(diToi).not.toHaveBeenCalled();
+    });
+
     it('422: lấy được lỗi của từng ô, không chuyển trang', async () => {
         giaApi({ 'POST /api/v1/toi/phien/dang-xuat-may-khac': () => ({ status: 422, json: { message: 'x', errors: { password: ['Mật khẩu không đúng.'] } } }) });
         const loi = await api.gui('/toi/phien/dang-xuat-may-khac', { password: 'sai' }).catch((e: unknown) => e);

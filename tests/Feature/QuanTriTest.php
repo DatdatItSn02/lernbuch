@@ -14,24 +14,6 @@ use Livewire\Livewire;
 // Trang quản trị (mục tự kiểm 10 của G1): người học bị từ chối; nhân viên thấy theo vai trò; mọi lần sửa ghi nhật ký.
 // Cột JSON của MySQL sắp lại thứ tự khoá (MariaDB thì giữ), nên so nhật ký bằng toEqual (không xét thứ tự khoá).
 
-function nhanVien(string $vaiTro, array $doi = []): User
-{
-    $user = User::factory()->create($doi);
-    $user->forceFill(['is_staff' => true])->save();
-    $user->assignRole($vaiTro);
-
-    return $user;
-}
-
-/** @return array<string, mixed> */
-function dongNhatKy(string $viec): array
-{
-    $dong = DB::table('audit_logs')->where('action', $viec)->latest('id')->first();
-    expect($dong)->not->toBeNull("không có nhật ký {$viec}");
-
-    return (array) $dong;
-}
-
 beforeEach(fn () => $this->seed());
 
 it('người học (không phải nhân viên) vào /admin thì bị từ chối 403; nhân viên bị khoá cũng vậy', function () {
