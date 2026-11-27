@@ -1,9 +1,9 @@
 {
  "ten": "Tự kiểm thử G1 (19 mục)",
- "luc": "2026-11-27T21:17:07+00:00",
+ "luc": "2026-11-27T21:45:38+00:00",
  "tong": {
-  "dat": 18,
-  "dat_mot_phan": 1,
+  "dat": 19,
+  "dat_mot_phan": 0,
   "chua_dat": 0,
   "chua_chay": 0
  },
@@ -11,7 +11,7 @@
  "migration_moi": {
   "trang_thai": "dat",
   "bang_chung": [
-   "6/6 bước database của G0 đạt: Migrate lên, Khớp với schema.sql (0 khác biệt), Quy ước LoWo (không khoá ngoại, thời gian số nguyên), Migrate xuống hết, Sau khi xuống chỉ còn bảng migrations, Migrate lên lại (latest-ci-php.txt (commit 71dcf83, run 46067145126))"
+   "6/6 bước database của G0 đạt: Migrate lên, Khớp với schema.sql (0 khác biệt), Quy ước LoWo (không khoá ngoại, thời gian số nguyên), Migrate xuống hết, Sau khi xuống chỉ còn bảng migrations, Migrate lên lại (latest-ci-php.txt (commit 1dd718a, run 46071348365))"
   ]
  },
  "muc": [
@@ -25,9 +25,10 @@
     "Pest \"ghi: thẻ, chủ đề 3 tầng, nghĩa, câu ví dụ, dạng từ, ngữ pháp, bài tập, động từ đúng nội dung\": đạt",
     "Pest \"chạy lại lần hai: không thêm dòng nào, giữ id (nên giữ tiến độ học)\": đạt",
     "Pest \"nguồn đánh dấu \"Không\" thì không có dòng nào của nguồn đó, kể cả dòng đã nhập lần trước\": đạt",
+    "máy chủ (101-ci-deploy.txt, run 46070721339): 11882 thẻ, 620 chủ đề nhỏ, 219 bài ngữ pháp, 6887 câu bài tập, 889 động từ, 10875 file audio — khớp số liệu nhập",
     "máy bạn: 654 chủ đề (7 + 27 + 620), 11.882 thẻ, 33 chương, 219 bài ngữ pháp, 364 bộ, 6.887 câu bài tập, 889 động từ; 35.646 nghĩa, 13.222 câu ví dụ, 16.733 dạng từ, đúng số mong đợi ở docs/nhap-lernbuch-cu.md (bạn chạy setup\\nhap-du-lieu.bat trên máy (MySQL 9.7), lernweb.zip bản x19; kết quả ở app\\setup\\ket-qua-nhap-du-lieu.txt, 2026-11-27 19:26 (giờ máy bạn))"
    ],
-   "ghi_chu": "Số liệu trên máy chủ: lần deploy tới ghi dòng \"Nội dung:\" (app:dung-luong)."
+   "ghi_chu": ""
   },
   {
    "so": 2,
@@ -155,7 +156,7 @@
    "trang_thai": "dat",
    "bang_chung": [
     "workflow audio chọn pavoque: dừng, \"Giọng pavoque không được dùng để bán\" (latest-audio-nghe-thu.txt (commit 15a67df, run 46044958352), trạng thái failure)",
-    "Test công cụ audio (giọng được dùng để bán, tên file theo hash): đạt (latest-ci-php.txt (commit 71dcf83, run 46067145126))"
+    "Test công cụ audio (giọng được dùng để bán, tên file theo hash): đạt (latest-ci-php.txt (commit 1dd718a, run 46071348365))"
    ],
    "ghi_chu": ""
   },
@@ -183,7 +184,7 @@
    "bang_chung": [
     "62/62 test Playwright có axe WCAG 2.2 AA đạt ở cả hai cỡ màn hình",
     "Pest tests/Feature/MauQuanTriTest.php (cả file): đạt 11 test",
-    "Tương phản màu WCAG AA (palette_check.py trên tokens.css): đạt, Tương phản: 94/94 cặp (latest-ci-web.txt (commit 71dcf83, run 46067145126))",
+    "Tương phản màu WCAG AA (palette_check.py trên tokens.css): đạt, Tương phản: 94/94 cặp (latest-ci-web.txt (commit 96abc55, run 46070721339))",
     "bộ dò Impeccable: 0 lỗi, 2063 lưu ý (python3 tools/tu-kiem/chay_impeccable.py --dom <ci-results>/ket-qua/web/dom (impeccable 4.10.0; DOM của commit 71dcf83, run 46067145126); tóm tắt ở docs/impeccable-g1.json, 2026-11-28)"
    ],
    "ghi_chu": ""
@@ -220,7 +221,7 @@
    "trang_thai": "dat",
    "bang_chung": [
     "Pest \"dữ liệu cỡ thật: tạo phiên p95 dưới 150 ms, các API học và nội dung p95 dưới 200 ms\": đạt",
-    "tạo phiên p95 cao nhất 93.0 ms, API khác p95 cao nhất 57.5 ms (18 API, latest-ci-php.txt (commit 71dcf83, run 46067145126))"
+    "tạo phiên p95 cao nhất 58.3 ms, API khác p95 cao nhất 55.9 ms (18 API, latest-ci-php.txt (commit 1dd718a, run 46071348365))"
    ],
    "ghi_chu": ""
   },
@@ -228,13 +229,13 @@
    "so": 18,
    "ten": "dung lượng",
    "dat_khi": "dưới 60% của 1 GB sau khi nhập và tạo audio",
-   "trang_thai": "dat_mot_phan",
+   "trang_thai": "dat",
    "bang_chung": [
-    "thư mục nhà 438 MB (4-audio-tao-het.txt, run 46048279485), trong đó audio 68 MB",
-    "database 36.2 MB (91-ci-deploy.txt, run 46047290302)",
-    "tổng 474 MB = 46% của 1 GB"
+    "thư mục nhà 440 MB (101-ci-deploy.txt, run 46070721339)",
+    "database 40.3 MB (101-ci-deploy.txt, run 46070721339)",
+    "tổng 480 MB = 47% của 1 GB"
    ],
-   "ghi_chu": "Database đo trước lần đổi dung lượng gần nhất: lần deploy tới đo lại cả hai."
+   "ghi_chu": ""
   },
   {
    "so": 19,

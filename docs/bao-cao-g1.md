@@ -5,15 +5,15 @@ Ngày 28/11/2026. Kết quả chi tiết từng mục: `docs/tu-kiem-g1.json`, c
 ## Tóm tắt
 
 - Xong cả 5 tuần: tài khoản người học (đăng ký, xác minh email, quên mật khẩu, khoá tạm), nội dung nhập từ Lernbuch cũ, 7 chế độ học với lặp lại ngắt quãng tính trên máy chủ, tiến độ chung giữa nhiều máy, học tiếp khi mất mạng, audio Piper cho từ, cài được như app (PWA), trang quản trị (người học, nội dung, nguồn, nhật ký thao tác, job lỗi).
-- Tự kiểm 19 mục: **18 đạt, 1 đạt một phần, 0 chưa đạt, 0 chưa chạy**. Mục còn lại là dung lượng: đã dưới mức (46% của 1 GB) nhưng số database đo trước khi đăng ký audio, lần deploy tới đo lại.
+- Tự kiểm 19 mục: **19 đạt**. Chấm lại sau khi deploy tuần 5 (run 46070721339): máy chủ có đúng 11.882 thẻ, 620 chủ đề nhỏ, 219 bài ngữ pháp, 6.887 câu, 889 động từ, 10.875 file audio; dung lượng 480 MB = 47% của 1 GB.
 - Lần chạy CI chấm tự kiểm (commit `71dcf83`, run 46067145126, bản code cuối; commit sau chỉ thêm tài liệu và sửa công cụ tự kiểm): php 19/19 bước (317 test Pest), web 9/9 bước (347 test Vitest, 208 test Playwright ở cỡ máy tính và điện thoại). Workflow windows đạt (commit `93d273e`, run 46066389166).
-- Tuần 1–4 đã lên `main` và deploy; audio đã tạo xong (10.875 file, 68 MB). Tuần 5 (8 commit, không có migration mới) nằm ở nhánh `work/g1-tuan5`, **chờ bạn đồng ý** để đưa lên `main` và deploy.
+- Cả 5 tuần đã lên `main` và deploy (28/11, bản `96abc55`, `/up` trả 200); audio đã tạo xong (10.875 file, 68 MB).
 
 ## 19 mục tự kiểm
 
 | # | Mục | Kết quả | Bằng chứng, ghi chú |
 | --- | --- | --- | --- |
-| 1 | nhập đủ và đúng | đạt | 4 test Pest (chạy thử, ghi, chạy lại không thêm dòng và giữ id, nguồn "Không" không có dòng nào). Máy bạn ngày 27/11 (MySQL 9.7): 654 chủ đề (7 + 27 + 620), 11.882 thẻ, 219 bài ngữ pháp, 364 bộ, 6.887 câu, 889 động từ, đúng số mong đợi. Lần deploy tới, log máy chủ ghi thêm dòng "Nội dung:" để đối chiếu trên alwaysdata |
+| 1 | nhập đủ và đúng | đạt | 4 test Pest (chạy thử, ghi, chạy lại không thêm dòng và giữ id, nguồn "Không" không có dòng nào). Máy bạn ngày 27/11 (MySQL 9.7) và máy chủ alwaysdata sau deploy 28/11 đều đúng số mong đợi: 11.882 thẻ, 620 chủ đề nhỏ, 219 bài ngữ pháp, 6.887 câu, 889 động từ |
 | 2 | quy tắc dữ liệu | đạt | cụm từ nằm trong Từ vựng, thẻ không có chủ đề, sig bài tập trùng hay dài quá: báo đúng dòng, không ghi gì |
 | 3 | lặp lại ngắt quãng | đạt | bảng ca thử chung chạy ở cả hai phía: 41 ca Pest, 51 test Vitest; đủ 6 mức × 4 cách chấm, ngày đổi giờ mùa hè (23 và 25 giờ), đổi múi giờ |
 | 4 | lượt chấm gửi trùng | đạt | một lô gửi hai lần, trùng ngay trong lô: ghi một lần, xu cộng một lần |
@@ -30,7 +30,7 @@ Ngày 28/11/2026. Kết quả chi tiết từng mục: `docs/tu-kiem-g1.json`, c
 | 15 | PWA | đạt | Chromium xác nhận đủ điều kiện cài; tải một chủ đề, cắt mạng thật (cả với service worker), tải lại trang vẫn mở app, học 3 thẻ, có mạng lại thì máy chủ nhận đủ |
 | 16 | tra từ | đạt | gõ không dấu ở 4 thứ tiếng ra đúng thẻ; "zahlen" và "zählen" ra đúng chữ đứng đầu |
 | 17 | hiệu năng | đạt | 11.882 thẻ, 5.000 dòng tiến độ: tạo phiên p95 cao nhất 93 ms (mức 150), 16 API khác p95 cao nhất 57,5 ms (mức 200) |
-| 18 | dung lượng | đạt một phần | thư mục nhà 438 MB sau khi tạo audio (audio 68 MB), database 36,2 MB, tổng 474 MB = 46% của 1 GB (mức 60%). Database đo lúc deploy tuần 4, trước khi đăng ký 10.875 file audio; lần deploy tới đo lại cả hai |
+| 18 | dung lượng | đạt | sau deploy tuần 5 (đã có audio): thư mục nhà 440 MB (audio 68 MB), database 40,3 MB, tổng 480 MB = 47% của 1 GB (mức 60%) |
 | 19 | đa ngôn ngữ | đạt | không còn chữ viết thẳng trong code giao diện; ngôn ngữ thiếu bản dịch hiện tiếng Việt, không hiện mã khoá; mọi khoá tiếng Anh của Filament đều có tiếng Việt |
 
 Migration mới của G1 (6 cái) vẫn qua đủ 6 bước database của G0: lên, khớp `schema.sql`, quy ước LoWo, xuống hết, chỉ còn bảng `migrations`, lên lại.
@@ -57,19 +57,18 @@ Bộ dò Impeccable (`tools/tu-kiem/chay_impeccable.py`, tóm tắt ở `docs/im
 
 ## Chưa làm, cần bạn
 
-1. **Đồng ý đưa tuần 5 lên `main` và deploy.** Đẩy lên `main` là deploy lên alwaysdata nên mình chờ bạn. Deploy xong, log máy chủ ghi dung lượng mới và dòng "Nội dung:", mình chấm lại mục 1 và 18.
-2. **Gửi email thật.** Thêm Secret `MAIL_PASSWORD` (mật khẩu hộp thư `lernbuch@alwaysdata.net`, mục 5 của `docs/huong-dan-alwaysdata.md`). Thiếu nó thì đăng ký trên alwaysdata không gửi được thư xác minh.
-3. **Tài khoản quản trị trên alwaysdata.** SSH vào, chạy `cd ~/lernbuch/current && php artisan app:create-admin`, rồi đăng nhập https://lernbuch.alwaysdata.net/admin (cũng là mục 7 còn lại của G0).
+1. **Gửi email thật.** Thêm Secret `MAIL_PASSWORD` (mật khẩu hộp thư `lernbuch@alwaysdata.net`, mục 5 của `docs/huong-dan-alwaysdata.md`). Thiếu nó thì đăng ký trên alwaysdata không gửi được thư xác minh.
+2. **Tài khoản quản trị trên alwaysdata.** SSH vào, chạy `cd ~/lernbuch/current && php artisan app:create-admin`, rồi đăng nhập https://lernbuch.alwaysdata.net/admin (cũng là mục 7 còn lại của G0).
 
 ## Cổng nghiệm thu G1
 
 | Việc bạn thử | Trạng thái |
 | --- | --- |
-| Trên điện thoại, đăng ký bằng email thật, bấm link xác minh | chờ `MAIL_PASSWORD` (việc 2) |
+| Trên điện thoại, đăng ký bằng email thật, bấm link xác minh | chờ `MAIL_PASSWORD` (việc 1) |
 | Chọn mục tiêu, trình độ; học một phiên Flashcard 10 từ mới; tổng kết và Hôm nay đổi đúng | sẵn sàng (CI đã chạy cùng việc này) |
 | Thử hai chế độ khác, rồi Ngữ pháp, Bài tập, Động từ, Tra từ | sẵn sàng |
-| Bật chế độ máy bay giữa phiên, học tiếp 5 thẻ, tắt: số lượt chờ gửi về 0 | sẵn sàng sau khi deploy tuần 5 (việc 1) |
+| Bật chế độ máy bay giữa phiên, học tiếp 5 thẻ, tắt: số lượt chờ gửi về 0 | sẵn sàng |
 | Mở cùng tài khoản trên máy tính: tiến độ giống trên điện thoại | sẵn sàng |
-| Cài app ra màn hình chính điện thoại, mở từ biểu tượng | sẵn sàng sau khi deploy tuần 5 |
-| Vào `/admin`, tìm tài khoản học vừa tạo, xem tiến độ | sau khi deploy tuần 5 và tạo tài khoản quản trị (việc 3) |
+| Cài app ra màn hình chính điện thoại, mở từ biểu tượng | sẵn sàng |
+| Vào `/admin`, tìm tài khoản học vừa tạo, xem tiến độ | sau khi tạo tài khoản quản trị (việc 2) |
 | Đọc báo cáo G1, ghi nhận xét vào doc kế hoạch | sẵn sàng |
