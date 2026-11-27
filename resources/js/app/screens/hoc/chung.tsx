@@ -1,10 +1,11 @@
 // Phần dùng chung của mọi chế độ học: thanh trên cùng, gửi lượt khi xong phiên, bảng tổng kết, phiên rỗng.
-import { ArrowRight, X } from 'lucide-react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { ArrowRight, Check, X } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState, type ReactNode, type Ref } from 'react';
 import { Link } from 'react-router';
 import { TuDuc } from '../../components/Article';
 import { ChoGui } from '../../components/ChoGui';
 import { LevelIcon } from '../../components/LevelIcon';
+import { nghe as ngheChu } from '../../lib/amThanh';
 import { api } from '../../lib/api';
 import { guiDi, themLuot, useHangCho } from '../../lib/hangCho';
 import type { CheDo, ConLai, TheHoc } from '../../lib/hoc';
@@ -227,4 +228,68 @@ export function Empty({ onExit, lyDo }: { onExit: () => void; lyDo?: string }) {
             </button>
         </main>
     );
+}
+
+export const laGo = (el: EventTarget | null) => el instanceof HTMLElement && (el.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName));
+export const laNut = (el: EventTarget | null) => el instanceof HTMLElement && !!el.closest('button, a');
+
+/** Phím nghe chung: P nghe, S nghe chậm; đang gõ trong ô thì Alt+P, Alt+S. url: file audio của thẻ (không có thì giọng trình duyệt). */
+export function phimNghe(e: KeyboardEvent, chu: string, url: string | null = null): boolean {
+    const dangGo = laGo(e.target);
+    if (e.ctrlKey || e.metaKey || (dangGo && !e.altKey) || (!dangGo && e.altKey)) return false;
+    if (e.code !== 'KeyP' && e.code !== 'KeyS') return false;
+    e.preventDefault();
+    void ngheChu(chu, { url, cham: e.code === 'KeyS' });
+    return true;
+}
+
+
+/** Dòng báo đúng sai (vùng thông báo cho trình đọc màn hình). */
+export function BaoKetQua({ diem, chu, phu }: { diem: 0 | 1 | 2 | null; chu: string; phu?: ReactNode }) {
+    const mau = diem === 2 ? 'text-tim' : diem === 1 ? 'text-warning-ink' : 'text-danger';
+    const Icon = diem === 0 || diem === null ? X : Check;
+    return (
+        <p role="status" className={`mt-4 flex flex-wrap items-center gap-2 font-bold ${mau}`}>
+            <Icon size={20} aria-hidden="true" />
+            {chu}
+            {phu && <span className="font-normal text-ink-2">{phu}</span>}
+        </p>
+    );
+}
+
+/** Nút chính ở đáy màn hình (Kiểm tra, Tiếp), như nút Lật thẻ của Flashcard. */
+export function NutDay({ onClick, children, nutRef, disabled = false }: { onClick: () => void; children: ReactNode; nutRef?: Ref<HTMLButtonElement>; disabled?: boolean }) {
+    return (
+        <footer className="fixed inset-x-0 bottom-0 border-t border-line bg-sheet pb-[env(safe-area-inset-bottom)]">
+            <div className="mx-auto max-w-[640px] px-4 py-3">
+                <button
+                    ref={nutRef}
+                    type="button"
+                    onClick={onClick}
+                    disabled={disabled}
+                    className="flex min-h-14 w-full items-center justify-center gap-3 rounded-md bg-tim text-title font-bold text-on-tim transition-colors duration-200 hover:bg-tim-strong disabled:opacity-60"
+                >
+                    {children}
+                </button>
+            </div>
+        </footer>
+    );
+}
+
+/** Lúc câu hỏi hiện lên (máy chủ dùng để nhận ra chấm quá nhanh). */
+export function useLucHien() {
+    const luc = useRef(0);
+    useEffect(() => {
+        luc.current = Date.now();
+    }, []);
+    return luc;
+}
+
+/** Sau khi trả lời: tiêu điểm vào nút Tiếp, để Enter hay Space đi tiếp. */
+export function useTieuDiemTiep(daTraLoi: boolean) {
+    const nut = useRef<HTMLButtonElement>(null);
+    useEffect(() => {
+        if (daTraLoi) nut.current?.focus();
+    }, [daTraLoi]);
+    return nut;
 }

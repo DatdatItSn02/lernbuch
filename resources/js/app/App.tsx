@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation } from 'react-router';
 import { Shell } from './components/Shell';
 import { CaiDat } from './screens/CaiDat';
@@ -7,13 +8,15 @@ import { ChuDeIndex } from './screens/ChuDeIndex';
 import { Hoc } from './screens/Hoc';
 import { HomNay } from './screens/HomNay';
 import { KhongThay } from './screens/KhongThay';
-import { SapCo } from './screens/SapCo';
+import { BaiTap, SoNhieu } from './screens/luyenTap/BaiTap';
+import { DongTuBang } from './screens/luyenTap/DongTu';
+import { ChiaDongTu, DienCau, LamBai } from './screens/luyenTap/LamBai';
+import { BaiNguPhap, NguPhap } from './screens/luyenTap/NguPhap';
 import { SoTay } from './screens/SoTay';
 import { TheTu } from './screens/TheTu';
 import { TraTu } from './screens/TraTu';
 import { StoreProvider } from './state/store';
 import { TaiKhoanProvider } from './state/taiKhoan';
-import { t } from './i18n';
 
 function ShellLayout() {
     return (
@@ -29,11 +32,20 @@ function HocRoute() {
     return <Hoc key={key} />;
 }
 
-/** Các màn hình của app học; phiên học (/hoc) chiếm cả màn hình, không có thanh điều hướng. */
+/** Mỗi lần mở một lượt làm bài là một lượt mới (kể cả bấm lại cùng đường dẫn). */
+function KhoaTheoDuong({ children }: { children: (key: string) => ReactNode }) {
+    const { key } = useLocation();
+    return children(key);
+}
+
+/** Các màn hình của app học; phiên học (/hoc) và lượt làm bài chiếm cả màn hình, không có thanh điều hướng. */
 export function AppRoutes() {
     return (
         <Routes>
             <Route path="hoc" element={<HocRoute />} />
+            <Route path="bai-tap/lam" element={<KhoaTheoDuong>{(k) => <LamBai key={k} />}</KhoaTheoDuong>} />
+            <Route path="bai-tap/dien-cau" element={<KhoaTheoDuong>{(k) => <DienCau key={k} />}</KhoaTheoDuong>} />
+            <Route path="bai-tap/chia-dong-tu" element={<KhoaTheoDuong>{(k) => <ChiaDongTu key={k} />}</KhoaTheoDuong>} />
             <Route element={<ShellLayout />}>
                 <Route index element={<Navigate to="/hom-nay" replace />} />
                 <Route path="hom-nay" element={<HomNay />} />
@@ -42,7 +54,11 @@ export function AppRoutes() {
                 <Route path="giao-tiep" element={<ChuDeIndex key="giao-tiep" kieu="giao-tiep" />} />
                 <Route path="chu-de/:ma" element={<ChuDe />} />
                 <Route path="tu/:ma" element={<TheTu />} />
-                <Route path="ngu-phap" element={<SapCo title={t('khung.nguPhap')} what={t('sapCo.nguPhap')} />} />
+                <Route path="ngu-phap" element={<NguPhap />} />
+                <Route path="ngu-phap/:slug" element={<BaiNguPhap />} />
+                <Route path="bai-tap" element={<BaiTap />} />
+                <Route path="so-nhieu" element={<SoNhieu />} />
+                <Route path="dong-tu" element={<DongTuBang />} />
                 <Route path="tra-tu" element={<TraTu />} />
                 <Route path="so-tay" element={<SoTay />} />
                 <Route path="cai-dat" element={<CaiDat />} />

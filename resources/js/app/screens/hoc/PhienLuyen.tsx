@@ -1,7 +1,7 @@
 // Phiên luyện tập ngoài Flashcard, theo Lernbuch (modes.js): Quiz, Listening, Typing, Ghép cặp, Hỗn hợp, Đặt câu.
 // Mỗi thẻ được chấm 0 (Quên), 1 (Khó) hoặc 2 (Tốt) như lượt chấm Flashcard; chỉ lượt đầu của thẻ được tính.
 import { Check, X } from 'lucide-react';
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode, type Ref } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { DongDang, TuDuc } from '../../components/Article';
 import { AudioButton } from '../../components/AudioButton';
 import { Kbd } from '../../components/Kbd';
@@ -28,7 +28,7 @@ import { nghe as ngheChu } from '../../lib/amThanh';
 import { levelName, stageName, type Grade } from '../../lib/srs';
 import { useStore } from '../../state/store';
 import { t, type Khoa } from '../../i18n';
-import { Empty, Header, Summary, ketQua, useGhiLuot, type Done } from './chung';
+import { BaoKetQua, Empty, Header, NutDay, Summary, ketQua, laGo, laNut, phimNghe, useGhiLuot, useLucHien, useTieuDiemTiep, type Done } from './chung';
 
 /** Thẻ sai quay lại trong phiên tối đa chừng này lần (để luyện, không tính vào tiến độ). */
 const MAX_ON_LAI = 2;
@@ -57,19 +57,6 @@ function dungHang(phien: PhienHoc, langs: Langs): Muc[] {
         return chiaVong(phien.cards, langs).map((vong) => ({ kieu: 'match', vong, trai: tron(vong.cards.map((c) => c.id)), phai: tron(vong.cards.map((c) => c.id)) }));
     }
     return phien.cards.map((c) => taoMuc(phien.mode === 'mixed' ? chonKieu(c) : (phien.mode as Exclude<Kieu, 'match'>), c, langs, false));
-}
-
-const laGo = (el: EventTarget | null) => el instanceof HTMLElement && (el.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName));
-const laNut = (el: EventTarget | null) => el instanceof HTMLElement && !!el.closest('button, a');
-
-/** Phím nghe chung: P nghe, S nghe chậm; đang gõ trong ô thì Alt+P, Alt+S. url: file audio của thẻ (không có thì giọng trình duyệt). */
-function phimNghe(e: KeyboardEvent, chu: string, url: string | null = null): boolean {
-    const dangGo = laGo(e.target);
-    if (e.ctrlKey || e.metaKey || (dangGo && !e.altKey) || (!dangGo && e.altKey)) return false;
-    if (e.code !== 'KeyP' && e.code !== 'KeyS') return false;
-    e.preventDefault();
-    void ngheChu(chu, { url, cham: e.code === 'KeyS' });
-    return true;
 }
 
 export function PhienLuyen({ phien, chuDe, chiOn, onExit }: { phien: PhienHoc; chuDe: string | null; chiOn: boolean; onExit: () => void }) {
@@ -226,56 +213,6 @@ function DapAnThe({ the, langs, hienTu = true }: { the: TheHoc; langs: Langs; hi
             )}
         </div>
     );
-}
-
-/** Dòng báo đúng sai (vùng thông báo cho trình đọc màn hình). */
-function BaoKetQua({ diem, chu, phu }: { diem: Diem | null; chu: string; phu?: ReactNode }) {
-    const mau = diem === 2 ? 'text-tim' : diem === 1 ? 'text-warning-ink' : 'text-danger';
-    const Icon = diem === 0 || diem === null ? X : Check;
-    return (
-        <p role="status" className={`mt-4 flex flex-wrap items-center gap-2 font-bold ${mau}`}>
-            <Icon size={20} aria-hidden="true" />
-            {chu}
-            {phu && <span className="font-normal text-ink-2">{phu}</span>}
-        </p>
-    );
-}
-
-/** Nút chính ở đáy màn hình (Kiểm tra, Tiếp), như nút Lật thẻ của Flashcard. */
-function NutDay({ onClick, children, nutRef, disabled = false }: { onClick: () => void; children: ReactNode; nutRef?: Ref<HTMLButtonElement>; disabled?: boolean }) {
-    return (
-        <footer className="fixed inset-x-0 bottom-0 border-t border-line bg-sheet pb-[env(safe-area-inset-bottom)]">
-            <div className="mx-auto max-w-[640px] px-4 py-3">
-                <button
-                    ref={nutRef}
-                    type="button"
-                    onClick={onClick}
-                    disabled={disabled}
-                    className="flex min-h-14 w-full items-center justify-center gap-3 rounded-md bg-tim text-title font-bold text-on-tim transition-colors duration-200 hover:bg-tim-strong disabled:opacity-60"
-                >
-                    {children}
-                </button>
-            </div>
-        </footer>
-    );
-}
-
-/** Lúc câu hỏi hiện lên (máy chủ dùng để nhận ra chấm quá nhanh). */
-function useLucHien() {
-    const luc = useRef(0);
-    useEffect(() => {
-        luc.current = Date.now();
-    }, []);
-    return luc;
-}
-
-/** Sau khi trả lời: tiêu điểm vào nút Tiếp, để Enter hay Space đi tiếp. */
-function useTieuDiemTiep(daTraLoi: boolean) {
-    const nut = useRef<HTMLButtonElement>(null);
-    useEffect(() => {
-        if (daTraLoi) nut.current?.focus();
-    }, [daTraLoi]);
-    return nut;
 }
 
 function CauQuiz({ muc, langs, onCham, onTiep }: CauProps<Extract<MucMot, { kieu: 'quiz' }>>) {

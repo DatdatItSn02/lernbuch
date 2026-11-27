@@ -145,13 +145,16 @@ test('Cấp độ: chọn cấp thì chỉ còn chủ đề có thẻ khớp, li
     await expect(page.locator('tbody tr')).toHaveCount(2);
 });
 
-test('điều hướng: Chủ đề sáng cả khi đang ở Cấp độ, Giao tiếp, thẻ từ; Sổ tay có trên thanh điều hướng', async ({ page }, testInfo) => {
+test('điều hướng: Chủ đề sáng cả khi đang ở Cấp độ, Giao tiếp, thẻ từ; có Ngữ pháp, Bài tập; Sổ tay trên thanh trên', async ({ page }, testInfo) => {
     await page.goto('/app/giao-tiep');
     await expect(page.locator('h1')).toHaveText('Giao tiếp');
     // Máy tính có thanh trên, điện thoại có thanh dưới: lấy thanh đang hiện
     const nav = page.locator('nav[aria-label="Điều hướng chính"]:visible');
     await expect(nav.getByRole('link', { name: 'Chủ đề' })).toHaveAttribute('aria-current', 'page');
-    await nav.getByRole('link', { name: 'Sổ tay' }).click();
+    await expect(nav.getByRole('link', { name: 'Ngữ pháp' })).toBeVisible();
+    await expect(nav.getByRole('link', { name: 'Bài tập' })).toBeVisible();
+    // Máy tính: Sổ tay là một mục của thanh trên; điện thoại: nút hình sao trên thanh trên
+    await page.getByRole('banner').getByRole('link', { name: 'Sổ tay' }).click();
     await expect(page).toHaveURL(/\/app\/so-tay$/);
     if (testInfo.project.name === 'dien-thoai') {
         // Điện thoại: Cài đặt ở nút bánh răng trên thanh trên

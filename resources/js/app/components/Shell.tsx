@@ -1,4 +1,4 @@
-import { BookOpen, CalendarDays, Library, Search, Settings, Star } from 'lucide-react';
+import { BookOpen, CalendarDays, Library, PencilLine, Search, Settings, Star } from 'lucide-react';
 import { useEffect, useRef, type ReactNode } from 'react';
 import { Link, NavLink, useLocation } from 'react-router';
 import { ChoGui } from './ChoGui';
@@ -6,13 +6,15 @@ import { t, type Khoa } from '../i18n';
 
 type MucDieuHuong = { to: string; khoa: Khoa; icon: typeof CalendarDays; cung?: string[]; dienThoai?: boolean };
 
-// Chủ đề gồm cả Cấp độ, Giao tiếp và thẻ từ. Điện thoại: Cài đặt ở nút bánh răng trên thanh trên, thanh dưới còn 5 mục.
+// Chủ đề gồm cả Cấp độ, Giao tiếp và thẻ từ; Ngữ pháp gồm Bảng động từ; Bài tập gồm Số nhiều.
+// Điện thoại: thanh dưới 5 mục; Sổ tay và Cài đặt là hai nút trên thanh trên.
 const NAV: MucDieuHuong[] = [
     { to: '/hom-nay', khoa: 'khung.homNay', icon: CalendarDays },
     { to: '/chu-de', khoa: 'khung.chuDe', icon: Library, cung: ['/cap-do', '/giao-tiep', '/tu/'] },
-    { to: '/ngu-phap', khoa: 'khung.nguPhap', icon: BookOpen },
+    { to: '/ngu-phap', khoa: 'khung.nguPhap', icon: BookOpen, cung: ['/dong-tu'] },
+    { to: '/bai-tap', khoa: 'khung.baiTap', icon: PencilLine, cung: ['/so-nhieu'] },
     { to: '/tra-tu', khoa: 'khung.traTu', icon: Search },
-    { to: '/so-tay', khoa: 'khung.soTay', icon: Star },
+    { to: '/so-tay', khoa: 'khung.soTay', icon: Star, dienThoai: false },
     { to: '/cai-dat', khoa: 'khung.caiDat', icon: Settings, dienThoai: false },
 ];
 
@@ -63,6 +65,15 @@ export function Shell({ children }: { children: ReactNode }) {
                     </nav>
                     <span className="ml-auto flex items-center gap-1">
                         <ChoGui mau="text-on-box/85" />
+                        <NavLink
+                            to="/so-tay"
+                            aria-label={t('khung.soTay')}
+                            className={({ isActive }) =>
+                                `flex size-11 items-center justify-center rounded-md focus-visible:outline-on-box! md:hidden ${isActive ? 'text-on-box' : 'text-on-box/80 hover:text-on-box'}`
+                            }
+                        >
+                            <Star size={22} aria-hidden="true" />
+                        </NavLink>
                         <NavLink
                             to="/cai-dat"
                             aria-label={t('khung.caiDat')}

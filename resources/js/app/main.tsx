@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import { datNgonNgu } from './i18n';
+import { guiLaiKetQua } from './lib/baiTap';
 import { batDauHangCho } from './lib/hangCho';
 import { registerServiceWorker } from './registerServiceWorker';
 
@@ -19,5 +20,7 @@ if (root) {
 }
 
 registerServiceWorker();
-// Lượt chấm còn nằm trên máy từ lần trước (mất mạng, đóng tab): gửi ngay; có mạng lại thì gửi tiếp
+// Lượt chấm và kết quả bài tập còn nằm trên máy từ lần trước (mất mạng, đóng tab): gửi ngay; có mạng lại thì gửi tiếp
 batDauHangCho();
+void guiLaiKetQua();
+window.addEventListener('online', () => void guiLaiKetQua());

@@ -16,7 +16,12 @@ const SCREENS = [
     ['Tra từ, lịch sử', '/app/tra-tu'],
     ['Sổ tay', '/app/so-tay'],
     ['Cài đặt', '/app/cai-dat'],
-    ['Sắp có', '/app/ngu-phap'],
+    ['Ngữ pháp', '/app/ngu-phap'],
+    ['Bài ngữ pháp', '/app/ngu-phap/g-A1-22'],
+    ['Bài tập', '/app/bai-tap'],
+    ['Bài tập, Ôn tập', '/app/bai-tap?tab=on-tap'],
+    ['Số nhiều', '/app/so-nhieu'],
+    ['Bảng động từ', '/app/dong-tu'],
     ['Không tìm thấy', '/app/khong-co'],
     ['Chủ đề không có', '/app/chu-de/khong-co'],
 ] as const;
