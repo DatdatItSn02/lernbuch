@@ -193,80 +193,82 @@ export function BaiNguPhap() {
 
     return (
         <Sheet className="px-5 py-6 md:px-8">
-            <Link to="/ngu-phap" className="-ml-2 inline-flex min-h-11 items-center gap-1.5 rounded-md px-2 text-label font-semibold text-ink-2 hover:text-ink">
-                <ArrowLeft size={18} aria-hidden="true" />
-                {t('nguPhap.veDanhSach')}
-            </Link>
-            {!bai || !ten ? (
-                loi ? (
-                    loi.trangThai === 404 ? (
-                        <p className="mt-6 font-semibold">{t('nguPhap.khongCoBai')}</p>
+            <div className="mx-auto max-w-[760px]">
+                <Link to="/ngu-phap" className="-ml-2 inline-flex min-h-11 items-center gap-1.5 rounded-md px-2 text-label font-semibold text-ink-2 hover:text-ink">
+                    <ArrowLeft size={18} aria-hidden="true" />
+                    {t('nguPhap.veDanhSach')}
+                </Link>
+                {!bai || !ten ? (
+                    loi ? (
+                        loi.trangThai === 404 ? (
+                            <p className="mt-6 font-semibold">{t('nguPhap.khongCoBai')}</p>
+                        ) : (
+                            <LoiTai loi={loi} taiLai={taiLai} />
+                        )
                     ) : (
-                        <LoiTai loi={loi} taiLai={taiLai} />
+                        <DangTai />
                     )
                 ) : (
-                    <DangTai />
-                )
-            ) : (
-                <div className="mx-auto max-w-[760px]">
-                    <h1 className="mt-2 text-headline font-bold text-balance">{ten.viet ? <span lang="de">{ten.duc}</span> : bai.title}</h1>
-                    <p className="mt-1 text-ink-2">{[ten.viet, bai.level, bai.chapter ? tenChuong(bai.chapter) : null].filter(Boolean).join(' · ')}</p>
+                    <>
+                        <h1 className="mt-2 text-headline font-bold text-balance">{ten.viet ? <span lang="de">{ten.duc}</span> : bai.title}</h1>
+                        <p className="mt-1 text-ink-2">{[ten.viet, bai.level, bai.chapter ? tenChuong(bai.chapter) : null].filter(Boolean).join(' · ')}</p>
 
-                    {bai.sets.length > 0 && (
-                        <section aria-labelledby="luyen-bai" className="mt-5 rounded-md border border-line px-4 py-3">
-                            <h2 id="luyen-bai" className="font-bold">
-                                {t('nguPhap.luyenBaiNay')}
-                            </h2>
-                            <div className="mt-2 flex flex-wrap gap-2">
-                                {bai.sets.map((s) => (
-                                    <NutLink key={s.slug} to={`/bai-tap/lam${truyVan({ bo: s.slug, n: 20, ve: `/ngu-phap/${bai.slug}` })}`} chinh>
-                                        {t('nguPhap.boCau', { ten: s.title, n: so(s.count) })}
-                                    </NutLink>
-                                ))}
-                            </div>
-                        </section>
-                    )}
+                        {bai.sets.length > 0 && (
+                            <section aria-labelledby="luyen-bai" className="mt-5 rounded-md border border-line px-4 py-3">
+                                <h2 id="luyen-bai" className="font-bold">
+                                    {t('nguPhap.luyenBaiNay')}
+                                </h2>
+                                <div className="mt-2 flex flex-wrap gap-2">
+                                    {bai.sets.map((s) => (
+                                        <NutLink key={s.slug} to={`/bai-tap/lam${truyVan({ bo: s.slug, n: 20, ve: `/ngu-phap/${bai.slug}` })}`} chinh>
+                                            {t('nguPhap.boCau', { ten: s.title, n: so(s.count) })}
+                                        </NutLink>
+                                    ))}
+                                </div>
+                            </section>
+                        )}
 
-                    {phan.length > 2 && (
-                        <nav aria-label={t('nguPhap.mucLuc')} className="mt-5">
-                            <ul className="flex flex-wrap gap-1.5">
-                                {phan.map((p) => (
-                                    <li key={p.id}>
-                                        <a
-                                            href={`#${p.id}`}
-                                            onClick={nhay(p.id)}
-                                            className="flex min-h-11 items-center rounded-md border border-line px-3 text-label font-semibold text-ink-2 transition-colors duration-200 hover:border-line-strong hover:text-ink"
-                                        >
-                                            {chuMucLuc(p.chu)}
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
+                        {phan.length > 2 && (
+                            <nav aria-label={t('nguPhap.mucLuc')} className="mt-5">
+                                <ul className="flex flex-wrap gap-1.5">
+                                    {phan.map((p) => (
+                                        <li key={p.id}>
+                                            <a
+                                                href={`#${p.id}`}
+                                                onClick={nhay(p.id)}
+                                                className="flex min-h-11 items-center rounded-md border border-line px-3 text-label font-semibold text-ink-2 transition-colors duration-200 hover:border-line-strong hover:text-ink"
+                                            >
+                                                {chuMucLuc(p.chu)}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </nav>
+                        )}
+
+                        <article className="mt-4 text-pretty">
+                            <KhoiNguPhap khoi={bai.blocks} langs={settings.langs} />
+                        </article>
+
+                        <nav aria-label={t('nguPhap.chuyenBai')} className="mt-10 flex flex-wrap justify-between gap-3 border-t border-line pt-4">
+                            {bai.prev ? (
+                                <NutLink to={`/ngu-phap/${bai.prev.slug}`}>
+                                    <ArrowLeft size={18} aria-hidden="true" />
+                                    {t('nguPhap.baiTruoc')}
+                                </NutLink>
+                            ) : (
+                                <span />
+                            )}
+                            {bai.next && (
+                                <NutLink to={`/ngu-phap/${bai.next.slug}`}>
+                                    {t('nguPhap.baiSau')}
+                                    <ArrowRight size={18} aria-hidden="true" />
+                                </NutLink>
+                            )}
                         </nav>
-                    )}
-
-                    <article className="mt-4 text-pretty">
-                        <KhoiNguPhap khoi={bai.blocks} langs={settings.langs} />
-                    </article>
-
-                    <nav aria-label={t('nguPhap.chuyenBai')} className="mt-10 flex flex-wrap justify-between gap-3 border-t border-line pt-4">
-                        {bai.prev ? (
-                            <NutLink to={`/ngu-phap/${bai.prev.slug}`}>
-                                <ArrowLeft size={18} aria-hidden="true" />
-                                {t('nguPhap.baiTruoc')}
-                            </NutLink>
-                        ) : (
-                            <span />
-                        )}
-                        {bai.next && (
-                            <NutLink to={`/ngu-phap/${bai.next.slug}`}>
-                                {t('nguPhap.baiSau')}
-                                <ArrowRight size={18} aria-hidden="true" />
-                            </NutLink>
-                        )}
-                    </nav>
-                </div>
-            )}
+                    </>
+                )}
+            </div>
         </Sheet>
     );
 }

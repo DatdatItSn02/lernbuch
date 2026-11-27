@@ -18,7 +18,8 @@ class NguoiHocThuSeeder extends Seeder
     /** Tài khoản riêng cho test trình duyệt có chấm thẻ: mỗi cỡ màn hình, mỗi test một tài khoản để tiến độ không lẫn nhau. */
     public const CO_MAN_HINH = ['may-tinh', 'dien-thoai'];
 
-    public const SO_TAI_KHOAN_HOC = 5;
+    /** 1–3: phiên Flashcard (tests/e2e/hoc.spec.ts); 4–10: mỗi chế độ học một tài khoản (tests/e2e/che-do.spec.ts). */
+    public const SO_TAI_KHOAN_HOC = 10;
 
     public function run(): void
     {

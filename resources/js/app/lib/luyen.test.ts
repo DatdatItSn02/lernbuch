@@ -98,12 +98,16 @@ describe('dựng câu hỏi', () => {
             { id: 91, front: 'die Nummer', article: 'die', word: 'Nummer', gender: 'f', meanings: { vi: 'số hiệu' } },
         ] satisfies TheHoc['options'];
         // 13 số đếm mẫu (id 11–23, nghĩa khác nhau)
-        const cards = Array.from({ length: 13 }, (_, i) => ({ ...theHoc(11 + i), options: nhieu }));
+        const cards = Array.from({ length: 13 }, (_, i) => ({ ...theHoc(11 + i), options: nhieu, audio: i === 0 ? '/audio/null.mp3' : null }));
         expect(chiaVong(cards, LANGS).map((v) => v.cards.length)).toEqual([5, 5, 3]);
-        // Hai thẻ: thêm một cặp nhiễu; bỏ "eins" vì trùng nghĩa với thẻ id 12 (số một)
+        // Hai thẻ: thêm một cặp nhiễu; bỏ "eins" vì trùng nghĩa với thẻ id 12 (số một). Cặp nhiễu không có file audio
         const hai = chiaVong(cards.slice(0, 2), LANGS);
         expect(hai).toHaveLength(1);
-        expect(hai[0].cards.map((c) => [c.id, c.nhieu])).toEqual([[11, false], [12, false], [91, true]]);
+        expect(hai[0].cards.map((c) => [c.id, c.nhieu, c.audio])).toEqual([
+            [11, false, '/audio/null.mp3'],
+            [12, false, null],
+            [91, true, null],
+        ]);
         expect(chiaVong([], LANGS)).toEqual([]);
     });
 

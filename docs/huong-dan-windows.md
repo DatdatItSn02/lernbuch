@@ -31,16 +31,35 @@ Cách chạy giống LoWo: công cụ dùng chung trong `F:\dev` (PHP 8.5, Compo
 | http://127.0.0.1:8001 | trang chào |
 | http://127.0.0.1:8001/kiem-chu | trang kiểm chữ: 20 mẫu chữ tiếng Việt, tiếng Đức theo từng font |
 | http://127.0.0.1:8001/app/hom-nay | app học, màn hình Hôm nay: thẻ đến hạn, từ mới, xu, chuỗi ngày, mục tiêu ngày |
-| http://127.0.0.1:8001/app/hoc | phiên học: Space lật thẻ, phím 1–4 chấm, P nghe, ←/→ xem lại, Esc thoát |
+| http://127.0.0.1:8001/app/hoc | phiên học theo chế độ chọn ở Hôm nay (Flashcard, Quiz, Listening, Typing, Ghép cặp, Hỗn hợp, Đặt câu); phím tắt ở mục dưới |
 | http://127.0.0.1:8001/app/chu-de | Chủ đề, Cấp độ, Giao tiếp; bấm vào chủ đề để xem thẻ, bấm vào từ để mở thẻ từ |
+| http://127.0.0.1:8001/app/ngu-phap | ngữ pháp theo cấp và chương, tìm bài; mỗi bài có mục lục và nút luyện tập bài đó |
+| http://127.0.0.1:8001/app/bai-tap | bài tập: luyện nhanh, Điền câu, Chia động từ, Số nhiều, Ôn câu sai; bài theo cấp, tab Ôn tập; chấm ngay từng câu hoặc làm cả bộ rồi chấm |
+| http://127.0.0.1:8001/app/dong-tu | bảng động từ: tìm, lọc theo cấp, động từ tách; bấm một dòng để xem bảng chia |
 | http://127.0.0.1:8001/app/tra-tu | tra từ: gõ tiếng Đức, Việt, Anh hoặc Trung, không cần dấu |
 | http://127.0.0.1:8001/app/so-tay | sổ tay: thẻ có sao và ghi chú riêng |
-| http://127.0.0.1:8001/app/cai-dat | cài đặt: giao diện tối, cỡ chữ, mùa |
+| http://127.0.0.1:8001/app/cai-dat | cài đặt: giao diện tối, cỡ chữ, mùa, thứ tiếng của nghĩa |
 | http://127.0.0.1:8001/admin | trang quản trị (đăng nhập bằng tài khoản vừa tạo) |
 
 Mọi trang đọc dữ liệu thật: cần nhập Lernbuch cũ trước (`setup\nhap-du-lieu.bat`), chưa nhập thì các trang báo chưa có chủ đề. Tiến độ học, sao và ghi chú lưu theo tài khoản trên máy chủ; mất mạng giữa phiên vẫn học tiếp, lượt chấm chờ trên máy rồi tự gửi khi có mạng. Ngưỡng chấm quá nhanh (không cộng xu) sửa ở trang quản trị, mục Hệ thống › Cài đặt học.
 
-## Thử lịch và hàng đợi (mục 13 của phần tự kiểm)
+Nút nghe phát file audio tạo sẵn bằng Piper (cách tạo: `tao-audio.md`); từ chưa có file thì đọc bằng giọng tiếng Đức của trình duyệt. Máy chưa có giọng tiếng Đức thì app báo ngay dưới nút nghe: thêm giọng Deutsch trong Cài đặt Windows, mục Giọng nói.
+
+## Phím tắt khi học
+
+| Chế độ | Phím |
+| --- | --- |
+| Flashcard | Space lật thẻ; 1 Quên, 2 Khó, 3 Tốt, 4 Dễ; P nghe, S nghe chậm, E nghe câu ví dụ; ← xem lại thẻ vừa chấm, → về thẻ đang học |
+| Quiz | 1–4 chọn đáp án; Enter hoặc Space sang câu sau; P, S nghe từ |
+| Listening | từ tự đọc khi câu hiện; đang gõ thì Alt+P nghe lại, Alt+S nghe chậm; Enter kiểm tra, Enter hoặc Space sang câu sau |
+| Typing | Enter kiểm tra; trả lời rồi mới nghe được từ (P, S), để khỏi lộ đáp án |
+| Ghép cặp | bấm từ rồi bấm nghĩa (hoặc Tab tới ô rồi Enter); P, S nghe từ vừa chọn |
+| Hỗn hợp | theo dạng câu đang hỏi (Quiz, Listening, Typing hay Đặt câu) |
+| Đặt câu | bấm các chữ theo thứ tự; Backspace bỏ chữ cuối; Enter kiểm tra; P, S nghe câu |
+| Bài tập | 1–6 chọn đáp án; Enter kiểm tra rồi sang câu sau; làm cả bộ: Enter sang ô sau, Ctrl+Enter chấm |
+| Mọi màn học | Esc thoát |
+
+## Thử lịch và hàng đợi (mục 13 phần tự kiểm G0)
 
 1. Mở `setup\moi-truong.bat` ba lần để có ba cửa sổ lệnh, đều ở thư mục `app`.
 2. Cửa sổ 1: `php artisan schedule:work` (chạy lịch mỗi phút). Cửa sổ 2: `php artisan queue:work` (chạy job trong hàng đợi).

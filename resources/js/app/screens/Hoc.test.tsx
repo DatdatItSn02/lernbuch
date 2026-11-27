@@ -2,6 +2,7 @@ import 'fake-indexeddb/auto';
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { giaApi, type LanGoi, type Tuyen } from '../../test/fakeApi';
+import { fakeSpeech } from '../../test/fakeSpeech';
 import { phienMau, theHoc } from '../../test/noiDungGia';
 import { renderApp } from '../../test/render';
 import { cacLuot, datLaiChoTest, type LuotCham } from '../lib/hangCho';
@@ -125,6 +126,24 @@ describe('Học: phiên flashcard từ máy chủ', () => {
         expect(word()).toBe('die Zahl');
         // Lần gặp lại: mức sau khi Quên (Đang học)
         expect(screen.getByText('Mầm · Đang học')).toBeTruthy();
+    });
+
+    it('P nghe từ, S nghe chậm, E nghe câu ví dụ (cả trước khi lật); thẻ không có câu ví dụ thì E không đọc', async () => {
+        const synth = fakeSpeech();
+        moPhien('/hoc', phienMau([theHoc(1), theHoc(2)]));
+        await screen.findByRole('heading', { level: 1, name: 'das Brötchen' });
+        key('p');
+        key('s');
+        key('e');
+        expect(synth.spoken.map((u) => [u.text, u.rate])).toEqual([
+            ['das Brötchen', 0.95],
+            ['das Brötchen', 0.6],
+            ['Ich möchte zwei Brötchen, bitte.', 0.95],
+        ]);
+        cham('3');
+        await screen.findByRole('heading', { level: 1, name: 'das Brot' });
+        key('e');
+        expect(synth.spoken).toHaveLength(3);
     });
 
     it('← xem lại thẻ vừa chấm, → về thẻ đang học', async () => {

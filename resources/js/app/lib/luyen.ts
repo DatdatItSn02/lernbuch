@@ -121,8 +121,8 @@ export function chonKieu(the: Pick<TheHoc, 'box' | 'example'>, r: Rnd = Math.ran
     return x < 0.4 ? 'typing' : x < 0.7 || !coCau ? 'listening' : 'sentence';
 }
 
-/** Thẻ trong vòng Ghép cặp; cặp nhiễu (decoy) chỉ để đủ 3 cặp, không chấm. */
-export type TheGhep = { id: number; front: string; article: TheHoc['article']; word: string; meanings: TheHoc['meanings']; nhieu: boolean };
+/** Thẻ trong vòng Ghép cặp; cặp nhiễu (decoy) chỉ để đủ 3 cặp, không chấm, không có file audio (đọc bằng giọng trình duyệt). */
+export type TheGhep = { id: number; front: string; article: TheHoc['article']; word: string; meanings: TheHoc['meanings']; audio: string | null; nhieu: boolean };
 export type Vong = { cards: TheGhep[] };
 
 /** Chia thẻ thành các vòng đều nhau, mỗi vòng tối đa 6 cặp; vòng ít hơn 3 cặp thì thêm cặp nhiễu từ đáp án nhiễu. */
@@ -132,12 +132,14 @@ export function chiaVong(cards: readonly TheHoc[], langs: Record<NgonNguNghia, b
     const moi = Math.ceil(cards.length / k);
     const vong: Vong[] = [];
     for (let i = 0; i < cards.length; i += moi) {
-        const nhom: TheGhep[] = cards.slice(i, i + moi).map((c) => ({ id: c.id, front: c.front, article: c.article, word: c.word, meanings: c.meanings, nhieu: false }));
+        const nhom: TheGhep[] = cards.slice(i, i + moi).map((c) => ({ id: c.id, front: c.front, article: c.article, word: c.word, meanings: c.meanings, audio: c.audio, nhieu: false }));
         const nhieu: DapAnNhieu[] = cards[i].options ?? [];
         for (let n = 0; nhom.length < 3 && n < nhieu.length; n++) {
             const d = nhieu[n];
             const nd = nghiaChinh(d, langs);
-            if (nd && !nhom.some((g) => g.id === d.id || nghiaChinh(g, langs) === nd)) nhom.push({ id: d.id, front: d.front, article: d.article, word: d.word, meanings: d.meanings, nhieu: true });
+            if (nd && !nhom.some((g) => g.id === d.id || nghiaChinh(g, langs) === nd)) {
+                nhom.push({ id: d.id, front: d.front, article: d.article, word: d.word, meanings: d.meanings, audio: null, nhieu: true });
+            }
         }
         vong.push({ cards: nhom });
     }

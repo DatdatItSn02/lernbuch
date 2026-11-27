@@ -104,6 +104,8 @@ describe('Ngữ pháp', () => {
         expect(screen.getByText('der (m) · die (f) · das (n) · die (Plural)').getAttribute('lang')).toBe('de');
         expect(screen.getByText('LUÔN').tagName).toBe('STRONG');
         expect(screen.getAllByText('Mẹo')).toHaveLength(1);
+        // Nhãn ngôi (who) nằm cùng dòng với câu tiếng Đức
+        expect(screen.getByText('Das Brot ist frisch.', { exact: false }).textContent).toBe('das · Das Brot ist frisch.');
         expect(screen.getByText('Bánh mì còn tươi.').getAttribute('lang')).toBe('vi');
         expect(screen.getByText('The bread is fresh.').getAttribute('lang')).toBe('en');
         expect(screen.getByRole('heading', { level: 3, name: 'Câu hỏi' })).toBeTruthy();

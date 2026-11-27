@@ -236,9 +236,9 @@ export function KhoiNguPhap({ khoi, langs }: { khoi: Khoi[]; langs: Langs }) {
                 ra.push(
                     <div key={i} className="mt-2 border-l-[3px] border-line-strong py-0.5 pl-3">
                         <p lang="de" className="font-semibold break-words">
-                            {k.who && <span className="font-normal text-ink-2">{`${k.who} · `}</span>}
                             {k.x.split('\n').map((d, n) => (
                                 <span key={n} className="block">
+                                    {n === 0 && k.who && <span className="font-normal text-ink-2">{`${k.who} · `}</span>}
                                     {d}
                                 </span>
                             ))}

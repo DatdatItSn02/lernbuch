@@ -352,7 +352,8 @@ function CauGo({ muc, langs, onCham, onTiep }: CauProps<Extract<MucMot, { kieu: 
 
     useLayoutEffect(() => {
         const onKey = (e: KeyboardEvent) => {
-            if (phimNghe(e, the.front, the.audio) || e.ctrlKey || e.metaKey || e.altKey) return;
+            // Typing chỉ nghe được từ sau khi trả lời (nghe trước là lộ đáp án), như Lernbuch; Listening nghe lúc nào cũng được
+            if (((nghe || kq) && phimNghe(e, the.front, the.audio)) || e.ctrlKey || e.metaKey || e.altKey) return;
             if (e.key !== 'Enter' && !(e.key === ' ' && kq)) return;
             if (!kq && e.target === oGo.current) {
                 e.preventDefault();
@@ -364,7 +365,7 @@ function CauGo({ muc, langs, onCham, onTiep }: CauProps<Extract<MucMot, { kieu: 
         };
         window.addEventListener('keydown', onKey);
         return () => window.removeEventListener('keydown', onKey);
-    }, [kq, kiem, onTiep, the.front, the.audio]);
+    }, [nghe, kq, kiem, onTiep, the.front, the.audio]);
 
     useEffect(() => {
         oGo.current?.focus();
@@ -607,8 +608,20 @@ function VongGhep({ muc, langs, onCham, onTiep }: { muc: MucGhep; langs: Langs; 
     const [sai, setSai] = useState<Record<number, number>>({});
     const [bao, setBao] = useState<{ ok: boolean; chu: string } | null>(null);
     const [rung, setRung] = useState<[number, number] | null>(null);
+    // Từ tiếng Đức chọn gần nhất: P nghe, S nghe chậm (như Lernbuch)
+    const [vuaChon, setVuaChon] = useState<number | null>(null);
     const hienVong = useLucHien();
     const xongVong = noiTrai.length === muc.vong.cards.length;
+
+    useLayoutEffect(() => {
+        const c = vuaChon !== null ? theo.get(vuaChon) : undefined;
+        if (!c) return;
+        const onKey = (e: KeyboardEvent) => {
+            phimNghe(e, c.front, c.audio);
+        };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [vuaChon, theo]);
 
     useEffect(() => {
         if (!xongVong) return;
@@ -642,6 +655,7 @@ function VongGhep({ muc, langs, onCham, onTiep }: { muc: MucGhep; langs: Langs; 
         if (rung) return;
         const moi = trai === id ? null : id;
         setTrai(moi);
+        if (moi !== null) setVuaChon(moi);
         if (moi !== null && phai !== null) thu(moi, phai);
     };
     const chonPhai = (id: number) => {

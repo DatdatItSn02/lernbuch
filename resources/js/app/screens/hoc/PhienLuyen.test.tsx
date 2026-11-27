@@ -2,6 +2,7 @@ import 'fake-indexeddb/auto';
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { giaApi, type LanGoi, type Tuyen } from '../../../test/fakeApi';
+import { fakeSpeech } from '../../../test/fakeSpeech';
 import { phienMau, theHoc } from '../../../test/noiDungGia';
 import { renderApp } from '../../../test/render';
 import { datLaiChoTest, type LuotCham } from '../../lib/hangCho';
@@ -22,6 +23,8 @@ const nhan: Tuyen = (body) => {
     return { json: { data: { received: n, duplicates: 0, skipped: [], coins: 0, too_fast: 0, cards: [], today: { reviewed: n, goal: 20, coins: 0, streak: 1 } } } };
 };
 const nhieu = (id: number, front: string, vi: string): DapAnNhieu => ({ id, front, article: null, word: front, gender: null, meanings: { vi } });
+/** Các câu giọng trình duyệt đã đọc: chữ và tốc độ (0,95 thường, 0,6 chậm). */
+const doc = (synth: ReturnType<typeof fakeSpeech>) => synth.spoken.map((u) => [u.text, u.rate]);
 const DAP_AN_NHIEU = [nhieu(90, 'eins', 'số một'), nhieu(91, 'zwei', 'số hai'), nhieu(92, 'drei', 'số ba'), nhieu(93, 'vier', 'số bốn')];
 const coNhieu = (c: TheHoc): TheHoc => ({ ...c, options: DAP_AN_NHIEU });
 
@@ -86,6 +89,68 @@ describe('Quiz', () => {
         const goi = moPhien('/hoc?che-do=hack', phienMau([theHoc(10)]));
         expect(await screen.findByRole('heading', { level: 1, name: 'die Zahl' })).toBeTruthy();
         expect(goi.find((g) => g.url === '/api/v1/hoc/phien')?.body).toMatchObject({ mode: 'flashcard' });
+    });
+
+    it('P nghe từ, S nghe chậm, cả trước khi chọn (từ tiếng Đức đã hiện sẵn)', async () => {
+        const synth = fakeSpeech();
+        moPhien('/hoc?che-do=quiz', phienMau([coNhieu(theHoc(10))], { mode: 'quiz' }));
+        await screen.findByRole('group', { name: 'Các đáp án' });
+        key('p', { code: 'KeyP' });
+        key('s', { code: 'KeyS' });
+        // Ctrl+P (in trang) không phải phím nghe
+        key('p', { code: 'KeyP', ctrlKey: true });
+        expect(doc(synth)).toEqual([
+            ['die Zahl', 0.95],
+            ['die Zahl', 0.6],
+        ]);
+    });
+});
+
+describe('Phím nghe khi gõ', () => {
+    it('Typing: chưa trả lời thì P, Alt+P không đọc (khỏi lộ đáp án); trả lời rồi thì P, S đọc từ', async () => {
+        const synth = fakeSpeech();
+        moPhien('/hoc?che-do=typing', phienMau([theHoc(9)], { mode: 'typing' }));
+        const o = (await screen.findByRole('textbox', { name: 'Câu trả lời' })) as HTMLInputElement;
+        fireEvent.keyDown(o, { key: 'p', code: 'KeyP', altKey: true });
+        key('p', { code: 'KeyP' });
+        expect(synth.spoken).toHaveLength(0);
+        fireEvent.change(o, { target: { value: 'zählen' } });
+        fireEvent.keyDown(o, { key: 'Enter' });
+        expect(bao()).toContain('Đúng');
+        key('p', { code: 'KeyP' });
+        key('s', { code: 'KeyS' });
+        expect(doc(synth)).toEqual([
+            ['zählen', 0.95],
+            ['zählen', 0.6],
+        ]);
+    });
+
+    it('Listening: đọc từ ngay khi hiện; đang gõ thì Alt+P, Alt+S đọc lại, P không có Alt là chữ p', async () => {
+        const synth = fakeSpeech();
+        moPhien('/hoc?che-do=listening', phienMau([theHoc(9)], { mode: 'listening' }));
+        const o = await screen.findByRole('textbox', { name: 'Câu trả lời' });
+        await waitFor(() => expect(doc(synth)).toEqual([['zählen', 0.95]]));
+        fireEvent.keyDown(o, { key: 'p', code: 'KeyP' });
+        expect(synth.spoken).toHaveLength(1);
+        fireEvent.keyDown(o, { key: 'p', code: 'KeyP', altKey: true });
+        fireEvent.keyDown(o, { key: 's', code: 'KeyS', altKey: true });
+        expect(doc(synth)).toEqual([
+            ['zählen', 0.95],
+            ['zählen', 0.95],
+            ['zählen', 0.6],
+        ]);
+    });
+
+    it('Đặt câu: P nghe câu, S nghe chậm', async () => {
+        const synth = fakeSpeech();
+        moPhien('/hoc?che-do=sentence', phienMau([theHoc(1)], { mode: 'sentence' }));
+        await screen.findByRole('group', { name: 'Câu của bạn' });
+        key('p', { code: 'KeyP' });
+        key('s', { code: 'KeyS' });
+        expect(doc(synth)).toEqual([
+            ['Ich möchte zwei Brötchen, bitte.', 0.95],
+            ['Ich möchte zwei Brötchen, bitte.', 0.6],
+        ]);
     });
 });
 
@@ -218,6 +283,22 @@ describe('Ghép cặp và Hỗn hợp', () => {
         const link = await screen.findByRole('link', { name: /Học tiếp/ });
         expect(link.getAttribute('href')).toBe('/hoc?che-do=match');
         expect(cham(goi)).toEqual([[9, 2, 'match'], [8, 1, 'match'], [10, 2, 'match']]);
+    });
+
+    it('Ghép cặp: chưa chọn từ thì P không đọc; chọn từ rồi thì P, S đọc từ vừa chọn', async () => {
+        const synth = fakeSpeech();
+        moPhien('/hoc?che-do=match', phienMau([theHoc(10), theHoc(9), theHoc(8)].map(coNhieu), { mode: 'match' }));
+        const tu = await screen.findByRole('group', { name: 'Từ tiếng Đức' });
+        key('p', { code: 'KeyP' });
+        expect(synth.spoken).toHaveLength(0);
+        fireEvent.click(within(tu).getByRole('button', { name: 'zählen' }));
+        key('p', { code: 'KeyP' });
+        fireEvent.click(within(tu).getByRole('button', { name: 'die Zahl' }));
+        key('s', { code: 'KeyS' });
+        expect(doc(synth)).toEqual([
+            ['zählen', 0.95],
+            ['die Zahl', 0.6],
+        ]);
     });
 
     it('Hỗn hợp: kiểu câu hỏi theo mức của thẻ, lượt chấm ghi chế độ Hỗn hợp', async () => {

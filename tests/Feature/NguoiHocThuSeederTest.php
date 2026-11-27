@@ -16,8 +16,10 @@ it('tạo tài khoản chung và tài khoản học riêng cho mỗi cỡ màn h
         }
     }
 
-    expect(User::query()->count())->toBe(11)
-        ->and(User::query()->whereIn('email', $emails)->whereNotNull('email_verified_at')->count())->toBe(11)
+    // Một tài khoản chung và 10 tài khoản học cho mỗi cỡ màn hình
+    expect(count($emails))->toBe(21)
+        ->and(User::query()->count())->toBe(21)
+        ->and(User::query()->whereIn('email', $emails)->whereNotNull('email_verified_at')->count())->toBe(21)
         ->and(NguoiHocThuSeeder::emailHoc('dien-thoai', 3))->toBe('hoc-dien-thoai-3@lernbuch.test');
     $this->post('/dang-nhap', ['email' => 'hoc-may-tinh-2@lernbuch.test', 'password' => NguoiHocThuSeeder::MAT_KHAU]);
     $this->assertAuthenticated();
