@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\V1\BaiTapController;
 use App\Http\Controllers\Api\V1\CaiDatController;
+use App\Http\Controllers\Api\V1\DongTuController;
 use App\Http\Controllers\Api\V1\HocController;
+use App\Http\Controllers\Api\V1\NguPhapController;
 use App\Http\Controllers\Api\V1\NoiDungController;
 use App\Http\Controllers\Api\V1\PhienController;
 use App\Http\Controllers\Api\V1\SoTayController;
@@ -37,6 +40,16 @@ Route::prefix('v1')->middleware(['auth:sanctum', 'da-xac-minh', 'ngon-ngu'])->gr
     Route::post('hoc/phien', [HocController::class, 'taoPhien']);
     Route::get('hoc/con-lai', [HocController::class, 'conLai']);
     Route::post('hoc/luot-cham', [HocController::class, 'luotCham']);
+
+    // Luyện tập: ngữ pháp, bài tập (kết quả máy chủ chấm lại, chống gửi trùng theo mã), Điền câu, động từ
+    Route::get('ngu-phap', [NguPhapController::class, 'index']);
+    Route::get('ngu-phap/{slug}', [NguPhapController::class, 'show'])->where('slug', '[A-Za-z0-9-]{1,160}');
+    Route::get('bai-tap', [BaiTapController::class, 'index']);
+    Route::get('bai-tap/phien', [BaiTapController::class, 'phien']);
+    Route::post('bai-tap/ket-qua', [BaiTapController::class, 'ketQua']);
+    Route::get('bai-tap/dien-cau', [BaiTapController::class, 'dienCau']);
+    Route::get('dong-tu', [DongTuController::class, 'index']);
+    Route::get('dong-tu/luyen', [DongTuController::class, 'luyen']);
 
     // Tra từ
     Route::get('tra-tu', [TraTuController::class, 'tim']);

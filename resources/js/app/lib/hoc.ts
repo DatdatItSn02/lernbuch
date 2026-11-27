@@ -6,8 +6,11 @@ export type CheDo = 'flashcard' | 'quiz' | 'listening' | 'typing' | 'match' | 'm
 /** 7 chế độ học, theo thứ tự hiện trên app (máy chủ: CaiDatHoc::CHE_DO). */
 export const CAC_CHE_DO: readonly CheDo[] = ['flashcard', 'quiz', 'listening', 'typing', 'match', 'mixed', 'sentence'];
 
+/** Chế độ của lượt chấm thẻ: 7 chế độ học và Điền câu (bài tập làm từ câu có chỗ trống của thẻ). Máy chủ: CaiDatHoc::CHE_DO_CHAM. */
+export type CheDoCham = CheDo | 'cloze';
+
 /** Xu cho mỗi thẻ chấm Tốt hoặc Dễ (Khó được nửa); khớp CaiDatHoc::XU qua tests/chung/xu-che-do.json. */
-export const XU: Record<CheDo, number> = { flashcard: 5, quiz: 10, listening: 15, typing: 10, match: 10, mixed: 20, sentence: 20 };
+export const XU: Record<CheDoCham, number> = { flashcard: 5, quiz: 10, listening: 15, typing: 10, match: 10, mixed: 20, sentence: 20, cloze: 10 };
 
 export const laCheDo = (x: string | null): x is CheDo => !!x && (CAC_CHE_DO as readonly string[]).includes(x);
 

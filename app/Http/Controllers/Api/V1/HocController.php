@@ -65,7 +65,7 @@ class HocController extends Controller
             'reviews.*.uid' => ['required', 'string', 'regex:/^[0-9A-HJKMNP-TV-Z]{26}$/'],
             'reviews.*.card_id' => ['required', 'integer', 'min:1'],
             'reviews.*.session_id' => ['present', 'nullable', 'integer', 'min:1'],
-            'reviews.*.mode' => ['required', 'string', Rule::in(CaiDatHoc::CHE_DO)],
+            'reviews.*.mode' => ['required', 'string', Rule::in(CaiDatHoc::CHE_DO_CHAM)],
             'reviews.*.rating' => ['required', 'integer', 'between:0,3'],
             'reviews.*.reviewed_at_ms' => ['required', 'integer', 'min:1000000000000', 'max:99999999999999'],
             'reviews.*.duration_ms' => ['present', 'nullable', 'integer', 'between:0,86400000'],

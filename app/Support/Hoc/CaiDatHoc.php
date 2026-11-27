@@ -12,14 +12,17 @@ final class CaiDatHoc
     /** 7 chế độ học như Lernbuch: Flashcard, Quiz, Listening, Typing, Ghép cặp, Hỗn hợp, Đặt câu. */
     public const CHE_DO = ['flashcard', 'quiz', 'listening', 'typing', 'match', 'mixed', 'sentence'];
 
+    /** Chế độ của lượt chấm thẻ: 7 chế độ học và Điền câu (bài tập làm từ câu có chỗ trống của thẻ, như Lernbuch). */
+    public const CHE_DO_CHAM = [...self::CHE_DO, 'cloze'];
+
     /** Xu cho mỗi thẻ chấm Tốt hoặc Dễ, theo chế độ (Lernbuch: MODE_COINS). Khó được nửa (làm tròn xuống), Quên không có. */
-    public const XU = ['flashcard' => 5, 'quiz' => 10, 'listening' => 15, 'typing' => 10, 'match' => 10, 'mixed' => 20, 'sentence' => 20];
+    public const XU = ['flashcard' => 5, 'quiz' => 10, 'listening' => 15, 'typing' => 10, 'match' => 10, 'mixed' => 20, 'sentence' => 20, 'cloze' => 10];
 
     /**
      * Chấm nhanh hơn ngưỡng này (mili giây, tính từ lượt chấm trước hoặc từ lúc thẻ hiện) thì vẫn ghi tiến độ nhưng không cộng xu.
      * Giá trị mặc định khi quản trị chưa sửa.
      */
-    public const NGUONG_MAC_DINH = ['flashcard' => 700, 'quiz' => 700, 'listening' => 1000, 'typing' => 1000, 'match' => 400, 'mixed' => 700, 'sentence' => 1500];
+    public const NGUONG_MAC_DINH = ['flashcard' => 700, 'quiz' => 700, 'listening' => 1000, 'typing' => 1000, 'match' => 400, 'mixed' => 700, 'sentence' => 1500, 'cloze' => 1000];
 
     public const NGUONG_TOI_DA = 10000;
 

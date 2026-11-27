@@ -40,7 +40,7 @@ class TrangCaiDatHoc extends Page
     /** Tên chế độ hiện trên trang. */
     public const TEN_CHE_DO = [
         'flashcard' => 'Flashcard', 'quiz' => 'Trắc nghiệm', 'listening' => 'Nghe', 'typing' => 'Gõ từ',
-        'match' => 'Ghép cặp', 'mixed' => 'Hỗn hợp', 'sentence' => 'Đặt câu',
+        'match' => 'Ghép cặp', 'mixed' => 'Hỗn hợp', 'sentence' => 'Đặt câu', 'cloze' => 'Điền câu (bài tập)',
     ];
 
     /** @var array<string, mixed>|null */
@@ -60,7 +60,7 @@ class TrangCaiDatHoc extends Page
     {
         $o = [];
 
-        foreach (CaiDatHoc::CHE_DO as $cheDo) {
+        foreach (CaiDatHoc::CHE_DO_CHAM as $cheDo) {
             $o[] = TextInput::make("nguong.{$cheDo}")
                 ->label(self::TEN_CHE_DO[$cheDo])
                 ->required()

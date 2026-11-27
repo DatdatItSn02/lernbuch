@@ -3,14 +3,14 @@
 // Máy chủ bỏ lượt gửi trùng theo mã (uid), nên gửi lại một lô chưa chắc đã tới là an toàn.
 import { useSyncExternalStore } from 'react';
 import { api, LoiApi } from './api';
-import type { CheDo } from './hoc';
+import type { CheDoCham } from './hoc';
 import { quenDaTai } from './useApi';
 
 export type LuotCham = {
     uid: string;
     card_id: number;
     session_id: number | null;
-    mode: CheDo;
+    mode: CheDoCham;
     rating: 0 | 1 | 2 | 3;
     reviewed_at_ms: number;
     duration_ms: number | null;

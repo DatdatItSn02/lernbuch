@@ -10,4 +10,5 @@ return [
     'het_phien' => 'Phiên làm việc đã hết hạn, tải lại trang rồi thử lại.',
     'qua_nhieu_lan' => 'Bạn thao tác quá nhanh, chờ một chút rồi thử lại.',
     'chua_co_khoa_hoc' => 'Chưa có khoá học nào để chọn mục tiêu và trình độ.',
+    'khong_co_cau' => 'Không có câu nào hợp lệ để ghi (câu đã bị gỡ hoặc sai mã).',
 ];

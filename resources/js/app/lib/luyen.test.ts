@@ -121,9 +121,10 @@ describe('dựng câu hỏi', () => {
 describe('chế độ học và xu', () => {
     it('7 chế độ, xu mỗi chế độ khớp bảng dùng chung với máy chủ', () => {
         expect(XU).toEqual(xuChung.xu);
-        expect(Object.keys(XU)).toEqual([...CAC_CHE_DO]);
+        expect(Object.keys(XU)).toEqual([...CAC_CHE_DO, 'cloze']);
         expect(laCheDo('quiz')).toBe(true);
         expect(laCheDo('hack')).toBe(false);
+        expect(laCheDo('cloze')).toBe(false);
         expect(laCheDo(null)).toBe(false);
     });
 });

@@ -81,10 +81,12 @@ it('xu mỗi lượt: Tốt, Dễ đủ xu của chế độ; Khó một nửa l
         ->and(CaiDatHoc::xu('flashcard', 0))->toBe(0)->and(CaiDatHoc::xu('khong-co', 2))->toBe(0);
 });
 
-it('xu theo chế độ khớp bảng dùng chung với app (tests/chung/xu-che-do.json) và đủ 7 chế độ', function () {
+it('xu theo chế độ khớp bảng dùng chung với app (tests/chung/xu-che-do.json), đủ 7 chế độ học và Điền câu', function () {
     $chung = json_decode((string) file_get_contents(base_path('tests/chung/xu-che-do.json')), true)['xu'];
 
     expect(CaiDatHoc::XU)->toBe($chung)
-        ->and(array_keys(CaiDatHoc::XU))->toBe(CaiDatHoc::CHE_DO)
-        ->and(array_keys(CaiDatHoc::NGUONG_MAC_DINH))->toBe(CaiDatHoc::CHE_DO);
+        ->and(CaiDatHoc::CHE_DO_CHAM)->toBe([...CaiDatHoc::CHE_DO, 'cloze'])
+        ->and(array_keys(CaiDatHoc::XU))->toBe(CaiDatHoc::CHE_DO_CHAM)
+        ->and(array_keys(CaiDatHoc::NGUONG_MAC_DINH))->toBe(CaiDatHoc::CHE_DO_CHAM)
+        ->and(array_keys(TrangCaiDatHoc::TEN_CHE_DO))->toBe(CaiDatHoc::CHE_DO_CHAM);
 });
