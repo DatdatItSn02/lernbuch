@@ -181,14 +181,14 @@ test('Flashcard: Space lật, 1–4 chấm, P, S, E nghe, ← → xem lại, Esc
             { text: 'Ich möchte zwei Brötchen, bitte.', rate: THUONG },
         ]);
 
-    // Space lật; 1 Quên: thẻ quay lại sau vài thẻ
+    // Space lật; 1 Quên: từ mới quên thì vào mức Đang học, thẻ quay lại sau vài thẻ (Ôn lại)
     await page.keyboard.press('Space');
     await expect(page.getByRole('group', { name: 'Tự chấm' })).toBeVisible();
     await expect(page.getByText('Cho tôi hai cái bánh mì nhỏ.')).toBeVisible();
     await kiem(page, 'Flashcard đã lật', `che-do-flashcard-${info.project.name}`);
     await page.keyboard.press('1');
     await expect(tu).toHaveText('das Brot');
-    await expect(trangThai).toContainText('das Brötchen sẽ quay lại sau vài thẻ');
+    await expect(trangThai).toContainText('das Brötchen lên mức Đang học');
     // 2 Khó, 4 Dễ
     await latVaCham(page, '2');
     await expect(tu).toHaveText('das Mehl');
@@ -346,7 +346,7 @@ test('Typing: chưa trả lời thì không nghe được, trả lời rồi P, 
             await o.fill(the.front);
         } else if (i === 1) {
             await o.fill('z');
-            await page.getByRole('button', { name: 'Gõ ä' }).click();
+            await page.getByRole('button', { name: 'Gõ ä', exact: true }).click();
             await expect(o).toHaveValue('zä');
             await expect(o).toBeFocused();
             await page.keyboard.type('hlen');
