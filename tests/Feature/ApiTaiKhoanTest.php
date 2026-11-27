@@ -120,7 +120,9 @@ it('cài đặt sai thì 422 đúng ô, giá trị cũ giữ nguyên', function 
 });
 
 it('danh sách máy: chỉ phiên của mình, đọc được trình duyệt, ghi rõ máy này, không trả mã phiên', function () {
-    config(['session.driver' => 'database']);
+    // Tắt dọn phiên hết hạn (xổ số 2/100 của Laravel): phiên mẫu ghi giờ cố định nên có thể đã quá hạn so với giờ thật,
+    // lần nào trúng xổ số thì bị xoá trước khi đọc danh sách
+    config(['session.driver' => 'database', 'session.lottery' => [0, 100]]);
     $user = User::factory()->create();
     $khac = User::factory()->create();
     $hienTai = str_repeat('a', 40);
@@ -138,7 +140,9 @@ it('danh sách máy: chỉ phiên của mình, đọc được trình duyệt, g
 });
 
 it('đăng xuất các máy khác: sai mật khẩu thì không làm gì; đúng thì xoá phiên khác, giữ máy này, ghi lịch sử', function () {
-    config(['session.driver' => 'database']);
+    // Tắt dọn phiên hết hạn (xổ số 2/100 của Laravel): phiên mẫu ghi giờ cố định nên có thể đã quá hạn so với giờ thật,
+    // lần nào trúng xổ số thì bị xoá trước khi đọc danh sách
+    config(['session.driver' => 'database', 'session.lottery' => [0, 100]]);
     $user = User::factory()->create(['password' => 'dung-mat-khau-1']);
     $hienTai = str_repeat('a', 40);
     chenPhien($hienTai, $user->id, UA_CHROME_WIN, now()->getTimestamp());

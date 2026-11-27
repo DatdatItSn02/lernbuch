@@ -1,12 +1,22 @@
 import { Volume2, Snail } from 'lucide-react';
 import { useRef, useState } from 'react';
-import { SPEAK_MESSAGES, speak, type SpeakResult } from '../lib/speech';
+import { nghe } from '../lib/amThanh';
+import { SPEAK_MESSAGES, type SpeakResult } from '../lib/speech';
 import { t } from '../i18n';
 
-type Props = { text: string; slow?: boolean; label?: string; shortcut?: string; iconOnly?: boolean; onResult?: (r: SpeakResult) => void };
+type Props = {
+    text: string;
+    /** File audio Piper của thẻ; không có (hoặc phát lỗi) thì đọc bằng giọng của trình duyệt. */
+    url?: string | null;
+    slow?: boolean;
+    label?: string;
+    shortcut?: string;
+    iconOnly?: boolean;
+    onResult?: (r: SpeakResult) => void;
+};
 
-/** Nút nghe bằng giọng đọc của trình duyệt; báo rõ khi máy không có giọng tiếng Đức. Bấm lại khi đang đọc thì đọc lại từ đầu. */
-export function AudioButton({ text, slow = false, label, shortcut, iconOnly = false, onResult }: Props) {
+/** Nút nghe: file audio của thẻ, dự phòng là giọng đọc của trình duyệt; báo rõ khi máy không có giọng tiếng Đức. Bấm lại khi đang đọc thì đọc lại từ đầu. */
+export function AudioButton({ text, url = null, slow = false, label, shortcut, iconOnly = false, onResult }: Props) {
     const [state, setState] = useState<'idle' | 'busy' | keyof typeof SPEAK_MESSAGES>('idle');
     const lanBam = useRef(0);
     const name = label ?? (slow ? t('nghe.cham') : t('nghe.nghe'));
@@ -14,7 +24,7 @@ export function AudioButton({ text, slow = false, label, shortcut, iconOnly = fa
     const play = async () => {
         const lan = ++lanBam.current;
         setState('busy');
-        const r = await speak(text, slow);
+        const r = await nghe(text, { url, cham: slow });
         // Bấm lại khi đang đọc thì lần bấm mới thay lần cũ: bỏ qua kết quả của lần cũ
         if (lan !== lanBam.current) return;
         setState(r === 'ok' || r === 'interrupted' ? 'idle' : r);

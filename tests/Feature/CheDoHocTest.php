@@ -73,7 +73,7 @@ it('Đặt câu: chỉ thẻ có câu ví dụ, cả ôn và mới; không đổ
     $r = $this->postJson('/api/v1/hoc/phien', ['mode' => 'sentence'])->assertCreated();
     expect($r->json('data.counts'))->toBe(['review' => 1, 'new' => 1])
         ->and(array_column($r->json('data.cards'), 'front'))->toBe(['das Brötchen', 'das Brot'])
-        ->and(array_column($r->json('data.cards'), 'example.sentence'))->toBe(['Ich möchte zwei Brötchen, bitte.', 'Das Brot ist noch frisch.'])
+        ->and(collect($r->json('data.cards'))->pluck('example.sentence')->all())->toBe(['Ich möchte zwei Brötchen, bitte.', 'Das Brot ist noch frisch.'])
         ->and(DB::table('user_courses')->where('user_id', $u->id)->value('current_topic_id'))->toBeNull()
         ->and(PhienHoc::chuDeDangHoc($u)?->slug)->toBe('so-dem-tu-vung')
         ->and($this->getJson('/api/v1/hoc/con-lai?che_do=sentence')->assertOk()->json('data'))->toBe(['review' => 1, 'new' => 1])

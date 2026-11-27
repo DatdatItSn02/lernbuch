@@ -9,7 +9,7 @@ import { PenTick } from '../components/Vo';
 import { api, LoiApi } from '../lib/api';
 import { guiDi } from '../lib/hangCho';
 import { laCheDo, type CheDo, type PhienHoc, type TheHoc } from '../lib/hoc';
-import { speak } from '../lib/speech';
+import { nghe } from '../lib/amThanh';
 import { GRADES, formatInterval, grade as gradeCard, levelName, stageName, type Grade } from '../lib/srs';
 import { useStore } from '../state/store';
 import { useTitle } from '../lib/useTitle';
@@ -161,9 +161,9 @@ function Phien({ phien, chuDe, chiOn, onExit }: { phien: PhienHoc; chuDe: string
             }
             const g = GRADES.find((x) => x.key === k);
             if (g && revealed) return doGrade(g.id);
-            if (k === 'p') void speak(card.front);
-            if (k === 's') void speak(card.front, true);
-            if (k === 'e' && card.example) void speak(card.example.sentence);
+            if (k === 'p') void nghe(card.front, { url: card.audio });
+            if (k === 's') void nghe(card.front, { url: card.audio, cham: true });
+            if (k === 'e' && card.example) void nghe(card.example.sentence);
         };
         window.addEventListener('keydown', onKey);
         return () => window.removeEventListener('keydown', onKey);
@@ -282,8 +282,8 @@ function Card(props: {
                                 <DongDang the={card} />
                             </p>
                             <div className="mt-4 flex gap-2">
-                                <AudioButton text={card.front} shortcut="P" iconOnly />
-                                <AudioButton text={card.front} slow shortcut="S" iconOnly />
+                                <AudioButton text={card.front} url={card.audio} shortcut="P" iconOnly />
+                                <AudioButton text={card.front} url={card.audio} slow shortcut="S" iconOnly />
                             </div>
 
                             {revealed && (

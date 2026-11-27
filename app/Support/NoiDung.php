@@ -203,6 +203,7 @@ final class NoiDung
 
         $ids = array_keys($ds);
         $nghia = self::nghia($ids);
+        $audio = AmThanh::diaChi(array_map(fn (stdClass $t) => (string) $t->front, $ds));
         $sao = DB::table('user_card_notes')->where('user_id', $user->id)->whereIn('card_id', $ids)->where('is_starred', 1)->pluck('card_id')
             ->map(fn ($v) => (int) $v)->flip()->all();
         $ra = [];
@@ -217,6 +218,8 @@ final class NoiDung
                 'level' => self::chuCap($t),
                 'image' => $t->image !== null ? (string) $t->image : null,
                 'meanings' => (object) ($nghia[$id] ?? []),
+                // Audio Piper tạo sẵn; null thì app đọc bằng giọng của trình duyệt
+                'audio' => $audio[$id] ?? null,
                 'starred' => isset($sao[$id]),
             ];
         }

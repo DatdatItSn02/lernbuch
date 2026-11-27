@@ -3,6 +3,8 @@ name: audio
 # Audio đọc tiếng Đức tạo sẵn bằng Piper. Bấm chạy ở Actions → audio → Run workflow.
 #   nghe-thu: đọc 20 chữ mẫu (tools/audio/mau-nghe-thu.txt) bằng từng giọng đã chọn; file nghe thử và số đo
 #             (dung lượng mỗi từ, thời gian đọc) ghi vào nhánh ci-results, thư mục audio-thu/.
+#   tao-het:  một giọng; hỏi máy chủ những chữ chưa có audio (app:audio-can-tao), đọc bằng Piper, chép vào
+#             ~/lernbuch/shared/audio trên alwaysdata rồi ghi vào media_assets (app:audio-dang-ky). Chạy lại chỉ tạo phần thiếu.
 # Chỉ dùng giọng mà bộ dữ liệu gốc cho dùng để bán (tools/audio/giong.json); có giọng không được dùng thì dừng ngay,
 # trước khi tải model.
 on:
@@ -13,9 +15,9 @@ on:
         required: true
         default: 'de_DE-thorsten-medium de_DE-thorsten-high de_DE-kerstin-low'
       che_do:
-        description: 'nghe-thu: đọc 20 chữ mẫu để chọn giọng'
+        description: 'nghe-thu: đọc 20 chữ mẫu để chọn giọng; tao-het: tạo audio cho mọi thẻ chưa có (một giọng)'
         type: choice
-        options: [nghe-thu]
+        options: [nghe-thu, tao-het]
         default: nghe-thu
   push:
     branches: ['audio/nghe-thu']   # đẩy nhánh này để chạy nghe thử ngay với các giọng mặc định
@@ -76,3 +78,68 @@ jobs:
           REPORT_FILES: /tmp/audio-thu
           REPORT_FILES_TO: audio-thu
         run: bash .github/scripts/report.sh nghe-thu "${{ job.status }}" /tmp/audio.log
+
+  tao-het:
+    if: github.event_name == 'workflow_dispatch' && inputs.che_do == 'tao-het'
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    env:
+      GIONG: ${{ inputs.giong }}
+      SSH_HOST: ssh-lernbuch.alwaysdata.net
+      SSH_USER: lernbuch
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Kiểm giấy phép giọng (tạo hết chỉ dùng một giọng)
+        run: |
+          set -o pipefail
+          [ "$(echo $GIONG | wc -w)" = 1 ] || { echo "✘ Tạo hết chỉ dùng một giọng, đang chọn: $GIONG" | tee /tmp/audio.log; exit 1; }
+          python3 tools/audio/giong.py "$GIONG" 2>&1 | tee /tmp/audio.log
+      - name: Cài Piper và ffmpeg
+        run: |
+          set -eo pipefail
+          { pip install --quiet "piper-tts>=1.2,<2"
+            python3 -c "import importlib.metadata as m; print('piper-tts', m.version('piper-tts'))"
+            command -v ffmpeg >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; }; } 2>&1 | tee -a /tmp/audio.log
+      - name: Nạp khoá SSH
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "${{ secrets.ALWAYSDATA_SSH_KEY }}" > ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+      - name: Hỏi máy chủ những chữ chưa có audio
+        run: |
+          set -eo pipefail
+          ssh "$SSH_USER@$SSH_HOST" "php ~/lernbuch/current/artisan app:audio-can-tao --giong=$GIONG -n" > /tmp/can-tao.jsonl 2> /tmp/can-tao.err
+          cat /tmp/can-tao.err | tee -a /tmp/audio.log
+          echo "Cần tạo: $(wc -l < /tmp/can-tao.jsonl) chữ" | tee -a /tmp/audio.log
+      - name: Đọc bằng Piper
+        run: |
+          set -eo pipefail
+          [ -s /tmp/can-tao.jsonl ] || { echo "Không có chữ nào cần tạo." | tee -a /tmp/audio.log; exit 0; }
+          mkdir -p /tmp/model
+          read -r onnx cau_hinh < <(python3 -c "import sys; sys.path.insert(0, 'tools/audio'); import giong; print(*giong.dia_chi_model(sys.argv[1]))" "$GIONG")
+          curl -fsSL --retry 3 -o "/tmp/model/$GIONG.onnx" "$onnx"
+          curl -fsSL --retry 3 -o "/tmp/model/$GIONG.onnx.json" "$cau_hinh"
+          python3 tools/audio/tao_audio.py --giong "$GIONG" --model "/tmp/model/$GIONG.onnx" --vao /tmp/can-tao.jsonl --ra /tmp/audio-ra 2>&1 | tee -a /tmp/audio.log
+      - name: Chép lên máy chủ và ghi vào media_assets
+        run: |
+          set -eo pipefail
+          [ -s /tmp/audio-ra/manifest.jsonl ] || { echo "Không có file mới để chép." | tee -a /tmp/audio.log; exit 0; }
+          tar czf /tmp/audio.tgz -C /tmp/audio-ra "$GIONG"
+          ls -lh /tmp/audio.tgz | awk '{print "Gói audio: " $5}' | tee -a /tmp/audio.log
+          ssh "$SSH_USER@$SSH_HOST" 'mkdir -p ~/lernbuch/incoming ~/lernbuch/shared/audio'
+          scp /tmp/audio.tgz /tmp/audio-ra/manifest.jsonl "$SSH_USER@$SSH_HOST:lernbuch/incoming/"
+          ssh "$SSH_USER@$SSH_HOST" 'set -e; cd ~/lernbuch
+            tar xzf incoming/audio.tgz -C shared/audio
+            php current/artisan app:audio-dang-ky incoming/manifest.jsonl -n
+            rm -f incoming/audio.tgz incoming/manifest.jsonl
+            echo "Audio trên máy chủ: $(du -sh shared/audio | cut -f1)"
+            echo "Cả thư mục nhà: $(du -sh ~ 2>/dev/null | cut -f1)"' 2>&1 | tee -a /tmp/audio.log
+          echo "✔ Đã tạo và chép audio giọng $GIONG" | tee -a /tmp/audio.log
+      - name: Ghi kết quả vào nhánh ci-results
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash .github/scripts/report.sh tao-het "${{ job.status }}" /tmp/audio.log

@@ -24,7 +24,7 @@ import {
     type Vong,
 } from '../../lib/luyen';
 import type { NgonNguNghia } from '../../lib/noiDung';
-import { speak } from '../../lib/speech';
+import { nghe as ngheChu } from '../../lib/amThanh';
 import { levelName, stageName, type Grade } from '../../lib/srs';
 import { useStore } from '../../state/store';
 import { t, type Khoa } from '../../i18n';
@@ -62,13 +62,13 @@ function dungHang(phien: PhienHoc, langs: Langs): Muc[] {
 const laGo = (el: EventTarget | null) => el instanceof HTMLElement && (el.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName));
 const laNut = (el: EventTarget | null) => el instanceof HTMLElement && !!el.closest('button, a');
 
-/** Phím nghe chung: P nghe, S nghe chậm; đang gõ trong ô thì Alt+P, Alt+S. */
-function phimNghe(e: KeyboardEvent, chu: string): boolean {
+/** Phím nghe chung: P nghe, S nghe chậm; đang gõ trong ô thì Alt+P, Alt+S. url: file audio của thẻ (không có thì giọng trình duyệt). */
+function phimNghe(e: KeyboardEvent, chu: string, url: string | null = null): boolean {
     const dangGo = laGo(e.target);
     if (e.ctrlKey || e.metaKey || (dangGo && !e.altKey) || (!dangGo && e.altKey)) return false;
     if (e.code !== 'KeyP' && e.code !== 'KeyS') return false;
     e.preventDefault();
-    void speak(chu, e.code === 'KeyS');
+    void ngheChu(chu, { url, cham: e.code === 'KeyS' });
     return true;
 }
 
@@ -296,7 +296,7 @@ function CauQuiz({ muc, langs, onCham, onTiep }: CauProps<Extract<MucMot, { kieu
 
     useLayoutEffect(() => {
         const onKey = (e: KeyboardEvent) => {
-            if (phimNghe(e, the.front) || e.ctrlKey || e.metaKey || e.altKey || laGo(e.target)) return;
+            if (phimNghe(e, the.front, the.audio) || e.ctrlKey || e.metaKey || e.altKey || laGo(e.target)) return;
             if (chon === null && /^[1-4]$/.test(e.key) && Number(e.key) <= dapAn.cacDapAn.length) {
                 e.preventDefault();
                 pick(Number(e.key) - 1);
@@ -307,7 +307,7 @@ function CauQuiz({ muc, langs, onCham, onTiep }: CauProps<Extract<MucMot, { kieu
         };
         window.addEventListener('keydown', onKey);
         return () => window.removeEventListener('keydown', onKey);
-    }, [chon, dung, pick, onTiep, the.front, dapAn.cacDapAn.length]);
+    }, [chon, dung, pick, onTiep, the.front, the.audio, dapAn.cacDapAn.length]);
 
     return (
         <>
@@ -315,8 +315,8 @@ function CauQuiz({ muc, langs, onCham, onTiep }: CauProps<Extract<MucMot, { kieu
                 <TuDuc the={the} />
             </p>
             <div className="mt-3 flex gap-2">
-                <AudioButton text={the.front} shortcut="P" iconOnly />
-                <AudioButton text={the.front} slow shortcut="S" iconOnly />
+                <AudioButton text={the.front} url={the.audio} shortcut="P" iconOnly />
+                <AudioButton text={the.front} url={the.audio} slow shortcut="S" iconOnly />
             </div>
             <div role="group" aria-label={t('luyen.cacDapAn')} className="mt-6 grid gap-2">
                 {dapAn.cacDapAn.map((chu, i) => {
@@ -397,8 +397,8 @@ function CauGo({ muc, langs, onCham, onTiep }: CauProps<Extract<MucMot, { kieu: 
         kiemMoiNhat.current = kiem;
     }, [kiem]);
     useEffect(() => {
-        if (nghe) void speak(the.front);
-    }, [nghe, the.front]);
+        if (nghe) void ngheChu(the.front, { url: the.audio });
+    }, [nghe, the.front, the.audio]);
     useEffect(() => {
         if (!nghe || kq) return;
         const bat = Date.now();
@@ -415,7 +415,7 @@ function CauGo({ muc, langs, onCham, onTiep }: CauProps<Extract<MucMot, { kieu: 
 
     useLayoutEffect(() => {
         const onKey = (e: KeyboardEvent) => {
-            if (phimNghe(e, the.front) || e.ctrlKey || e.metaKey || e.altKey) return;
+            if (phimNghe(e, the.front, the.audio) || e.ctrlKey || e.metaKey || e.altKey) return;
             if (e.key !== 'Enter' && !(e.key === ' ' && kq)) return;
             if (!kq && e.target === oGo.current) {
                 e.preventDefault();
@@ -427,7 +427,7 @@ function CauGo({ muc, langs, onCham, onTiep }: CauProps<Extract<MucMot, { kieu: 
         };
         window.addEventListener('keydown', onKey);
         return () => window.removeEventListener('keydown', onKey);
-    }, [kq, kiem, onTiep, the.front]);
+    }, [kq, kiem, onTiep, the.front, the.audio]);
 
     useEffect(() => {
         oGo.current?.focus();
@@ -450,8 +450,8 @@ function CauGo({ muc, langs, onCham, onTiep }: CauProps<Extract<MucMot, { kieu: 
         <>
             {nghe ? (
                 <div className="flex flex-wrap items-center gap-2">
-                    <AudioButton text={the.front} label={t('nghe.nghe')} shortcut="Alt+P" />
-                    <AudioButton text={the.front} slow label={t('nghe.cham')} shortcut="Alt+S" />
+                    <AudioButton text={the.front} url={the.audio} label={t('nghe.nghe')} shortcut="Alt+P" />
+                    <AudioButton text={the.front} url={the.audio} slow label={t('nghe.cham')} shortcut="Alt+S" />
                 </div>
             ) : (
                 <CacNghia the={the} langs={langs} lon />

@@ -19,6 +19,8 @@ export type TheTomTat = {
     level: string | null;
     image: string | null;
     meanings: Partial<Record<NgonNguNghia, string>>;
+    /** Địa chỉ file audio Piper của từ; null là chưa có, đọc bằng giọng của trình duyệt. */
+    audio: string | null;
     starred: boolean;
 };
 

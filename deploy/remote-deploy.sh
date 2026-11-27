@@ -9,7 +9,8 @@ REL="$APP/releases/$NAME"
 IN="$APP/incoming"
 
 mkdir -p "$APP/releases" "$APP/shared/storage/app/public" "$APP/shared/storage/logs" \
-         "$APP/shared/storage/framework/cache" "$APP/shared/storage/framework/sessions" "$APP/shared/storage/framework/views"
+         "$APP/shared/storage/framework/cache" "$APP/shared/storage/framework/sessions" "$APP/shared/storage/framework/views" \
+         "$APP/shared/audio"
 
 php -r 'exit(version_compare(PHP_VERSION, "8.4.0", ">=") ? 0 : 1);' || {
   echo "Cần PHP 8.4 cho tài khoản alwaysdata (đang dùng $(php -r 'echo PHP_VERSION;'))"; exit 1; }
@@ -21,6 +22,8 @@ echo "== Giải nén $NAME"
 rm -rf "$REL" && mkdir -p "$REL"
 tar xzf "$IN/$NAME.tgz" -C "$REL"
 rm -rf "$REL/storage" && ln -s "$APP/shared/storage" "$REL/storage"
+# Audio Piper: một thư mục dùng chung cho mọi bản (workflow audio chép file vào đó), web đọc thẳng ở /audio
+mkdir -p "$REL/public" && ln -sfn "$APP/shared/audio" "$REL/public/audio"
 
 echo "== Cập nhật .env (giữ APP_KEY cũ)"
 KEY=""

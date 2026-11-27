@@ -99,6 +99,14 @@ return [
     // trên cùng một tài khoản thử nên đặt cao hơn qua API_MOI_PHUT.
     'api_moi_phut' => (int) env('API_MOI_PHUT', 120),
 
+    // Audio đọc từ tiếng Đức tạo sẵn bằng Piper (workflow audio, tools/audio): giọng đang dùng và địa chỉ thư mục audio.
+    // Trên alwaysdata thư mục audio dùng chung nối vào public/audio khi deploy; chuyển sang kho file khác (R2) chỉ cần
+    // chép file và đổi AUDIO_URL.
+    'audio' => [
+        'giong' => env('AUDIO_GIONG', 'de_DE-thorsten-medium'),
+        'url' => env('AUDIO_URL', '/audio'),
+    ],
+
     'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
 
     /*

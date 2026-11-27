@@ -19,6 +19,7 @@ const the = (id: number, chuDe: string, front: string, doi: Partial<TheMau>): Th
         level: 'A1',
         image: null,
         meanings: {},
+        audio: null,
         starred: false,
         capThap: 1,
         capCao: 1,

@@ -146,8 +146,8 @@ function WordSheet({ id }: { id: string }) {
                         {sacThai && <span>{t('theTu.sacThai', { ten: sacThai })}</span>}
                     </p>
                     <div className="mt-4 flex flex-wrap gap-2">
-                        <AudioButton text={word.front} />
-                        <AudioButton text={word.front} slow />
+                        <AudioButton text={word.front} url={word.audio} />
+                        <AudioButton text={word.front} url={word.audio} slow />
                     </div>
                 </header>
 

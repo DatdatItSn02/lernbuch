@@ -120,6 +120,9 @@ class RemoteScriptsTest(unittest.TestCase):
         r = self.chay("remote-deploy.sh", name)
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
         self.assertEqual(self.current(), name)
+        # Audio dùng chung cho mọi bản: public/audio của bản mới trỏ vào shared/audio
+        self.assertTrue((self.app / "shared" / "audio").is_dir())
+        self.assertEqual(Path(os.readlink(self.app / "releases" / name / "public" / "audio")), self.app / "shared" / "audio")
         con = sorted(p.name for p in (self.app / "releases").iterdir())
         # 3 bản mới nhất + bản tốt gần nhất (aaaaaaa) không bị xoá
         self.assertEqual(con, ["20260101000000-aaaaaaa", "20260102000000-bbbbbbb",
