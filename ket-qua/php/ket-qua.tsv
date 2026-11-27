@@ -199,6 +199,17 @@ dat	pest	-	tests/Feature/LuyenTapApiTest.php	bảng động từ: theo chữ cá
 dat	pest	-	tests/Feature/LuyenTapApiTest.php	luyện chia động từ: mỗi động từ một câu, đáp án đúng dạng hỏi; máy chủ chấm lại theo mã câu, 10 xu mỗi câu đúng
 dat	pest	-	tests/Feature/LuyenTapApiTest.php	Điền câu: thẻ Từ vựng có câu trống; câu đầy đủ kèm bản dịch; danh từ phân biệt hoa thường; bỏ thẻ Giao tiếp và thẻ nháp
 dat	pest	-	tests/Feature/LuyenTapApiTest.php	Điền câu: thẻ đã gặp đứng trước thẻ chưa học; kết quả gửi như lượt chấm thẻ chế độ cloze, 10 xu khi đúng
+dat	pest	-	tests/Feature/MauQuanTriTest.php	nút mọi màu của trang quản trị đạt 4.5:1 ở giao diện sáng và tối, cả khi di chuột with data set "('primary')"
+dat	pest	-	tests/Feature/MauQuanTriTest.php	nút mọi màu của trang quản trị đạt 4.5:1 ở giao diện sáng và tối, cả khi di chuột with data set "('success')"
+dat	pest	-	tests/Feature/MauQuanTriTest.php	nút mọi màu của trang quản trị đạt 4.5:1 ở giao diện sáng và tối, cả khi di chuột with data set "('danger')"
+dat	pest	-	tests/Feature/MauQuanTriTest.php	nút mọi màu của trang quản trị đạt 4.5:1 ở giao diện sáng và tối, cả khi di chuột with data set "('warning')"
+dat	pest	-	tests/Feature/MauQuanTriTest.php	nút mọi màu của trang quản trị đạt 4.5:1 ở giao diện sáng và tối, cả khi di chuột with data set "('info')"
+dat	pest	-	tests/Feature/MauQuanTriTest.php	chữ màu (bậc 600 trên nền trắng, bậc 400 trên nền tối slate-900, slate-800) đạt 4.5:1; bậc sáng dần đều with data set "('primary')"
+dat	pest	-	tests/Feature/MauQuanTriTest.php	chữ màu (bậc 600 trên nền trắng, bậc 400 trên nền tối slate-900, slate-800) đạt 4.5:1; bậc sáng dần đều with data set "('success')"
+dat	pest	-	tests/Feature/MauQuanTriTest.php	chữ màu (bậc 600 trên nền trắng, bậc 400 trên nền tối slate-900, slate-800) đạt 4.5:1; bậc sáng dần đều with data set "('danger')"
+dat	pest	-	tests/Feature/MauQuanTriTest.php	chữ màu (bậc 600 trên nền trắng, bậc 400 trên nền tối slate-900, slate-800) đạt 4.5:1; bậc sáng dần đều with data set "('warning')"
+dat	pest	-	tests/Feature/MauQuanTriTest.php	chữ màu (bậc 600 trên nền trắng, bậc 400 trên nền tối slate-900, slate-800) đạt 4.5:1; bậc sáng dần đều with data set "('info')"
+dat	pest	-	tests/Feature/MauQuanTriTest.php	primary bậc 600 đúng mực tím của app; bảng Filament tự sinh từ mã màu thì nút ở giao diện tối dưới 4.5:1 (lý do phải đổi)
 dat	pest	-	tests/Feature/NgonNguTest.php	trang app học đặt <html lang> theo ngôn ngữ giao diện và có mã CSRF cho nút đăng xuất
 dat	pest	-	tests/Feature/NgonNguTest.php	chọn ngôn ngữ chưa có bản dịch (tiếng Anh khi G1 chỉ có tiếng Việt): trang, API và email đều tiếng Việt
 dat	pest	-	tests/Feature/NgonNguTest.php	ngôn ngữ đã bật nhưng còn thiếu bản dịch: chữ thiếu hiện tiếng Việt, không bao giờ hiện mã khoá
@@ -248,6 +259,7 @@ dat	pest	-	tests/Feature/QuanTriNguoiHocTest.php	xem tiến độ: cùng số li
 dat	pest	-	tests/Feature/QuanTriNguoiHocTest.php	khoá: đăng xuất mọi máy, API trả 403, trang app về đăng nhập, không đăng nhập lại được; mở khoá thì vào lại; ghi nhật ký có lý do
 dat	pest	-	tests/Feature/QuanTriNguoiHocTest.php	chỉ người có quyền quản lý người dùng mới khoá được; khoá hai lần không ghi thêm; không khoá nhân viên ở đây
 dat	pest	-	tests/Feature/QuanTriNguoiHocTest.php	nút Lọc của bảng có tên đọc được kèm số bộ lọc đang dùng, như số hiện trên nút (WCAG 2.5.3)
+dat	pest	-	tests/Feature/QuanTriNguoiHocTest.php	danh sách mở trang người học bằng mã ULID (không bằng id); nhãn tiếng Việt chỉ viết hoa chữ đầu
 dat	pest	-	tests/Feature/QuanTriNoiDungTest.php	trang nội dung cần quyền sửa nội dung; nhật ký thao tác và job lỗi cần quyền cấu hình hệ thống
 dat	pest	-	tests/Feature/QuanTriNoiDungTest.php	sửa thẻ: dạng, nghĩa, câu ví dụ; ghi nhật ký từng phần; tìm được bằng nghĩa mới; biên tập viên không đổi được trạng thái
 dat	pest	-	tests/Feature/QuanTriNoiDungTest.php	người duyệt đổi trạng thái: thẻ ẩn thì người học không thấy, số thẻ của chủ đề đếm lại; thẻ riêng của người học không sửa được
