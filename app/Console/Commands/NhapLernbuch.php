@@ -6,7 +6,9 @@ use App\Support\NhapLernbuch\BaoCaoNhap;
 use App\Support\NhapLernbuch\BoNhapLernbuch;
 use App\Support\NhapLernbuch\NguonLernbuch;
 use Illuminate\Console\Command;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use RuntimeException;
 
 class NhapLernbuch extends Command
@@ -29,6 +31,14 @@ class NhapLernbuch extends Command
     {
         try {
             $bc = (new BoNhapLernbuch(new NguonLernbuch((string) $this->argument('nguon'))))->chay((bool) $this->option('ghi'));
+        } catch (QueryException $e) {
+            $this->error(self::loiDatabase($e));
+
+            if ($this->option('ghi')) {
+                $this->line('Phần đã ghi trước lỗi vẫn giữ; sửa lỗi rồi chạy lại (chạy lại không nhân đôi).');
+            }
+
+            return 3;
         } catch (RuntimeException $e) {
             $this->error($e->getMessage());
 
@@ -42,6 +52,14 @@ class NhapLernbuch extends Command
         }
 
         return $bc->coLoi() ? self::FAILURE : self::SUCCESS;
+    }
+
+    /** Lỗi database in gọn: thông báo gốc của Laravel kèm cả câu SQL và dữ liệu (hàng trăm KB với một lô bài tập). */
+    public static function loiDatabase(QueryException $e): string
+    {
+        $bang = preg_match('/^\s*(?:insert\s+(?:ignore\s+)?into|update|delete\s+from)\s+`?(\w+)`?/i', $e->getSql(), $m) === 1 ? " khi ghi vào bảng {$m[1]}" : '';
+
+        return "Lỗi database{$bang}: ".Str::limit(($e->getPrevious() ?? $e)->getMessage(), 300);
     }
 
     private function inBaoCao(BaoCaoNhap $bc): void

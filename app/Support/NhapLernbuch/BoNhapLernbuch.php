@@ -56,6 +56,9 @@ final class BoNhapLernbuch
 
     private const KIEU_BAI_TAP = ['fill', 'mc', 'order', 'fix'];
 
+    /** Độ dài tối đa của sig câu bài tập (cột exercises.sig). Sig giữ nguyên văn, kể cả chữ Đức như "pl:e:Föhn". */
+    private const SIG_TOI_DA = 64;
+
     private BaoCaoNhap $bc;
 
     /** @var array<string, string> mã nguồn => commercial_use */
@@ -349,10 +352,29 @@ final class BoNhapLernbuch
             $this->bc->dem('cau_bai_tap', (int) $r['n']);
         }
 
-        foreach ($this->nguon->dong("SELECT e.id, e.kind, e.answers, s.key FROM exercises e JOIN ex_sets s ON s.id = e.set_id WHERE s.lang = 'de' ORDER BY e.id") as $r) {
+        // sig là khoá để chạy lại không nhân đôi: trùng thì hai câu nhập thành một, dài quá thì database từ chối
+        $sigCua = [];
+
+        foreach ($this->nguon->dong("SELECT e.id, e.kind, e.answers, e.sig, s.key FROM exercises e JOIN ex_sets s ON s.id = e.set_id WHERE s.lang = 'de' ORDER BY e.id") as $r) {
+            $cau = 'câu bài tập #'.$r['id'].' (bộ '.$r['key'].')';
+
             if (! in_array($r['kind'], self::KIEU_BAI_TAP, true) || ! is_array(json_decode((string) $r['answers'], true))) {
-                $this->bc->loi('câu bài tập #'.$r['id'].' (bộ '.$r['key'].'): dạng "'.$r['kind'].'" lạ hoặc đáp án không phải danh sách JSON.');
+                $this->bc->loi($cau.': dạng "'.$r['kind'].'" lạ hoặc đáp án không phải danh sách JSON.');
             }
+
+            $sig = self::sigCua($r);
+
+            if ($sig === null) {
+                continue;
+            }
+
+            if (mb_strlen($sig) > self::SIG_TOI_DA) {
+                $this->bc->loi($cau.': sig dài quá '.self::SIG_TOI_DA.' ký tự.');
+            } elseif (isset($sigCua[$sig])) {
+                $this->bc->loi($cau.': sig "'.$sig.'" trùng với câu #'.$sigCua[$sig].'.');
+            }
+
+            $sigCua[$sig] ??= (int) $r['id'];
         }
 
         $dongTu = $this->nguon->mot("SELECT COUNT(*) AS n FROM verbs WHERE lang = 'de'");
@@ -854,7 +876,7 @@ final class BoNhapLernbuch
             }
 
             [$slugBo, $nguon] = $nguonBo[(int) $r['set_id']];
-            $sig = self::chu($r['sig'] ?? null, 64) ?? substr(sha1($slugBo.'|'.$r['sort'].'|'.$r['q']), 0, 14);
+            $sig = self::sigCua($r) ?? substr(sha1($slugBo.'|'.$r['sort'].'|'.$r['q']), 0, 14);
             $extra = array_filter([
                 'label' => self::chu($r['label'] ?? null, 160),
                 'case_sensitive' => (bool) ($r['cs'] ?? 0) ?: null,
@@ -972,6 +994,19 @@ final class BoNhapLernbuch
         $q = DB::table($bang)->whereIn('source_id', $cam);
 
         return in_array($bang, ['exercises'], true) ? $q->delete() : $q->where('lang', self::LANG)->delete();
+    }
+
+    /**
+     * Sig của câu bài tập cũ, giữ nguyên văn và không cắt (chạy thử đã kiểm độ dài và trùng); trống thì null.
+     *
+     * @param  array<string, mixed>  $r
+     */
+    private static function sigCua(array $r): ?string
+    {
+        $v = $r['sig'] ?? null;
+        $s = is_scalar($v) ? trim((string) $v) : '';
+
+        return $s === '' ? null : $s;
     }
 
     /** Chữ đã cắt khoảng trắng, rỗng thì null, dài quá thì cắt. */

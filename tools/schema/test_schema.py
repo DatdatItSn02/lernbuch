@@ -281,6 +281,21 @@ try:
     failures.append("ascii")
 except pymysql.err.MySQLError as e:
     results["behaviour"].append({"case": "mã ascii từ chối ký tự có dấu", "ok": True, "detail": e.args[0]})
+# sig bài tập Số nhiều của Lernbuch có chữ Đức (pl:e:Föhn): giữ nguyên văn, khớp chính xác
+try:
+    cur.execute("INSERT INTO exercises (set_id, sig, kind, prompt, answers, created_at) VALUES "
+                "(1,'pl:e:Föhn','fill','der Föhn → die ____','[\"Föhne\"]',%s), (1,'pl:e:Fohn','fill','x','[\"x\"]',%s)",
+                (NOW, NOW))
+    cur.execute("SELECT sig FROM exercises WHERE sig='pl:e:Föhn'")
+    kept = [r[0] for r in cur.fetchall()]
+    results["behaviour"].append({"case": "sig bài tập có chữ Đức giữ nguyên văn (Föhn ≠ Fohn)",
+                                 "ok": kept == ["pl:e:Föhn"], "detail": kept})
+    if kept != ["pl:e:Föhn"]:
+        failures.append("exercises sig")
+except pymysql.err.MySQLError as e:
+    results["behaviour"].append({"case": "sig bài tập có chữ Đức giữ nguyên văn (Föhn ≠ Fohn)", "ok": False,
+                                 "detail": str(e)})
+    failures.append("exercises sig")
 cur.execute("ALTER TABLE review_logs REORGANIZE PARTITION pmax INTO ("
             "PARTITION p2029 VALUES LESS THAN (1893456000), PARTITION pmax VALUES LESS THAN MAXVALUE)")
 cur.execute("SELECT COUNT(*) FROM information_schema.partitions WHERE table_schema=%s AND table_name='review_logs'", (DB,))

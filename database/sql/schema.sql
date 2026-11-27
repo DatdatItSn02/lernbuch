@@ -11,7 +11,8 @@
 --     deleted_at, deleted_by.
 --   * Tiền: BIGINT UNSIGNED, đơn vị đồng. Trạng thái: VARCHAR + enum trong PHP.
 --   * Mã, slug, hash, mã ngôn ngữ: ascii_bin. Chữ cần so khớp chính xác
---     (dạng từ, động từ nguyên mẫu): utf8mb4_bin, để "zahlen" khác "zählen".
+--     (dạng từ, động từ nguyên mẫu, khoá có chữ Đức như sig bài tập "pl:e:Föhn"):
+--     utf8mb4_bin, để "zahlen" khác "zählen".
 --   * Ngoại lệ: bảng của Laravel và gói đi kèm (mục 9) giữ nguyên dạng gốc.
 -- =====================================================================
 
@@ -600,7 +601,7 @@ CREATE TABLE exercise_sets (
 CREATE TABLE exercises (
   id            BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   set_id        INT UNSIGNED NOT NULL,
-  sig           VARCHAR(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL COMMENT 'khoá ổn định, giữ từ Lernbuch',
+  sig           VARCHAR(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'khoá ổn định, giữ nguyên văn từ Lernbuch, có thể có chữ Đức (vd pl:e:Föhn)',
   kind          VARCHAR(10) CHARACTER SET ascii COLLATE ascii_bin NOT NULL COMMENT 'fill, mc, order, fix',
   prompt        TEXT NOT NULL,
   answers       JSON NOT NULL COMMENT 'các đáp án được chấp nhận',

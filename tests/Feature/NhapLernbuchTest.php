@@ -1,6 +1,8 @@
 <?php
 
+use App\Console\Commands\NhapLernbuch;
 use App\Support\NhapLernbuch\BoNhapLernbuch;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 
 // Lệnh nhập Lernbuch cũ (mục tự kiểm 1 và 2 của G1). Nguồn giả: database SQLite nhỏ cùng dạng với content/seed.db.
@@ -86,12 +88,14 @@ function taoNguon(?array $the = null): string
     $chen('docs', ['id' => 2, 'lang' => 'de', 'slug' => 'a1-1', 'grp' => 'A1', 'title' => 'Nền tảng', 'level' => 'A1', 'sort' => 2, 'blocks' => '[]']);
     $chen('docs', ['id' => 3, 'lang' => 'de', 'slug' => 'slang', 'grp' => 'Slang', 'title' => 'Tiếng lóng', 'level' => null, 'sort' => 3, 'blocks' => '[]']);
     $chen('ex_sets', ['id' => 1, 'lang' => 'de', 'key' => 'bt:TB1', 'grp' => 'A1', 'title' => 'Mạo từ', 'level' => 'A1', 'sort' => 1, 'n' => 2, 'gslug' => 'g-A1-01']);
-    $chen('ex_sets', ['id' => 2, 'lang' => 'de', 'key' => 'pl:e', 'grp' => 'Số nhiều', 'title' => 'Số nhiều: Thêm -e', 'level' => 'A1 A2 B1 B2', 'sort' => 2, 'n' => 1, 'sub' => 'Số nhiều', 'note' => 'Viết dạng số nhiều.']);
+    $chen('ex_sets', ['id' => 2, 'lang' => 'de', 'key' => 'pl:e', 'grp' => 'Số nhiều', 'title' => 'Số nhiều: Thêm -e', 'level' => 'A1 A2 B1 B2', 'sort' => 2, 'n' => 2, 'sub' => 'Số nhiều', 'note' => 'Viết dạng số nhiều.']);
     $chen('ex_sets', ['id' => 3, 'lang' => 'de', 'key' => 'dx:v1:1A', 'grp' => 'Từ vựng', 'title' => '1A · Điền từ', 'level' => 'A1 A2 B1 B2', 'sort' => 3, 'n' => 1, 'sub' => 'Bài 1 · Person & Familie']);
     $chen('exercises', ['id' => 1, 'set_id' => 1, 'sort' => 0, 'kind' => 'mc', 'q' => 'Ich sehe ____ Mann.', 'answers' => '["den"]', 'options' => '["der", "den", "dem"]', 'expl' => 'Akkusativ.', 'cs' => 0, 'sig' => 's1', 'label' => 'Chọn đáp án đúng']);
     $chen('exercises', ['id' => 2, 'set_id' => 1, 'sort' => 1, 'kind' => 'fill', 'q' => 'Das ist ____ Frau.', 'answers' => '["die"]', 'cs' => 1, 'sig' => 's2', 'label' => 'Điền vào chỗ trống']);
     $chen('exercises', ['id' => 3, 'set_id' => 2, 'sort' => 0, 'kind' => 'fill', 'q' => 'Hund → ____', 'answers' => '["Hunde"]', 'cs' => 0, 'sig' => 's3', 'extra' => '{"bank": ["Hunde", "Tage"]}']);
     $chen('exercises', ['id' => 4, 'set_id' => 3, 'sort' => 0, 'kind' => 'fill', 'q' => 'Mein ____ heißt Max.', 'answers' => '["Bruder"]', 'cs' => 0, 'sig' => null]);
+    // Sig câu Số nhiều có chữ Đức như dữ liệu thật (203 câu): cột ascii từng làm hỏng lần ghi trên MySQL 9.7
+    $chen('exercises', ['id' => 5, 'set_id' => 2, 'sort' => 1, 'kind' => 'fill', 'q' => 'der Föhn  →  die ____', 'answers' => '["Föhne"]', 'cs' => 0, 'sig' => 'pl:e:Föhn']);
     $chen('verbs', ['id' => 1, 'lang' => 'de', 'inf' => 'zahlen', 'level' => 'A1', 'du' => 'zahlst', 'er' => 'zahlt', 'prat' => 'zahlte', 'perf' => 'hat gezahlt', 'vi' => 'trả tiền', 'en' => 'to pay', 'sep' => 0, 'sort' => 1,
         'conj' => '{"pres": ["zahle", "zahlst", "zahlt", "zahlen", "zahlt", "zahlen"], "perf": ["habe gezahlt", "hast gezahlt"]}', 'example' => 'Ich zahle bar.']);
     $chen('verbs', ['id' => 2, 'lang' => 'de', 'inf' => 'abbauen', 'level' => 'B1', 'du' => 'baust ab', 'er' => 'baut ab', 'prat' => 'baute ab', 'perf' => 'hat abgebaut', 'vi' => 'tháo dỡ', 'sep' => 1, 'prefix' => 'ab', 'sort' => 2, 'conj' => '{"pres": ["baue ab"]}']);
@@ -114,7 +118,7 @@ it('chạy thử: đếm đúng theo loại, nguồn, cấp; bỏ thẻ đã t�
     $bc = nhap(taoNguon(), false);
 
     expect($bc['phien_ban'])->toBe('x19')
-        ->and($bc['so'])->toMatchArray(['the' => 6, 'chu_de_nhom' => 2, 'chu_de_vua' => 2, 'chu_de_nho' => 5, 'bai_ngu_phap' => 3, 'chuong_ngu_phap' => 1, 'bo_bai_tap' => 3, 'cau_bai_tap' => 4, 'dong_tu' => 2])
+        ->and($bc['so'])->toMatchArray(['the' => 6, 'chu_de_nhom' => 2, 'chu_de_vua' => 2, 'chu_de_nho' => 5, 'bai_ngu_phap' => 3, 'chuong_ngu_phap' => 1, 'bo_bai_tap' => 3, 'cau_bai_tap' => 5, 'dong_tu' => 2])
         ->and($bc['the_theo_loai'])->toEqual(['vocab' => 3, 'phrase' => 2, 'comm' => 1])
         ->and($bc['the_theo_nguon'])->toEqual(['lernbuch_xlsx' => 2, 'vocab_trainer' => 1, 'collins_3000' => 1, 'cum_tu_mau_cau' => 1, 'german_slang' => 1])
         ->and($bc['the_theo_cap'])->toEqual(['A1' => 4, 'A2' => 1, 'chua_xep' => 1])
@@ -178,11 +182,11 @@ it('ghi: thẻ, chủ đề 3 tầng, nghĩa, câu ví dụ, dạng từ, ngữ 
         ->and($bo['bt-TB1'])->toMatchArray(['section' => 'level', 'level' => 1, 'grammar_lesson_id' => $bai->id, 'item_count' => 2])
         ->and($bo['pl-e'])->toMatchArray(['section' => 'plural', 'level' => null, 'description' => 'Viết dạng số nhiều.'])
         ->and($bo['dx-v1-1A'])->toMatchArray(['section' => 'review', 'group_name' => 'Bài 1 · Person & Familie']);
-    expect(DB::table('exercises')->count())->toBe(4)
+    expect(DB::table('exercises')->count())->toBe(5)
         ->and(json_decode(DB::table('exercises')->where('sig', 's1')->value('choices'), true))->toBe(['der', 'den', 'dem'])
         ->and(json_decode(DB::table('exercises')->where('sig', 's2')->value('extra'), true))->toEqual(['label' => 'Điền vào chỗ trống', 'case_sensitive' => true])
         ->and(json_decode(DB::table('exercises')->where('sig', 's3')->value('extra'), true))->toEqual(['bank' => ['Hunde', 'Tage']])
-        ->and(DB::table('exercises')->whereNotIn('sig', ['s1', 's2', 's3'])->value('sig'))->toHaveLength(14);
+        ->and(DB::table('exercises')->whereNotIn('sig', ['s1', 's2', 's3', 'pl:e:Föhn'])->value('sig'))->toHaveLength(14);
     $verb = DB::table('verbs')->where('infinitive', 'zahlen')->first();
     expect($verb)->toMatchArray(['card_id' => $zahlen->id, 'auxiliary' => 'haben', 'is_separable' => 0, 'perfect' => 'hat gezahlt'])
         ->and(json_decode($verb->conjugation, true)['example'])->toBe('Ich zahle bar.')
@@ -232,15 +236,51 @@ it('nguồn đánh dấu "Không" thì không có dòng nào của nguồn đó,
     $bc = nhap($nguon, true);
     $collins = DB::table('content_sources')->where('code', 'collins_3000')->value('id');
 
-    expect($bc['bo_vi_nguon'])->toEqual(['collins_3000' => 1, 'illustrated_dict' => 2])
+    expect($bc['bo_vi_nguon'])->toEqual(['collins_3000' => 1, 'illustrated_dict' => 3])
         ->and(DB::table('cards')->where('source_id', $collins)->count())->toBe(0)
         ->and(DB::table('card_translations')->where('meaning', 'đếm')->exists())->toBeFalse()
         ->and(DB::table('word_forms')->where('form', 'zählen')->exists())->toBeFalse()
         ->and(DB::table('exercise_sets')->where('slug', 'pl-e')->exists())->toBeFalse()
         ->and(DB::table('exercises')->where('sig', 's3')->exists())->toBeFalse()
+        ->and(DB::table('exercises')->where('sig', 'pl:e:Föhn')->exists())->toBeFalse()
         ->and(DB::table('cards')->count())->toBe(5);
     // Chủ đề nhỏ chỉ còn thẻ của nguồn bị cấm thì ẩn đi (ở đây t-food.v vẫn còn zahlen)
     expect(DB::table('topics')->where('code', 't-food.v')->value('card_count'))->toBe(1);
+});
+
+it('sig câu bài tập có chữ Đức ghi nguyên văn, khớp chính xác (Föhn khác Fohn), chạy lại giữ id', function () {
+    $nguon = taoNguon();
+    nhap($nguon, true);
+    $cau = DB::table('exercises')->where('sig', 'pl:e:Föhn')->first();
+
+    expect($cau)->not->toBeNull()
+        ->and($cau->set_id)->toBe(DB::table('exercise_sets')->where('slug', 'pl-e')->value('id'))
+        ->and(json_decode($cau->answers, true))->toBe(['Föhne'])
+        ->and(DB::table('exercises')->where('sig', 'pl:e:Fohn')->exists())->toBeFalse()
+        ->and(DB::table('exercises')->where('sig', 'pl:e:föhn')->exists())->toBeFalse();
+
+    $bc = nhap($nguon, true);
+
+    expect(DB::table('exercises')->where('sig', 'pl:e:Föhn')->pluck('id')->all())->toBe([$cau->id])
+        ->and($bc['ket_qua_ghi']['cau_bai_tap'])->toBe(['moi' => 0, 'cap_nhat' => 5, 'xoa' => 0]);
+});
+
+it('quy tắc bài tập: sig trùng hoặc dài quá 64 ký tự thì báo đúng câu, không ghi gì', function () {
+    $nguon = taoNguon();
+    $db = new PDO('sqlite:'.$nguon.'/content/seed.db', null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+    $them = $db->prepare('INSERT INTO exercises (id, set_id, sort, kind, q, answers, cs, sig) VALUES (?, 2, ?, ?, ?, ?, 0, ?)');
+    $them->execute([6, 2, 'fill', 'das Stück  →  die ____', '["Stücke"]', 'pl:e:Föhn']);
+    $them->execute([7, 3, 'fill', 'der Helm  →  die ____', '["Helme"]', 'pl:e:'.str_repeat('Helm', 15)]);
+    $db = null;
+    $bc = nhap($nguon, true, 1);
+
+    expect($bc['loi'])->toBe([
+        'câu bài tập #6 (bộ pl:e): sig "pl:e:Föhn" trùng với câu #5.',
+        'câu bài tập #7 (bộ pl:e): sig dài quá 64 ký tự.',
+    ])
+        ->and($bc['da_ghi'])->toBeFalse()
+        ->and(DB::table('exercises')->count())->toBe(0)
+        ->and(DB::table('cards')->count())->toBe(0);
 });
 
 it('quy tắc dữ liệu: cụm từ trong Từ vựng, thẻ không có chủ đề thì báo đúng dòng, không ghi gì', function () {
@@ -260,6 +300,18 @@ it('quy tắc dữ liệu: cụm từ trong Từ vựng, thẻ không có chủ 
         ->expectsOutputToContain('Lỗi dữ liệu: 2. Không ghi gì vào database')
         ->expectsOutputToContain('thẻ #21 (vocab) "eine Tasse Kaffee"')
         ->assertExitCode(1);
+});
+
+it('lỗi database lúc ghi: in gọn thông báo gốc và tên bảng, không in cả câu SQL với dữ liệu', function () {
+    $goc = 'SQLSTATE[HY000]: General error: 3988 Conversion from collation utf8mb4_unicode_ci into ascii_bin impossible for parameter';
+    $ghi = new QueryException('mysql', 'insert into `exercises` (`sig`, `kind`) values '.implode(', ', array_fill(0, 1000, '(?, ?)')), ['pl:e:Föhn', 'fill'], new PDOException($goc));
+    $doc = new QueryException('mysql', 'select * from `content_sources`', [], new PDOException("SQLSTATE[42S02]: Base table or view not found: 1146 Table 'lernbuch.content_sources' doesn't exist"));
+    $dai = new QueryException('mysql', 'update `verbs` set `level` = ?', [1], new PDOException(str_repeat('x', 400)));
+
+    expect(NhapLernbuch::loiDatabase($ghi))->toBe('Lỗi database khi ghi vào bảng exercises: '.$goc)
+        ->and(NhapLernbuch::loiDatabase($doc))->toBe("Lỗi database: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'lernbuch.content_sources' doesn't exist")
+        ->and(NhapLernbuch::loiDatabase($dai))->toStartWith('Lỗi database khi ghi vào bảng verbs: xxx')->toEndWith('...')
+        ->and(mb_strlen(NhapLernbuch::loiDatabase($dai)))->toBeLessThan(360);
 });
 
 it('nhận cả file lernweb.zip và thẳng file seed.db', function () {

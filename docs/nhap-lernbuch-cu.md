@@ -7,7 +7,7 @@ Lệnh `php artisan app:nhap-lernbuch <nguồn>` đọc dữ liệu của Lernbu
 - **Chạy thử trước:** đọc, kiểm quy tắc dữ liệu (Từ vựng chỉ có từ đơn, mỗi thẻ đúng 1 chủ đề nhỏ, không có chủ đề chung), in báo cáo, chưa ghi gì. Thêm `--ghi` mới ghi, và chỉ ghi khi không có lỗi nào.
 - **Chỉ nhập nguồn có quyền dùng để bán** (Quản trị → Nguồn nội dung). Phần của nguồn khác chỉ được đếm; nếu lần trước đã nhập thì bị xoá.
 - **Chạy lại không nhân đôi:** giữ khoá của Lernbuch (khoá thẻ, mã chủ đề, sig câu bài tập), giữ id nên giữ tiến độ học. Thẻ không còn trong nguồn thì ẩn đi.
-- Mã thoát: 0 đạt; 1 có lỗi dữ liệu (không ghi gì, báo đúng thẻ); 2 không đọc được nguồn.
+- Mã thoát: 0 đạt; 1 có lỗi dữ liệu (không ghi gì, báo đúng thẻ hoặc câu bài tập); 2 không đọc được nguồn; 3 database từ chối giữa lúc ghi (in gọn lỗi và tên bảng; phần đã ghi vẫn giữ, sửa xong chạy lại là đủ).
 
 ## Trên máy bạn
 
