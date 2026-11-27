@@ -342,9 +342,10 @@ it('học riêng một chủ đề: ôn và mới đều trong chủ đề đó,
     $this->actingAs($u = User::factory()->create());
 
     $r = $this->postJson('/api/v1/hoc/phien', ['topic' => 'banh-mi-tu-vung'])->assertCreated();
+    // Câu ví dụ so không theo thứ tự khoá: MySQL trả khoá JSON theo thứ tự riêng, MariaDB giữ thứ tự lúc ghi
     expect(array_column($r->json('data.cards'), 'front'))->toBe(['das Brötchen', 'das Brot', 'das Mehl', 'backen', 'süß'])
         ->and($r->json('data.topic'))->toBe(['slug' => 'banh-mi-tu-vung', 'name' => 'Bánh mì · bánh ngọt'])
-        ->and($r->json('data.cards.0.example'))->toBe(['sentence' => 'Ich möchte zwei Brötchen, bitte.', 'translations' => ['vi' => 'Cho tôi hai cái bánh mì nhỏ.', 'en' => 'Two bread rolls, please.']])
+        ->and($r->json('data.cards.0.example'))->toEqual(['sentence' => 'Ich möchte zwei Brötchen, bitte.', 'translations' => ['vi' => 'Cho tôi hai cái bánh mì nhỏ.', 'en' => 'Two bread rolls, please.']])
         ->and(DB::table('study_sessions')->value('topic_id'))->toBe($this->m->chuDe['t-banh.v'])
         ->and(PhienHoc::chuDeDangHoc($u)?->slug)->toBe('banh-mi-tu-vung');
 

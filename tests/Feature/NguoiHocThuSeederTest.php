@@ -23,9 +23,12 @@ it('tạo tài khoản chung và tài khoản học riêng cho mỗi cỡ màn h
     $this->assertAuthenticated();
 });
 
-it('không tạo gì trên máy chủ thật', function () {
+it('không tạo gì trên máy chủ thật, kể cả khi chạy db:seed --force', function () {
     app()->detectEnvironment(fn () => 'production');
-    $this->seed(NguoiHocThuSeeder::class);
+    // --force bỏ qua câu hỏi "chắc chắn chạy trên máy chủ thật?" của db:seed: chỉ còn chặn trong seeder
+    $this->artisan('db:seed', ['--class' => NguoiHocThuSeeder::class, '--force' => true])
+        ->expectsOutputToContain('Bỏ qua: không tạo tài khoản thử trên máy chủ thật.')
+        ->assertSuccessful();
 
     expect(User::query()->count())->toBe(0);
 });
