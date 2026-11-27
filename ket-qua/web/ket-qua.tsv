@@ -482,7 +482,7 @@ dat	playwright	dien-thoai	tests/e2e/che-do.spec.ts	Quiz: phím 1–4 chọn, Ent
 dat	playwright	may-tinh	tests/e2e/che-do.spec.ts	Listening: đọc từ khi câu hiện; đang gõ thì Alt+P, Alt+S nghe lại, P là chữ p; gợi ý nghĩa là Khó; gõ sai thì câu quay lại
 dat	playwright	dien-thoai	tests/e2e/che-do.spec.ts	Listening: đọc từ khi câu hiện; đang gõ thì Alt+P, Alt+S nghe lại, P là chữ p; gợi ý nghĩa là Khó; gõ sai thì câu quay lại
 dat	playwright	may-tinh	tests/e2e/che-do.spec.ts	Typing: chưa trả lời thì không nghe được, trả lời rồi P, S nghe; nút ä; thiếu mạo từ, gợi ý chữ đầu là Khó; gõ sai thì câu quay lại
-dat	playwright	dien-thoai	tests/e2e/che-do.spec.ts	Typing: chưa trả lời thì không nghe được, trả lời rồi P, S nghe; nút ä; thiếu mạo từ, gợi ý chữ đầu là Khó; gõ sai thì câu quay lại
+hong	playwright	dien-thoai	tests/e2e/che-do.spec.ts	Typing: chưa trả lời thì không nghe được, trả lời rồi P, S nghe; nút ä; thiếu mạo từ, gợi ý chữ đầu là Khó; gõ sai thì câu quay lại
 dat	playwright	may-tinh	tests/e2e/che-do.spec.ts	Ghép cặp: Enter chọn ô, P và S nghe từ vừa chọn; nối sai thì báo, thẻ đó chỉ được Khó; 10 thẻ thành 2 vòng 5 cặp
 dat	playwright	dien-thoai	tests/e2e/che-do.spec.ts	Ghép cặp: Enter chọn ô, P và S nghe từ vừa chọn; nối sai thì báo, thẻ đó chỉ được Khó; 10 thẻ thành 2 vòng 5 cặp
 dat	playwright	may-tinh	tests/e2e/che-do.spec.ts	Hỗn hợp: thẻ mới có câu ví dụ thành Đặt câu, thẻ khác thành Quiz; xem đáp án là sai, câu quay lại
