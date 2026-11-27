@@ -1,0 +1,425 @@
+workflow: ci  job: web  status: success
+commit: 8e5a4305b8d726d0bcfa0f16d2454534ab80c080  ref: work/g1-tuan2  run: 45917577879
+
+✔ Kiểm kiểu TypeScript
+✔ ESLint
+✔ Vitest
+✔ Build Vite (app học, trang chào, theme quản trị)
+✔ Tương phản màu WCAG AA (palette_check.py trên tokens.css)
+✔ Test palette_check (cả trường hợp lỗi)
+✔ Test sinh icon app (cả trường hợp lỗi)
+✔ Database cho test trình duyệt (migrate, dữ liệu khởi tạo, tài khoản người học thử, nội dung mẫu)
+✔ Playwright: font, bố cục, đăng nhập, app học (bàn phím, axe WCAG 2.2 AA, sáng/tối) trên máy tính, điện thoại
+KẾT QUẢ: 9/9 bước đạt
+
+----- cuối log -----
+::group::Kiểm kiểu TypeScript
+✔ Kiểm kiểu TypeScript
+::endgroup::
+::group::ESLint
+✔ ESLint
+::endgroup::
+::group::Vitest
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.1.1 [39m[90m/home/runner/work/lernbuch/lernbuch[39m
+
+[90mstderr[2m | resources/js/app/screens/TheTu.test.tsx[2m > [22m[2mThẻ từ (API)[2m > [22m[2mbấm một chữ trong câu ví dụ: tra đúng chữ, hiện nghĩa và link mở thẻ; chữ chưa có thì báo; đóng được
+[22m[39mIn HTML, <p> cannot be a descendant of <p>.
+This will cause a hydration error.
+
+  ...
+    <RenderedRoute match={{...}} routeContext={{outlet:null, ...}}>
+      <TheTu>
+        <WordSheet id="1">
+          <div className="mx-auto ma...">
+            <nav>
+            <Sheet>
+              <div className={"bg-sheet..."}>
+                <header>
+                <div>
+                <div role="tabpanel" id="_r_9_-pane..." aria-labelledby="_r_9_-tab-..." tabIndex={0} ...>
+                  <MeaningTab word={{id:1, ...}}>
+                    <div>
+                    <dl>
+                    <h2>
+                    <p>
+                    <ul className="mt-2 divid...">
+                      <li className="flex items...">
+                        <AudioButton>
+                        <div className="min-w-0 fl...">
+>                         <p className="font-semibold">
+                            <CauBamDuoc cau="Ich möchte...">
+                              <span>
+                              <BangTraChu id="_r_a_" chu="Brötchen" onDong={function onDong}>
+                                <div id="_r_a_" role="region" aria-label="Nghĩa của ..." className="mt-2 round...">
+                                  <div className="flex items...">
+>                                   <p aria-live="polite" className="min-w-0 pt-2.5 text-label text-ink-2">
+                                    ...
+                          ...
+                      ...
+                    ...
+            ...
+
+<p> cannot contain a nested <p>.
+See this log for the ancestor stack trace.
+In HTML, <div> cannot be a descendant of <p>.
+This will cause a hydration error.
+
+  ...
+    <RenderedRoute match={{...}} routeContext={{outlet:null, ...}}>
+      <TheTu>
+        <WordSheet id="1">
+          <div className="mx-auto ma...">
+            <nav>
+            <Sheet>
+              <div className={"bg-sheet..."}>
+                <header>
+                <div>
+                <div role="tabpanel" id="_r_9_-pane..." aria-labelledby="_r_9_-tab-..." tabIndex={0} ...>
+                  <MeaningTab word={{id:1, ...}}>
+                    <div>
+                    <dl>
+                    <h2>
+                    <p>
+                    <ul className="mt-2 divid...">
+                      <li className="flex items...">
+                        <AudioButton>
+                        <div className="min-w-0 fl...">
+>                         <p className="font-semibold">
+                            <CauBamDuoc cau="Ich möchte...">
+                              <span>
+                              <BangTraChu id="_r_a_" chu="Brötchen" onDong={function onDong}>
+                                <div id="_r_a_" role="region" aria-label="Nghĩa của ..." className="mt-2 round...">
+>                                 <div className="flex items-start justify-between gap-3">
+                          ...
+                      ...
+                    ...
+            ...
+
+<p> cannot contain a nested <div>.
+See this log for the ancestor stack trace.
+
+[90mstderr[2m | resources/js/app/screens/TheTu.test.tsx[2m > [22m[2mThẻ từ (API)[2m > [22m[2mbấm một chữ trong câu ví dụ: tra đúng chữ, hiện nghĩa và link mở thẻ; chữ chưa có thì báo; đóng được
+[22m[39mIn HTML, <ul> cannot be a descendant of <p>.
+This will cause a hydration error.
+
+  ...
+    <RenderedRoute match={{...}} routeContext={{outlet:null, ...}}>
+      <TheTu>
+        <WordSheet id="1">
+          <div className="mx-auto ma...">
+            <nav>
+            <Sheet>
+              <div className={"bg-sheet..."}>
+                <header>
+                <div>
+                <div role="tabpanel" id="_r_9_-pane..." aria-labelledby="_r_9_-tab-..." tabIndex={0} ...>
+                  <MeaningTab word={{id:1, ...}}>
+                    <div>
+                    <dl>
+                    <h2>
+                    <p>
+                    <ul className="mt-2 divid...">
+                      <li className="flex items...">
+                        <AudioButton>
+                        <div className="min-w-0 fl...">
+>                         <p className="font-semibold">
+                            <CauBamDuoc cau="Ich möchte...">
+                              <span>
+                              <BangTraChu id="_r_a_" chu="Brötchen" onDong={function onDong}>
+                                <div id="_r_a_" role="region" aria-label="Nghĩa của ..." className="mt-2 round...">
+                                  <div>
+>                                 <ul className="mt-1 divide-y divide-line">
+                          ...
+                      ...
+                    ...
+            ...
+
+<p> cannot contain a nested <ul>.
+See this log for the ancestor stack trace.
+
+ [32m✓[39m resources/js/app/screens/CaiDat.test.tsx [2m([22m[2m11 tests[22m[2m)[22m[33m 1238[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/ChuDe.test.tsx [2m([22m[2m13 tests[22m[2m)[22m[33m 1860[2mms[22m[39m
+   [32m✓[39m Trang chủ đề (API): sổ từ hai cột [2m(13)[22m
+     [33m[2m✓[22m[39m phím / vào ô tìm; ngừng gõ thì máy chủ lọc (không dấu vẫn ra); Esc xoá chữ[33m 769[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/TheTu.test.tsx [2m([22m[2m16 tests[22m[2m)[22m[33m 2574[2mms[22m[39m
+   [32m✓[39m Thẻ từ (API) [2m(16)[22m
+     [33m[2m✓[22m[39m ghi chú: ngừng gõ thì tự lưu; đếm chữ, tối đa 500; đổi tab rồi quay lại vẫn còn[33m 678[2mms[22m[39m
+     [33m[2m✓[22m[39m ghi chú lưu lỗi thì báo và có nút Lưu lại[33m 687[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/Hoc.test.tsx [2m([22m[2m16 tests[22m[2m)[22m[33m 1139[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/HomNay.test.tsx [2m([22m[2m13 tests[22m[2m)[22m[33m 813[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/ChuDeIndex.test.tsx [2m([22m[2m8 tests[22m[2m)[22m[33m 701[2mms[22m[39m
+ [32m✓[39m resources/js/app/lib/noiDung.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 380[2mms[22m[39m
+ [32m✓[39m resources/js/app/state/taiKhoan.test.tsx [2m([22m[2m9 tests[22m[2m)[22m[33m 1707[2mms[22m[39m
+   [32m✓[39m TaiKhoanProvider [2m(6)[22m
+     [33m[2m✓[22m[39m lưu lên máy chủ hỏng: báo rõ, cài đặt trên máy vẫn đổi[33m 511[2mms[22m[39m
+     [33m[2m✓[22m[39m đổi rồi tải lại trang ngay (chưa kịp gửi): lần mở sau, phần chờ trên máy thắng và được gửi tiếp[33m 502[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/SoTay.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[33m 677[2mms[22m[39m
+   [32m✓[39m Sổ tay [2m(4)[22m
+     [33m[2m✓[22m[39m tìm trong sổ tay: ngừng gõ thì hỏi máy chủ; không khớp thì báo[33m 349[2mms[22m[39m
+ [32m✓[39m resources/js/app/state/store.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/TraTu.test.tsx [2m([22m[2m8 tests[22m[2m)[22m[33m 1529[2mms[22m[39m
+   [32m✓[39m Tra từ [2m(8)[22m
+     [33m[2m✓[22m[39m ô trống thì hiện tra gần đây: mở lại thẻ đã xem, bấm chữ cũ để tra lại[33m 394[2mms[22m[39m
+     [33m[2m✓[22m[39m gõ rồi ngừng thì tra; từ khớp đúng đứng đầu; đếm kết quả; chữ tra nằm trên đường dẫn[33m 353[2mms[22m[39m
+     [33m[2m✓[22m[39m mở đường dẫn có ?q= thì tra ngay; một chữ cái thì nhắc gõ thêm, không hỏi máy chủ[33m 315[2mms[22m[39m
+     [33m[2m✓[22m[39m phím / đưa tiêu điểm vào ô tra; Esc xoá chữ[33m 303[2mms[22m[39m
+ [32m✓[39m resources/js/app/lib/api.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 34[2mms[22m[39m
+ [32m✓[39m resources/js/app/components/AudioButton.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 165[2mms[22m[39m
+ [32m✓[39m resources/js/app/i18n/i18n.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 169[2mms[22m[39m
+ [32m✓[39m tests/js/chuVietThang.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 312[2mms[22m[39m
+ [32m✓[39m resources/js/app/lib/srs.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+ [32m✓[39m resources/js/app/App.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[33m 509[2mms[22m[39m
+ [32m✓[39m resources/js/app/lib/speech.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m resources/js/app/lib/session.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m resources/js/app/lib/muiGio.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m20 passed[39m[22m[90m (20)[39m
+[2m      Tests [22m [1m[32m171 passed[39m[22m[90m (171)[39m
+[2m   Start at [22m 00:36:14
+[2m   Duration [22m 11.89s[2m (tests 43%, environment 31%, import 11%, setup 10%, transform 5%)[22m
+
+[2mEnvironment [22m [33mjsdom was created 20 times[39m[2m · 10.14s total, 31% of tracked time[22m
+[2m            [22m [2mcreate it once per worker with [22m[33mpool: 'vmThreads'[39m[2m (keeps per-file isolation) or [22m[33misolate: false[39m[2m (shares it across files)[22m
+[2m            [22m [2mlearn more: https://vitest.dev/guide/improving-performance#test-environments[22m
+
+✔ Vitest
+::endgroup::
+::group::Build Vite (app học, trang chào, theme quản trị)
+[36mvite v8.3.8 [32mbuilding client environment for production...[36m[39m
+transforming...
+✓ 2265 modules transformed.
+rendering chunks...
+computing gzip size...
+public/build/manifest.json                                                 9.17 kB │ gzip:   0.82 kB
+public/build/assets/be-vietnam-pro-vietnamese-400-normal-CRcqvyg1.woff2   11.53 kB
+public/build/assets/patrick-hand-vietnamese-400-normal-65jA92mZ.woff2     11.57 kB
+public/build/assets/be-vietnam-pro-vietnamese-400-italic-CIY6FnMe.woff2   11.84 kB
+public/build/assets/be-vietnam-pro-vietnamese-500-normal-DREgrEoJ.woff2   12.17 kB
+public/build/assets/be-vietnam-pro-vietnamese-600-normal-nyU-ZL2p.woff2   12.17 kB
+public/build/assets/be-vietnam-pro-vietnamese-800-normal-D4LFh2W4.woff2   12.40 kB
+public/build/assets/be-vietnam-pro-vietnamese-700-normal-Csr0PCuG.woff2   12.46 kB
+public/build/assets/be-vietnam-pro-latin-ext-400-normal-CiZNW1ec.woff2    13.05 kB
+public/build/assets/be-vietnam-pro-latin-ext-400-italic-Crz7h8Mn.woff2    13.12 kB
+public/build/assets/be-vietnam-pro-latin-ext-500-normal-h0Fp6aX0.woff2    13.54 kB
+public/build/assets/be-vietnam-pro-latin-ext-600-normal-BNd8euf0.woff2    13.60 kB
+public/build/assets/be-vietnam-pro-latin-ext-800-normal-GEpNgheG.woff2    13.75 kB
+public/build/assets/be-vietnam-pro-latin-ext-700-normal-C8_gqRu2.woff2    13.85 kB
+public/build/assets/patrick-hand-latin-ext-400-normal-Dno5CMlI.woff2      20.11 kB
+public/build/assets/be-vietnam-pro-latin-400-normal-PpnXBOrz.woff2        21.16 kB
+public/build/assets/be-vietnam-pro-latin-400-italic-Czf7pqeE.woff2        21.43 kB
+public/build/assets/be-vietnam-pro-latin-500-normal-B6LVzGNe.woff2        21.89 kB
+public/build/assets/be-vietnam-pro-latin-600-normal-BZDkUTrt.woff2        22.03 kB
+public/build/assets/be-vietnam-pro-latin-700-normal-DlW1Zbsh.woff2        22.15 kB
+public/build/assets/be-vietnam-pro-latin-800-normal-BpHZASpI.woff2        22.32 kB
+public/build/assets/patrick-hand-latin-400-normal-B7HHA2Vw.woff2          23.94 kB
+public/build/assets/app-BMngc7Qd.css                                      44.17 kB │ gzip:   9.10 kB
+public/build/assets/theme-DVHi_9sl.css                                   716.36 kB │ gzip:  72.98 kB
+public/build/assets/app-BvRk9kiK.js                                        0.00 kB │ gzip:   0.02 kB
+public/build/assets/main-C8PPMtxd.js                                     390.96 kB │ gzip: 120.88 kB
+
+[32m✓ built in 872ms[39m
+✔ Build Vite (app học, trang chào, theme quản trị)
+::endgroup::
+::group::Tương phản màu WCAG AA (palette_check.py trên tokens.css)
+Tương phản: 94/94 cặp đạt WCAG 2 AA (sáng và tối)
+✔ Tương phản màu WCAG AA (palette_check.py trên tokens.css)
+::endgroup::
+::group::Test palette_check (cả trường hợp lỗi)
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.148s
+
+OK
+✔ Test palette_check (cả trường hợp lỗi)
+::endgroup::
+::group::Test sinh icon app (cả trường hợp lỗi)
+/home/runner/work/lernbuch/lernbuch/design/test_icons.py:31: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  self.assertTrue(any(min(p) > 230 for p in img.getdata()), "không thấy chữ trắng")
+../home/runner/work/lernbuch/lernbuch/design/test_icons.py:18: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/tmpd87afmz5/icon-maskable-512.png'>
+  sizes = {p.name: Image.open(p).size for p in Path(d).iterdir()}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/lernbuch/lernbuch/design/test_icons.py:18: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/tmpd87afmz5/icon-512.png'>
+  sizes = {p.name: Image.open(p).size for p in Path(d).iterdir()}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/lernbuch/lernbuch/design/test_icons.py:18: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/tmpd87afmz5/icon-192.png'>
+  sizes = {p.name: Image.open(p).size for p in Path(d).iterdir()}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+..
+----------------------------------------------------------------------
+Ran 4 tests in 0.407s
+
+OK
+✔ Test sinh icon app (cả trường hợp lỗi)
+::endgroup::
+::group::Database cho test trình duyệt (migrate, dữ liệu khởi tạo, tài khoản người học thử, nội dung mẫu)
+
+   INFO  Preparing database.  
+
+  Creating migration table ....................................... 6.12ms DONE
+
+   INFO  Running migrations.  
+
+  2026_11_25_000001_create_identity_tables ..................... 194.06ms DONE
+  2026_11_25_000002_create_content_tables ...................... 432.37ms DONE
+  2026_11_25_000003_create_learning_tables ..................... 170.12ms DONE
+  2026_11_25_000004_create_ai_tables ........................... 107.04ms DONE
+  2026_11_25_000005_create_billing_tables ...................... 246.15ms DONE
+  2026_11_25_000006_create_engagement_tables .................... 70.66ms DONE
+  2026_11_25_000007_create_support_config_tables ............... 137.40ms DONE
+  2026_11_25_000008_create_classroom_tables ..................... 90.40ms DONE
+  2026_11_25_000009_create_framework_tables .................... 110.67ms DONE
+  2026_11_27_000001_add_base_lang_to_grammar_lessons_and_exercise_sets  40.94ms DONE
+  2026_11_27_000002_add_group_name_and_extra_to_exercises ........ 7.71ms DONE
+  2026_11_27_000003_mark_lernbuch_sources_allowed ................ 0.66ms DONE
+
+
+   INFO  Seeding database.  
+
+
+   INFO  Seeding database.  
+
+  Database\Seeders\NguoiHocThuSeeder ................................. RUNNING  
+  Database\Seeders\NguoiHocThuSeeder ............................. 229 ms DONE  
+
+
+   INFO  Seeding database.  
+
+  Database\Seeders\NoiDungThuSeeder .................................. RUNNING  
+  Database\Seeders\NoiDungThuSeeder ............................... 74 ms DONE  
+
+✔ Database cho test trình duyệt (migrate, dữ liệu khởi tạo, tài khoản người học thử, nội dung mẫu)
+::endgroup::
+::group::Playwright: font, bố cục, đăng nhập, app học (bàn phím, axe WCAG 2.2 AA, sáng/tối) trên máy tính, điện thoại
+
+Running 123 tests using 2 workers
+
+  ✓    1 [dang-nhap] › tests/e2e/dang-nhap.setup.ts:4:1 › đăng nhập bằng tài khoản người học thử (830ms)
+  ✓    2 [may-tinh] › tests/e2e/anh-app.spec.ts:27:5 › chụp ảnh app chu-de (705ms)
+  ✓    3 [may-tinh] › tests/e2e/anh-app.spec.ts:27:5 › chụp ảnh app cap-do (815ms)
+  ✓    4 [may-tinh] › tests/e2e/anh-app.spec.ts:27:5 › chụp ảnh app giao-tiep (423ms)
+  ✓    5 [may-tinh] › tests/e2e/anh-app.spec.ts:27:5 › chụp ảnh app trang-chu-de (542ms)
+  ✓    6 [may-tinh] › tests/e2e/anh-app.spec.ts:27:5 › chụp ảnh app tra-tu (485ms)
+  ✓    7 [may-tinh] › tests/e2e/anh-app.spec.ts:27:5 › chụp ảnh app so-tay (442ms)
+  ✓    8 [may-tinh] › tests/e2e/anh-app.spec.ts:34:5 › chụp ảnh app thẻ từ (light) (738ms)
+  ✓    9 [may-tinh] › tests/e2e/anh-app.spec.ts:34:5 › chụp ảnh app thẻ từ (dark) (749ms)
+  ✓   11 [may-tinh] › tests/e2e/anh.spec.ts:14:5 › chụp ảnh trang-chao (254ms)
+  ✓   10 [may-tinh] › tests/e2e/anh-app.spec.ts:45:1 › chụp ảnh app thẻ từ động từ, tab Ngữ pháp (690ms)
+  ✓   12 [may-tinh] › tests/e2e/anh.spec.ts:14:5 › chụp ảnh quan-tri-dang-nhap (547ms)
+  ✓   14 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Học (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (916ms)
+  ✓   13 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Hôm nay (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.3s)
+  ✓   15 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Chủ đề (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.1s)
+  ✓   16 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Cấp độ (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.1s)
+  ✓   17 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Giao tiếp (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (972ms)
+  ✓   18 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Trang chủ đề (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.2s)
+  ✓   19 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Tra từ (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.0s)
+  ✓   20 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Tra từ, lịch sử (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (907ms)
+  ✓   21 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Sổ tay (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (955ms)
+  ✓   22 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Cài đặt (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.4s)
+  ✓   23 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Sắp có (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (890ms)
+  ✓   24 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Không tìm thấy (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (940ms)
+  ✓   25 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Chủ đề không có (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (926ms)
+  ✓   27 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Học (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (892ms)
+  ✓   26 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Hôm nay (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.3s)
+  ✓   28 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Chủ đề (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.0s)
+  ✓   29 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Cấp độ (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.1s)
+  ✓   30 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Giao tiếp (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.0s)
+  ✓   31 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Trang chủ đề (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.1s)
+  ✓   32 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Tra từ (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.0s)
+  ✓   33 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Tra từ, lịch sử (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (978ms)
+  ✓   34 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Sổ tay (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (929ms)
+  ✓   35 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Cài đặt (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.4s)
+  ✓   36 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Sắp có (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (870ms)
+  ✓   37 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Không tìm thấy (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (888ms)
+  ✓   38 [may-tinh] › tests/e2e/app.spec.ts:53:9 › Chủ đề không có (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (930ms)
+  ✓   39 [may-tinh] › tests/e2e/app.spec.ts:67:1 › phiên học bằng bàn phím: Space lật, 1–4 chấm, ← xem lại, Esc thoát (1.3s)
+  ✓   40 [may-tinh] › tests/e2e/app.spec.ts:86:1 › đi hết một phiên ôn và xem tổng kết (1.4s)
+  ✓   42 [may-tinh] › tests/e2e/app.spec.ts:118:1 › font của app học đã nạp: Be Vietnam Pro cho tiêu đề và chữ (388ms)
+  ✓   43 [may-tinh] › tests/e2e/app.spec.ts:131:1 › giao diện tối lưu lại sau khi tải lại trang (483ms)
+  ✓   44 [may-tinh] › tests/e2e/chu.spec.ts:74:1 › mọi mẫu chữ hiện đúng font, đủ dấu tiếng Việt và ä ö ü ß ẞ (394ms)
+  ✓   45 [may-tinh] › tests/e2e/chu.spec.ts:80:1 › trang chào dùng Be Vietnam Pro cho tên và chữ (192ms)
+  ✓   46 [may-tinh] › tests/e2e/chu.spec.ts:86:1 › trang chào và trang kiểm chữ không tràn ngang (369ms)
+  ✓   47 [may-tinh] › tests/e2e/chu.spec.ts:94:1 › thiếu file font: phép kiểm báo lỗi, chữ vẫn đọc được bằng font dự phòng (324ms)
+  ✓   41 [may-tinh] › tests/e2e/app.spec.ts:98:1 › trang chủ đề: phím / vào ô tìm, máy chủ lọc khi ngừng gõ (không dấu vẫn ra), che cột rồi chạm để xem, sang trang 2 (2.9s)
+  ✓   48 [may-tinh] › tests/e2e/noi-dung.spec.ts:37:5 › thẻ từ danh từ và động từ (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA ở mọi tab (4.6s)
+  ✓   49 [may-tinh] › tests/e2e/noi-dung.spec.ts:37:5 › thẻ từ danh từ và động từ (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA ở mọi tab (4.5s)
+  ✓   50 [may-tinh] › tests/e2e/noi-dung.spec.ts:52:1 › thẻ từ: Tab tới dải tab, mũi tên đổi tab; bảng chia động từ (517ms)
+  ✓   51 [may-tinh] › tests/e2e/noi-dung.spec.ts:61:1 › bấm một chữ trong câu ví dụ thì hiện nghĩa, có link mở thẻ; đạt WCAG khi bảng tra đang mở (1.4s)
+  ✓   53 [may-tinh] › tests/e2e/noi-dung.spec.ts:114:1 › tra từ: "zahlen" và "zählen" ra đúng thẻ đứng đầu; gõ không dấu tiếng Việt, tiếng Đức (mục tự kiểm 16) (2.1s)
+  ✓   52 [may-tinh] › tests/e2e/noi-dung.spec.ts:76:1 › sao và ghi chú lưu theo tài khoản: tải lại trang vẫn còn, Sổ tay có thẻ; bỏ sao, xoá ghi chú thì hết (3.5s)
+  ✓   54 [may-tinh] › tests/e2e/noi-dung.spec.ts:137:1 › Cấp độ: chọn cấp thì chỉ còn chủ đề có thẻ khớp, link sang trang chủ đề giữ bộ lọc (713ms)
+  ✓   55 [may-tinh] › tests/e2e/noi-dung.spec.ts:148:1 › điều hướng: Chủ đề sáng cả khi đang ở Cấp độ, Giao tiếp, thẻ từ; Sổ tay có trên thanh điều hướng (430ms)
+  ✓   57 [may-tinh] › tests/e2e/tai-khoan-app.spec.ts:33:1 › API trả 401 khi không có phiên đăng nhập, không lộ dữ liệu (46ms)
+  ✓   58 [may-tinh] › tests/e2e/tai-khoan.spec.ts:16:5 › trang Đăng nhập: đạt WCAG 2.2 AA, không tràn ngang (751ms)
+  ✓   59 [may-tinh] › tests/e2e/tai-khoan.spec.ts:16:5 › trang Tạo tài khoản: đạt WCAG 2.2 AA, không tràn ngang (723ms)
+  ✓   56 [may-tinh] › tests/e2e/tai-khoan-app.spec.ts:8:1 › Cài đặt có phần tài khoản từ API: email, máy này; chọn mục tiêu thì gửi lên tài khoản (1.6s)
+  ✓   61 [may-tinh] › tests/e2e/tai-khoan.spec.ts:26:1 › chưa đăng nhập mà mở app học thì về trang đăng nhập (214ms)
+  ✓   60 [may-tinh] › tests/e2e/tai-khoan.spec.ts:16:5 › trang Quên mật khẩu: đạt WCAG 2.2 AA, không tràn ngang (788ms)
+  ✓   62 [may-tinh] › tests/e2e/tai-khoan.spec.ts:31:1 › sai mật khẩu thì báo lỗi ngay dưới ô email, giữ email đã gõ (566ms)
+  ✓   63 [dien-thoai] › tests/e2e/anh-app.spec.ts:27:5 › chụp ảnh app chu-de (741ms)
+  ✓   64 [dien-thoai] › tests/e2e/anh-app.spec.ts:27:5 › chụp ảnh app cap-do (774ms)
+  ✓   65 [dien-thoai] › tests/e2e/anh-app.spec.ts:27:5 › chụp ảnh app giao-tiep (514ms)
+  ✓   66 [dien-thoai] › tests/e2e/anh-app.spec.ts:27:5 › chụp ảnh app trang-chu-de (587ms)
+  ✓   67 [dien-thoai] › tests/e2e/anh-app.spec.ts:27:5 › chụp ảnh app tra-tu (509ms)
+  ✓   68 [dien-thoai] › tests/e2e/anh-app.spec.ts:27:5 › chụp ảnh app so-tay (502ms)
+  ✓   69 [dien-thoai] › tests/e2e/anh-app.spec.ts:34:5 › chụp ảnh app thẻ từ (light) (806ms)
+  ✓   70 [dien-thoai] › tests/e2e/anh-app.spec.ts:34:5 › chụp ảnh app thẻ từ (dark) (885ms)
+  ✓   72 [dien-thoai] › tests/e2e/anh.spec.ts:14:5 › chụp ảnh trang-chao (300ms)
+  ✓   71 [dien-thoai] › tests/e2e/anh-app.spec.ts:45:1 › chụp ảnh app thẻ từ động từ, tab Ngữ pháp (972ms)
+  ✓   73 [dien-thoai] › tests/e2e/anh.spec.ts:14:5 › chụp ảnh quan-tri-dang-nhap (516ms)
+  ✓   75 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Học (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (920ms)
+  ✓   74 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Hôm nay (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.4s)
+  ✓   76 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Chủ đề (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (998ms)
+  ✓   77 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Cấp độ (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.1s)
+  ✓   78 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Giao tiếp (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.0s)
+  ✓   79 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Trang chủ đề (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.1s)
+  ✓   80 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Tra từ (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.0s)
+  ✓   81 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Tra từ, lịch sử (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (992ms)
+  ✓   82 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Sổ tay (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (933ms)
+  ✓   84 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Sắp có (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (852ms)
+  ✓   83 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Cài đặt (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.5s)
+  ✓   85 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Không tìm thấy (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (883ms)
+  ✓   86 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Chủ đề không có (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (946ms)
+  ✓   88 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Học (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (830ms)
+  ✓   87 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Hôm nay (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.3s)
+  ✓   89 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Chủ đề (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (991ms)
+  ✓   90 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Cấp độ (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.1s)
+  ✓   91 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Giao tiếp (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (960ms)
+  ✓   92 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Trang chủ đề (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.1s)
+  ✓   93 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Tra từ (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.0s)
+  ✓   94 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Tra từ, lịch sử (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (924ms)
+  ✓   95 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Sổ tay (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (893ms)
+  ✓   96 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Cài đặt (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (1.4s)
+  ✓   97 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Sắp có (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (859ms)
+  ✓   98 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Không tìm thấy (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (944ms)
+  ✓   99 [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Chủ đề không có (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA (935ms)
+  ✓  100 [dien-thoai] › tests/e2e/app.spec.ts:67:1 › phiên học bằng bàn phím: Space lật, 1–4 chấm, ← xem lại, Esc thoát (1.2s)
+  ✓  101 [dien-thoai] › tests/e2e/app.spec.ts:86:1 › đi hết một phiên ôn và xem tổng kết (1.3s)
+  ✓  103 [dien-thoai] › tests/e2e/app.spec.ts:118:1 › font của app học đã nạp: Be Vietnam Pro cho tiêu đề và chữ (362ms)
+  ✓  104 [dien-thoai] › tests/e2e/app.spec.ts:131:1 › giao diện tối lưu lại sau khi tải lại trang (482ms)
+  ✓  105 [dien-thoai] › tests/e2e/chu.spec.ts:74:1 › mọi mẫu chữ hiện đúng font, đủ dấu tiếng Việt và ä ö ü ß ẞ (397ms)
+  ✓  106 [dien-thoai] › tests/e2e/chu.spec.ts:80:1 › trang chào dùng Be Vietnam Pro cho tên và chữ (186ms)
+  ✓  107 [dien-thoai] › tests/e2e/chu.spec.ts:86:1 › trang chào và trang kiểm chữ không tràn ngang (313ms)
+  ✓  108 [dien-thoai] › tests/e2e/chu.spec.ts:94:1 › thiếu file font: phép kiểm báo lỗi, chữ vẫn đọc được bằng font dự phòng (371ms)
+  ✓  102 [dien-thoai] › tests/e2e/app.spec.ts:98:1 › trang chủ đề: phím / vào ô tìm, máy chủ lọc khi ngừng gõ (không dấu vẫn ra), che cột rồi chạm để xem, sang trang 2 (2.8s)
+  ✓  109 [dien-thoai] › tests/e2e/noi-dung.spec.ts:37:5 › thẻ từ danh từ và động từ (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA ở mọi tab (4.6s)
+  ✓  110 [dien-thoai] › tests/e2e/noi-dung.spec.ts:37:5 › thẻ từ danh từ và động từ (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA ở mọi tab (4.5s)
+  ✓  111 [dien-thoai] › tests/e2e/noi-dung.spec.ts:52:1 › thẻ từ: Tab tới dải tab, mũi tên đổi tab; bảng chia động từ (608ms)
+  ✓  112 [dien-thoai] › tests/e2e/noi-dung.spec.ts:61:1 › bấm một chữ trong câu ví dụ thì hiện nghĩa, có link mở thẻ; đạt WCAG khi bảng tra đang mở (1.3s)
+  ✓  114 [dien-thoai] › tests/e2e/noi-dung.spec.ts:114:1 › tra từ: "zahlen" và "zählen" ra đúng thẻ đứng đầu; gõ không dấu tiếng Việt, tiếng Đức (mục tự kiểm 16) (2.0s)
+  ✓  113 [dien-thoai] › tests/e2e/noi-dung.spec.ts:76:1 › sao và ghi chú lưu theo tài khoản: tải lại trang vẫn còn, Sổ tay có thẻ; bỏ sao, xoá ghi chú thì hết (3.4s)
+  ✓  115 [dien-thoai] › tests/e2e/noi-dung.spec.ts:137:1 › Cấp độ: chọn cấp thì chỉ còn chủ đề có thẻ khớp, link sang trang chủ đề giữ bộ lọc (556ms)
+  ✓  116 [dien-thoai] › tests/e2e/noi-dung.spec.ts:148:1 › điều hướng: Chủ đề sáng cả khi đang ở Cấp độ, Giao tiếp, thẻ từ; Sổ tay có trên thanh điều hướng (501ms)
+  ✓  118 [dien-thoai] › tests/e2e/tai-khoan-app.spec.ts:33:1 › API trả 401 khi không có phiên đăng nhập, không lộ dữ liệu (61ms)
+  ✓  119 [dien-thoai] › tests/e2e/tai-khoan.spec.ts:16:5 › trang Đăng nhập: đạt WCAG 2.2 AA, không tràn ngang (719ms)
+  ✓  117 [dien-thoai] › tests/e2e/tai-khoan-app.spec.ts:8:1 › Cài đặt có phần tài khoản từ API: email, máy này; chọn mục tiêu thì gửi lên tài khoản (1.7s)
+  ✓  120 [dien-thoai] › tests/e2e/tai-khoan.spec.ts:16:5 › trang Tạo tài khoản: đạt WCAG 2.2 AA, không tràn ngang (759ms)
+  ✓  122 [dien-thoai] › tests/e2e/tai-khoan.spec.ts:26:1 › chưa đăng nhập mà mở app học thì về trang đăng nhập (172ms)
+  ✓  121 [dien-thoai] › tests/e2e/tai-khoan.spec.ts:16:5 › trang Quên mật khẩu: đạt WCAG 2.2 AA, không tràn ngang (751ms)
+  ✓  123 [dien-thoai] › tests/e2e/tai-khoan.spec.ts:31:1 › sai mật khẩu thì báo lỗi ngay dưới ô email, giữ email đã gõ (545ms)
+
+  123 passed (1.2m)
+✔ Playwright: font, bố cục, đăng nhập, app học (bàn phím, axe WCAG 2.2 AA, sáng/tối) trên máy tính, điện thoại
+::endgroup::
+
+KẾT QUẢ: 9/9 bước đạt
