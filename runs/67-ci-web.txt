@@ -1,0 +1,715 @@
+workflow: ci  job: web  status: failure
+commit: ae96e763ff20519ba2138a9ac0008fe4875bc944  ref: work/g1-tuan2  run: 45916825546
+
+✔ Kiểm kiểu TypeScript
+✔ ESLint
+✔ Vitest
+✔ Build Vite (app học, trang chào, theme quản trị)
+✔ Tương phản màu WCAG AA (palette_check.py trên tokens.css)
+✔ Test palette_check (cả trường hợp lỗi)
+✔ Test sinh icon app (cả trường hợp lỗi)
+✔ Database cho test trình duyệt (migrate, dữ liệu khởi tạo, tài khoản người học thử, nội dung mẫu)
+✘ Playwright: font, bố cục, đăng nhập, app học (bàn phím, axe WCAG 2.2 AA, sáng/tối) trên máy tính, điện thoại
+KẾT QUẢ: 8/9 bước đạt
+✘ lỗi: Playwright: font, bố cục, đăng nhập, app học (bàn phím, axe WCAG 2.2 AA, sáng/tối) trên máy tính, điện thoại
+
+----- cuối log -----
+ct(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Học-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Học-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Học-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Chủ đề (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    + ]
+
+      58 |             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Chủ-đề-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Chủ-đề-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Chủ-đề-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Cấp độ (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 5
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    + ]
+
+      58 |             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Cấp-độ-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Cấp-độ-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Cấp-độ-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Giao tiếp (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    + ]
+
+      58 |             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Giao-tiếp-sáng-không-t-58bc4-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Giao-tiếp-sáng-không-t-58bc4-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Giao-tiếp-sáng-không-t-58bc4-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  9) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Trang chủ đề (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('h1')
+    Expected: 1
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('h1') with timeout 5000ms
+      - waiting for locator('h1')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      38 |     await expect(page.locator('#app')).not.toBeEmpty();
+      39 |     // Trang đọc API: chờ có tiêu đề trang (h1) và hết chữ "Đang tải…"
+    > 40 |     await expect(page.locator('h1')).toHaveCount(1);
+         |                                      ^
+      41 |     await expect(page.getByText('Đang tải…')).toHaveCount(0);
+      42 |     await page.evaluate(() => document.fonts.ready);
+      43 |     return errors;
+        at open (/home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:40:38)
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:54:28
+
+    Error Context: test-results/app-Trang-chủ-đề-sáng-khôn-1c8dd-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Trang-chủ-đề-sáng-khôn-1c8dd-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Trang-chủ-đề-sáng-khôn-1c8dd-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  10) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Tra từ (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    + ]
+
+      58 |             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Tra-từ-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Tra-từ-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Tra-từ-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  11) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Tra từ, lịch sử (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    + ]
+
+      58 |             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Tra-từ-lịch-sử-sáng-kh-5993e-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Tra-từ-lịch-sử-sáng-kh-5993e-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Tra-từ-lịch-sử-sáng-kh-5993e-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  12) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Sổ tay (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    + ]
+
+      58 |             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Sổ-tay-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Sổ-tay-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Sổ-tay-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  13) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Cài đặt (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    + ]
+
+      58 |             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Cài-đặt-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Cài-đặt-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Cài-đặt-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  14) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Sắp có (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    + ]
+
+      58 |             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Sắp-có-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Sắp-có-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Sắp-có-sáng-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  15) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Không tìm thấy (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    + ]
+
+      58 |             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Không-tìm-thấy-sáng-kh-b8656-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Không-tìm-thấy-sáng-kh-b8656-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Không-tìm-thấy-sáng-kh-b8656-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  16) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Chủ đề không có (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('h1')
+    Expected: 1
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('h1') with timeout 5000ms
+      - waiting for locator('h1')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      38 |     await expect(page.locator('#app')).not.toBeEmpty();
+      39 |     // Trang đọc API: chờ có tiêu đề trang (h1) và hết chữ "Đang tải…"
+    > 40 |     await expect(page.locator('h1')).toHaveCount(1);
+         |                                      ^
+      41 |     await expect(page.getByText('Đang tải…')).toHaveCount(0);
+      42 |     await page.evaluate(() => document.fonts.ready);
+      43 |     return errors;
+        at open (/home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:40:38)
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:54:28
+
+    Error Context: test-results/app-Chủ-đề-không-có-sáng-k-de2c4-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Chủ-đề-không-có-sáng-k-de2c4-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Chủ-đề-không-có-sáng-k-de2c4-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  17) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Hôm nay (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    + ]
+
+      58 |             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Hôm-nay-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Hôm-nay-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Hôm-nay-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  18) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Học (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    + ]
+
+      58 |             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Học-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Học-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Học-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  19) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Chủ đề (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    + ]
+
+      58 |             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Chủ-đề-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Chủ-đề-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Chủ-đề-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  20) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Cấp độ (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 5
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    + ]
+
+      58 |             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Cấp-độ-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Cấp-độ-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Cấp-độ-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  21) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Giao tiếp (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    + ]
+
+      58 |             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Giao-tiếp-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Giao-tiếp-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Giao-tiếp-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  22) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Trang chủ đề (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('h1')
+    Expected: 1
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('h1') with timeout 5000ms
+      - waiting for locator('h1')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      38 |     await expect(page.locator('#app')).not.toBeEmpty();
+      39 |     // Trang đọc API: chờ có tiêu đề trang (h1) và hết chữ "Đang tải…"
+    > 40 |     await expect(page.locator('h1')).toHaveCount(1);
+         |                                      ^
+      41 |     await expect(page.getByText('Đang tải…')).toHaveCount(0);
+      42 |     await page.evaluate(() => document.fonts.ready);
+      43 |     return errors;
+        at open (/home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:40:38)
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:54:28
+
+    Error Context: test-results/app-Trang-chủ-đề-tối-không-2dd30-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Trang-chủ-đề-tối-không-2dd30-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Trang-chủ-đề-tối-không-2dd30-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  23) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Tra từ (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    + ]
+
+      58 |             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Tra-từ-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Tra-từ-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Tra-từ-tối-không-tràn-ngang-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  24) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Tra từ, lịch sử (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    +   "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+    + ]
+
+      58 |             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Tra-từ-lịch-sử-tối-khô-0ea27-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Tra-từ-lịch-sử-tối-khô-0ea27-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Tra-từ-lịch-sử-tối-khô-0ea27-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  25) [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Chủ đề không có (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    + ]
+
+      58 |             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
+      59 |             expect(await axe(page)).toEqual([]);
+    > 60 |             expect(errors).toEqual([]);
+         |                            ^
+      61 |         });
+      62 |     }
+      63 | }
+        at /home/runner/work/lernbuch/lernbuch/tests/e2e/app.spec.ts:60:28
+
+    Error Context: test-results/app-Chủ-đề-không-có-tối-kh-75300-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/app-Chủ-đề-không-có-tối-kh-75300-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/app-Chủ-đề-không-có-tối-kh-75300-g-không-lỗi-đạt-WCAG-2-2-AA-dien-thoai/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  25 failed
+    [may-tinh] › tests/e2e/app.spec.ts:53:9 › Chủ đề không có (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [may-tinh] › tests/e2e/app.spec.ts:53:9 › Chủ đề không có (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [may-tinh] › tests/e2e/tai-khoan-app.spec.ts:8:1 › Cài đặt có phần tài khoản từ API: email, máy này; chọn mục tiêu thì gửi lên tài khoản 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Hôm nay (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Học (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Chủ đề (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Cấp độ (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Giao tiếp (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Trang chủ đề (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Tra từ (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Tra từ, lịch sử (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Sổ tay (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Cài đặt (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Sắp có (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Không tìm thấy (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Chủ đề không có (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Hôm nay (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Học (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Chủ đề (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Cấp độ (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Giao tiếp (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Trang chủ đề (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Tra từ (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Tra từ, lịch sử (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+    [dien-thoai] › tests/e2e/app.spec.ts:53:9 › Chủ đề không có (tối): không tràn ngang, không lỗi, đạt WCAG 2.2 AA 
+  80 passed (1.4m)
+✘ Playwright: font, bố cục, đăng nhập, app học (bàn phím, axe WCAG 2.2 AA, sáng/tối) trên máy tính, điện thoại
+::endgroup::
+
+KẾT QUẢ: 8/9 bước đạt
+✘ lỗi: Playwright: font, bố cục, đăng nhập, app học (bàn phím, axe WCAG 2.2 AA, sáng/tối) trên máy tính, điện thoại
