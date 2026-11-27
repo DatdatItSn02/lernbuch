@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useReducer, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useLayoutEffect, useMemo, useReducer, type ReactNode } from 'react';
 
 export type Theme = 'light' | 'dark';
 export type FontSize = 'sm' | 'md' | 'lg';
@@ -111,13 +111,17 @@ export function StoreProvider({ children, initial }: { children: ReactNode; init
     const [state, dispatch] = useReducer(reducer, initial, (init) => init ?? initialState(loadSettings()));
     const season = state.settings.season === 'auto' ? seasonOf(new Date()) : state.settings.season;
 
-    useEffect(() => {
+    // Áp giao diện ngay lúc vẽ (không chờ sau khi vẽ), để không chớp một khung hình giao diện cũ
+    useLayoutEffect(() => {
         const html = document.documentElement;
         html.dataset.theme = state.settings.theme;
         html.dataset.fontSize = state.settings.fontSize;
         html.dataset.season = season;
-        saveSettings(state.settings);
     }, [state.settings, season]);
+
+    useEffect(() => {
+        saveSettings(state.settings);
+    }, [state.settings]);
 
     const value = useMemo(() => ({ ...state, dispatch, season }), [state, season]);
     return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
