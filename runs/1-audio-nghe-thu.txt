@@ -1,0 +1,14 @@
+workflow: audio  job: nghe-thu  status: failure
+commit: 63d8ab7ae9534cfae69d7eed4f70451a9fc28f7e  ref: audio/nghe-thu  run: 46027247311
+
+✔ Giọng de_DE-thorsten-medium dùng được: bộ dữ liệu Thorsten-Voice, CC0 1.0. Nguồn: https://huggingface.co/rhasspy/piper-voices/raw/refs%2Fpr%2F10/de/de_DE/thorsten/medium/MODEL_CARD
+✔ Giọng de_DE-thorsten-high dùng được: bộ dữ liệu Thorsten-Voice, CC0 1.0. Nguồn: https://huggingface.co/rhasspy/piper-voices/raw/refs%2Fpr%2F10/de/de_DE/thorsten/medium/MODEL_CARD
+✔ Giọng de_DE-kerstin-low dùng được: bộ dữ liệu Kerstin, CC0 1.0. Nguồn: https://huggingface.co/cstr/piper-voices-GGUF
+
+----- cuối log -----
+✔ Giọng de_DE-thorsten-medium dùng được: bộ dữ liệu Thorsten-Voice, CC0 1.0. Nguồn: https://huggingface.co/rhasspy/piper-voices/raw/refs%2Fpr%2F10/de/de_DE/thorsten/medium/MODEL_CARD
+✔ Giọng de_DE-thorsten-high dùng được: bộ dữ liệu Thorsten-Voice, CC0 1.0. Nguồn: https://huggingface.co/rhasspy/piper-voices/raw/refs%2Fpr%2F10/de/de_DE/thorsten/medium/MODEL_CARD
+✔ Giọng de_DE-kerstin-low dùng được: bộ dữ liệu Kerstin, CC0 1.0. Nguồn: https://huggingface.co/cstr/piper-voices-GGUF
+Name: piper-tts
+Version: 1.8.0
+ERROR: Pipe to stdout was broken
