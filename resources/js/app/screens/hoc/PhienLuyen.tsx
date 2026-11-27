@@ -29,6 +29,7 @@ import { levelName, stageName, type Grade } from '../../lib/srs';
 import { useStore } from '../../state/store';
 import { t, type Khoa } from '../../i18n';
 import { BaoKetQua, Empty, Header, NutDay, Summary, ketQua, laGo, laNut, phimNghe, useGhiLuot, useLucHien, useTieuDiemTiep, type Done } from './chung';
+import { flushSync } from 'react-dom';
 
 /** Thẻ sai quay lại trong phiên tối đa chừng này lần (để luyện, không tính vào tiến độ). */
 const MAX_ON_LAI = 2;
@@ -377,11 +378,10 @@ function CauGo({ muc, langs, onCham, onTiep }: CauProps<Extract<MucMot, { kieu: 
         const a = o.selectionStart ?? o.value.length;
         const b = o.selectionEnd ?? a;
         const moi = o.value.slice(0, a) + ch + o.value.slice(b);
-        setGo(moi);
-        requestAnimationFrame(() => {
-            o.focus();
-            o.setSelectionRange(a + ch.length, a + ch.length);
-        });
+        // Vẽ lại ngay rồi đặt con trỏ, để phím gõ tiếp theo không chen trước lúc đặt con trỏ
+        flushSync(() => setGo(moi));
+        o.focus();
+        o.setSelectionRange(a + ch.length, a + ch.length);
     };
 
     return (

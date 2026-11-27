@@ -10,6 +10,7 @@ import { tron } from '../../lib/luyen';
 import { so, t } from '../../i18n';
 import { BaoKetQua, NutDay, laGo, laNut, phimNghe, useTieuDiemTiep } from '../hoc/chung';
 import { LOP_NUT_CHINH, LOP_NUT_PHU } from './chung';
+import { flushSync } from 'react-dom';
 
 /** Một câu để làm: câu bài tập, câu chia động từ hay câu Điền câu, cùng một dạng. */
 export type CauChay = {
@@ -181,11 +182,10 @@ function OGo({ c, giaTri, onDoi, khoa, oRef, nhan }: { c: CauChay; giaTri: strin
         }
         const a = o.selectionStart ?? giaTri.length;
         const b = o.selectionEnd ?? a;
-        onDoi(giaTri.slice(0, a) + chu + giaTri.slice(b));
-        requestAnimationFrame(() => {
-            o.focus();
-            o.setSelectionRange(a + chu.length, a + chu.length);
-        });
+        // Vẽ lại ngay rồi đặt con trỏ, để phím gõ tiếp theo không chen trước lúc đặt con trỏ
+        flushSync(() => onDoi(giaTri.slice(0, a) + chu + giaTri.slice(b)));
+        o.focus();
+        o.setSelectionRange(a + chu.length, a + chu.length);
     };
     return (
         <>
