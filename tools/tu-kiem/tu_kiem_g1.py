@@ -229,6 +229,7 @@ KIEM_TEST = {
         ('vitest-file', None, 'tests/js/chuVietThang.test.ts', 2),
         ('pest', 'chọn ngôn ngữ chưa có bản dịch (tiếng Anh khi G1 chỉ có tiếng Việt): trang, API và email đều tiếng Việt'),
         ('pest', 'ngôn ngữ đã bật nhưng còn thiếu bản dịch: chữ thiếu hiện tiếng Việt, không bao giờ hiện mã khoá'),
+        ('pest-file', None, 'tests/Feature/BanDichFilamentTest.php', 3),
     ]),
 }
 
