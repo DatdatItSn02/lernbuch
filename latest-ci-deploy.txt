@@ -1,8 +1,8 @@
 workflow: ci  job: deploy  status: success
-commit: 96abc55c92ccc1fe86b4536a3323622880ab5c79  ref: main  run: 46070721339
+commit: cdfe3ba2da79138a5d6b723b10deb10ad72fab7f  ref: main  run: 46073218212
 
-✔ Web đã chạy bản 20261127214259-96abc55 sau khoảng 0 giây
-✔ /up trả 200 (20261127214259-96abc55)
+✔ Web đã chạy bản 20261127220020-cdfe3ba sau khoảng 0 giây
+✔ /up trả 200 (20261127220020-cdfe3ba)
 
 ----- cuối log -----
 Installing dependencies from lock file
@@ -366,7 +366,7 @@ Generating optimized autoload files
 84 packages you are using are looking for funding.
 Use the `composer fund` command to find out more!
 
-added 303 packages in 6s
+added 303 packages in 4s
 
 > build
 > vite build
@@ -401,19 +401,19 @@ public/build/assets/patrick-hand-latin-400-normal-B7HHA2Vw.woff2          23.94 
 public/build/assets/app-BdW18VBV.css                                      49.66 kB │ gzip:  10.04 kB
 public/build/assets/theme-DlB581o5.css                                   717.00 kB │ gzip:  73.18 kB
 public/build/assets/app-BvRk9kiK.js                                        0.00 kB │ gzip:   0.02 kB
-public/build/assets/main-Be0zLM2h.js                                     495.48 kB │ gzip: 149.55 kB
+public/build/assets/main-BzCHDTry.js                                     495.48 kB │ gzip: 149.58 kB
 
-[32m✓ built in 1.09s[39m
--rw-r--r-- 1 runner runner 16M Nov 27 21:43 /tmp/20261127214259-96abc55.tgz
+[32m✓ built in 966ms[39m
+-rw-r--r-- 1 runner runner 16M Nov 27 22:00 /tmp/20261127220020-cdfe3ba.tgz
 Trước deploy: /up trả 200
-Bản đang chạy: 20261127181408-1af10a2
-Dung lượng: 117M	releases/20261127120658-35ba412
+Bản đang chạy: 20261127214259-96abc55
 Dung lượng: 117M	releases/20261127151501-9c7833f
 Dung lượng: 118M	releases/20261127181408-1af10a2
+Dung lượng: 118M	releases/20261127214259-96abc55
 Dung lượng: 70M	shared
 Dung lượng: 15M	.
-Nhịp trong 10 phút qua: 9/10 (cần ít nhất 9).
-== Giải nén 20261127214259-96abc55
+Nhịp trong 10 phút qua: 10/10 (cần ít nhất 9).
+== Giải nén 20261127220020-cdfe3ba
 == Cập nhật .env (giữ APP_KEY cũ)
 == Migration
 
@@ -427,23 +427,23 @@ Nhịp trong 10 phút qua: 9/10 (cần ít nhất 9).
 
    INFO  Caching framework bootstrap, configuration, and metadata.  
 
-  config ........................................................ 69.06ms DONE
-  events ......................................................... 4.46ms DONE
-  routes ........................................................ 82.04ms DONE
+  config ....................................................... 176.74ms DONE
+  events ......................................................... 4.74ms DONE
+  routes ........................................................ 65.28ms DONE
   views .......................................................... 1 giây DONE
-  blade-icons .................................................... 5.07ms DONE
-  filament ....................................................... 8.97ms DONE
+  blade-icons .................................................... 5.73ms DONE
+  filament ....................................................... 9.26ms DONE
 
-== Đổi current sang 20261127214259-96abc55
+== Đổi current sang 20261127220020-cdfe3ba
 
    INFO  Broadcasting queue restart signal.  
 
 == Giữ 3 bản gần nhất (và luôn giữ bản tốt gần nhất để còn chỗ quay lại)
 == Dung lượng (gói Free: 1 GB tính chung file, mail và database)
-Thư mục app: 435M
-Cả thư mục nhà: 440M
+Thư mục app: 436M
+Cả thư mục nhà: 441M
 Database: 40.3M (92 bảng)
 Nội dung: 11882 thẻ, 620 chủ đề nhỏ, 219 bài ngữ pháp, 6887 câu bài tập, 889 động từ, 10875 file audio
-Xong: 20261127214259-96abc55
-✔ Web đã chạy bản 20261127214259-96abc55 sau khoảng 0 giây
-✔ /up trả 200 (20261127214259-96abc55)
+Xong: 20261127220020-cdfe3ba
+✔ Web đã chạy bản 20261127220020-cdfe3ba sau khoảng 0 giây
+✔ /up trả 200 (20261127220020-cdfe3ba)
