@@ -1,6 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type BrowserContext, type Page } from '@playwright/test';
-import { dangNhap, emailHoc } from './phien';
+import { chupDu, dangNhap, emailHoc } from './phien';
 
 // PWA (mục 15 phần tự kiểm G1), cỡ máy tính và điện thoại:
 // - Đủ điều kiện cài: manifest (tên, trang mở đầu, mở như app, biểu tượng 192 và 512 tải được), service worker điều khiển trang;
@@ -97,6 +97,7 @@ test.describe('cài app và học khi mất mạng', () => {
         info.annotations.push({ type: 'navigator.onLine khi mất mạng', description: String(await page.evaluate(() => navigator.onLine)) });
         await wcag(page, 'trang chủ đề khi mất mạng');
         await page.screenshot({ path: `test-results/anh/pwa-mat-mang-chu-de-${info.project.name}.png` });
+        await chupDu(page, info, 'pwa-mat-mang-chu-de-sang', false);
 
         // Học chủ đề đã tải khi mất mạng: phiên lập trên máy, chấm 3 thẻ, lượt chấm nằm chờ
         await page.goto('/app/hoc?chu-de=so-dem-tu-vung');
@@ -111,6 +112,7 @@ test.describe('cài app và học khi mất mạng', () => {
         }
         await expect(page.getByText('3 lượt chờ gửi')).toBeVisible({ timeout: 15_000 });
         await page.screenshot({ path: `test-results/anh/pwa-hoc-mat-mang-${info.project.name}.png` });
+        await chupDu(page, info, 'pwa-hoc-mat-mang-sang', false);
 
         // Có mạng lại: lượt chấm tự gửi, máy chủ nhận đủ 3 lượt; dòng báo mất mạng không còn
         await matMang(context, false);
@@ -127,12 +129,14 @@ test.describe('màn mới của PWA ở giao diện tối', () => {
         await taiChuDe(page);
         await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
         await wcag(page, 'trang chủ đề đã tải (tối)');
+        await chupDu(page, info, 'pwa-chu-de-da-tai-toi');
 
         // Không gọi được máy chủ lúc mở phiên: lập phiên từ chủ đề đã tải
         await page.route('**/api/v1/hoc/phien', (r) => r.abort('internetdisconnected'));
         await page.goto('/app/hoc?chu-de=so-dem-tu-vung');
         await expect(page.getByText(DANG_OFFLINE)).toBeVisible();
         await wcag(page, 'phiên học khi mất mạng (tối)');
+        await chupDu(page, info, 'pwa-hoc-mat-mang-toi', false);
         await page.unroute('**/api/v1/hoc/phien');
 
         await page.goto('/app/cai-dat');

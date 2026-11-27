@@ -57,6 +57,9 @@ jobs:
         if: always()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Kết quả từng test (tên đầy đủ) cho công cụ tự kiểm G1 (tools/tu-kiem/gon_ket_qua.py)
+          REPORT_FILES: ket-qua
+          REPORT_FILES_TO: ket-qua/php
         run: bash .github/scripts/report.sh php "${{ job.status }}" /tmp/php.log
 
   web:
@@ -87,6 +90,8 @@ jobs:
       API_MOI_PHUT: 5000
       CACHE_STORE: file
       QUEUE_CONNECTION: sync
+      # Commit có "[anh]": Playwright chụp đủ mọi màn (sáng, tối, hai cỡ) và lưu DOM cho bộ dò Impeccable (tests/e2e/phien.ts)
+      ANH_DU: ${{ contains(github.event.head_commit.message, '[anh]') && '1' || '' }}
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
@@ -119,6 +124,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Ảnh trang chào và trang quản trị cho báo cáo (tests/e2e/anh.spec.ts)
           REPORT_IMAGES: test-results/anh
+          # Kết quả từng test (tên đầy đủ) cho công cụ tự kiểm G1 (tools/tu-kiem/gon_ket_qua.py)
+          REPORT_FILES: ket-qua
+          REPORT_FILES_TO: ket-qua/web
         run: bash .github/scripts/report.sh web "${{ job.status }}" /tmp/web.log
 
   deploy:

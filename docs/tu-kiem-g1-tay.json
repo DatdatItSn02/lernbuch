@@ -1,0 +1,13 @@
+{
+ "ten": "Kết quả thử tay mà CI không có (đọc bằng tools/tu-kiem/tu_kiem_g1.py --tay)",
+ "ghi_chu": "Mục 1: số liệu trên máy chủ đọc thẳng từ dòng \"Nội dung:\" của log deploy (app:dung-luong) khi có; chưa có thì dùng lần nhập trên máy bạn. Mục 14: bộ dò Impeccable chạy trên DOM đã vẽ của mọi màn (CI lưu ở ci-results ket-qua/web/dom khi commit có [anh]).",
+ "muc": [
+  {
+   "so": 1,
+   "nguon": "bạn chạy setup\\nhap-du-lieu.bat trên máy (MySQL 9.7), lernweb.zip bản x19; kết quả ở app\\setup\\ket-qua-nhap-du-lieu.txt",
+   "luc": "2026-11-27 19:26 (giờ máy bạn)",
+   "ket_qua": "máy bạn: 654 chủ đề (7 + 27 + 620), 11.882 thẻ, 33 chương, 219 bài ngữ pháp, 364 bộ, 6.887 câu bài tập, 889 động từ; 35.646 nghĩa, 13.222 câu ví dụ, 16.733 dạng từ, đúng số mong đợi ở docs/nhap-lernbuch-cu.md",
+   "khop": true
+  }
+ ]
+}

@@ -49,11 +49,14 @@ step "test_schema.py (cấu trúc và tình huống)" python3 tools/schema/test_
 step "Test công cụ so khớp và quy ước" python3 -m unittest tools/schema/test_compare_schema.py tools/schema/test_check_conventions.py
 step "Test trình kiểm file nhập" bash -c "cd import && python3 -m unittest test_validate_import.py"
 step "Test công cụ audio (giọng được dùng để bán, tên file theo hash)" python3 -m unittest tools/audio/test_audio.py
-step "Test công cụ tự kiểm G0 (cả trường hợp lỗi)" python3 -m unittest tools/tu-kiem/test_tu_kiem.py tools/tu-kiem/test_lay_runs.py
+step "Test công cụ tự kiểm G0, G1 (cả trường hợp lỗi)" python3 -m unittest tools/tu-kiem/test_tu_kiem.py tools/tu-kiem/test_lay_runs.py tools/tu-kiem/test_gon_ket_qua.py tools/tu-kiem/test_tu_kiem_g1.py
 step "Test script deploy trên máy chủ (quay lại, giữ bản, migration hỏng)" python3 -m unittest deploy/test_remote.py
 step "Test tạo .env cho alwaysdata (mật khẩu có ký tự đặc biệt)" python3 .github/scripts/test_env_production.py
-step "Pest (database lernbuch_test)" env DB_DATABASE=lernbuch_test php artisan test
-step "Hiệu năng với dữ liệu cỡ thật (tạo phiên p95 < 150 ms, API khác < 200 ms)" env DB_DATABASE=lernbuch_test php artisan test --group=hieu-nang
+mkdir -p ket-qua-tho ket-qua
+step "Pest (database lernbuch_test)" env DB_DATABASE=lernbuch_test php artisan test --log-junit=ket-qua-tho/pest.xml
+step "Hiệu năng với dữ liệu cỡ thật (tạo phiên p95 < 150 ms, API khác < 200 ms)" env DB_DATABASE=lernbuch_test php artisan test --group=hieu-nang --log-junit=ket-qua-tho/pest-hieu-nang.xml
+# Bảng kết quả từng test (tên đầy đủ) cho công cụ tự kiểm G1, CI chép vào ci-results/ket-qua/php
+python3 tools/tu-kiem/gon_ket_qua.py --junit ket-qua-tho/pest.xml --junit ket-qua-tho/pest-hieu-nang.xml > ket-qua/ket-qua.tsv || true
 
 echo
 echo "KẾT QUẢ: $((total - ${#fails[@]}))/${total} bước đạt"

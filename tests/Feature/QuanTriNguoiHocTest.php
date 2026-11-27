@@ -3,6 +3,7 @@
 use App\Filament\Resources\NguoiHocs\Pages\ListNguoiHocs;
 use App\Filament\Resources\NguoiHocs\Pages\ViewNguoiHoc;
 use App\Models\User;
+use App\Providers\Filament\AdminPanelProvider;
 use App\Support\Hoc\LapLich;
 use App\Support\QuanTri\KhoaTaiKhoan;
 use App\Support\QuanTri\TienDoNguoiHoc;
@@ -144,4 +145,17 @@ it('chỉ người có quyền quản lý người dùng mới khoá được; k
     expect(DB::table('audit_logs')->where('action', 'user.suspend')->count())->toBe(1);
 
     expect(fn () => KhoaTaiKhoan::khoa(nhanVien('support')))->toThrow(InvalidArgumentException::class);
+});
+
+it('nút Lọc của bảng có tên đọc được kèm số bộ lọc đang dùng, như số hiện trên nút (WCAG 2.5.3)', function () {
+    expect(AdminPanelProvider::nhanNutLoc(2))->toBe('Lọc, đang dùng 2');
+
+    $this->actingAs(nhanVien('support'));
+    $this->get('/admin/nguoi-hoc')->assertOk()->assertSee('aria-label="Lọc, đang dùng 0"', false);
+    Livewire::test(ListNguoiHocs::class)
+        ->filterTable('status', KhoaTaiKhoan::BI_KHOA)
+        ->assertSeeHtml('aria-label="Lọc, đang dùng 1"')
+        ->filterTable('email_verified_at', true)
+        ->assertSeeHtml('aria-label="Lọc, đang dùng 2"')
+        ->assertDontSeeHtml('aria-label="Lọc"');
 });

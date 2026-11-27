@@ -1,29 +1,39 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
+import { chupDu } from './phien';
 
 // App học trên trình duyệt thật, cỡ máy tính và cỡ điện thoại: không tràn ngang, không lỗi console, đạt WCAG 2.2 AA
 // theo axe ở cả giao diện sáng và tối, dùng được bằng bàn phím. Mọi trang đọc API với nội dung mẫu nhỏ (NoiDungThuSeeder).
-// Thẻ từ có id tự tăng nên ở noi-dung.spec.ts, mở qua trang chủ đề. Phiên học có chấm thẻ ở hoc.spec.ts (tài khoản riêng).
+// Thẻ từ có id tự tăng nên ở noi-dung.spec.ts, mở qua trang chủ đề. Phiên học có chấm thẻ ở hoc.spec.ts, che-do.spec.ts
+// (tài khoản riêng); ở đây chỉ mở câu đầu của từng chế độ, không chấm.
 
+// [tên, đường dẫn, tên ảnh khi chụp đủ (tests/e2e/phien.ts, ANH_DU)]
 const SCREENS = [
-    ['Hôm nay', '/app/hom-nay'],
-    ['Học', '/app/hoc'],
-    ['Chủ đề', '/app/chu-de'],
-    ['Cấp độ', '/app/cap-do'],
-    ['Giao tiếp', '/app/giao-tiep'],
-    ['Trang chủ đề', '/app/chu-de/banh-mi-tu-vung'],
-    ['Tra từ', '/app/tra-tu?q=brot'],
-    ['Tra từ, lịch sử', '/app/tra-tu'],
-    ['Sổ tay', '/app/so-tay'],
-    ['Cài đặt', '/app/cai-dat'],
-    ['Ngữ pháp', '/app/ngu-phap'],
-    ['Bài ngữ pháp', '/app/ngu-phap/g-A1-22'],
-    ['Bài tập', '/app/bai-tap'],
-    ['Bài tập, Ôn tập', '/app/bai-tap?tab=on-tap'],
-    ['Số nhiều', '/app/so-nhieu'],
-    ['Bảng động từ', '/app/dong-tu'],
-    ['Không tìm thấy', '/app/khong-co'],
-    ['Chủ đề không có', '/app/chu-de/khong-co'],
+    ['Hôm nay', '/app/hom-nay', 'hom-nay'],
+    ['Học', '/app/hoc', 'hoc'],
+    ['Học: Flashcard', '/app/hoc?che-do=flashcard&chu-de=banh-mi-tu-vung', 'hoc-flashcard'],
+    ['Học: Quiz', '/app/hoc?che-do=quiz&chu-de=banh-mi-tu-vung', 'hoc-quiz'],
+    ['Học: Listening', '/app/hoc?che-do=listening&chu-de=banh-mi-tu-vung', 'hoc-listening'],
+    ['Học: Typing', '/app/hoc?che-do=typing&chu-de=banh-mi-tu-vung', 'hoc-typing'],
+    ['Học: Ghép cặp', '/app/hoc?che-do=match&chu-de=banh-mi-tu-vung', 'hoc-ghep-cap'],
+    ['Học: Hỗn hợp', '/app/hoc?che-do=mixed&chu-de=banh-mi-tu-vung', 'hoc-hon-hop'],
+    ['Học: Đặt câu', '/app/hoc?che-do=sentence&chu-de=banh-mi-tu-vung', 'hoc-dat-cau'],
+    ['Chủ đề', '/app/chu-de', 'chu-de'],
+    ['Cấp độ', '/app/cap-do', 'cap-do'],
+    ['Giao tiếp', '/app/giao-tiep', 'giao-tiep'],
+    ['Trang chủ đề', '/app/chu-de/banh-mi-tu-vung', 'trang-chu-de'],
+    ['Tra từ', '/app/tra-tu?q=brot', 'tra-tu'],
+    ['Tra từ, lịch sử', '/app/tra-tu', 'tra-tu-lich-su'],
+    ['Sổ tay', '/app/so-tay', 'so-tay'],
+    ['Cài đặt', '/app/cai-dat', 'cai-dat'],
+    ['Ngữ pháp', '/app/ngu-phap', 'ngu-phap'],
+    ['Bài ngữ pháp', '/app/ngu-phap/g-A1-22', 'bai-ngu-phap'],
+    ['Bài tập', '/app/bai-tap', 'bai-tap'],
+    ['Bài tập, Ôn tập', '/app/bai-tap?tab=on-tap', 'bai-tap-on-tap'],
+    ['Số nhiều', '/app/so-nhieu', 'so-nhieu'],
+    ['Bảng động từ', '/app/dong-tu', 'bang-dong-tu'],
+    ['Không tìm thấy', '/app/khong-co', 'khong-tim-thay'],
+    ['Chủ đề không có', '/app/chu-de/khong-co', 'chu-de-khong-co'],
 ] as const;
 
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
@@ -54,8 +64,8 @@ async function axe(page: Page) {
 }
 
 for (const theme of ['light', 'dark'] as const) {
-    for (const [name, path] of SCREENS) {
-        test(`${name} (${theme === 'light' ? 'sáng' : 'tối'}): không tràn ngang, không lỗi, đạt WCAG 2.2 AA`, async ({ page }) => {
+    for (const [name, path, anh] of SCREENS) {
+        test(`${name} (${theme === 'light' ? 'sáng' : 'tối'}): không tràn ngang, không lỗi, đạt WCAG 2.2 AA`, async ({ page }, info) => {
             const errors = await open(page, path, theme);
             await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
             await expect(page.locator('h1')).toHaveCount(1);
@@ -65,6 +75,7 @@ for (const theme of ['light', 'dark'] as const) {
             // Trang chủ đề không có: API trả 404 là đúng, trình duyệt ghi dòng "Failed to load resource" vào console
             const coY = path === '/app/chu-de/khong-co' ? /status of 404/ : null;
             expect(errors.filter((e) => !coY?.test(e))).toEqual([]);
+            await chupDu(page, info, `app-${anh}-${theme}`);
         });
     }
 }

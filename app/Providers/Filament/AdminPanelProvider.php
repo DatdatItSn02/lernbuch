@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Filament\Actions\Action;
 use Filament\FontProviders\LocalFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -12,6 +13,7 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentTimezone;
+use Filament\Tables\Table;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -26,9 +28,20 @@ class AdminPanelProvider extends PanelProvider
     /** Giờ hiện trong trang quản trị (database lưu Unix timestamp, app chạy giờ UTC). */
     public const MUI_GIO = 'Asia/Ho_Chi_Minh';
 
+    /** Tên đọc được của nút Lọc trên bảng: kèm số bộ lọc đang dùng, đúng số hiện trên nút. */
+    public static function nhanNutLoc(int $dangDung): string
+    {
+        return "Lọc, đang dùng {$dangDung}";
+    }
+
     public function boot(): void
     {
         FilamentTimezone::set(self::MUI_GIO);
+
+        // Nút Lọc của bảng là nút biểu tượng kèm số bộ lọc đang dùng; tên đọc được phải chứa chữ nhìn thấy (WCAG 2.5.3)
+        Table::configureUsing(fn (Table $table) => $table->filtersTriggerAction(
+            fn (Action $action) => $action->label(fn (): string => self::nhanNutLoc($table->getActiveFiltersCount())),
+        ));
     }
 
     public function panel(Panel $panel): Panel

@@ -43,3 +43,7 @@ graphify-out/
 
 # Dữ liệu Lernbuch cũ của bạn (lernweb.zip, app.db): không đưa vào repo
 /nguon-cu/
+
+# Kết quả test của CI cho công cụ tự kiểm (tools/tu-kiem/gon_ket_qua.py)
+/ket-qua/
+/ket-qua-tho/

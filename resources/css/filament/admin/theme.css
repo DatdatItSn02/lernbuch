@@ -4,3 +4,10 @@
 
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/admin/**/*';
+
+/* Chữ thay ô trống ("Chưa đăng nhập", "Chưa học"): Filament dùng gray-400 (sáng) và gray-500 (tối), dưới 4.5:1 trên nền
+   bảng và nền mục xem (WCAG 1.4.3). Đậm hơn một bậc: slate-500 trên trắng 4.7:1, slate-400 trên slate-900 6.9:1. */
+.fi-ta-cell .fi-ta-placeholder,
+.fi-in-entry .fi-in-placeholder {
+    @apply text-gray-500 dark:text-gray-400;
+}

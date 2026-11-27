@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { chupDu } from './phien';
 
 // Chụp khi chưa đăng nhập: trang quản trị không cho tài khoản người học vào
 test.use({ storageState: { cookies: [], origins: [] } });
@@ -16,5 +17,6 @@ for (const [name, path, text] of PAGES) {
         await expect(page.getByText(text).first()).toBeVisible();
         await page.evaluate(() => document.fonts.ready);
         await page.screenshot({ path: `test-results/anh/${name}-${info.project.name}.png`, fullPage: true });
+        await chupDu(page, info, name);
     });
 }
