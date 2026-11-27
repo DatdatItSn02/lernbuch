@@ -63,6 +63,7 @@ export const api = {
     lay: <T>(duong: string) => goi<T>('GET', duong),
     sua: <T>(duong: string, duLieu: unknown) => goi<T>('PUT', duong, duLieu),
     gui: <T>(duong: string, duLieu: unknown) => goi<T>('POST', duong, duLieu),
+    xoa: <T = null>(duong: string) => goi<T>('DELETE', duong),
     /** Gửi PUT lúc rời trang (keepalive: trình duyệt gửi nốt dù trang đã đóng); không chờ kết quả. */
     guiKhiRoiTrang: (duong: string, duLieu: unknown) => {
         fetch(`/api/v1${duong}`, yeuCau('PUT', duLieu, true)).catch(() => {});

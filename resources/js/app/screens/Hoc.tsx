@@ -61,7 +61,8 @@ export function Hoc() {
     const level = word ? (reviewing ? reviewing.after : (progress[word.id]?.level ?? 0)) : 0;
     const last = done[done.length - 1];
 
-    const exit = useCallback(() => navigate(topicId ? `/chu-de/${topicId}` : '/hom-nay'), [navigate, topicId]);
+    // Phiên học còn dùng dữ liệu mẫu (chủ đề mẫu không có trang riêng): thoát thì về Hôm nay
+    const exit = useCallback(() => navigate('/hom-nay'), [navigate]);
 
     const doGrade = useCallback(
         (g: Grade) => {
@@ -336,7 +337,7 @@ function Summary({ done, topicId, topicName, newTopicId }: { done: Done[]; topic
     const moreDue = words.filter((w) => (!topicId || w.topicId === topicId) && isDue(progress[w.id])).length;
     const moreNew = words.filter((w) => w.topicId === newTopicId && isNew(progress[w.id])).length;
     const more = moreDue + moreNew > 0;
-    const back = topicId ? { to: `/chu-de/${topicId}`, label: t('hoc.veChuDe') } : { to: '/hom-nay', label: t('chung.veHomNay') };
+    const back = { to: '/hom-nay', label: t('chung.veHomNay') };
 
     return (
         <main className="mx-auto w-full max-w-[640px] flex-1 px-5 py-6">

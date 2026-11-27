@@ -2,9 +2,12 @@ import { vi } from 'vitest';
 import type { Toi } from '../app/state/taiKhoan';
 
 export type LanGoi = { method: string; url: string; body: unknown; headers: Record<string, string> };
-type Tuyen = (body: unknown) => { status?: number; json?: unknown };
+export type Tuyen = (body: unknown, url: URL) => { status?: number; json?: unknown };
 
-/** Máy chủ giả cho fetch: tuyến theo "PHƯƠNG_THỨC /đường/dẫn"; ghi lại mọi lần gọi để test kiểm. */
+/**
+ * Máy chủ giả cho fetch: tuyến theo "PHƯƠNG_THỨC /đường/dẫn?truy=vấn" (khớp đúng), không có thì theo
+ * "PHƯƠNG_THỨC /đường/dẫn" (bỏ phần truy vấn, hàm xử lý đọc url.searchParams); ghi lại mọi lần gọi để test kiểm.
+ */
 export function giaApi(tuyen: Record<string, Tuyen>): LanGoi[] {
     const goi: LanGoi[] = [];
     vi.stubGlobal(
@@ -13,8 +16,9 @@ export function giaApi(tuyen: Record<string, Tuyen>): LanGoi[] {
             const method = init.method ?? 'GET';
             const body = init.body ? JSON.parse(String(init.body)) : undefined;
             goi.push({ method, url, body, headers: (init.headers ?? {}) as Record<string, string> });
-            const xuLy = tuyen[`${method} ${url}`];
-            const kq = xuLy ? xuLy(body) : { status: 404, json: { code: 'khong_thay', message: '' } };
+            const u = new URL(url, 'http://lernbuch.test');
+            const xuLy = tuyen[`${method} ${url}`] ?? tuyen[`${method} ${u.pathname}`];
+            const kq = xuLy ? xuLy(body, u) : { status: 404, json: { code: 'khong_thay', message: '' } };
             return new Response(JSON.stringify(kq.json ?? null), { status: kq.status ?? 200, headers: { 'Content-Type': 'application/json' } });
         }),
     );

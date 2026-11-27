@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Api\V1\TraTuController;
 use App\Models\User;
+use Database\Seeders\NoiDungThuSeeder;
 use Illuminate\Support\Facades\DB;
-use Tests\Support\NoiDungMau;
 
 // Tra từ (mục tự kiểm 16): gõ không dấu ở 4 thứ tiếng; "zahlen" và "zählen" ra đúng thẻ, từ khớp đúng chữ đứng đầu.
 // Tra chữ bấm trong câu, lịch sử tra (mục tự kiểm 8: không đụng được lịch sử của người khác).
@@ -19,7 +19,7 @@ function ketQuaTra(string $q): array
 }
 
 it('"zahlen" và "zählen": từ đúng từng chữ đứng đầu, rồi dạng khác (số nhiều), rồi từ gần giống', function () {
-    NoiDungMau::tao();
+    (new NoiDungThuSeeder)->tao();
     $this->actingAs(User::factory()->create());
 
     $r = $this->getJson('/api/v1/tra-tu?q=zahlen')->assertOk();
@@ -34,7 +34,7 @@ it('"zahlen" và "zählen": từ đúng từng chữ đứng đầu, rồi dạn
 });
 
 it('gõ không dấu ở 4 thứ tiếng: Đức (ö → o hoặc oe), Việt, Anh, Trung; nghĩa trùng đứng trước nghĩa chứa', function () {
-    NoiDungMau::tao();
+    (new NoiDungThuSeeder)->tao();
     $this->actingAs(User::factory()->create());
 
     expect(ketQuaTra('brotchen'))->toBe(['das Brötchen', 'Ich hätte gern zwei Brötchen.'])
@@ -53,7 +53,7 @@ it('gõ không dấu ở 4 thứ tiếng: Đức (ö → o hoặc oe), Việt, A
 
 it('chữ quá ngắn, ký tự đại diện, thẻ nháp và thẻ riêng của người khác không ra', function () {
     $chu = User::factory()->create();
-    NoiDungMau::tao(chuTheRieng: $chu->id);
+    (new NoiDungThuSeeder)->tao(chuTheRieng: $chu->id);
     $this->actingAs(User::factory()->create());
 
     expect(ketQuaTra('a'))->toBe([])
@@ -70,7 +70,7 @@ it('chữ quá ngắn, ký tự đại diện, thẻ nháp và thẻ riêng củ
 });
 
 it('kết quả có nghĩa, mạo từ tách riêng, sao của chính mình; tối đa 30 thẻ, kèm tổng số', function () {
-    $m = NoiDungMau::tao();
+    $m = (new NoiDungThuSeeder)->tao();
     $this->actingAs(User::factory()->create());
     $this->putJson('/api/v1/the/'.$m->the['das Brot'].'/so-tay', ['starred' => true]);
 
@@ -87,7 +87,7 @@ it('kết quả có nghĩa, mạo từ tách riêng, sao của chính mình; t�
 });
 
 it('bấm một chữ trong câu: đúng dạng (số nhiều, dạng chia), viết hoa đầu câu, dấu câu; không có thì rỗng', function () {
-    NoiDungMau::tao();
+    (new NoiDungThuSeeder)->tao();
     $this->actingAs(User::factory()->create());
     $tra = fn (string $chu) => array_column($this->getJson('/api/v1/tra-chu?chu='.rawurlencode($chu))->assertOk()->json('data'), 'front');
 
@@ -103,7 +103,7 @@ it('bấm một chữ trong câu: đúng dạng (số nhiều, dạng chia), vi�
 });
 
 it('lịch sử tra: ghi khi mở thẻ, mới nhất trước, gộp lần tra lặp lại, chỉ giữ 100 mục', function () {
-    $m = NoiDungMau::tao();
+    $m = (new NoiDungThuSeeder)->tao();
     $this->actingAs($user = User::factory()->create());
 
     $this->postJson('/api/v1/tra-tu/lich-su', ['term' => 'zahlen', 'card_id' => $m->the['zahlen']])->assertCreated();
@@ -127,7 +127,7 @@ it('lịch sử tra: ghi khi mở thẻ, mới nhất trước, gộp lần tra 
 
 it('lịch sử tra sai dữ liệu thì 422; thẻ không xem được thì không ghi', function () {
     $chu = User::factory()->create();
-    $m = NoiDungMau::tao(chuTheRieng: $chu->id);
+    $m = (new NoiDungThuSeeder)->tao(chuTheRieng: $chu->id);
     $this->actingAs(User::factory()->create());
 
     $this->postJson('/api/v1/tra-tu/lich-su', [])->assertStatus(422)->assertJsonValidationErrors('term');
@@ -138,7 +138,7 @@ it('lịch sử tra sai dữ liệu thì 422; thẻ không xem được thì kh�
 });
 
 it('xoá lịch sử: chỉ mục của mình; mục của người khác thì 404 và vẫn còn (mục tự kiểm 8)', function () {
-    NoiDungMau::tao();
+    (new NoiDungThuSeeder)->tao();
     $b = User::factory()->create();
     $this->actingAs($b)->postJson('/api/v1/tra-tu/lich-su', ['term' => 'của B'])->assertCreated();
     $idB = (int) DB::table('search_history')->where('user_id', $b->id)->value('id');

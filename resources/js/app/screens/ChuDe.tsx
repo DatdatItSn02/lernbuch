@@ -1,93 +1,71 @@
 import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
-import { useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
-import { GermanWord, PluralLine } from '../components/Article';
+import { coDang, DongDang, TuDuc } from '../components/Article';
 import { Choice } from '../components/Choice';
 import { Kbd } from '../components/Kbd';
-import { LevelBar } from '../components/LevelBar';
-import { LevelIcon } from '../components/LevelIcon';
 import { Sheet } from '../components/Shell';
-import { topics, words, type Topic, type Word } from '../data/demo';
-import { isDue, isNew, levelCounts } from '../lib/session';
-import { useStore } from '../state/store';
-import { KhongThay } from './KhongThay';
+import { DangTai, LoiTai } from '../components/TaiNoiDung';
+import { demThe, docCap, tenCap, tenLoaiTu, trangCuaBo, truyVan, type TheTomTat, type TrangChuDe } from '../lib/noiDung';
+import { useApi } from '../lib/useApi';
 import { useTitle } from '../lib/useTitle';
-import { t } from '../i18n';
-
-export const PAGE_SIZE = 20;
+import { KhongThay } from './KhongThay';
+import { so, t } from '../i18n';
 
 type Cover = 'none' | 'de' | 'vi';
-type PosFilter = 'all' | Word['pos'];
-type LevelFilter = 'all' | 0 | 1 | 2 | 3 | 4 | 5;
 
-const POS_FILTERS: { id: PosFilter; readonly label: string }[] = [
-    { id: 'all', get label() { return t('chuDe.moiLoaiTu'); } },
-    { id: 'noun', get label() { return t('chuDe.danhTu'); } },
-    { id: 'verb', get label() { return t('chuDe.dongTu'); } },
-    { id: 'adj', get label() { return t('chuDe.tinhTu'); } },
-];
-
-/** Bỏ dấu và viết thường: gõ "brotchen" ra "Brötchen", gõ "banh" ra "bánh". */
-export function fold(s: string) {
-    return s.toLowerCase().replace(/ß/g, 'ss').replace(/đ/g, 'd').normalize('NFD').replace(/\p{M}/gu, '');
-}
+/** Gõ trong ô tìm: chờ ngừng gõ chừng này rồi mới hỏi máy chủ. */
+export const CHO_TIM_MS = 300;
 
 const isTyping = (el: EventTarget | null) => el instanceof HTMLElement && (el.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName));
 
 export function ChuDe() {
-    const { ma } = useParams();
-    const topic = topics.find((cd) => cd.id === ma);
-    if (!topic) {
-        return <KhongThay title={t('chuDe.khongCo')} message={t('chuDe.khongCoTrongMau')} back={{ to: '/chu-de', label: t('chung.veDanhSachChuDe') }} />;
-    }
-    return <TopicPage key={topic.id} topic={topic} />;
+    const { ma = '' } = useParams();
+    return <TopicPage key={ma} slug={ma} />;
 }
 
-function TopicPage({ topic }: { topic: Topic }) {
-    const { progress, settings } = useStore();
-    useTitle(topic.name);
+/**
+ * Trang chủ đề nhỏ: tên, vị trí trong cây, lọc theo cấp, loại từ và chữ (máy chủ lọc), 20 thẻ mỗi trang.
+ * Bộ lọc và số trang nằm trên đường dẫn (?cap=&loai=&tim=&trang=) nên tải lại hay quay lại vẫn giữ.
+ */
+function TopicPage({ slug }: { slug: string }) {
     const [params, setParams] = useSearchParams();
+    const cap = docCap(params.get('cap'));
+    const loai = params.get('loai') ?? '';
+    const timTrenDuong = params.get('tim') ?? '';
+    const trangHoi = Number(params.get('trang') ?? '1');
+    const trangXin = Number.isInteger(trangHoi) && trangHoi >= 1 ? trangHoi : 1;
+
+    const [query, setQuery] = useState(timTrenDuong);
     const [cover, setCover] = useState<Cover>('none');
-    const [level, setLevel] = useState<LevelFilter>('all');
-    const [pos, setPos] = useState<PosFilter>('all');
-    const [query, setQuery] = useState('');
-    const [shown, setShown] = useState<Record<string, boolean>>({});
+    const [shown, setShown] = useState<Record<number, boolean>>({});
     const searchRef = useRef<HTMLInputElement>(null);
     const listRef = useRef<HTMLHeadingElement>(null);
     const lastPage = useRef<number | null>(null);
     const uid = useId();
 
-    const all = useMemo(() => words.filter((w) => w.topicId === topic.id), [topic.id]);
-    const counts = levelCounts(all.map((w) => w.id), progress);
-    const due = all.filter((w) => isDue(progress[w.id])).length;
-    const fresh = all.filter((w) => isNew(progress[w.id])).length;
-    const newNext = settings.newPerSession === 'all' ? fresh : Math.min(fresh, settings.newPerSession);
-
-    const q = fold(query.trim());
-    const list = all.filter(
-        (w) =>
-            (level === 'all' || (progress[w.id]?.level ?? 0) === level) &&
-            (pos === 'all' || w.pos === pos) &&
-            (!q || fold(w.lemma).includes(q) || fold(w.vi).includes(q) || fold(w.en).includes(q)),
+    const { duLieu, dangTai, loi, taiLai } = useApi<TrangChuDe>(
+        `/chu-de/${encodeURIComponent(slug)}${truyVan({ cap: cap.join(','), loai_tu: loai, tim: timTrenDuong.trim(), trang: trangXin > 1 ? trangXin : null })}`,
     );
-    const pages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
-    const asked = Number(params.get('trang') ?? '1');
-    const page = Number.isInteger(asked) && asked >= 1 ? Math.min(asked, pages) : 1;
-    const rows = list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
-    const filtered = level !== 'all' || pos !== 'all' || q !== '';
-    const hiddenCount = cover === 'none' ? 0 : rows.filter((w) => !shown[w.id]).length;
+    const dl = duLieu?.data;
+    const meta = duLieu?.meta;
+    useTitle(dl?.topic.name ?? t('khung.chuDe'));
 
-    // Đổi bộ lọc thì về trang 1
-    const refilter = (apply: () => void) => {
-        apply();
-        if (params.has('trang')) setParams({}, { replace: true });
-    };
-    const clearFilters = () =>
-        refilter(() => {
-            setLevel('all');
-            setPos('all');
-            setQuery('');
-        });
+    // Đặt lại bộ lọc trên đường dẫn; đổi lọc thì về trang 1
+    const datLoc = (moi: { cap?: number[]; loai?: string; tim?: string }) =>
+        setParams(
+            new URLSearchParams(truyVan({ cap: (moi.cap ?? cap).join(','), loai: moi.loai ?? loai, tim: (moi.tim ?? timTrenDuong).trim() }).slice(1)),
+            { replace: true },
+        );
+
+    // Ngừng gõ một chút thì mới đổi đường dẫn (và hỏi máy chủ)
+    useEffect(() => {
+        if (query.trim() === timTrenDuong.trim()) return;
+        const hen = window.setTimeout(() => datLoc({ tim: query }), CHO_TIM_MS);
+        return () => window.clearTimeout(hen);
+        // datLoc đọc params mới nhất mỗi lần render; chỉ cần chạy lại khi chữ gõ đổi
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [query]);
 
     useEffect(() => {
         const onKey = (e: KeyboardEvent) => {
@@ -99,6 +77,7 @@ function TopicPage({ topic }: { topic: Topic }) {
         return () => window.removeEventListener('keydown', onKey);
     }, []);
 
+    const page = meta?.page ?? 1;
     // Sang trang khác thì đưa đầu danh sách vào tầm nhìn và đặt tiêu điểm ở đó
     useEffect(() => {
         if (lastPage.current !== null && lastPage.current !== page) {
@@ -108,7 +87,24 @@ function TopicPage({ topic }: { topic: Topic }) {
         lastPage.current = page;
     }, [page]);
 
-    const pageLink = (n: number) => ({ search: n === 1 ? '' : `?trang=${n}` });
+    if (loi?.trangThai === 404) {
+        return <KhongThay title={t('chuDe.khongCo')} message={t('chuDe.khongCoMoTa')} back={{ to: '/chu-de', label: t('chung.veDanhSachChuDe') }} />;
+    }
+    if (!dl || !meta) {
+        return <Sheet className="px-5 md:px-8">{loi ? <LoiTai loi={loi} taiLai={taiLai} /> : <DangTai />}</Sheet>;
+    }
+
+    const bo = dl.topic.collection.code;
+    const danhSach = trangCuaBo(bo);
+    const rows = dl.cards;
+    const filtered = cap.length > 0 || loai !== '' || timTrenDuong.trim() !== '';
+    const hiddenCount = cover === 'none' ? 0 : rows.filter((w) => !shown[w.id]).length;
+    const clearFilters = () => {
+        setQuery('');
+        setParams({}, { replace: true });
+    };
+    const batCap = (c: number) => datLoc({ cap: cap.includes(c) ? cap.filter((x) => x !== c) : [...cap, c].sort((a, b) => (a || 9) - (b || 9)) });
+    const pageLink = (n: number) => ({ search: truyVan({ cap: cap.join(','), loai, tim: timTrenDuong.trim(), trang: n > 1 ? n : null }) });
 
     return (
         <Sheet>
@@ -116,63 +112,57 @@ function TopicPage({ topic }: { topic: Topic }) {
                 <nav aria-label={t('chung.viTri')}>
                     <ol className="flex flex-wrap items-center gap-x-1 text-label text-ink-2">
                         <li>
-                            <Link to="/chu-de" className="inline-flex min-h-11 items-center underline-offset-2 hover:text-ink hover:underline">
-                                {t('khung.chuDe')}
+                            <Link to={danhSach.to} className="inline-flex min-h-11 items-center underline-offset-2 hover:text-ink hover:underline">
+                                {t(danhSach.khoa)}
                             </Link>
                         </li>
-                        <li className="flex items-center gap-1">
-                            <ChevronRight size={14} aria-hidden="true" />
-                            {topic.group}
-                        </li>
-                        <li className="flex items-center gap-1">
-                            <ChevronRight size={14} aria-hidden="true" />
-                            {topic.parent}
-                        </li>
+                        {dl.group && (
+                            <li className="flex items-center gap-1">
+                                <ChevronRight size={14} aria-hidden="true" />
+                                {dl.group.name}
+                            </li>
+                        )}
+                        {dl.parent && (
+                            <li className="flex items-center gap-1">
+                                <ChevronRight size={14} aria-hidden="true" />
+                                {dl.parent.name}
+                            </li>
+                        )}
                     </ol>
                 </nav>
 
-                <div className="mt-1 grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(14rem,auto)] md:items-end md:gap-10">
-                    <div className="min-w-0">
-                        <h1 className="text-headline font-bold">{topic.name}</h1>
-                        <p lang="en" className="text-ink-2">
-                            {topic.nameEn}
-                        </p>
-                        <p className="mt-2 text-label font-semibold tabular-nums">
-                            {t('chuDe.demTu', { tu: all.length, denHan: due, moi: fresh })}
-                        </p>
-                        <div className="mt-3 max-w-lg xl:max-w-2xl">
-                            <LevelBar counts={counts} picked={level === 'all' ? null : level} onPick={(v) => refilter(() => setLevel(v === null ? 'all' : (v as LevelFilter)))} />
-                        </div>
-                    </div>
+                <h1 className="mt-1 text-headline font-bold break-words">{dl.topic.name}</h1>
+                {dl.topic.name_en && dl.topic.name_en !== dl.topic.name && (
+                    <p lang="en" className="text-ink-2">
+                        {dl.topic.name_en}
+                    </p>
+                )}
+                <p className="mt-2 text-label font-semibold tabular-nums">
+                    {dl.topic.collection.name} · {demThe(bo, dl.topic.card_count)}
+                </p>
+                <p className="mt-3 max-w-xl rounded-md border border-dashed border-line-strong px-4 py-2.5 text-label text-ink-2">{t('noiDung.hocSau')}</p>
 
-                    <div className="grid grid-cols-2 gap-2 md:grid-cols-1">
-                        {due + newNext > 0 ? (
-                            <Link
-                                to={`/hoc?chu-de=${topic.id}`}
-                                className="flex min-h-14 flex-col justify-center rounded-md bg-tim px-4 py-2 text-on-tim transition-colors duration-200 hover:bg-tim-strong"
-                            >
-                                <span className="font-bold">{t('chuDe.hocTiep')}</span>
-                                <span className="text-label tabular-nums">
-                                    {t('chuDe.onVaMoi', { on: due, moi: newNext })}
-                                </span>
-                            </Link>
-                        ) : (
-                            <p className="flex min-h-14 items-center rounded-md border border-line px-4 text-label text-ink-2">{t('chuDe.daHocHet')}</p>
-                        )}
-                        {due > 0 ? (
-                            <Link
-                                to={`/hoc?chu-de=${topic.id}&on=1`}
-                                className="flex min-h-14 items-center justify-center rounded-md border border-line-strong px-4 font-semibold transition-colors duration-200 hover:bg-sunken"
-                            >
-                                {t('chuDe.onThe', { n: due })}
-                            </Link>
-                        ) : (
-                            <p className="flex min-h-14 items-center justify-center rounded-md border border-line px-4 text-center text-label text-ink-2">
-                                {t('chuDe.khongDenHan')}
-                            </p>
-                        )}
+                {dl.levels.length > 1 && (
+                    <div role="group" aria-label={t('chuDe.locCapThe')} className="mt-4 flex flex-wrap gap-1.5">
+                        {dl.levels.map((l) => {
+                            const on = cap.includes(l.level);
+                            return (
+                                <button
+                                    key={l.level}
+                                    type="button"
+                                    aria-pressed={on}
+                                    onClick={() => batCap(l.level)}
+                                    className={`flex min-h-11 items-center gap-1.5 rounded-md border px-3 text-label font-semibold transition-colors duration-200 ${
+                                        on ? 'border-tim bg-tim-tint text-ink' : 'border-line text-ink-2 hover:border-line-strong hover:text-ink'
+                                    }`}
+                                >
+                                    {tenCap(l.level)}
+                                    <span className="font-normal tabular-nums">{so(l.count)}</span>
+                                </button>
+                            );
+                        })}
                     </div>
-                </div>
+                )}
             </header>
 
             <div className="flex flex-col gap-3 border-y border-line px-5 py-3 md:flex-row md:flex-wrap md:items-end md:gap-x-8 md:px-8 md:py-4">
@@ -203,32 +193,37 @@ function TopicPage({ topic }: { topic: Topic }) {
                 </div>
 
                 <div className="flex min-w-0 flex-1 gap-2 lg:min-w-80">
-                    <label className="sr-only" htmlFor={`${uid}-loai`}>
-                        {t('chuDe.loaiTu')}
-                    </label>
-                    <select
-                        id={`${uid}-loai`}
-                        value={pos}
-                        onChange={(e) => refilter(() => setPos(e.target.value as PosFilter))}
-                        className="min-h-11 shrink-0 rounded-md border border-line-strong bg-paper px-3 text-label font-semibold"
-                    >
-                        {POS_FILTERS.map((f) => (
-                            <option key={f.id} value={f.id}>
-                                {f.label}
-                            </option>
-                        ))}
-                    </select>
+                    {dl.pos.length > 1 && (
+                        <>
+                            <label className="sr-only" htmlFor={`${uid}-loai`}>
+                                {t('chuDe.loaiTu')}
+                            </label>
+                            <select
+                                id={`${uid}-loai`}
+                                value={loai}
+                                onChange={(e) => datLoc({ loai: e.target.value })}
+                                className="min-h-11 max-w-44 shrink-0 rounded-md border border-line-strong bg-paper px-3 text-label font-semibold"
+                            >
+                                <option value="">{t('chuDe.moiLoaiTu')}</option>
+                                {dl.pos.map((p) => (
+                                    <option key={p.pos} value={p.pos}>
+                                        {`${tenLoaiTu(p.pos)} (${so(p.count)})`}
+                                    </option>
+                                ))}
+                            </select>
+                        </>
+                    )}
                     <div className="relative min-w-0 flex-1">
                         <Search size={18} aria-hidden="true" className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-ink-2" />
                         <input
                             ref={searchRef}
                             type="search"
                             value={query}
-                            onChange={(e) => refilter(() => setQuery(e.target.value))}
+                            onChange={(e) => setQuery(e.target.value)}
                             onKeyDown={(e) => {
                                 if (e.key === 'Escape' && query) {
                                     e.preventDefault();
-                                    refilter(() => setQuery(''));
+                                    setQuery('');
                                 }
                             }}
                             aria-label={t('chuDe.timTrong')}
@@ -243,11 +238,11 @@ function TopicPage({ topic }: { topic: Topic }) {
                 </div>
             </div>
 
-            <section aria-labelledby={`${uid}-ds`}>
+            <section aria-labelledby={`${uid}-ds`} aria-busy={dangTai}>
                 <div className="flex min-h-11 items-center gap-3 px-5 pt-2 md:px-8">
-                    <h2 id={`${uid}-ds`} ref={listRef} tabIndex={-1} className="text-label font-semibold text-ink-2 tabular-nums">
-                        {filtered ? t('chuDe.khopLoc', { khop: list.length, tong: all.length }) : t('chuDe.soTu', { n: all.length })}
-                        {pages > 1 && ` · trang ${page}/${pages}`}
+                    <h2 id={`${uid}-ds`} ref={listRef} tabIndex={-1} aria-live="polite" className="text-label font-semibold text-ink-2 tabular-nums">
+                        {filtered ? t('chuDe.khopLoc', { khop: so(meta.total), tong: so(dl.topic.card_count) }) : demThe(bo, dl.topic.card_count)}
+                        {meta.pages > 1 && ` · ${t('chuDe.trangGiuaCau', { trang: page, tong: meta.pages })}`}
                     </h2>
                     {filtered && rows.length > 0 && (
                         <button type="button" onClick={clearFilters} className="min-h-11 px-2 text-label font-semibold text-tim underline-offset-2 hover:underline">
@@ -266,17 +261,9 @@ function TopicPage({ topic }: { topic: Topic }) {
                 ) : (
                     <table className="mt-2 w-full table-fixed border-collapse text-left">
                         <caption className="sr-only">{t('chuDe.bangTu')}</caption>
-                        <colgroup>
-                            <col className="w-12 md:w-16" />
-                            <col />
-                            <col />
-                        </colgroup>
                         <thead>
                             <tr className="border-b border-line text-label text-ink-2">
-                                <th scope="col" className="py-2 pl-5 font-semibold md:pl-8">
-                                    <span className="sr-only">{t('chuDe.cotMuc')}</span>
-                                </th>
-                                <th scope="col" className="py-2 pr-3 font-semibold">
+                                <th scope="col" className="py-2 pr-3 pl-5 font-semibold md:pl-8">
                                     {t('ngonNgu.de')}
                                 </th>
                                 <th scope="col" className="py-2 pr-5 font-semibold md:pr-8">
@@ -285,45 +272,15 @@ function TopicPage({ topic }: { topic: Topic }) {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-line">
-                            {rows.map((w) => {
-                                const lv = progress[w.id]?.level ?? 0;
-                                const open = !!shown[w.id];
-                                const reveal = () => setShown((s) => ({ ...s, [w.id]: true }));
-                                return (
-                                    <tr key={w.id} className="align-top">
-                                        <td className="py-3 pl-5 md:pl-8">
-                                            <LevelIcon level={lv} size={22} className="text-tim" />
-                                        </td>
-                                        <td className="py-3 pr-3">
-                                            {cover === 'de' && !open ? (
-                                                <Covered label={t('chuDe.xemTiengDuc', { nghia: w.vi })} onClick={reveal} />
-                                            ) : (
-                                                <>
-                                                    <Link to={`/tu/${w.id}`} className="font-semibold break-words underline-offset-2 hover:underline">
-                                                        <GermanWord word={w} />
-                                                    </Link>
-                                                    <span className="block text-label text-ink-2">
-                                                        <PluralLine word={w} />
-                                                    </span>
-                                                </>
-                                            )}
-                                        </td>
-                                        <td className="py-3 pr-5 md:pr-8">
-                                            {cover === 'vi' && !open ? (
-                                                <Covered label={t('chuDe.xemTiengViet', { tu: w.lemma })} onClick={reveal} />
-                                            ) : (
-                                                <span className="break-words">{w.vi}</span>
-                                            )}
-                                        </td>
-                                    </tr>
-                                );
-                            })}
+                            {rows.map((w) => (
+                                <Dong key={w.id} the={w} cover={cover} open={!!shown[w.id]} reveal={() => setShown((s) => ({ ...s, [w.id]: true }))} />
+                            ))}
                         </tbody>
                     </table>
                 )}
             </section>
 
-            {pages > 1 && (
+            {meta.pages > 1 && (
                 <nav aria-label={t('chuDe.phanTrang')} className="flex items-center justify-between gap-3 border-t border-line px-5 py-3 md:px-8">
                     {page > 1 ? (
                         <Link to={pageLink(page - 1)} className="inline-flex min-h-11 items-center gap-1 font-semibold hover:underline">
@@ -333,10 +290,8 @@ function TopicPage({ topic }: { topic: Topic }) {
                     ) : (
                         <span />
                     )}
-                    <span className="text-label text-ink-2 tabular-nums">
-                        {t('chuDe.trang', { trang: page, tong: pages })}
-                    </span>
-                    {page < pages ? (
+                    <span className="text-label text-ink-2 tabular-nums">{t('chuDe.trang', { trang: page, tong: meta.pages })}</span>
+                    {page < meta.pages ? (
                         <Link to={pageLink(page + 1)} className="inline-flex min-h-11 items-center gap-1 font-semibold hover:underline">
                             {t('chuDe.trangSau')}
                             <ChevronRight size={18} aria-hidden="true" />
@@ -347,6 +302,34 @@ function TopicPage({ topic }: { topic: Topic }) {
                 </nav>
             )}
         </Sheet>
+    );
+}
+
+/** Một dòng của bảng: tiếng Đức (link sang thẻ từ, dạng từ, cấp) và nghĩa tiếng Việt; ô bị che thì chạm để xem. */
+function Dong({ the, cover, open, reveal }: { the: TheTomTat; cover: Cover; open: boolean; reveal: () => void }) {
+    const nghia = the.meanings.vi ?? '';
+    return (
+        <tr className="align-top">
+            <td className="py-3 pr-3 pl-5 md:pl-8">
+                {cover === 'de' && !open ? (
+                    <Covered label={t('chuDe.xemTiengDuc', { nghia })} onClick={reveal} />
+                ) : (
+                    <>
+                        <Link to={`/tu/${the.id}`} className="font-semibold break-words underline-offset-2 hover:underline">
+                            <TuDuc the={the} />
+                        </Link>
+                        <span className="block text-label text-ink-2">
+                            <DongDang the={the} />
+                            {coDang(the) && the.level ? ' · ' : ''}
+                            {the.level}
+                        </span>
+                    </>
+                )}
+            </td>
+            <td className="py-3 pr-5 md:pr-8">
+                {cover === 'vi' && !open ? <Covered label={t('chuDe.xemTiengViet', { tu: the.front })} onClick={reveal} /> : <span className="break-words">{nghia}</span>}
+            </td>
+        </tr>
     );
 }
 

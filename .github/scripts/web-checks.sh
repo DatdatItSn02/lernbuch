@@ -20,7 +20,7 @@ step "Build Vite (app học, trang chào, theme quản trị)" npm run --silent 
 step "Tương phản màu WCAG AA (palette_check.py trên tokens.css)" python3 design/palette_check.py
 step "Test palette_check (cả trường hợp lỗi)" python3 -m unittest design/test_palette_check.py
 step "Test sinh icon app (cả trường hợp lỗi)" bash -c "python3 -m pip install -q --user pillow fonttools brotli 2>/dev/null || python3 -m pip install -q --user --break-system-packages pillow fonttools brotli; python3 -m unittest design/test_icons.py"
-step "Database cho test trình duyệt (migrate, dữ liệu khởi tạo, tài khoản người học thử)" bash -c "php artisan migrate --force -n --no-ansi && php artisan db:seed --force -n --no-ansi && php artisan db:seed --class=NguoiHocThuSeeder --force -n --no-ansi"
+step "Database cho test trình duyệt (migrate, dữ liệu khởi tạo, tài khoản người học thử, nội dung mẫu)" bash -c "php artisan migrate --force -n --no-ansi && php artisan db:seed --force -n --no-ansi && php artisan db:seed --class=NguoiHocThuSeeder --force -n --no-ansi && php artisan db:seed --class=NoiDungThuSeeder --force -n --no-ansi"
 step "Playwright: font, bố cục, đăng nhập, app học (bàn phím, axe WCAG 2.2 AA, sáng/tối) trên máy tính, điện thoại" npx playwright test
 echo
 echo "KẾT QUẢ: $((total - ${#fails[@]}))/${total} bước đạt"

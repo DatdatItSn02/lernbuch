@@ -91,10 +91,10 @@ describe('Học: phiên flashcard', () => {
         expect(where()).toBe('/hom-nay');
     });
 
-    it('Esc trong phiên của một chủ đề thì về trang chủ đề', () => {
+    it('Esc trong phiên của một chủ đề mẫu thì về Hôm nay (chủ đề mẫu không có trang riêng)', () => {
         renderApp('/hoc?chu-de=trai-cay');
         key('Escape');
-        expect(where()).toBe('/chu-de/trai-cay');
+        expect(where()).toBe('/hom-nay');
     });
 
     it('chỉ ôn một chủ đề: học hết rồi xem bảng tổng kết', () => {
@@ -113,7 +113,7 @@ describe('Học: phiên flashcard', () => {
         // Orange: Quen (mức 2) lên Khá (mức 3)
         expect(grown[0].textContent).toBe('die Orangetừ Quen lênKhá');
         // Hết thẻ ôn, còn 3 từ mới: Học tiếp mở phiên mới của chủ đề (có từ mới)
-        expect(screen.getByRole('link', { name: 'Về chủ đề' }).getAttribute('href')).toBe('/chu-de/trai-cay');
+        expect(screen.getByRole('link', { name: 'Về Hôm nay' }).getAttribute('href')).toBe('/hom-nay');
         const next = screen.getByRole('link', { name: /Học tiếp/ });
         expect(next.textContent).toContain('0 ôn · 3 mới');
         fireEvent.click(next);
@@ -131,7 +131,7 @@ describe('Học: phiên flashcard', () => {
         }
         expect(screen.getByText('Đã học hết thẻ đến hạn và từ mới ở đây.')).toBeTruthy();
         expect(screen.queryByRole('link', { name: /Học tiếp|Ôn tiếp/ })).toBeNull();
-        expect(screen.getByRole('link', { name: 'Về chủ đề' })).toBeTruthy();
+        expect(screen.getByRole('link', { name: 'Về Hôm nay' })).toBeTruthy();
     });
 
     it('có thẻ Quên thì cuối phiên mời Ôn tiếp', () => {

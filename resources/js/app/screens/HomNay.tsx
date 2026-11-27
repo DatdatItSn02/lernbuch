@@ -174,7 +174,7 @@ export function HomNay({ now: fixedNow }: { now?: Date }) {
                                 const lc = levelCounts(ids, progress);
                                 return (
                                     <li key={cd.id}>
-                                        <Link to={`/chu-de/${cd.id}`} className="group block rounded-md border border-line bg-sheet transition-colors duration-200 hover:border-line-strong">
+                                        <Link to={`/hoc?chu-de=${cd.id}`} className="group block rounded-md border border-line bg-sheet transition-colors duration-200 hover:border-line-strong">
                                             <span className="flex items-center justify-between gap-3 border-b-2 border-pen/70 px-4 py-2.5">
                                                 <span className="min-w-0 font-semibold group-hover:underline">{cd.name}</span>
                                                 <ChevronRight size={18} aria-hidden="true" className="shrink-0 text-ink-3" />
@@ -248,7 +248,7 @@ function TodayPanel({ due, newNext, reviewedToday, topicName, topicId }: { due: 
             )}
             <p className="mt-3 text-label text-ink-2">
                 {t('homNay.dangHoc')}{' '}
-                <Link to={`/chu-de/${topicId}`} className="font-semibold text-ink underline underline-offset-2">
+                <Link to={`/hoc?chu-de=${topicId}`} className="font-semibold text-ink underline underline-offset-2">
                     {topicName}
                 </Link>
             </p>

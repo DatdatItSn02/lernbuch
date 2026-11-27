@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\User;
-use Tests\Support\NoiDungMau;
+use Database\Seeders\NoiDungThuSeeder;
 
 // API nội dung: loại thẻ, cây chủ đề (Chủ đề, Cấp độ, Giao tiếp), trang chủ đề, thẻ từ; mục tự kiểm 8 phần thẻ riêng.
 
@@ -16,7 +16,7 @@ function matTruoc(array $the): array
 }
 
 it('chưa đăng nhập thì 401, chưa xác minh email thì 403, không lộ nội dung', function () {
-    NoiDungMau::tao();
+    (new NoiDungThuSeeder)->tao();
 
     $this->getJson('/api/v1/chu-de')->assertStatus(401)->assertJson(['code' => 'chua_dang_nhap']);
     $this->getJson('/api/v1/the/1')->assertStatus(401);
@@ -25,7 +25,7 @@ it('chưa đăng nhập thì 401, chưa xác minh email thì 403, không lộ n�
 });
 
 it('loại thẻ: chỉ loại có thẻ đã xuất bản, theo thứ tự, kèm số thẻ', function () {
-    NoiDungMau::tao();
+    (new NoiDungThuSeeder)->tao();
 
     $this->actingAs(User::factory()->create())->getJson('/api/v1/bo-the')->assertOk()
         ->assertExactJson(['data' => [
@@ -36,7 +36,7 @@ it('loại thẻ: chỉ loại có thẻ đã xuất bản, theo thứ tự, kè
 
 it('cây chủ đề Từ vựng: nhóm › chủ đề vừa › chủ đề nhỏ theo thứ tự; bỏ chủ đề đã ẩn, thẻ nháp, thẻ riêng của người khác', function () {
     $chu = User::factory()->create();
-    NoiDungMau::tao(chuTheRieng: $chu->id);
+    (new NoiDungThuSeeder)->tao(chuTheRieng: $chu->id);
 
     $r = $this->actingAs(User::factory()->create())->getJson('/api/v1/chu-de')->assertOk();
 
@@ -60,7 +60,7 @@ it('cây chủ đề Từ vựng: nhóm › chủ đề vừa › chủ đề nh
 });
 
 it('lọc theo cấp (khoảng cấp, 0 = chưa xếp) và loại từ: chỉ còn chủ đề có thẻ khớp, số đếm theo bộ lọc', function () {
-    NoiDungMau::tao();
+    (new NoiDungThuSeeder)->tao();
     $this->actingAs(User::factory()->create());
     $chuDe = fn (array $r) => collect($r['data']['groups'])->flatMap(fn ($g) => collect($g['parents'])->flatMap(fn ($p) => $p['topics']))
         ->mapWithKeys(fn ($t) => [$t['slug'] => $t['card_count']])->all();
@@ -82,7 +82,7 @@ it('lọc theo cấp (khoảng cấp, 0 = chưa xếp) và loại từ: chỉ c�
 });
 
 it('Giao tiếp và loại thẻ khác dùng cùng cây chủ đề; loại chưa có thẻ thì rỗng', function () {
-    NoiDungMau::tao();
+    (new NoiDungThuSeeder)->tao();
     $this->actingAs(User::factory()->create());
 
     $this->getJson('/api/v1/chu-de?bo=comm')->assertOk()
@@ -92,7 +92,7 @@ it('Giao tiếp và loại thẻ khác dùng cùng cây chủ đề; loại chư
 });
 
 it('bộ lọc sai thì 422 đúng ô', function () {
-    NoiDungMau::tao();
+    (new NoiDungThuSeeder)->tao();
     $this->actingAs(User::factory()->create());
 
     $this->getJson('/api/v1/chu-de?bo=khong-co')->assertStatus(422)->assertJsonValidationErrors('bo');
@@ -104,7 +104,7 @@ it('bộ lọc sai thì 422 đúng ô', function () {
 });
 
 it('trang chủ đề: thông tin, vị trí, số thẻ theo cấp và loại từ, 20 thẻ mỗi trang theo thứ tự cấp', function () {
-    NoiDungMau::tao();
+    (new NoiDungThuSeeder)->tao();
     $this->actingAs(User::factory()->create());
 
     $r = $this->getJson('/api/v1/chu-de/banh-mi-tu-vung')->assertOk();
@@ -139,7 +139,7 @@ it('trang chủ đề: thông tin, vị trí, số thẻ theo cấp và loại t
 });
 
 it('trang chủ đề: lọc theo chữ (không dấu, ae/oe/ue, tiếng Việt không dấu), loại từ, cấp', function () {
-    NoiDungMau::tao();
+    (new NoiDungThuSeeder)->tao();
     $this->actingAs(User::factory()->create());
     $loc = fn (string $q) => matTruoc($this->getJson('/api/v1/chu-de/banh-mi-tu-vung?'.$q)->assertOk()->json('data.cards'));
 
@@ -158,7 +158,7 @@ it('trang chủ đề: lọc theo chữ (không dấu, ae/oe/ue, tiếng Việt 
 });
 
 it('chủ đề không có, đã ẩn, hay không phải chủ đề nhỏ thì 404 khong_thay', function () {
-    NoiDungMau::tao();
+    (new NoiDungThuSeeder)->tao();
     $this->actingAs(User::factory()->create());
 
     foreach (['khong-co', 'chu-de-da-an-tu-vung', 'banh-va-tiem-banh', 'an-uong', 'Banh_Mi'] as $slug) {
@@ -167,7 +167,7 @@ it('chủ đề không có, đã ẩn, hay không phải chủ đề nhỏ thì 
 });
 
 it('thẻ từ: nghĩa, câu ví dụ, mẹo, vị trí trong chủ đề, sổ tay của chính mình', function () {
-    $m = NoiDungMau::tao();
+    $m = (new NoiDungThuSeeder)->tao();
     $this->actingAs(User::factory()->create());
 
     $r = $this->getJson('/api/v1/the/'.$m->the['das Brötchen'])->assertOk();
@@ -197,7 +197,7 @@ it('thẻ từ: nghĩa, câu ví dụ, mẹo, vị trí trong chủ đề, sổ 
 
 it('thẻ nháp, thẻ không có, mã sai thì 404; thẻ riêng của người khác cũng 404 (mục tự kiểm 8)', function () {
     $chu = User::factory()->create();
-    $m = NoiDungMau::tao(chuTheRieng: $chu->id);
+    $m = (new NoiDungThuSeeder)->tao(chuTheRieng: $chu->id);
     $rieng = $m->the['der Hefezopf'];
 
     $this->actingAs(User::factory()->create());

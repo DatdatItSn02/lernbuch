@@ -1,8 +1,8 @@
 <?php
 
 use App\Models\User;
+use Database\Seeders\NoiDungThuSeeder;
 use Illuminate\Support\Facades\DB;
-use Tests\Support\NoiDungMau;
 
 // Sổ tay: đánh dấu sao, ghi chú riêng trên thẻ. Mục tự kiểm 8: người A không đọc, không sửa được sổ tay của người B.
 
@@ -11,7 +11,7 @@ beforeEach(function () {
 });
 
 it('đánh dấu sao rồi ghi chú: lưu theo tài khoản, thẻ từ và danh sách thẻ đều thấy', function () {
-    $m = NoiDungMau::tao();
+    $m = (new NoiDungThuSeeder)->tao();
     $brot = $m->the['das Brot'];
     $this->actingAs($user = User::factory()->create());
 
@@ -29,7 +29,7 @@ it('đánh dấu sao rồi ghi chú: lưu theo tài khoản, thẻ từ và danh
 });
 
 it('gửi ô nào đổi ô đó; bỏ sao và xoá ghi chú thì xoá hẳn dòng', function () {
-    $m = NoiDungMau::tao();
+    $m = (new NoiDungThuSeeder)->tao();
     $brot = $m->the['das Brot'];
     $this->actingAs($user = User::factory()->create());
 
@@ -47,7 +47,7 @@ it('gửi ô nào đổi ô đó; bỏ sao và xoá ghi chú thì xoá hẳn dò
 });
 
 it('dữ liệu sai thì 422 đúng ô, không ghi gì', function () {
-    $m = NoiDungMau::tao();
+    $m = (new NoiDungThuSeeder)->tao();
     $brot = $m->the['das Brot'];
     $this->actingAs(User::factory()->create());
 
@@ -59,7 +59,7 @@ it('dữ liệu sai thì 422 đúng ô, không ghi gì', function () {
 });
 
 it('danh sách sổ tay: lọc sao, có ghi chú, tìm chữ; sửa gần nhất trước; số đếm từng loại', function () {
-    $m = NoiDungMau::tao();
+    $m = (new NoiDungThuSeeder)->tao();
     $this->actingAs(User::factory()->create());
 
     $this->putJson('/api/v1/the/'.$m->the['das Brot'].'/so-tay', ['starred' => true]);
@@ -83,7 +83,7 @@ it('danh sách sổ tay: lọc sao, có ghi chú, tìm chữ; sửa gần nhất
 
 it('người A không đọc, không sửa được sổ tay của người B; thẻ không xem được thì 404 (mục tự kiểm 8)', function () {
     $b = User::factory()->create();
-    $m = NoiDungMau::tao(chuTheRieng: $b->id);
+    $m = (new NoiDungThuSeeder)->tao(chuTheRieng: $b->id);
     $brot = $m->the['das Brot'];
 
     $this->actingAs($b)->putJson("/api/v1/the/{$brot}/so-tay", ['starred' => true, 'note' => 'ghi chú riêng của B'])->assertOk();

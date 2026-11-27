@@ -113,11 +113,11 @@ describe('Hôm nay: chuỗi 14 ngày làm trục', () => {
         expect(screen.getByRole('img', { name: /^Hộp thẻ/ }).getAttribute('aria-label')).not.toMatch(/đến hạn|sắp học/);
     });
 
-    it('thẻ đến hạn chia theo chủ đề, có liên kết sang trang chủ đề', () => {
+    it('thẻ đến hạn chia theo chủ đề, bấm vào thì học chủ đề đó (dữ liệu mẫu)', () => {
         open();
         const section = screen.getByRole('region', { name: 'Đến hạn theo chủ đề' });
         const links = within(section).getAllByRole('link');
-        expect(links.map((l) => l.getAttribute('href'))).toEqual(['/chu-de/tiem-banh', '/chu-de/trai-cay']);
+        expect(links.map((l) => l.getAttribute('href'))).toEqual(['/hoc?chu-de=tiem-banh', '/hoc?chu-de=trai-cay']);
         expect(links[0].textContent).toContain('5 đến hạn · 9 từ mới');
         expect(links[1].textContent).toContain('7 đến hạn · 3 từ mới');
     });

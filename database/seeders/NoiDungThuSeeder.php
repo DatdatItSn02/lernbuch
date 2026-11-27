@@ -1,15 +1,17 @@
 <?php
 
-namespace Tests\Support;
+namespace Database\Seeders;
 
 use App\Support\NoiDung;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Nội dung mẫu cho test API nội dung, sổ tay, tra từ: 2 nhóm, 2 chủ đề vừa, 4 chủ đề nhỏ (1 đã ẩn),
+ * Nội dung mẫu nhỏ cho test và máy dev khi chưa nhập Lernbuch: 2 nhóm, 2 chủ đề vừa, 4 chủ đề nhỏ (1 đã ẩn),
  * thẻ đủ loại (có cấp, khoảng cấp, chưa xếp cấp, nháp, thẻ riêng của một người). Nghĩa và câu ví dụ đã soát.
+ * Chạy: php artisan db:seed --class=NoiDungThuSeeder. Không chạy trên máy chủ thật, không chạy khi đã có nội dung.
  */
-final class NoiDungMau
+class NoiDungThuSeeder extends Seeder
 {
     /** @var array<string, int> mã → id chủ đề */
     public array $chuDe = [];
@@ -28,9 +30,27 @@ final class NoiDungMau
         ['dreißig', 'số ba mươi', 'thirty'],
     ];
 
-    public static function tao(?int $chuTheRieng = null): self
+    public function run(): void
     {
-        $m = new self;
+        if (app()->isProduction()) {
+            $this->command?->warn('Bỏ qua: không thêm nội dung mẫu trên máy chủ thật.');
+
+            return;
+        }
+
+        if (DB::table('topics')->where('lang', NoiDung::LANG)->exists()) {
+            $this->command?->warn('Bỏ qua: database đã có chủ đề (đã nhập Lernbuch hoặc đã có nội dung mẫu).');
+
+            return;
+        }
+
+        $this->tao();
+    }
+
+    /** Thêm nội dung mẫu; $chuTheRieng là người có một thẻ riêng (thẻ "der Hefezopf"), để test quyền xem. */
+    public function tao(?int $chuTheRieng = null): static
+    {
+        $m = $this;
         $bay = time();
         $chuDe = function (string $ma, int $depth, ?string $cha, ?string $bo, string $slug, string $vi, ?string $en, int $sort, string $trangThai = 'published') use ($m, $bay): void {
             $m->chuDe[$ma] = (int) DB::table('topics')->insertGetId([

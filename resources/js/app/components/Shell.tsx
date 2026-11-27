@@ -1,19 +1,27 @@
-import { BookOpen, CalendarDays, Library, Search, Settings } from 'lucide-react';
+import { BookOpen, CalendarDays, Library, Search, Settings, Star } from 'lucide-react';
 import { useEffect, useRef, type ReactNode } from 'react';
-import { NavLink, useLocation } from 'react-router';
-import { t } from '../i18n';
+import { Link, NavLink, useLocation } from 'react-router';
+import { t, type Khoa } from '../i18n';
 
-const NAV = [
+type MucDieuHuong = { to: string; khoa: Khoa; icon: typeof CalendarDays; cung?: string[]; dienThoai?: boolean };
+
+// Chủ đề gồm cả Cấp độ, Giao tiếp và thẻ từ. Điện thoại: Cài đặt ở nút bánh răng trên thanh trên, thanh dưới còn 5 mục.
+const NAV: MucDieuHuong[] = [
     { to: '/hom-nay', khoa: 'khung.homNay', icon: CalendarDays },
-    { to: '/chu-de', khoa: 'khung.chuDe', icon: Library },
+    { to: '/chu-de', khoa: 'khung.chuDe', icon: Library, cung: ['/cap-do', '/giao-tiep', '/tu/'] },
     { to: '/ngu-phap', khoa: 'khung.nguPhap', icon: BookOpen },
     { to: '/tra-tu', khoa: 'khung.traTu', icon: Search },
-    { to: '/cai-dat', khoa: 'khung.caiDat', icon: Settings },
-] as const;
+    { to: '/so-tay', khoa: 'khung.soTay', icon: Star },
+    { to: '/cai-dat', khoa: 'khung.caiDat', icon: Settings, dienThoai: false },
+];
+
+const dangMo = (m: MucDieuHuong, duong: string) => duong === m.to || duong.startsWith(`${m.to}/`) || (m.cung ?? []).some((p) => duong.startsWith(p));
 
 /** Khung app học: thanh mực tím trên cùng (điều hướng ở máy tính), thanh điều hướng dưới ở điện thoại; nội dung trên nền giấy vở. */
 export function Shell({ children }: { children: ReactNode }) {
     const { pathname } = useLocation();
+    // Hôm nay vẫn dùng dữ liệu mẫu (tiến độ lưu trên tài khoản có ở bước sau); các trang nội dung dùng dữ liệu thật
+    const mau = pathname === '/hom-nay';
     const mainRef = useRef<HTMLElement>(null);
     const firstPath = useRef(pathname);
 
@@ -36,27 +44,41 @@ export function Shell({ children }: { children: ReactNode }) {
                         {t('chung.tenApp')}
                     </NavLink>
                     <nav aria-label={t('khung.dieuHuong')} className="hidden h-full items-stretch gap-1 md:flex">
-                        {NAV.map(({ to, khoa, icon: Icon }) => (
-                            <NavLink
-                                key={to}
-                                to={to}
-                                className={({ isActive }) =>
-                                    `flex items-center gap-2 border-b-[3px] px-3 pt-[3px] text-label font-semibold transition-colors duration-200 focus-visible:outline-on-box! ${
-                                        isActive ? 'border-on-box text-on-box' : 'border-transparent text-on-box/75 hover:text-on-box'
-                                    }`
-                                }
-                            >
-                                <Icon size={18} aria-hidden="true" />
-                                {t(khoa)}
-                            </NavLink>
-                        ))}
+                        {NAV.map((m) => {
+                            const on = dangMo(m, pathname);
+                            const Icon = m.icon;
+                            return (
+                                <Link
+                                    key={m.to}
+                                    to={m.to}
+                                    aria-current={on ? 'page' : undefined}
+                                    className={`flex items-center gap-2 border-b-[3px] px-2.5 pt-[3px] text-label font-semibold whitespace-nowrap transition-colors duration-200 focus-visible:outline-on-box! lg:px-3 ${
+                                        on ? 'border-on-box text-on-box' : 'border-transparent text-on-box/75 hover:text-on-box'
+                                    }`}
+                                >
+                                    <Icon size={18} aria-hidden="true" className="hidden lg:block" />
+                                    {t(m.khoa)}
+                                </Link>
+                            );
+                        })}
                     </nav>
-                    <span className="ml-auto text-label text-on-box/80">{t('khung.duLieuMau')}</span>
+                    <span className="ml-auto flex items-center gap-1">
+                        {mau && <span className="text-label text-on-box/80">{t('khung.duLieuMau')}</span>}
+                        <NavLink
+                            to="/cai-dat"
+                            aria-label={t('khung.caiDat')}
+                            className={({ isActive }) =>
+                                `-mr-2 flex size-11 items-center justify-center rounded-md focus-visible:outline-on-box! md:hidden ${isActive ? 'text-on-box' : 'text-on-box/80 hover:text-on-box'}`
+                            }
+                        >
+                            <Settings size={22} aria-hidden="true" />
+                        </NavLink>
+                    </span>
                 </div>
             </header>
 
             <main ref={mainRef} id="noi-dung" tabIndex={-1} className="mx-auto max-w-[var(--sheet-max)] pb-24 md:px-6 md:pt-6 md:pb-12">
-                <p className="border-b border-line px-5 py-1.5 text-label text-ink-2 md:hidden">{t('khung.matKhiTaiLai')}</p>
+                {mau && <p className="border-b border-line px-5 py-1.5 text-label text-ink-2 md:hidden">{t('khung.matKhiTaiLai')}</p>}
                 {children}
             </main>
 
@@ -65,21 +87,24 @@ export function Shell({ children }: { children: ReactNode }) {
                 className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-sheet pb-[env(safe-area-inset-bottom)] md:hidden"
             >
                 <ul className="grid grid-cols-5">
-                    {NAV.map(({ to, khoa, icon: Icon }) => (
-                        <li key={to}>
-                            <NavLink
-                                to={to}
-                                className={({ isActive }) =>
-                                    `relative flex min-h-16 flex-col items-center justify-center gap-1 text-[calc(0.75rem*var(--type-scale))] font-semibold leading-tight ${
-                                        isActive ? 'text-tim before:absolute before:inset-x-5 before:top-0 before:h-[3px] before:bg-tim' : 'text-ink-2'
-                                    }`
-                                }
-                            >
-                                <Icon size={22} aria-hidden="true" />
-                                {t(khoa)}
-                            </NavLink>
-                        </li>
-                    ))}
+                    {NAV.filter((m) => m.dienThoai !== false).map((m) => {
+                        const on = dangMo(m, pathname);
+                        const Icon = m.icon;
+                        return (
+                            <li key={m.to}>
+                                <Link
+                                    to={m.to}
+                                    aria-current={on ? 'page' : undefined}
+                                    className={`relative flex min-h-16 flex-col items-center justify-center gap-1 text-[calc(0.75rem*var(--type-scale))] font-semibold leading-tight ${
+                                        on ? 'text-tim before:absolute before:inset-x-5 before:top-0 before:h-[3px] before:bg-tim' : 'text-ink-2'
+                                    }`}
+                                >
+                                    <Icon size={22} aria-hidden="true" />
+                                    {t(m.khoa)}
+                                </Link>
+                            </li>
+                        );
+                    })}
                 </ul>
             </nav>
         </div>

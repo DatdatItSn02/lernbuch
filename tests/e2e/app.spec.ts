@@ -1,19 +1,24 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 
-// App học (dữ liệu mẫu) trên trình duyệt thật, cỡ máy tính và cỡ điện thoại:
-// không tràn ngang, không lỗi console, đạt WCAG 2.2 AA theo axe ở cả giao diện sáng và tối, dùng được bằng bàn phím.
+// App học trên trình duyệt thật, cỡ máy tính và cỡ điện thoại: không tràn ngang, không lỗi console, đạt WCAG 2.2 AA
+// theo axe ở cả giao diện sáng và tối, dùng được bằng bàn phím. Hôm nay và Học còn dùng dữ liệu mẫu; các trang nội dung
+// đọc API với nội dung mẫu nhỏ (NoiDungThuSeeder). Thẻ từ có id tự tăng nên ở noi-dung.spec.ts, mở qua trang chủ đề.
 
 const SCREENS = [
     ['Hôm nay', '/app/hom-nay'],
     ['Học', '/app/hoc'],
-    ['Thẻ từ', '/app/tu/broetchen'],
-    ['Thẻ từ, động từ', '/app/tu/backen'],
-    ['Trang chủ đề', '/app/chu-de/tiem-banh'],
-    ['Danh sách chủ đề', '/app/chu-de'],
+    ['Chủ đề', '/app/chu-de'],
+    ['Cấp độ', '/app/cap-do'],
+    ['Giao tiếp', '/app/giao-tiep'],
+    ['Trang chủ đề', '/app/chu-de/banh-mi-tu-vung'],
+    ['Tra từ', '/app/tra-tu?q=brot'],
+    ['Tra từ, lịch sử', '/app/tra-tu'],
+    ['Sổ tay', '/app/so-tay'],
     ['Cài đặt', '/app/cai-dat'],
     ['Sắp có', '/app/ngu-phap'],
     ['Không tìm thấy', '/app/khong-co'],
+    ['Chủ đề không có', '/app/chu-de/khong-co'],
 ] as const;
 
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
@@ -31,6 +36,9 @@ async function open(page: Page, path: string, theme: 'light' | 'dark' = 'light')
     }, theme);
     await page.goto(path);
     await expect(page.locator('#app')).not.toBeEmpty();
+    // Trang đọc API: chờ có tiêu đề trang (h1) và hết chữ "Đang tải…"
+    await expect(page.locator('h1')).toHaveCount(1);
+    await expect(page.getByText('Đang tải…')).toHaveCount(0);
     await page.evaluate(() => document.fonts.ready);
     return errors;
 }
@@ -85,30 +93,24 @@ test('đi hết một phiên ôn và xem tổng kết', async ({ page }) => {
     await expect(page.getByText('1/3')).toBeVisible();
 });
 
-test('trang chủ đề: phím / vào ô tìm, che cột rồi chạm để xem, sang trang 2', async ({ page }) => {
-    await open(page, '/app/chu-de/tiem-banh');
+test('trang chủ đề: phím / vào ô tìm, máy chủ lọc khi ngừng gõ (không dấu vẫn ra), che cột rồi chạm để xem, sang trang 2', async ({ page }) => {
+    await open(page, '/app/chu-de/so-dem-tu-vung');
+    await expect(page.locator('tbody tr')).toHaveCount(20);
     await page.keyboard.press('/');
     await expect(page.getByRole('searchbox', { name: 'Tìm trong chủ đề' })).toBeFocused();
-    await page.keyboard.type('brotchen');
+    await page.keyboard.type('zwolf');
+    await expect(page).toHaveURL(/tim=zwolf/);
     await expect(page.locator('tbody tr')).toHaveCount(1);
+    await expect(page.getByRole('link', { name: 'zwölf' })).toBeVisible();
     await page.keyboard.press('Escape');
     await expect(page.locator('tbody tr')).toHaveCount(20);
     await page.getByText('Tiếng Đức', { exact: true }).first().click();
-    await page.getByRole('button', { name: 'Xem tiếng Đức của “bánh mì”' }).click();
-    await expect(page.getByRole('link', { name: 'das Brot' })).toBeVisible();
+    await page.getByRole('button', { name: 'Xem tiếng Đức của “số hai”' }).click();
+    await expect(page.getByRole('link', { name: 'zwei', exact: true })).toBeVisible();
     expect(await axe(page)).toEqual([]);
     await page.getByRole('link', { name: 'Trang sau' }).click();
-    await expect(page.locator('tbody tr')).toHaveCount(4);
+    await expect(page.locator('tbody tr')).toHaveCount(5);
     await expect(page).toHaveURL(/trang=2$/);
-});
-
-test('thẻ từ: Tab tới dải tab, mũi tên đổi tab', async ({ page }) => {
-    await open(page, '/app/tu/backen');
-    await page.getByRole('tab', { name: 'Nghĩa và ví dụ' }).focus();
-    await page.keyboard.press('ArrowRight');
-    await expect(page.getByRole('tab', { name: 'Ngữ pháp' })).toBeFocused();
-    await expect(page.getByRole('cell', { name: 'hat gebacken' })).toBeVisible();
-    expect(await axe(page)).toEqual([]);
 });
 
 test('font của app học đã nạp: Be Vietnam Pro cho tiêu đề và chữ', async ({ page }) => {
