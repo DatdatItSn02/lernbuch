@@ -115,6 +115,9 @@ dat	pest	-	tests/Feature/ApiTaiKhoanTest.php	đoán trình duyệt và loại m�
 dat	pest	-	tests/Feature/ApiTaiKhoanTest.php	đoán trình duyệt và loại máy từ User-Agent with data set "dataset "Chrome iPad""
 dat	pest	-	tests/Feature/ApiTaiKhoanTest.php	đoán trình duyệt và loại máy từ User-Agent with data set "dataset "Android máy tính bảng""
 dat	pest	-	tests/Feature/ApiTaiKhoanTest.php	đoán trình duyệt và loại máy từ User-Agent with data set "dataset "trống""
+dat	pest	-	tests/Feature/BanDichFilamentTest.php	mọi khoá dịch của Filament có tiếng Việt (của gói hoặc lang/vendor), trang quản trị không hiện mã khoá
+dat	pest	-	tests/Feature/BanDichFilamentTest.php	khoá không có thì cách kiểm báo thiếu (không lẫn với khoá có thật)
+dat	pest	-	tests/Feature/BanDichFilamentTest.php	trang quản trị không còn mã khoá dịch nào trong HTML
 dat	pest	-	tests/Feature/BaoMatTest.php	lỗi máy chủ chỉ hiện trang lỗi chung, không lộ nội dung lỗi hay đường dẫn
 dat	pest	-	tests/Feature/BaoMatTest.php	đúng email và mật khẩu thì đăng nhập được trang quản trị
 dat	pest	-	tests/Feature/BaoMatTest.php	nhập sai mật khẩu 5 lần thì bị chặn tạm thời, kể cả lần sau đúng mật khẩu
