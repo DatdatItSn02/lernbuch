@@ -17,24 +17,24 @@ Lệnh `php artisan app:nhap-lernbuch <nguồn>` đọc dữ liệu của Lernbu
 
 ## Trên alwaysdata
 
-Mở PowerShell trên máy bạn, dùng khoá SSH đã tạo ở mục 2 của `huong-dan-alwaysdata.md`:
+Làm hai bước ở hai nơi khác nhau. Khoá SSH là khoá đã tạo ở mục 2 của `huong-dan-alwaysdata.md`.
+
+**1. Tải file lên: chạy trong PowerShell trên Windows**, không phải trong cửa sổ máy chủ (cửa sổ có dấu nhắc kiểu `lernbuch@ssh2:~$`): ở đó không có ổ `F:`. File khoảng 10 MB; giữa `lernweb.zip` và `lernbuch@` có một dấu cách.
 
 ```powershell
-$k = "$env:USERPROFILE\.ssh\lernbuch_deploy"
-$s = "lernbuch@ssh-lernbuch.alwaysdata.net"
-
-# 1. Tải file lên (khoảng 10 MB)
-scp -i $k F:\CongViec\lernbuch\nguon-cu\lernweb.zip "${s}:lernbuch/shared/lernweb.zip"
-
-# 2. Chạy thử, đọc báo cáo
-ssh -i $k $s "cd ~/lernbuch/current && php artisan app:nhap-lernbuch ~/lernbuch/shared/lernweb.zip"
-
-# 3. Báo cáo đúng thì ghi
-ssh -i $k $s "cd ~/lernbuch/current && php artisan app:nhap-lernbuch ~/lernbuch/shared/lernweb.zip --ghi"
-
-# 4. Xoá file đã tải lên cho nhẹ dung lượng (1 GB dùng chung)
-ssh -i $k $s "rm ~/lernbuch/shared/lernweb.zip"
+scp -i "$env:USERPROFILE\.ssh\lernbuch_deploy" F:\CongViec\lernbuch\nguon-cu\lernweb.zip lernbuch@ssh-lernbuch.alwaysdata.net:lernbuch/shared/lernweb.zip
 ```
+
+**2. Nhập: chạy trên máy chủ.** Dùng cửa sổ máy chủ đang mở, hoặc vào máy chủ từ PowerShell bằng `ssh -i "$env:USERPROFILE\.ssh\lernbuch_deploy" lernbuch@ssh-lernbuch.alwaysdata.net`, rồi gõ từng dòng:
+
+```bash
+cd ~/lernbuch/current
+php artisan app:nhap-lernbuch ~/lernbuch/shared/lernweb.zip
+php artisan app:nhap-lernbuch ~/lernbuch/shared/lernweb.zip --ghi
+rm ~/lernbuch/shared/lernweb.zip
+```
+
+Dòng 2 là chạy thử: đọc báo cáo, đúng như bảng số liệu dưới đây và không có lỗi thì mới chạy dòng 3 để ghi. Dòng 4 xoá file đã tải lên cho nhẹ dung lượng (1 GB dùng chung). Gõ `exit` để rời máy chủ.
 
 Lệnh đọc và ghi theo lô 500 thẻ nên vừa bộ nhớ của gói Free.
 
