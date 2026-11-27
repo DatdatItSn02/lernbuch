@@ -1,0 +1,673 @@
+workflow: windows  job: setup  status: cancelled
+commit: ae96e763ff20519ba2138a9ac0008fe4875bc944  ref: work/g1-tuan2  run: 45916825541
+
+✔ Định dạng PHP (Pint) (5.8 giây)
+✔ Phân tích tĩnh PHP (Larastan) (17.2 giây)
+✔ Test PHP (Pest, MySQL lernbuch_test) (85.7 giây)
+✔ Kiểu TypeScript (tsc) (5.2 giây)
+✔ ESLint (7.4 giây)
+✘ Test giao diện (Vitest) (mã 1, 14.1 giây)
+✔ Build giao diện (Vite) (1.7 giây)
+KẾT QUẢ: 6/7 bước đạt
+✔ test-cai-dat.ps1
+✔ test-cap-nhat.ps1
+✔ test-chung.ps1
+✔ test-file.ps1
+✔ test-nhap-du-lieu.ps1
+KẾT QUẢ: 5/5 file test đạt
+
+----- cuối log -----
+ con, khi đã đăng nhập và xác minh email[39m[90m                              [39m [90m0.07s[39m
+  [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập thì app học về trang đăng nhập[39m[90m                                                            [39m [90m0.04s[39m
+  [32;1m✓[39;22m[90m [39m[90mit không lộ file .env và log[39m[90m                                                                                [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit có manifest để cài app[39m[90m                                                                                   [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit trang kiểm chữ có đủ vai trò chữ và không cho máy tìm kiếm lập chỉ mục[39m[90m                                   [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit /up trả 500 khi một kiểm tra sức khoẻ lỗi (để workflow deploy tự quay lại)[39m[90m                               [39m [90m0.06s[39m
+  [32;1m✓[39;22m[90m [39m[90mit /up không lỗi trên máy dev dù có kiểm tra cố ý hỏng chỉ dành cho bản phát hành[39m[90m                           [39m [90m0.05s[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\QuanTriTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit người học (không phải nhân viên) vào /admin thì bị từ chối 403; nhân viên bị khoá cũng vậy[39m[90m               [39m [90m0.13s[39m
+  [32;1m✓[39;22m[90m [39m[90mit chỉ người có quyền phân quyền mới thấy trang Vai trò và Nhân viên[39m[90m                                        [39m [90m0.25s[39m
+  [32;1m✓[39;22m[90m [39m[90mit sửa quyền của vai trò: có hiệu lực ngay, ghi nhật ký quyền trước và sau[39m[90m                                  [39m [90m0.17s[39m
+  [32;1m✓[39;22m[90m [39m[90mit không sửa được vai trò Quản trị cao nhất (đã có mọi quyền)[39m[90m                                               [39m [90m0.09s[39m
+  [32;1m✓[39;22m[90m [39m[90mit tạo nhân viên: mật khẩu dưới 12 ký tự bị từ chối; đủ thì tạo tài khoản đã xác minh, có vai trò, ghi nhật[39m[90m…[39m [90m0.18s[39m
+  [32;1m✓[39;22m[90m [39m[90mit sửa nhân viên: khoá tài khoản, đổi vai trò được ghi nhật ký; không tự khoá chính mình[39m[90m                    [39m [90m0.23s[39m
+  [32;1m✓[39;22m[90m [39m[90mit nhân viên sửa nội dung thì ghi người sửa và nhật ký trước/sau; người học tự sửa hồ sơ thì không ghi nhật[39m[90m…[39m [90m0.06s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đăng nhập trang quản trị: sai 5 lần thì lần thứ 6 bị chặn tạm, kể cả khi nhập đúng[39m[90m                       [39m [90m1.28s[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\SoTayApiTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit đánh dấu sao rồi ghi chú: lưu theo tài khoản, thẻ từ và danh sách thẻ đều thấy[39m[90m                           [39m [90m0.16s[39m
+  [32;1m✓[39;22m[90m [39m[90mit gửi ô nào đổi ô đó; bỏ sao và xoá ghi chú thì xoá hẳn dòng[39m[90m                                               [39m [90m0.17s[39m
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì[39m[90m                                                                 [39m [90m0.12s[39m
+  [32;1m✓[39;22m[90m [39m[90mit danh sách sổ tay: lọc sao, có ghi chú, tìm chữ; sửa gần nhất trước; số đếm từng loại[39m[90m                     [39m [90m0.16s[39m
+  [32;1m✓[39;22m[90m [39m[90mit người A không đọc, không sửa được sổ tay của người B; thẻ không xem được thì 404 (mục tự kiểm 8)[39m[90m         [39m [90m0.17s[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\TaiKhoanTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit hiện trang đăng nhập, đăng ký, quên mật khẩu bằng tiếng Việt[39m[90m                                             [39m [90m0.07s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đăng ký: tạo tài khoản, email viết thường, gửi thư xác minh qua hàng đợi[39m[90m                                 [39m [90m0.07s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đăng ký: email đã có thì báo lỗi ngay ô email[39m[90m                                                            [39m [90m0.07s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đăng ký: mật khẩu thiếu số hoặc nhập lại không khớp thì báo lỗi[39m[90m                                          [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đăng ký: mỗi địa chỉ IP tạo tối đa 5 tài khoản mỗi giờ, lần thứ 6 bị chặn tạm[39m[90m                            [39m [90m0.08s[39m
+  [32;1m✓[39;22m[90m [39m[90mit chưa xác minh email mà vào học thì được dẫn tới trang gửi lại thư[39m[90m                                        [39m [90m0.07s[39m
+  [32;1m✓[39;22m[90m [39m[90mit bấm link xác minh thì xác minh xong và vào học[39m[90m                                                           [39m [90m0.07s[39m
+  [32;1m✓[39;22m[90m [39m[90mit link xác minh hết hạn hoặc không khớp email thì không dùng được[39m[90m                                          [39m [90m0.06s[39m
+  [32;1m✓[39;22m[90m [39m[90mit gửi lại thư xác minh[39m[90m                                                                                     [39m [90m0.06s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đăng nhập đúng (email viết hoa cũng được) thì vào app học và ghi lịch sử[39m[90m                                 [39m [90m0.07s[39m
+  [32;1m✓[39;22m[90m [39m[90mit sai mật khẩu 5 lần thì lần thứ 6 bị chặn tạm, kể cả đúng mật khẩu[39m[90m                                        [39m [90m1.10s[39m
+  [32;1m✓[39;22m[90m [39m[90mit quên mật khẩu: gửi link, đặt mật khẩu mới, dùng lại link thì không được[39m[90m                                  [39m [90m0.28s[39m
+  [32;1m✓[39;22m[90m [39m[90mit thư xác minh và thư đặt lại mật khẩu viết bằng tiếng Việt, link tới đúng trang[39m[90m                           [39m [90m0.12s[39m
+  [32;1m✓[39;22m[90m [39m[90mit đăng xuất thì về trang chào và ghi lịch sử[39m[90m                                                               [39m [90m0.07s[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\TraTuApiTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit "zahlen" và "zählen": từ đúng từng chữ đứng đầu, rồi dạng khác (số nhiều), rồi từ gần giống[39m[90m              [39m [90m0.15s[39m
+  [32;1m✓[39;22m[90m [39m[90mit gõ không dấu ở 4 thứ tiếng: Đức (ö → o hoặc oe), Việt, Anh, Trung; nghĩa trùng đứng trước nghĩa chứa[39m[90m     [39m [90m0.18s[39m
+  [32;1m✓[39;22m[90m [39m[90mit chữ quá ngắn, ký tự đại diện, thẻ nháp và thẻ riêng của người khác không ra[39m[90m                              [39m [90m0.15s[39m
+  [32;1m✓[39;22m[90m [39m[90mit kết quả có nghĩa, mạo từ tách riêng, sao của chính mình; tối đa 30 thẻ, kèm tổng số[39m[90m                      [39m [90m0.20s[39m
+  [32;1m✓[39;22m[90m [39m[90mit bấm một chữ trong câu: đúng dạng (số nhiều, dạng chia), viết hoa đầu câu, dấu câu; không có thì rỗng[39m[90m     [39m [90m0.16s[39m
+  [32;1m✓[39;22m[90m [39m[90mit lịch sử tra: ghi khi mở thẻ, mới nhất trước, gộp lần tra lặp lại, chỉ giữ 100 mục[39m[90m                        [39m [90m0.19s[39m
+  [32;1m✓[39;22m[90m [39m[90mit lịch sử tra sai dữ liệu thì 422; thẻ không xem được thì không ghi[39m[90m                                        [39m [90m0.14s[39m
+  [32;1m✓[39;22m[90m [39m[90mit xoá lịch sử: chỉ mục của mình; mục của người khác thì 404 và vẫn còn (mục tự kiểm 8)[39m[90m                     [39m [90m0.15s[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Utf8DatabaseTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Brötchen')[39m[90m                                         [39m [90m0.07s[39m
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Straße')[39m[90m                                           [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('tiếng Việt')[39m[90m                                       [39m [90m0.06s[39m
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('ẞ ắ ặ ộ ữ đ')[39m[90m                                      [39m [90m0.05s[39m
+  [32;1m✓[39;22m[90m [39m[90mit kết nối sai bảng mã thì chữ có dấu đọc ra bị hỏng, nên test bắt được[39m[90m                                     [39m [90m0.06s[39m
+  [32;1m✓[39;22m[90m [39m[90mit kết nối database dùng utf8mb4[39m[90m                                                                            [39m [90m0.05s[39m
+
+  [90mTests:[39m    [32;1m124 passed[39;22m[90m (1045 assertions)[39m
+  [90mDuration:[39m [39m84.85s[39m
+
+
+==> Kiểu TypeScript (tsc)
+
+> typecheck
+> tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+
+
+==> ESLint
+
+> lint
+> eslint resources/js tests/e2e tests/js playwright.config.ts
+
+
+==> Test giao diện (Vitest)
+
+> test
+> vitest run
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.1.1 [39m[90mD:/a/lernbuch/lernbuch[39m
+
+[90mstderr[2m | resources/js/app/screens/TheTu.test.tsx[2m > [22m[2mThẻ từ (API)[2m > [22m[2mbấm một chữ trong câu ví dụ: tra đúng chữ, hiện nghĩa và link mở thẻ; chữ chưa có thì báo; đóng được
+[22m[39mIn HTML, <p> cannot be a descendant of <p>.
+This will cause a hydration error.
+
+  ...
+    <RenderedRoute match={{...}} routeContext={{outlet:null, ...}}>
+      <TheTu>
+        <WordSheet id="1">
+          <div className="mx-auto ma...">
+            <nav>
+            <Sheet>
+              <div className={"bg-sheet..."}>
+                <header>
+                <div>
+                <div role="tabpanel" id="_r_9_-pane..." aria-labelledby="_r_9_-tab-..." tabIndex={0} ...>
+                  <MeaningTab word={{id:1, ...}}>
+                    <div>
+                    <dl>
+                    <h2>
+                    <p>
+                    <ul className="mt-2 divid...">
+                      <li className="flex items...">
+                        <AudioButton>
+                        <div className="min-w-0 fl...">
+>                         <p className="font-semibold">
+                            <CauBamDuoc cau="Ich möchte...">
+                              <span>
+                              <BangTraChu id="_r_a_" chu="Brötchen" onDong={function onDong}>
+                                <div id="_r_a_" role="region" aria-label="Nghĩa của ..." className="mt-2 round...">
+                                  <div className="flex items...">
+>                                   <p aria-live="polite" className="min-w-0 pt-2.5 text-label text-ink-2">
+                                    ...
+                          ...
+                      ...
+                    ...
+            ...
+
+<p> cannot contain a nested <p>.
+See this log for the ancestor stack trace.
+In HTML, <div> cannot be a descendant of <p>.
+This will cause a hydration error.
+
+  ...
+    <RenderedRoute match={{...}} routeContext={{outlet:null, ...}}>
+      <TheTu>
+        <WordSheet id="1">
+          <div className="mx-auto ma...">
+            <nav>
+            <Sheet>
+              <div className={"bg-sheet..."}>
+                <header>
+                <div>
+                <div role="tabpanel" id="_r_9_-pane..." aria-labelledby="_r_9_-tab-..." tabIndex={0} ...>
+                  <MeaningTab word={{id:1, ...}}>
+                    <div>
+                    <dl>
+                    <h2>
+                    <p>
+                    <ul className="mt-2 divid...">
+                      <li className="flex items...">
+                        <AudioButton>
+                        <div className="min-w-0 fl...">
+>                         <p className="font-semibold">
+                            <CauBamDuoc cau="Ich möchte...">
+                              <span>
+                              <BangTraChu id="_r_a_" chu="Brötchen" onDong={function onDong}>
+                                <div id="_r_a_" role="region" aria-label="Nghĩa của ..." className="mt-2 round...">
+>                                 <div className="flex items-start justify-between gap-3">
+                          ...
+                      ...
+                    ...
+            ...
+
+<p> cannot contain a nested <div>.
+See this log for the ancestor stack trace.
+
+[90mstderr[2m | resources/js/app/screens/TheTu.test.tsx[2m > [22m[2mThẻ từ (API)[2m > [22m[2mbấm một chữ trong câu ví dụ: tra đúng chữ, hiện nghĩa và link mở thẻ; chữ chưa có thì báo; đóng được
+[22m[39mIn HTML, <ul> cannot be a descendant of <p>.
+This will cause a hydration error.
+
+  ...
+    <RenderedRoute match={{...}} routeContext={{outlet:null, ...}}>
+      <TheTu>
+        <WordSheet id="1">
+          <div className="mx-auto ma...">
+            <nav>
+            <Sheet>
+              <div className={"bg-sheet..."}>
+                <header>
+                <div>
+                <div role="tabpanel" id="_r_9_-pane..." aria-labelledby="_r_9_-tab-..." tabIndex={0} ...>
+                  <MeaningTab word={{id:1, ...}}>
+                    <div>
+                    <dl>
+                    <h2>
+                    <p>
+                    <ul className="mt-2 divid...">
+                      <li className="flex items...">
+                        <AudioButton>
+                        <div className="min-w-0 fl...">
+>                         <p className="font-semibold">
+                            <CauBamDuoc cau="Ich möchte...">
+                              <span>
+                              <BangTraChu id="_r_a_" chu="Brötchen" onDong={function onDong}>
+                                <div id="_r_a_" role="region" aria-label="Nghĩa của ..." className="mt-2 round...">
+                                  <div>
+>                                 <ul className="mt-1 divide-y divide-line">
+                          ...
+                      ...
+                    ...
+            ...
+
+<p> cannot contain a nested <ul>.
+See this log for the ancestor stack trace.
+
+ [32m✓[39m resources/js/app/screens/CaiDat.test.tsx [2m([22m[2m11 tests[22m[2m)[22m[33m 1224[2mms[22m[39m
+   [32m✓[39m Cài đặt: phần tài khoản [2m(4)[22m
+     [33m[2m✓[22m[39m chọn mục tiêu và trình độ: gửi lên tài khoản, báo đã lưu[33m 335[2mms[22m[39m
+ [31m❯[39m resources/js/app/screens/ChuDe.test.tsx [2m([22m[2m13 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 1761[2mms[22m[39m
+   [31m❯[39m Trang chủ đề (API): sổ từ hai cột [2m(13)[22m
+[31m     [31m×[31m đầu trang: vị trí trong cây, tên hai thứ tiếng, loại thẻ và số từ, ghi chú phần học[39m[33m 311[2mms[22m[39m
+     [32m✓[39m bảng: mạo từ tách riêng, link sang thẻ, dòng dạng từ và cấp; "–" là không có số nhiều; thẻ chưa xếp cấp không ghi cấp[32m 98[2mms[22m[39m
+     [32m✓[39m lọc theo cấp: bấm chọn, bấm lần nữa bỏ; đường dẫn và câu hỏi máy chủ đổi theo[32m 214[2mms[22m[39m
+     [32m✓[39m lọc theo loại từ: chỉ có loại từ của chủ đề, kèm số thẻ[32m 115[2mms[22m[39m
+     [33m[2m✓[22m[39m phím / vào ô tìm; ngừng gõ thì máy chủ lọc (không dấu vẫn ra); Esc xoá chữ[33m 694[2mms[22m[39m
+     [32m✓[39m không có từ nào khớp thì báo và cho bỏ lọc[32m 64[2mms[22m[39m
+     [32m✓[39m 20 từ mỗi trang; sang trang 2 thì đường dẫn có ?trang=2 và tiêu điểm về đầu danh sách[32m 81[2mms[22m[39m
+     [32m✓[39m số trang quá lớn thì hiện trang cuối (máy chủ trả trang cuối)[32m 24[2mms[22m[39m
+     [32m✓[39m che cột tiếng Đức: chỉ còn nút Xem; chạm vào thì hiện từ của dòng đó; Hiện hết[32m 60[2mms[22m[39m
+     [32m✓[39m che cột tiếng Việt: nhãn nút đọc ra từ tiếng Đức của dòng[32m 37[2mms[22m[39m
+     [32m✓[39m chủ đề Giao tiếp: đường dẫn đầu về trang Giao tiếp, đếm theo câu[32m 20[2mms[22m[39m
+     [32m✓[39m chủ đề không có thì báo không tìm thấy, có đường về danh sách[32m 16[2mms[22m[39m
+     [32m✓[39m mất mạng: báo rõ và có nút Thử lại; thử lại được thì hiện chủ đề[32m 26[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/TheTu.test.tsx [2m([22m[2m16 tests[22m[2m)[22m[33m 2421[2mms[22m[39m
+   [32m✓[39m Thẻ từ (API) [2m(16)[22m
+     [33m[2m✓[22m[39m ghi chú: ngừng gõ thì tự lưu; đếm chữ, tối đa 500; đổi tab rồi quay lại vẫn còn[33m 689[2mms[22m[39m
+     [33m[2m✓[22m[39m ghi chú lưu lỗi thì báo và có nút Lưu lại[33m 677[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/Hoc.test.tsx [2m([22m[2m16 tests[22m[2m)[22m[33m 999[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/HomNay.test.tsx [2m([22m[2m13 tests[22m[2m)[22m[33m 732[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/ChuDeIndex.test.tsx [2m([22m[2m8 tests[22m[2m)[22m[33m 720[2mms[22m[39m
+ [32m✓[39m resources/js/app/lib/noiDung.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 496[2mms[22m[39m
+ [32m✓[39m resources/js/app/state/taiKhoan.test.tsx [2m([22m[2m9 tests[22m[2m)[22m[33m 1590[2mms[22m[39m
+   [32m✓[39m TaiKhoanProvider [2m(6)[22m
+     [33m[2m✓[22m[39m mở app: áp cài đặt của tài khoản (máy khác đã đổi sang giao diện tối)[33m 312[2mms[22m[39m
+     [33m[2m✓[22m[39m lưu lên máy chủ hỏng: báo rõ, cài đặt trên máy vẫn đổi[33m 507[2mms[22m[39m
+     [33m[2m✓[22m[39m đổi rồi tải lại trang ngay (chưa kịp gửi): lần mở sau, phần chờ trên máy thắng và được gửi tiếp[33m 492[2mms[22m[39m
+ [32m✓[39m resources/js/app/state/store.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/TraTu.test.tsx [2m([22m[2m8 tests[22m[2m)[22m[33m 1561[2mms[22m[39m
+   [32m✓[39m Tra từ [2m(8)[22m
+     [33m[2m✓[22m[39m ô trống thì hiện tra gần đây: mở lại thẻ đã xem, bấm chữ cũ để tra lại[33m 437[2mms[22m[39m
+     [33m[2m✓[22m[39m gõ rồi ngừng thì tra; từ khớp đúng đứng đầu; đếm kết quả; chữ tra nằm trên đường dẫn[33m 341[2mms[22m[39m
+     [33m[2m✓[22m[39m mở đường dẫn có ?q= thì tra ngay; một chữ cái thì nhắc gõ thêm, không hỏi máy chủ[33m 306[2mms[22m[39m
+ [32m✓[39m resources/js/app/screens/SoTay.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[33m 758[2mms[22m[39m
+   [32m✓[39m Sổ tay [2m(4)[22m
+     [33m[2m✓[22m[39m tìm trong sổ tay: ngừng gõ thì hỏi máy chủ; không khớp thì báo[33m 358[2mms[22m[39m
+ [32m✓[39m resources/js/app/lib/api.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m resources/js/app/components/AudioButton.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 161[2mms[22m[39m
+ [32m✓[39m resources/js/app/i18n/i18n.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 187[2mms[22m[39m
+ [32m✓[39m tests/js/chuVietThang.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 296[2mms[22m[39m
+ [32m✓[39m resources/js/app/lib/srs.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 40[2mms[22m[39m
+ [32m✓[39m resources/js/app/App.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[33m 468[2mms[22m[39m
+ [32m✓[39m resources/js/app/lib/speech.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m resources/js/app/lib/session.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m resources/js/app/lib/muiGio.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m resources/js/app/screens/ChuDe.test.tsx[2m > [22mTrang chủ đề (API): sổ từ hai cột[2m > [22mđầu trang: vị trí trong cây, tên hai thứ tiếng, loại thẻ và số từ, ghi chú phần học
+[31m[1mAssertionError[22m: expected 'Chủ đề · Lernbuch' to be 'Bánh mì · bánh ngọt · Lernbuch' // Object.is equality[39m
+
+Expected: [32m"[7mBánh mì · bánh ngọt[27m · Lernbuch"[39m
+Received: [31m"[7mChủ đề[27m · Lernbuch"[39m
+
+[36m [2m❯[22m resources/js/app/screens/ChuDe.test.tsx:[2m30:32[22m[39m
+    [90m 28|[39m         [34mexpect[39m(screen[33m.[39m[34mgetByText[39m([32m'Từ vựng · 5 từ'[39m))[33m.[39m[34mtoBeTruthy[39m()[33m;[39m
+    [90m 29|[39m         expect(screen.getByText(/Học và ôn theo chủ đề này có ở bản ti…
+    [90m 30|[39m         [34mexpect[39m(document[33m.[39mtitle)[33m.[39m[34mtoBe[39m([32m'Bánh mì · bánh ngọt · Lernbuch'[39m)[33m;[39m
+    [90m   |[39m                                [31m^[39m
+    [90m 31|[39m     })[33m;[39m
+    [90m 32|[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m19 passed[39m[22m[90m (20)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m170 passed[39m[22m[90m (171)[39m
+[2m   Start at [22m 00:31:56
+[2m   Duration [22m 13.46s[2m (environment 39%, tests 37%, import 11%, setup 9%, transform 3%)[22m
+
+[2mEnvironment [22m [33mjsdom was created 20 times[39m[2m · 14.28s total, 39% of tracked time[22m
+[2m            [22m [2mcreate it once per worker with [22m[33mpool: 'vmThreads'[39m[2m (keeps per-file isolation) or [22m[33misolate: false[39m[2m (shares it across files)[22m
+[2m            [22m [2mlearn more: https://vitest.dev/guide/improving-performance#test-environments[22m
+
+
+::error file=D%3A/a/lernbuch/lernbuch/resources/js/app/screens/ChuDe.test.tsx,title=resources/js/app/screens/ChuDe.test.tsx > Trang chủ đề (API)%3A sổ từ hai cột > đầu trang%3A vị trí trong cây%2C tên hai thứ tiếng%2C loại thẻ và số từ%2C ghi chú phần học,line=30,column=32::AssertionError: expected 'Chủ đề · Lernbuch' to be 'Bánh mì · bánh ngọt · Lernbuch' // Object.is equality%0A%0AExpected: "Bánh mì · bánh ngọt · Lernbuch"%0AReceived: "Chủ đề · Lernbuch"%0A%0A ❯ resources/js/app/screens/ChuDe.test.tsx:30:32%0A%0A
+
+==> Build giao diện (Vite)
+
+> build
+> vite build
+
+[36mvite v8.3.8 [32mbuilding client environment for production...[36m[39m
+transforming...
+✓ 2265 modules transformed.
+rendering chunks...
+computing gzip size...
+public/build/manifest.json                                                 9.17 kB │ gzip:   0.82 kB
+public/build/assets/be-vietnam-pro-vietnamese-400-normal-CRcqvyg1.woff2   11.53 kB
+public/build/assets/patrick-hand-vietnamese-400-normal-65jA92mZ.woff2     11.57 kB
+public/build/assets/be-vietnam-pro-vietnamese-400-italic-CIY6FnMe.woff2   11.84 kB
+public/build/assets/be-vietnam-pro-vietnamese-500-normal-DREgrEoJ.woff2   12.17 kB
+public/build/assets/be-vietnam-pro-vietnamese-600-normal-nyU-ZL2p.woff2   12.17 kB
+public/build/assets/be-vietnam-pro-vietnamese-800-normal-D4LFh2W4.woff2   12.40 kB
+public/build/assets/be-vietnam-pro-vietnamese-700-normal-Csr0PCuG.woff2   12.46 kB
+public/build/assets/be-vietnam-pro-latin-ext-400-normal-CiZNW1ec.woff2    13.05 kB
+public/build/assets/be-vietnam-pro-latin-ext-400-italic-Crz7h8Mn.woff2    13.12 kB
+public/build/assets/be-vietnam-pro-latin-ext-500-normal-h0Fp6aX0.woff2    13.54 kB
+public/build/assets/be-vietnam-pro-latin-ext-600-normal-BNd8euf0.woff2    13.60 kB
+public/build/assets/be-vietnam-pro-latin-ext-800-normal-GEpNgheG.woff2    13.75 kB
+public/build/assets/be-vietnam-pro-latin-ext-700-normal-C8_gqRu2.woff2    13.85 kB
+public/build/assets/patrick-hand-latin-ext-400-normal-Dno5CMlI.woff2      20.11 kB
+public/build/assets/be-vietnam-pro-latin-400-normal-PpnXBOrz.woff2        21.16 kB
+public/build/assets/be-vietnam-pro-latin-400-italic-Czf7pqeE.woff2        21.43 kB
+public/build/assets/be-vietnam-pro-latin-500-normal-B6LVzGNe.woff2        21.89 kB
+public/build/assets/be-vietnam-pro-latin-600-normal-BZDkUTrt.woff2        22.03 kB
+public/build/assets/be-vietnam-pro-latin-700-normal-DlW1Zbsh.woff2        22.15 kB
+public/build/assets/be-vietnam-pro-latin-800-normal-BpHZASpI.woff2        22.32 kB
+public/build/assets/patrick-hand-latin-400-normal-B7HHA2Vw.woff2          23.94 kB
+public/build/assets/app-DF1T9Hfd.css                                      47.14 kB │ gzip:   9.59 kB
+public/build/assets/theme-DVHi_9sl.css                                   716.36 kB │ gzip:  72.98 kB
+public/build/assets/app-BvRk9kiK.js                                        0.00 kB │ gzip:   0.02 kB
+public/build/assets/main-C8PPMtxd.js                                     390.96 kB │ gzip: 120.88 kB
+
+[32m✓ built in 1.14s[39m
+
+==> TỔNG KẾT
+✔ Định dạng PHP (Pint) (5.8 giây)
+✔ Phân tích tĩnh PHP (Larastan) (17.2 giây)
+✔ Test PHP (Pest, MySQL lernbuch_test) (85.7 giây)
+✔ Kiểu TypeScript (tsc) (5.2 giây)
+✔ ESLint (7.4 giây)
+✘ Test giao diện (Vitest) (mã 1, 14.1 giây)
+✔ Build giao diện (Vite) (1.7 giây)
+KẾT QUẢ: 6/7 bước đạt
+CÓ BƯỚC CHƯA QUA - báo Claude đọc setup\ket-qua-test.txt
+**********************
+Windows PowerShell transcript end
+End time: 20261127003211
+**********************
+
+===== setup/ket-qua-kiem-tra.txt
+=== Kiem tra moi truong Lernbuch Fri 11/27/2026  0:32:11.59
+--- PHP
+PHP 8.5.13 (cli) (built: Nov 18 2026 00:59:53) (NTS Visual C++ 2022 x64)
+Copyright (c) The PHP Group
+Built by The PHP Group
+Zend Engine v4.5.13, Copyright (c) Zend Technologies
+    with Zend OPcache v8.5.13, Copyright (c), by Zend Technologies
+[PHP Modules]
+bcmath
+calendar
+Core
+ctype
+curl
+date
+dom
+fileinfo
+filter
+gd
+hash
+iconv
+intl
+json
+lexbor
+libxml
+mbstring
+mysqlnd
+openssl
+pcre
+PDO
+pdo_mysql
+pdo_sqlite
+Phar
+random
+readline
+Reflection
+session
+SimpleXML
+sodium
+SPL
+sqlite3
+standard
+tokenizer
+uri
+xml
+xmlreader
+xmlwriter
+Zend OPcache
+zip
+zlib
+
+[Zend Modules]
+Zend OPcache
+
+php.ini: C:\lernbuch-dev\php85\php.ini
+--- Composer
+Composer version 2.11.3 2026-11-24 10:14:18
+PHP version 8.5.13 (C:\lernbuch-dev\php85\php.exe)
+Run the "diagnose" command to get more detailed diagnostics output.
+--- Node.js va npm
+v26.13.1
+11.20.0
+--- MySQL cong 3307
+mysql  Ver 9.7.4 for Win64 on x86_64 (MySQL Community Server - GPL)
+VERSION()
+9.7.4
+Database
+information_schema
+lernbuch
+lernbuch_test
+mysql
+performance_schema
+sys
+--- Git
+git version 2.56.1.windows.1
+ae96e76 2026-11-27 07:27:29 +0700 G1 tuần 2: màn Chủ đề, Cấp độ, Giao tiếp, trang chủ đề, thẻ từ, Tra từ, Sổ tay đọc API thật
+--- Lernbuch
+Laravel Framework 13.44.1
+.env: co
+vendor: co
+node_modules: co
+giao dien da build: co
+--- XAMPP, chi de doi chieu
+Khong thay C:\xampp\php\php.exe
+=== Het
+
+===== setup/tmp/ci/test-setup.log
+===== test-cai-dat.ps1
+PASS  extension=curl xuất hiện đúng 1 lần
+PASS  extension=fileinfo xuất hiện đúng 1 lần
+PASS  extension=gd xuất hiện đúng 1 lần
+PASS  extension=intl xuất hiện đúng 1 lần
+PASS  extension=mbstring xuất hiện đúng 1 lần
+PASS  extension=openssl xuất hiện đúng 1 lần
+PASS  extension=pdo_mysql xuất hiện đúng 1 lần
+PASS  extension=pdo_sqlite xuất hiện đúng 1 lần
+PASS  extension=sqlite3 xuất hiện đúng 1 lần
+PASS  extension=sodium xuất hiện đúng 1 lần
+PASS  extension=zip xuất hiện đúng 1 lần
+PASS  extension=khongcoextnay xuất hiện đúng 1 lần
+PASS  extension_dir = "ext" được bật
+PASS  extension_dir mặc định "./" vẫn là comment
+PASS  memory_limit = 512M đúng 1 dòng
+PASS  memory_limit không còn dòng nào khác
+PASS  upload_max_filesize = 64M đúng 1 dòng
+PASS  upload_max_filesize không còn dòng nào khác
+PASS  post_max_size = 64M đúng 1 dòng
+PASS  post_max_size không còn dòng nào khác
+PASS  date.timezone = Asia/Ho_Chi_Minh đúng 1 dòng
+PASS  date.timezone không còn dòng nào khác
+PASS  mọi dòng kết thúc bằng CRLF
+PASS  không xóa dòng nào
+PASS  chạy lần 2 không đổi gì
+PASS  extension khác (bz2) vẫn là comment
+PASS  php.ini rỗng: thêm extension và cấu hình
+PASS  giá trị có $1 không bị hiểu là nhóm regex
+PASS  danh sách extension giống LoWo (php.ini dùng chung)
+PASS  my.ini dùng dấu / thay \
+PASS  my.ini cổng 3307 cho cả server và client
+PASS  my.ini chỉ nghe 127.0.0.1
+PASS  my.ini toàn ASCII
+PASS  my.ini dùng CRLF
+PASS  my.ini giống hệt bản LoWo ghi (MySQL dùng chung)
+PASS  chọn Node 26 mới nhất có bản zip Windows
+PASS  không có bản phù hợp thì trả null
+PASS  v2.6.0 không bị nhầm là v26
+PASS  đọc được mảng từ ConvertFrom-Json
+PASS  lấy đúng mã kiểm tra theo tên file
+PASS  không có tên file thì trả null
+PASS  chuỗi rỗng không lỗi
+PASS  VC 14.44 hợp lệ
+PASS  VC 14.30 hợp lệ
+PASS  VC 14.29 không hợp lệ
+PASS  VC 15.0 hợp lệ
+PASS  chọn MinGit 64-bit thường
+PASS  không có MinGit 64-bit thì trả null
+PASS  zip có thư mục gốc: file nằm ngay trong thư mục đích
+PASS  zip không có thư mục gốc: php.exe và ext\ đúng chỗ
+PASS  thư mục tạm đã được dọn
+PASS  tải thất bại: báo lỗi rõ ràng
+PASS  tải thất bại: không để lại file .part
+PASS  sai SHA256: báo lỗi và xóa file
+PASS  đúng SHA256 (khác hoa thường): qua
+
+Kết quả: 55 qua, 0 lỗi
+===== test-cap-nhat.ps1
+PASS  giữ nguyên khóa không liên quan
+PASS  web ở 127.0.0.1:8001
+PASS  DB_CONNECTION đổi sang mysql
+PASS  dòng bị comment được bật lại
+PASS  DB_PORT=3307 (MySQL dùng chung với LoWo)
+PASS  tài khoản root, mật khẩu trống
+PASS  khóa chưa có thì thêm vào
+PASS  không còn ký tự CR
+PASS  mỗi khóa chỉ một dòng
+PASS  chạy lần hai không đổi gì
+PASS  .env rỗng vẫn tạo đủ khóa
+PASS  .env.example trong code đã đúng sẵn cho máy này
+PASS  khóa mới đúng dạng base64 32 byte
+PASS  hai lần tạo ra hai khóa khác nhau
+PASS  APP_KEY trống thì đặt khóa mới
+PASS  APP_KEY đã có thì giữ nguyên
+PASS  chưa có dòng APP_KEY thì thêm vào
+PASS  đã là bản mới nhất: không lỗi
+PASS  đã là bản mới nhất: không đổi gì
+PASS  file gửi trước giống bản mới: cập nhật được
+PASS  lên đúng bản mới nhất
+PASS  file đã xóa trong bản mới bị xóa
+PASS  README là bản mới
+PASS  .bat ghi bằng CRLF, không còn LF lẻ
+PASS  .ps1 giữ BOM UTF-8 và dùng CRLF
+PASS  vendor và .env không bị đụng tới
+PASS  không còn thay đổi nào chưa ghi
+PASS  chạy lại ngay: không lỗi, không đổi
+PASS  file có trong Git, gửi trước giống bản mới: cập nhật được
+PASS  nội dung là bản mới, không còn thay đổi chưa ghi
+PASS  file tự sửa khác bản mới: dừng và nêu tên file
+PASS  file tự sửa: giữ nguyên phần đã sửa, chưa cập nhật
+PASS  file tự sửa không có trong lần cập nhật: dừng và nêu tên file
+PASS  bỏ phần tự sửa thì cập nhật được
+PASS  file lạ trùng tên file mới: dừng và nêu tên file
+PASS  file lạ: giữ nguyên nội dung
+PASS  bỏ file lạ thì cập nhật được
+PASS  không ở nhánh main: dừng và nêu tên nhánh
+PASS  máy có commit riêng: dừng
+fatal: 'C:\Users\runneradmin\AppData\Local\Temp\lernbuch-git-ede28ca9\khong-co.git' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+PASS  không lấy được code: báo lỗi git fetch
+PASS  trả lại địa chỉ đúng: cập nhật được
+PASS  chưa phải kho Git: báo cách lấy code
+
+Kết quả: 42 qua, 0 lỗi
+===== test-chung.ps1
+PASS  thư mục dự án là thư mục cha của setup
+PASS  web chạy ở 127.0.0.1:8001 (không trùng LoWo ở localhost:8000)
+PASS  hai database lernbuch và lernbuch_test
+PASS  mặc định MySQL cổng 3307 như LoWo
+PASS  mã Git của nội dung rỗng
+PASS  mã Git của "hello\n"
+PASS  mã Git của nội dung CRLF
+PASS  mã Git của nội dung có BOM và chữ có dấu
+PASS  giống hệt bản Git
+PASS  chỉ khác kiểu xuống dòng (CRLF) vẫn coi là giống
+PASS  bản Git lưu CRLF, file trên máy CRLF: giống
+PASS  khác nội dung: không giống
+PASS  file không có nhưng bản Git có: không giống
+PASS  cả hai đều không có: giống
+PASS  file có nhưng bản Git không có: không giống
+PASS  bước đạt
+PASS  bước lỗi có mã thoát
+PASS  số giây dùng dấu chấm dù máy để định dạng Việt Nam
+PASS  dòng tổng kết
+PASS  tạo đủ hai database
+PASS  utf8mb4_unicode_ci giống CI và alwaysdata
+PASS  Test-Port trả false với cổng không ai dùng
+PASS  tìm thấy git
+PASS  thiếu PHP thì báo chạy cai-dat.bat
+
+Kết quả: 24 qua, 0 lỗi
+===== test-file.ps1
+PASS  có đủ script
+PASS  cai-dat.ps1 : đúng cú pháp PowerShell
+PASS  cai-dat.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
+PASS  cai-dat.ps1 : xuống dòng CRLF
+PASS  cap-nhat.ps1 : đúng cú pháp PowerShell
+PASS  cap-nhat.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
+PASS  cap-nhat.ps1 : xuống dòng CRLF
+PASS  chay-test.ps1 : đúng cú pháp PowerShell
+PASS  chay-test.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
+PASS  chay-test.ps1 : xuống dòng CRLF
+PASS  lernbuch-chung.ps1 : đúng cú pháp PowerShell
+PASS  lernbuch-chung.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
+PASS  lernbuch-chung.ps1 : xuống dòng CRLF
+PASS  mysql.ps1 : đúng cú pháp PowerShell
+PASS  mysql.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
+PASS  mysql.ps1 : xuống dòng CRLF
+PASS  nhap-du-lieu.ps1 : đúng cú pháp PowerShell
+PASS  nhap-du-lieu.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
+PASS  nhap-du-lieu.ps1 : xuống dòng CRLF
+PASS  tao-admin.ps1 : đúng cú pháp PowerShell
+PASS  tao-admin.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
+PASS  tao-admin.ps1 : xuống dòng CRLF
+PASS  tests\chay-tat-ca.ps1 : đúng cú pháp PowerShell
+PASS  tests\chay-tat-ca.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
+PASS  tests\chay-tat-ca.ps1 : xuống dòng CRLF
+PASS  tests\test-cai-dat.ps1 : đúng cú pháp PowerShell
+PASS  tests\test-cai-dat.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
+PASS  tests\test-cai-dat.ps1 : xuống dòng CRLF
+PASS  tests\test-cap-nhat.ps1 : đúng cú pháp PowerShell
+PASS  tests\test-cap-nhat.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
+PASS  tests\test-cap-nhat.ps1 : xuống dòng CRLF
+PASS  tests\test-chung.ps1 : đúng cú pháp PowerShell
+PASS  tests\test-chung.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
+PASS  tests\test-chung.ps1 : xuống dòng CRLF
+PASS  tests\test-file.ps1 : đúng cú pháp PowerShell
+PASS  tests\test-file.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
+PASS  tests\test-file.ps1 : xuống dòng CRLF
+PASS  tests\test-nhap-du-lieu.ps1 : đúng cú pháp PowerShell
+PASS  tests\test-nhap-du-lieu.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
+PASS  tests\test-nhap-du-lieu.ps1 : xuống dòng CRLF
+PASS  tests\thu-web.ps1 : đúng cú pháp PowerShell
+PASS  tests\thu-web.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
+PASS  tests\thu-web.ps1 : xuống dòng CRLF
+PASS  tests\_kiem.ps1 : đúng cú pháp PowerShell
+PASS  tests\_kiem.ps1 : có BOM UTF-8 (Windows PowerShell đọc đúng chữ có dấu)
+PASS  tests\_kiem.ps1 : xuống dòng CRLF
+PASS  cai-dat.bat : chỉ có ký tự ASCII
+PASS  cai-dat.bat : xuống dòng CRLF (cmd.exe cần)
+PASS  cai-dat.bat : chỉ dừng chờ phím khi không chạy trên CI
+PASS  cap-nhat.bat : chỉ có ký tự ASCII
+PASS  cap-nhat.bat : xuống dòng CRLF (cmd.exe cần)
+PASS  cap-nhat.bat : chỉ dừng chờ phím khi không chạy trên CI
+PASS  chay-test.bat : chỉ có ký tự ASCII
+PASS  chay-test.bat : xuống dòng CRLF (cmd.exe cần)
+PASS  chay-test.bat : chỉ dừng chờ phím khi không chạy trên CI
+PASS  chay-web.bat : chỉ có ký tự ASCII
+PASS  chay-web.bat : xuống dòng CRLF (cmd.exe cần)
+PASS  chay-web.bat : chỉ dừng chờ phím khi không chạy trên CI
+PASS  kiem-tra.bat : chỉ có ký tự ASCII
+PASS  kiem-tra.bat : xuống dòng CRLF (cmd.exe cần)
+PASS  kiem-tra.bat : chỉ dừng chờ phím khi không chạy trên CI
+PASS  moi-truong.bat : chỉ có ký tự ASCII
+PASS  moi-truong.bat : xuống dòng CRLF (cmd.exe cần)
+PASS  mysql-bat.bat : chỉ có ký tự ASCII
+PASS  mysql-bat.bat : xuống dòng CRLF (cmd.exe cần)
+PASS  mysql-bat.bat : chỉ dừng chờ phím khi không chạy trên CI
+PASS  mysql-tat.bat : chỉ có ký tự ASCII
+PASS  mysql-tat.bat : xuống dòng CRLF (cmd.exe cần)
+PASS  mysql-tat.bat : chỉ dừng chờ phím khi không chạy trên CI
+PASS  nhap-du-lieu.bat : chỉ có ký tự ASCII
+PASS  nhap-du-lieu.bat : xuống dòng CRLF (cmd.exe cần)
+PASS  nhap-du-lieu.bat : chỉ dừng chờ phím khi không chạy trên CI
+PASS  tao-admin.bat : chỉ có ký tự ASCII
+PASS  tao-admin.bat : xuống dòng CRLF (cmd.exe cần)
+PASS  tao-admin.bat : chỉ dừng chờ phím khi không chạy trên CI
+PASS  _env.bat : chỉ có ký tự ASCII
+PASS  _env.bat : xuống dòng CRLF (cmd.exe cần)
+PASS  _env.bat : chỉ dừng chờ phím khi không chạy trên CI
+PASS  cap-nhat.bat: cả khối lệnh trong ngoặc, có exit /b bên trong
+PASS  cap-nhat.bat: chuyển tham số cho cap-nhat.ps1
+
+Kết quả: 80 qua, 0 lỗi
+===== test-nhap-du-lieu.ps1
+PASS  chưa có dữ liệu thì báo rõ phải chép lernweb.zip vào đâu
+PASS  đường dẫn đưa vào không có thì báo lỗi
+PASS  thư mục lernweb có content\seed.db thì dùng thư mục đó
+PASS  có lernweb.zip thì ưu tiên file zip
+PASS  đường dẫn đưa vào thì dùng đúng đường dẫn đó
+
+Kết quả: 5 qua, 0 lỗi
+
+✔ test-cai-dat.ps1
+✔ test-cap-nhat.ps1
+✔ test-chung.ps1
+✔ test-file.ps1
+✔ test-nhap-du-lieu.ps1
+KẾT QUẢ: 5/5 file test đạt
+
