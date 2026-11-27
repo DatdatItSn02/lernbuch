@@ -7,14 +7,6 @@ dat	vitest	-	resources/js/app/App.test.tsx	App: điều hướng › đường d
 dat	vitest	-	resources/js/app/App.test.tsx	App: điều hướng › Bảng động từ thuộc mục Ngữ pháp, Số nhiều thuộc mục Bài tập
 dat	vitest	-	resources/js/app/App.test.tsx	App: điều hướng › bấm mục điều hướng thì đổi màn hình, đổi tiêu đề và đặt tiêu điểm vào nội dung
 dat	vitest	-	resources/js/app/App.test.tsx	App: điều hướng › trang học và lượt làm bài không có thanh điều hướng
-dat	vitest	-	resources/js/app/i18n/i18n.test.ts	t(): chữ giao diện theo ngôn ngữ › tiếng Việt, thay tham số
-dat	vitest	-	resources/js/app/i18n/i18n.test.ts	t(): chữ giao diện theo ngôn ngữ › thiếu tham số thì giữ chỗ trống {ten} để dễ thấy, không làm hỏng câu
-dat	vitest	-	resources/js/app/i18n/i18n.test.ts	t(): chữ giao diện theo ngôn ngữ › ngôn ngữ chưa có bản dịch (tiếng Anh) thì hiện tiếng Việt, không hiện mã khoá
-dat	vitest	-	resources/js/app/i18n/i18n.test.ts	t(): chữ giao diện theo ngôn ngữ › bản dịch thiếu một phần: khoá đã dịch hiện bản dịch, khoá thiếu hiện tiếng Việt; mã vùng dùng bản chung
-dat	vitest	-	resources/js/app/i18n/i18n.test.ts	t(): chữ giao diện theo ngôn ngữ › mã ngôn ngữ rỗng hoặc lạ không làm vỡ: dùng tiếng Việt
-dat	vitest	-	resources/js/app/i18n/i18n.test.ts	t(): chữ giao diện theo ngôn ngữ › số viết theo tiếng Việt
-dat	vitest	-	resources/js/app/i18n/i18n.test.ts	t(): chữ giao diện theo ngôn ngữ › từ điển tiếng Việt: mọi chữ khác rỗng, không thừa khoảng trắng đầu cuối
-dat	vitest	-	resources/js/app/i18n/i18n.test.ts	cả màn hình khi tài khoản đặt tiếng Anh mà chưa có bản dịch › Cài đặt vẫn hiện đủ chữ tiếng Việt
 dat	vitest	-	resources/js/app/components/AudioButton.test.tsx	AudioButton: nút nghe › bấm lần hai khi lần đầu chưa đọc xong: đọc lại từ đầu, không hiện lỗi
 dat	vitest	-	resources/js/app/components/AudioButton.test.tsx	AudioButton: nút nghe › bấm liên tục nhiều lần cũng không hiện lỗi
 dat	vitest	-	resources/js/app/components/AudioButton.test.tsx	AudioButton: nút nghe › bấm nút nghe khác khi đang đọc: nút trước thôi đọc, không nút nào hiện lỗi
@@ -23,6 +15,14 @@ dat	vitest	-	resources/js/app/components/AudioButton.test.tsx	AudioButton: nút 
 dat	vitest	-	resources/js/app/components/TaiVeMay.test.tsx	Tải chủ đề về máy để học khi không có mạng › bấm tải: báo đang tải, xong thì ghi đã tải lúc nào; audio vào kho audio; xoá khỏi máy thì tải lại được
 dat	vitest	-	resources/js/app/components/TaiVeMay.test.tsx	Tải chủ đề về máy để học khi không có mạng › đã tải từ trước thì mở trang là thấy ngay; tải lại bản mới thì xin máy chủ lần nữa
 dat	vitest	-	resources/js/app/components/TaiVeMay.test.tsx	Tải chủ đề về máy để học khi không có mạng › không tải được (mất mạng, máy chủ lỗi) thì báo, bấm lại được
+dat	vitest	-	resources/js/app/i18n/i18n.test.ts	t(): chữ giao diện theo ngôn ngữ › tiếng Việt, thay tham số
+dat	vitest	-	resources/js/app/i18n/i18n.test.ts	t(): chữ giao diện theo ngôn ngữ › thiếu tham số thì giữ chỗ trống {ten} để dễ thấy, không làm hỏng câu
+dat	vitest	-	resources/js/app/i18n/i18n.test.ts	t(): chữ giao diện theo ngôn ngữ › ngôn ngữ chưa có bản dịch (tiếng Anh) thì hiện tiếng Việt, không hiện mã khoá
+dat	vitest	-	resources/js/app/i18n/i18n.test.ts	t(): chữ giao diện theo ngôn ngữ › bản dịch thiếu một phần: khoá đã dịch hiện bản dịch, khoá thiếu hiện tiếng Việt; mã vùng dùng bản chung
+dat	vitest	-	resources/js/app/i18n/i18n.test.ts	t(): chữ giao diện theo ngôn ngữ › mã ngôn ngữ rỗng hoặc lạ không làm vỡ: dùng tiếng Việt
+dat	vitest	-	resources/js/app/i18n/i18n.test.ts	t(): chữ giao diện theo ngôn ngữ › số viết theo tiếng Việt
+dat	vitest	-	resources/js/app/i18n/i18n.test.ts	t(): chữ giao diện theo ngôn ngữ › từ điển tiếng Việt: mọi chữ khác rỗng, không thừa khoảng trắng đầu cuối
+dat	vitest	-	resources/js/app/i18n/i18n.test.ts	cả màn hình khi tài khoản đặt tiếng Anh mà chưa có bản dịch › Cài đặt vẫn hiện đủ chữ tiếng Việt
 dat	vitest	-	resources/js/app/lib/amThanh.test.ts	nghe: file audio Piper, dự phòng giọng trình duyệt › có file: phát file, không dùng giọng trình duyệt; nghe chậm phát ở 0,65, giữ cao độ
 dat	vitest	-	resources/js/app/lib/amThanh.test.ts	nghe: file audio Piper, dự phòng giọng trình duyệt › thẻ chưa có file: đọc bằng giọng trình duyệt
 dat	vitest	-	resources/js/app/lib/amThanh.test.ts	nghe: file audio Piper, dự phòng giọng trình duyệt › file trả 404 (lỗi tải): chuyển sang giọng trình duyệt, đọc chậm nếu đang nghe chậm
