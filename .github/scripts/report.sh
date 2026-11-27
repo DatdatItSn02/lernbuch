@@ -28,6 +28,11 @@ if [ -n "${REPORT_IMAGES:-}" ] && compgen -G "${REPORT_IMAGES}/*.png" >/dev/null
   mkdir -p "$dir/anh"
   cp "${REPORT_IMAGES}"/*.png "$dir/anh/"
 fi
+# File kèm theo khác (nếu job có): cả thư mục REPORT_FILES chép vào thư mục REPORT_FILES_TO của nhánh (thay bản cũ)
+if [ -n "${REPORT_FILES:-}" ] && [ -n "${REPORT_FILES_TO:-}" ] && [ -d "${REPORT_FILES}" ]; then
+  rm -rf "${dir:?}/${REPORT_FILES_TO}" && mkdir -p "$dir/${REPORT_FILES_TO}"
+  cp -r "${REPORT_FILES}"/. "$dir/${REPORT_FILES_TO}/"
+fi
 # Tên người ghi đặt vào cấu hình kho: lần thử lại dùng pull --rebase cũng cần (trước đây thiếu nên job đến sau mất kết quả)
 git -C "$dir" config user.name lernbuch-bot
 git -C "$dir" config user.email lernbuch-bot@users.noreply.github.com

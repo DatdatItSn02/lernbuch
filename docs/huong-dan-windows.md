@@ -30,15 +30,15 @@ Cách chạy giống LoWo: công cụ dùng chung trong `F:\dev` (PHP 8.5, Compo
 | --- | --- |
 | http://127.0.0.1:8001 | trang chào |
 | http://127.0.0.1:8001/kiem-chu | trang kiểm chữ: 20 mẫu chữ tiếng Việt, tiếng Đức theo từng font |
-| http://127.0.0.1:8001/app/hom-nay | app học, màn hình Hôm nay (dữ liệu mẫu tới tuần 3) |
-| http://127.0.0.1:8001/app/hoc | phiên học (dữ liệu mẫu): Space lật thẻ, phím 1–4 chấm, P nghe, ←/→ xem lại, Esc thoát |
+| http://127.0.0.1:8001/app/hom-nay | app học, màn hình Hôm nay: thẻ đến hạn, từ mới, xu, chuỗi ngày, mục tiêu ngày |
+| http://127.0.0.1:8001/app/hoc | phiên học: Space lật thẻ, phím 1–4 chấm, P nghe, ←/→ xem lại, Esc thoát |
 | http://127.0.0.1:8001/app/chu-de | Chủ đề, Cấp độ, Giao tiếp; bấm vào chủ đề để xem thẻ, bấm vào từ để mở thẻ từ |
 | http://127.0.0.1:8001/app/tra-tu | tra từ: gõ tiếng Đức, Việt, Anh hoặc Trung, không cần dấu |
 | http://127.0.0.1:8001/app/so-tay | sổ tay: thẻ có sao và ghi chú riêng |
 | http://127.0.0.1:8001/app/cai-dat | cài đặt: giao diện tối, cỡ chữ, mùa |
 | http://127.0.0.1:8001/admin | trang quản trị (đăng nhập bằng tài khoản vừa tạo) |
 
-Chủ đề, Cấp độ, Giao tiếp, thẻ từ, Tra từ, Sổ tay đọc dữ liệu thật: cần nhập Lernbuch cũ trước (`setup\nhap-du-lieu.bat`), chưa nhập thì các trang này báo chưa có chủ đề. Sao và ghi chú lưu theo tài khoản. Hôm nay và phiên học còn dùng dữ liệu mẫu (tiến độ mất khi tải lại trang) tới tuần 3.
+Mọi trang đọc dữ liệu thật: cần nhập Lernbuch cũ trước (`setup\nhap-du-lieu.bat`), chưa nhập thì các trang báo chưa có chủ đề. Tiến độ học, sao và ghi chú lưu theo tài khoản trên máy chủ; mất mạng giữa phiên vẫn học tiếp, lượt chấm chờ trên máy rồi tự gửi khi có mạng. Ngưỡng chấm quá nhanh (không cộng xu) sửa ở trang quản trị, mục Hệ thống › Cài đặt học.
 
 ## Thử lịch và hàng đợi (mục 13 của phần tự kiểm)
 

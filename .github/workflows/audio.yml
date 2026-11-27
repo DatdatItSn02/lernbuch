@@ -1,0 +1,78 @@
+name: audio
+
+# Audio đọc tiếng Đức tạo sẵn bằng Piper. Bấm chạy ở Actions → audio → Run workflow.
+#   nghe-thu: đọc 20 chữ mẫu (tools/audio/mau-nghe-thu.txt) bằng từng giọng đã chọn; file nghe thử và số đo
+#             (dung lượng mỗi từ, thời gian đọc) ghi vào nhánh ci-results, thư mục audio-thu/.
+# Chỉ dùng giọng mà bộ dữ liệu gốc cho dùng để bán (tools/audio/giong.json); có giọng không được dùng thì dừng ngay,
+# trước khi tải model.
+on:
+  workflow_dispatch:
+    inputs:
+      giong:
+        description: 'Giọng Piper, cách nhau bằng dấu cách'
+        required: true
+        default: 'de_DE-thorsten-medium de_DE-thorsten-high de_DE-kerstin-low'
+      che_do:
+        description: 'nghe-thu: đọc 20 chữ mẫu để chọn giọng'
+        type: choice
+        options: [nghe-thu]
+        default: nghe-thu
+  push:
+    branches: ['audio/nghe-thu']   # đẩy nhánh này để chạy nghe thử ngay với các giọng mặc định
+
+permissions:
+  contents: write   # chỉ để ghi kết quả vào nhánh ci-results
+
+concurrency:
+  group: audio
+  cancel-in-progress: false
+
+jobs:
+  nghe-thu:
+    if: github.event_name == 'push' || inputs.che_do == 'nghe-thu'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GIONG: ${{ inputs.giong || 'de_DE-thorsten-medium de_DE-thorsten-high de_DE-kerstin-low' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Kiểm giấy phép các giọng (dừng nếu có giọng không được dùng để bán)
+        run: |
+          ok=1
+          for g in $GIONG; do python3 tools/audio/giong.py "$g" >> /tmp/audio.log 2>&1 || ok=0; done
+          cat /tmp/audio.log
+          [ "$ok" = 1 ]
+      - name: Cài Piper và ffmpeg
+        run: |
+          set -eo pipefail
+          { pip install --quiet "piper-tts>=1.2,<2"
+            pip show piper-tts | head -2
+            command -v ffmpeg >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; }
+            ffmpeg -hide_banner -version | head -1; } 2>&1 | tee -a /tmp/audio.log
+      - name: Đọc 20 chữ mẫu bằng từng giọng
+        run: |
+          set -eo pipefail
+          mkdir -p /tmp/model /tmp/audio-thu
+          cp tools/audio/mau-nghe-thu.txt /tmp/audio-thu/danh-sach.txt
+          for g in $GIONG; do
+            { echo; echo "== $g"
+              read -r onnx cau_hinh < <(python3 -c "import sys; sys.path.insert(0, 'tools/audio'); import giong; print(*giong.dia_chi_model(sys.argv[1]))" "$g")
+              curl -fsSL --retry 3 -o "/tmp/model/$g.onnx" "$onnx"
+              curl -fsSL --retry 3 -o "/tmp/model/$g.onnx.json" "$cau_hinh"
+              ls -lh "/tmp/model/$g.onnx" | awk '{print "Model: " $5}'
+              python3 tools/audio/tao_audio.py --giong "$g" --model "/tmp/model/$g.onnx" \
+                --vao tools/audio/mau-nghe-thu.txt --ra /tmp/audio-ra --ghep "/tmp/audio-thu/$g.mp3"
+              ls -lh "/tmp/audio-thu/$g.mp3" | awk '{print "File nghe thử: " $5}'; } 2>&1 | tee -a /tmp/audio.log
+          done
+          grep -E '^(==|Giọng|Trung bình|Thời gian|Dung lượng|Model|File)' /tmp/audio.log > /tmp/audio-thu/so-do.txt
+          echo "✔ Đã tạo file nghe thử cho: $GIONG" | tee -a /tmp/audio.log
+      - name: Ghi kết quả vào nhánh ci-results
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPORT_FILES: /tmp/audio-thu
+          REPORT_FILES_TO: audio-thu
+        run: bash .github/scripts/report.sh nghe-thu "${{ job.status }}" /tmp/audio.log

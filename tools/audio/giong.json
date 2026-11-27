@@ -1,0 +1,43 @@
+{
+  "ghi_chu": "Giọng Piper được phép dùng cho web bán: chỉ giọng mà bộ dữ liệu gốc cho dùng thương mại. Giọng không có trong danh sách cho_phep thì workflow audio dừng. Thêm giọng mới: kiểm giấy phép bộ dữ liệu ở model card trước.",
+  "cho_phep": {
+    "thorsten": {
+      "chat_luong": ["low", "medium", "high"],
+      "bo_du_lieu": "Thorsten-Voice",
+      "giay_phep": "CC0 1.0",
+      "nguon": "https://huggingface.co/rhasspy/piper-voices/raw/refs%2Fpr%2F10/de/de_DE/thorsten/medium/MODEL_CARD"
+    },
+    "kerstin": {
+      "chat_luong": ["low"],
+      "bo_du_lieu": "Kerstin",
+      "giay_phep": "CC0 1.0",
+      "nguon": "https://huggingface.co/cstr/piper-voices-GGUF"
+    },
+    "eva_k": {
+      "chat_luong": ["x_low"],
+      "bo_du_lieu": "M-AILABS",
+      "giay_phep": "giấy phép M-AILABS (kiểu BSD)",
+      "nguon": "https://huggingface.co/cstr/piper-voices-GGUF"
+    },
+    "karlsson": {
+      "chat_luong": ["low"],
+      "bo_du_lieu": "M-AILABS",
+      "giay_phep": "giấy phép M-AILABS (kiểu BSD)",
+      "nguon": "https://huggingface.co/cstr/piper-voices-GGUF"
+    },
+    "ramona": {
+      "chat_luong": ["low"],
+      "bo_du_lieu": "M-AILABS",
+      "giay_phep": "giấy phép M-AILABS (kiểu BSD)",
+      "nguon": "https://huggingface.co/cstr/piper-voices-GGUF"
+    }
+  },
+  "cam": {
+    "pavoque": {
+      "bo_du_lieu": "PAVOQUE",
+      "giay_phep": "CC BY-NC-SA 4.0",
+      "ly_do": "cấm dùng thương mại",
+      "nguon": "https://huggingface.co/rhasspy/piper-voices/blob/v1.0.0/de/de_DE/pavoque/low/MODEL_CARD"
+    }
+  }
+}

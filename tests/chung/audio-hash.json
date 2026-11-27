@@ -1,0 +1,70 @@
+{
+  "ghi_chu": "Ca thử chung cho tên file audio: sha1(giọng|normal|chữ đã chuẩn hoá NFC, gộp khoảng trắng). Python (tools/audio) và PHP (máy chủ) cùng đọc. Sinh lại: xem tools/audio/test_audio.py.",
+  "toc_do": "normal",
+  "ca": [
+    {
+      "ten": "chữ thường",
+      "giong": "de_DE-thorsten-medium",
+      "chu": "das Brötchen",
+      "chu_chuan": "das Brötchen",
+      "hash": "2aa53b81696a0f3cca04aca687df1cfa4409c930",
+      "path": "de_DE-thorsten-medium/2a/2aa53b81696a0f3cca04aca687df1cfa4409c930.mp3"
+    },
+    {
+      "ten": "ö viết hai mã (NFD) vẫn ra cùng file",
+      "giong": "de_DE-thorsten-medium",
+      "chu": "das Brötchen",
+      "chu_chuan": "das Brötchen",
+      "hash": "2aa53b81696a0f3cca04aca687df1cfa4409c930",
+      "path": "de_DE-thorsten-medium/2a/2aa53b81696a0f3cca04aca687df1cfa4409c930.mp3"
+    },
+    {
+      "ten": "khoảng trắng thừa bị bỏ",
+      "giong": "de_DE-thorsten-medium",
+      "chu": "  das   Brötchen ",
+      "chu_chuan": "das Brötchen",
+      "hash": "2aa53b81696a0f3cca04aca687df1cfa4409c930",
+      "path": "de_DE-thorsten-medium/2a/2aa53b81696a0f3cca04aca687df1cfa4409c930.mp3"
+    },
+    {
+      "ten": "ß",
+      "giong": "de_DE-thorsten-medium",
+      "chu": "die Straße",
+      "chu_chuan": "die Straße",
+      "hash": "cb4740db62fb4145aab998b3ab6b3f587824c2fe",
+      "path": "de_DE-thorsten-medium/cb/cb4740db62fb4145aab998b3ab6b3f587824c2fe.mp3"
+    },
+    {
+      "ten": "động từ có ä",
+      "giong": "de_DE-thorsten-medium",
+      "chu": "zählen",
+      "chu_chuan": "zählen",
+      "hash": "a0e4c1a007fd4c9ee25ae88ae6ea8dd9b0d61723",
+      "path": "de_DE-thorsten-medium/a0/a0e4c1a007fd4c9ee25ae88ae6ea8dd9b0d61723.mp3"
+    },
+    {
+      "ten": "khác zählen",
+      "giong": "de_DE-thorsten-medium",
+      "chu": "zahlen",
+      "chu_chuan": "zahlen",
+      "hash": "4da477db075ee3119f03c6b47ef2424fbab88ede",
+      "path": "de_DE-thorsten-medium/4d/4da477db075ee3119f03c6b47ef2424fbab88ede.mp3"
+    },
+    {
+      "ten": "đổi giọng thì đổi file",
+      "giong": "de_DE-kerstin-low",
+      "chu": "das Brötchen",
+      "chu_chuan": "das Brötchen",
+      "hash": "43961ec2bbfa9c11bf9fcd34055995bfe9b3a4ed",
+      "path": "de_DE-kerstin-low/43/43961ec2bbfa9c11bf9fcd34055995bfe9b3a4ed.mp3"
+    },
+    {
+      "ten": "câu có dấu câu",
+      "giong": "de_DE-thorsten-medium",
+      "chu": "Ich möchte zwei Brötchen, bitte.",
+      "chu_chuan": "Ich möchte zwei Brötchen, bitte.",
+      "hash": "caee4c5b648fb2ec5b582bd31324e5707bb0b08f",
+      "path": "de_DE-thorsten-medium/ca/caee4c5b648fb2ec5b582bd31324e5707bb0b08f.mp3"
+    }
+  ]
+}

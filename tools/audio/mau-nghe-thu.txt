@@ -1,0 +1,22 @@
+# 20 chữ nghe thử giọng Piper trước khi tạo audio cho cả kho thẻ: 14 từ (có ä, ö, ü, ß, từ ghép, động từ tách),
+# 6 câu ví dụ. G1 chỉ tạo audio cho từ; câu ở đây để nghe giọng đọc cả câu.
+das Brötchen
+die Zahl
+zählen
+zahlen
+der Fußball
+die Straßenbahn
+das Mädchen
+aufstehen
+die Übung
+schön
+das Eichhörnchen
+die Bäckerei
+der Kühlschrank
+die Entschuldigung
+Ich möchte zwei Brötchen, bitte.
+Wie viel kostet das?
+Ich stehe jeden Morgen um sieben Uhr auf.
+Können Sie das bitte wiederholen?
+Das Mädchen spielt im Garten Fußball.
+Am Wochenende fahren wir mit der Straßenbahn in die Stadt.
