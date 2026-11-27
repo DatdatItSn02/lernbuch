@@ -31,6 +31,10 @@ describe('Trang chủ đề (API): sổ từ hai cột', () => {
         const hoc = screen.getByRole('link', { name: /Học chủ đề này/ });
         expect(hoc.getAttribute('href')).toBe('/hoc?chu-de=banh-mi-tu-vung');
         expect(hoc.textContent).toContain('0 ôn · 5 mới');
+        // Các chế độ khác học ngay trong chủ đề này
+        const cheDo = within(screen.getByRole('navigation', { name: 'Chế độ học' })).getAllByRole('link');
+        expect(cheDo).toHaveLength(7);
+        expect(cheDo[1].getAttribute('href')).toBe('/hoc?chu-de=banh-mi-tu-vung&che-do=quiz');
         // Tiêu đề trang đặt trong useEffect, có thể chạy sau lúc bảng đã hiện: chờ chứ không kiểm ngay
         await waitFor(() => expect(document.title).toBe('Bánh mì · bánh ngọt · Lernbuch'));
     });

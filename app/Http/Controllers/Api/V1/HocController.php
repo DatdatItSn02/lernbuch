@@ -47,9 +47,12 @@ class HocController extends Controller
         $hopLe = $request->validate([
             'chu_de' => ['sometimes', 'nullable', 'string', 'max:160', 'regex:/^[a-z0-9-]+$/'],
             'on' => ['sometimes', 'boolean'],
+            'che_do' => ['sometimes', Rule::in(CaiDatHoc::CHE_DO)],
         ]);
 
-        return response()->json(['data' => PhienHoc::conLai($user, self::chuDe($hopLe['chu_de'] ?? null), (bool) ($hopLe['on'] ?? false))]);
+        return response()->json(['data' => PhienHoc::conLai(
+            $user, self::chuDe($hopLe['chu_de'] ?? null), (bool) ($hopLe['on'] ?? false), (string) ($hopLe['che_do'] ?? 'flashcard'),
+        )]);
     }
 
     public function luotCham(Request $request): JsonResponse

@@ -4,39 +4,13 @@ use App\Models\User;
 use App\Models\UserSetting;
 use App\Support\Hoc\CaiDatHoc;
 use App\Support\Hoc\PhienHoc;
-use Carbon\CarbonImmutable;
 use Database\Seeders\NoiDungThuSeeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 // Học và đồng bộ: phiên học, lượt chấm theo lô, Hôm nay. Mục tự kiểm 4 (gửi trùng), 6 (hai máy chấm cùng thẻ),
-// 7 (chấm quá nhanh), 8 (người A không đọc, không ghi được dữ liệu người B). Người học ở Asia/Ho_Chi_Minh.
-
-const MUI_GIO_HOC = 'Asia/Ho_Chi_Minh';
-
-function lucHoc(string $gio): CarbonImmutable
-{
-    return CarbonImmutable::parse($gio, MUI_GIO_HOC);
-}
-
-function gioHoc(?int $luc): ?string
-{
-    return $luc === null ? null : CarbonImmutable::createFromTimestamp($luc, MUI_GIO_HOC)->format('Y-m-d H:i:s');
-}
-
-/** @return array<string, mixed> một lượt chấm như app gửi */
-function luot(int $the, int $cham, CarbonImmutable $luc, ?int $phien = null, ?int $thoiGian = 3000, string $cheDo = 'flashcard', ?string $uid = null): array
-{
-    return [
-        'uid' => $uid ?? (string) Str::ulid(),
-        'card_id' => $the,
-        'session_id' => $phien,
-        'mode' => $cheDo,
-        'rating' => $cham,
-        'reviewed_at_ms' => (int) $luc->getTimestampMs(),
-        'duration_ms' => $thoiGian,
-    ];
-}
+// 7 (chấm quá nhanh), 8 (người A không đọc, không ghi được dữ liệu người B). Người học ở Asia/Ho_Chi_Minh
+// (lucHoc, gioHoc, luot ở tests/Pest.php).
 
 beforeEach(function () {
     $this->seed();

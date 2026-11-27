@@ -122,12 +122,23 @@ describe('Hôm nay: số liệu thật từ máy chủ', () => {
         expect(links[1].textContent).toContain('7 đến hạn · 3 từ mới · 2 đã thành quả');
     });
 
-    it('chế độ học: Flashcard mở phiên học, các chế độ khác ghi rõ là sắp có', async () => {
+    it('chế độ học: đủ 7 chế độ như Lernbuch, mỗi ô ghi xu mỗi thẻ và mở phiên bằng chế độ đó', async () => {
         mo();
         await tieuDe();
-        const modes = within(screen.getByRole('region', { name: 'Chế độ học' }));
-        expect(modes.getAllByRole('link').map((l) => l.textContent)).toEqual(['Flashcard']);
-        expect(modes.getByRole('link', { name: 'Flashcard' }).getAttribute('href')).toBe('/hoc');
+        const modes = within(screen.getByRole('navigation', { name: 'Chế độ học' }));
+        const links = modes.getAllByRole('link');
+        expect(links.map((l) => l.querySelector('span')?.textContent)).toEqual(['Flashcard', 'Quiz', 'Listening', 'Typing', 'Ghép cặp', 'Hỗn hợp', 'Đặt câu']);
+        expect(links.map((l) => l.getAttribute('href'))).toEqual([
+            '/hoc',
+            '/hoc?che-do=quiz',
+            '/hoc?che-do=listening',
+            '/hoc?che-do=typing',
+            '/hoc?che-do=match',
+            '/hoc?che-do=mixed',
+            '/hoc?che-do=sentence',
+        ]);
+        expect(links[5].textContent).toContain('+20 xu');
+        expect(links[0].textContent).toContain('+5 xu');
     });
 
     it('không tải được thì báo và cho thử lại', async () => {

@@ -169,16 +169,24 @@ describe('Học: phiên flashcard từ máy chủ', () => {
         expect(goi.find((g) => g.url.startsWith('/api/v1/hoc/con-lai'))?.url).toBe('/api/v1/hoc/con-lai?chu_de=so-dem-tu-vung');
     });
 
-    it('còn thẻ ôn mà hết từ mới thì mời Ôn tiếp', async () => {
-        moPhien('/hoc?on=1', PHIEN(), { review: 3, new: 0 });
+    it('còn thẻ ôn mà hết từ mới thì mời Ôn tiếp; thẻ Quên quay lại tối đa 2 lần nhưng chỉ lượt đầu được gửi', async () => {
+        const goi = moPhien('/hoc?on=1', PHIEN(), { review: 3, new: 0 });
         await screen.findByRole('heading', { level: 1, name: 'die Zahl' });
         for (let i = 0; i < 4; i++) cham('1');
-        for (let i = 0; i < 4; i++) cham('1');
-        for (let i = 0; i < 4; i++) cham('1');
+        // Thẻ quay lại: ghi "Ôn lại"; nút chấm không ghi hạn ôn vì lượt này không đổi mức
+        expect(word()).toBe('die Zahl');
+        expect(screen.getByText('Ôn lại')).toBeTruthy();
+        key(' ');
+        expect(screen.getByRole('button', { name: /^Quên/ }).textContent).toContain('lát nữa');
+        expect(screen.getByRole('button', { name: /^Tốt/ }).textContent).toContain('xong');
+        key('1');
+        for (let i = 0; i < 7; i++) cham('1');
         const tiep = await screen.findByRole('link', { name: /Ôn tiếp/ });
         expect(tiep.textContent).toContain('3 ôn · 0 mới');
         expect(tiep.getAttribute('href')).toBe('/hoc?on=1');
-        expect(screen.getByText('Quên 12 · Khó 0 · Tốt 0 · Dễ 0')).toBeTruthy();
+        // Chỉ lượt đầu của mỗi thẻ được tính (như Lernbuch): 4 thẻ Quên, các lượt ôn lại chỉ để luyện
+        expect(screen.getByText('Quên 4 · Khó 0 · Tốt 0 · Dễ 0')).toBeTruthy();
+        expect(guiLuot(goi).map((l) => l.card_id).sort((a, b) => a - b)).toEqual([2, 8, 9, 10]);
     });
 
     it('mất mạng giữa phiên: vẫn chấm tiếp; đầu trang và bảng tổng kết ghi số lượt chờ gửi', async () => {

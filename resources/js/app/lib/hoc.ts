@@ -3,12 +3,25 @@ import type { NgonNguNghia, TenGon, TheTomTat } from './noiDung';
 
 export type CheDo = 'flashcard' | 'quiz' | 'listening' | 'typing' | 'match' | 'mixed' | 'sentence';
 
+/** 7 chế độ học, theo thứ tự hiện trên app (máy chủ: CaiDatHoc::CHE_DO). */
+export const CAC_CHE_DO: readonly CheDo[] = ['flashcard', 'quiz', 'listening', 'typing', 'match', 'mixed', 'sentence'];
+
+/** Xu cho mỗi thẻ chấm Tốt hoặc Dễ (Khó được nửa); khớp CaiDatHoc::XU qua tests/chung/xu-che-do.json. */
+export const XU: Record<CheDo, number> = { flashcard: 5, quiz: 10, listening: 15, typing: 10, match: 10, mixed: 20, sentence: 20 };
+
+export const laCheDo = (x: string | null): x is CheDo => !!x && (CAC_CHE_DO as readonly string[]).includes(x);
+
+/** Đáp án nhiễu (Quiz, Ghép cặp, Hỗn hợp): thẻ khác cùng loại thẻ, ưu tiên cùng loại từ và cùng chủ đề. */
+export type DapAnNhieu = Pick<TheTomTat, 'id' | 'front' | 'article' | 'word' | 'gender' | 'meanings'>;
+
 /** Thẻ trong phiên: tóm tắt, câu ví dụ chính, chủ đề, mức hiện tại (0 = từ mới). */
 export type TheHoc = TheTomTat & {
     example: { sentence: string; translations: Partial<Record<NgonNguNghia, string>> } | null;
     topic: TenGon | null;
     box: number;
     due_at: number | null;
+    /** Chỉ có ở Quiz, Ghép cặp, Hỗn hợp. */
+    options?: DapAnNhieu[];
 };
 
 export type PhienHoc = {

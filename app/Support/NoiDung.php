@@ -208,17 +208,10 @@ final class NoiDung
         $ra = [];
 
         foreach ($ds as $id => $t) {
-            $article = in_array($t->article, self::MAO_TU, true) ? (string) $t->article : null;
-            $front = (string) $t->front;
-            $coMaoTu = $article !== null && str_starts_with($front, $article.' ');
             $ra[] = [
                 'id' => $id,
                 'collection' => (string) $t->collection,
-                'front' => $front,
-                // Mạo từ chỉ đưa ra khi nó đứng đầu mặt trước ("der Gruß"), để app tô màu; câu như "Das ist nett." không có mạo từ
-                'article' => $coMaoTu ? $article : null,
-                'word' => $coMaoTu ? self::boMaoTu($front, $article) : $front,
-                'gender' => $coMaoTu && $t->gender !== null ? (string) $t->gender : null,
+                ...self::matTruoc($t),
                 'pos' => $t->pos !== null ? (string) $t->pos : null,
                 'forms' => $t->forms !== null ? (string) $t->forms : null,
                 'level' => self::chuCap($t),
@@ -229,6 +222,26 @@ final class NoiDung
         }
 
         return $ra;
+    }
+
+    /**
+     * Mặt trước tách mạo từ để app tô màu. Mạo từ chỉ đưa ra khi nó đứng đầu mặt trước ("der Gruß");
+     * câu như "Das ist nett." không có mạo từ.
+     *
+     * @return array{front: string, article: string|null, word: string, gender: string|null}
+     */
+    public static function matTruoc(stdClass $t): array
+    {
+        $article = in_array($t->article, self::MAO_TU, true) ? (string) $t->article : null;
+        $front = (string) $t->front;
+        $coMaoTu = $article !== null && str_starts_with($front, $article.' ');
+
+        return [
+            'front' => $front,
+            'article' => $coMaoTu ? $article : null,
+            'word' => $coMaoTu ? self::boMaoTu($front, $article) : $front,
+            'gender' => $coMaoTu && $t->gender !== null ? (string) $t->gender : null,
+        ];
     }
 
     /**

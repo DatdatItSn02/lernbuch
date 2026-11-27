@@ -122,6 +122,7 @@ it('dữ liệu cỡ thật: tạo phiên p95 dưới 150 ms, các API học và
     $ketQua = [];
 
     $ketQua['POST hoc/phien'] = doThoiGian(fn () => $this->postJson('/api/v1/hoc/phien')->assertCreated()->assertJsonPath('data.counts.review', 50));
+    $ketQua['POST hoc/phien (Quiz)'] = doThoiGian(fn () => $this->postJson('/api/v1/hoc/phien', ['mode' => 'quiz'])->assertCreated()->assertJsonCount(6, 'data.cards.0.options'));
     $ketQua['GET hoc/con-lai'] = doThoiGian(fn () => $this->getJson('/api/v1/hoc/con-lai')->assertOk());
     $ketQua['GET hom-nay'] = doThoiGian(fn () => $this->getJson('/api/v1/hom-nay')->assertOk()->assertJsonPath('data.due', 625));
     $ketQua['GET chu-de/{slug}'] = doThoiGian(fn () => $this->getJson("/api/v1/chu-de/{$d['chu_de']}")->assertOk());
@@ -145,7 +146,8 @@ it('dữ liệu cỡ thật: tạo phiên p95 dưới 150 ms, các API học và
 
     expect(DB::table('cards')->count())->toBe(SO_THE_LON)
         ->and(DB::table('review_logs')->where('user_id', $d['user'])->count())->toBe(23 * 20)
-        ->and($ketQua['POST hoc/phien']['p95'])->toBeLessThan(150.0);
+        ->and($ketQua['POST hoc/phien']['p95'])->toBeLessThan(150.0)
+        ->and($ketQua['POST hoc/phien (Quiz)']['p95'])->toBeLessThan(150.0);
 
     foreach ($ketQua as $api => $t) {
         expect($t['p95'])->toBeLessThan(200.0, "{$api}: p95 {$t['p95']} ms");

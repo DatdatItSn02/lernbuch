@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
  */
 final class CaiDatHoc
 {
-    /** 7 chế độ học (G1 tuần 3 mới có Flashcard trên app; máy chủ nhận đủ để tuần 4 không phải đổi API). */
+    /** 7 chế độ học như Lernbuch: Flashcard, Quiz, Listening, Typing, Ghép cặp, Hỗn hợp, Đặt câu. */
     public const CHE_DO = ['flashcard', 'quiz', 'listening', 'typing', 'match', 'mixed', 'sentence'];
 
     /** Xu cho mỗi thẻ chấm Tốt hoặc Dễ, theo chế độ (Lernbuch: MODE_COINS). Khó được nửa (làm tròn xuống), Quên không có. */

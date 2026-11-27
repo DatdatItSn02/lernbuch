@@ -1,27 +1,26 @@
-import { ArrowRight, X } from 'lucide-react';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import { DongDang, TuDuc } from '../components/Article';
 import { AudioButton } from '../components/AudioButton';
-import { ChoGui } from '../components/ChoGui';
 import { Kbd } from '../components/Kbd';
 import { LevelIcon } from '../components/LevelIcon';
 import { DangTai, LoiTai } from '../components/TaiNoiDung';
 import { PenTick } from '../components/Vo';
 import { api, LoiApi } from '../lib/api';
-import { guiDi, themLuot, useHangCho } from '../lib/hangCho';
-import type { ConLai, PhienHoc, TheHoc } from '../lib/hoc';
-import { truyVan } from '../lib/noiDung';
+import { guiDi } from '../lib/hangCho';
+import { laCheDo, type CheDo, type PhienHoc, type TheHoc } from '../lib/hoc';
 import { speak } from '../lib/speech';
-import { GRADES, SO_CHAM, formatInterval, grade as gradeCard, levelName, stageName, type Grade } from '../lib/srs';
-import { ulidTangDan } from '../lib/ulid';
+import { GRADES, formatInterval, grade as gradeCard, levelName, stageName, type Grade } from '../lib/srs';
 import { useStore } from '../state/store';
 import { useTitle } from '../lib/useTitle';
 import { t } from '../i18n';
 import { tGhep } from '../i18n/ghep';
+import { Empty, Header, Summary, ketQua, useGhiLuot, type Done } from './hoc/chung';
+import { PhienLuyen } from './hoc/PhienLuyen';
 
-type Done = { id: number; grade: Grade; before: number; after: number };
+export { sessionLine } from './hoc/chung';
 
+/** Thẻ Quên quay lại trong phiên tối đa chừng này lần (để luyện, không tính vào tiến độ). */
 const MAX_REQUEUE = 2;
 
 const GRADE_STYLE: Record<Grade, string> = {
@@ -38,8 +37,8 @@ const onControl = (el: EventTarget | null) => el instanceof HTMLElement && !!el.
 type Tai = { trangThai: 'dang-tai' } | { trangThai: 'loi'; loi: LoiApi } | { trangThai: 'xong'; phien: PhienHoc };
 
 /**
- * Phiên học Flashcard: máy chủ lập phiên (thẻ đến hạn và từ mới, xen kẽ), app chạy phiên, mỗi lượt chấm vào hàng chờ
- * trên máy rồi gửi theo lô. Mất mạng giữa phiên vẫn chấm tiếp được; lượt chờ gửi khi có mạng.
+ * Phiên học: máy chủ lập phiên (thẻ đến hạn và từ mới, xen kẽ), app chạy phiên theo chế độ đã chọn (?che-do=, mặc định Flashcard),
+ * mỗi lượt chấm vào hàng chờ trên máy rồi gửi theo lô. Mất mạng giữa phiên vẫn chấm tiếp được; lượt chờ gửi khi có mạng.
  */
 export function Hoc() {
     const [params] = useSearchParams();
@@ -47,19 +46,22 @@ export function Hoc() {
     useTitle(t('hoc.tieuDe'));
     const chuDe = params.get('chu-de');
     const chiOn = params.get('on') === '1';
+    const cheDoChon = params.get('che-do');
+    const cheDo: CheDo = laCheDo(cheDoChon) ? cheDoChon : 'flashcard';
     const [tai, setTai] = useState<Tai>({ trangThai: 'dang-tai' });
     const [lan, setLan] = useState(0);
     const daGoi = useRef(-1);
 
-    // Mở trang là lập một phiên (StrictMode chạy effect hai lần: chỉ gọi một lần cho mỗi lần thử)
+    // Mở trang là lập một phiên (StrictMode chạy effect hai lần: chỉ gọi một lần cho mỗi lần thử).
+    // Mỗi lần mở /hoc (kể cả "Học tiếp") trang được dựng lại (App.tsx: HocRoute), nên đây luôn là phiên mới.
     useEffect(() => {
         if (daGoi.current === lan) return;
         daGoi.current = lan;
-        api.gui<{ data: PhienHoc }>('/hoc/phien', { topic: chuDe, review_only: chiOn, mode: 'flashcard' }).then(
+        api.gui<{ data: PhienHoc }>('/hoc/phien', { topic: chuDe, review_only: chiOn, mode: cheDo }).then(
             ({ data }) => setTai({ trangThai: 'xong', phien: data }),
             (e: unknown) => setTai({ trangThai: 'loi', loi: e instanceof LoiApi ? e : new LoiApi(0, 'mat_mang') }),
         );
-    }, [chuDe, chiOn, lan]);
+    }, [chuDe, chiOn, cheDo, lan]);
 
     const exit = useCallback(() => {
         void guiDi();
@@ -88,7 +90,11 @@ export function Hoc() {
         );
     }
 
-    return <Phien phien={tai.phien} chuDe={chuDe} chiOn={chiOn} onExit={exit} />;
+    return tai.phien.mode === 'flashcard' ? (
+        <Phien phien={tai.phien} chuDe={chuDe} chiOn={chiOn} onExit={exit} />
+    ) : (
+        <PhienLuyen phien={tai.phien} chuDe={chuDe} chiOn={chiOn} onExit={exit} />
+    );
 }
 
 function Phien({ phien, chuDe, chiOn, onExit }: { phien: PhienHoc; chuDe: string | null; chiOn: boolean; onExit: () => void }) {
@@ -101,53 +107,29 @@ function Phien({ phien, chuDe, chiOn, onExit }: { phien: PhienHoc; chuDe: string
     const [done, setDone] = useState<Done[]>([]);
     const [requeued, setRequeued] = useState<Record<number, number>>({});
     const [lookBack, setLookBack] = useState(0); // 0: thẻ đang học; n: xem lại thẻ đã chấm thứ n tính từ cuối
-    const [daGuiHet, setDaGuiHet] = useState(false);
-    // Lúc thẻ đang học hiện lên (đặt trong effect bên dưới)
+    // Lúc thẻ đang học hiện lên (đặt trong effect bên dưới; máy chủ dùng để nhận ra chấm quá nhanh)
     const shownAt = useRef(0);
-    // Lượt đang ghi vào hàng chờ (IndexedDB ghi không đồng bộ): xong phiên thì chờ ghi hết rồi mới gửi
-    const dangGhi = useRef<Promise<void>[]>([]);
 
     const finished = pos >= queue.length;
+    const { ghi, daGuiHet } = useGhiLuot(phien.id, 'flashcard', finished);
     const reviewing = lookBack > 0 ? done[done.length - lookBack] : null;
     const card = reviewing ? byId.get(reviewing.id) : finished ? undefined : byId.get(queue[pos]);
     const level = card ? (reviewing ? reviewing.after : (levels[card.id] ?? 0)) : 0;
+    // Thẻ ôn lại trong phiên (đã chấm lượt đầu): nút chấm ghi "lát nữa" / "xong" thay cho hạn ôn
+    const onLai = !!card && !reviewing && done.some((d) => d.id === card.id);
     const last = done[done.length - 1];
 
-    // Thời gian thẻ hiện trên màn hình (máy chủ dùng để nhận ra chấm quá nhanh)
     useEffect(() => {
         shownAt.current = Date.now();
     }, [pos]);
-
-    // Xong phiên: chờ ghi hết lượt vào hàng chờ, gửi ngay, rồi bảng tổng kết mới hỏi máy chủ phiên tới còn gì
-    useEffect(() => {
-        if (!finished) return;
-        let bo = false;
-        void Promise.all(dangGhi.current)
-            .then(() => guiDi())
-            .then(() => !bo && setDaGuiHet(true));
-        return () => {
-            bo = true;
-        };
-    }, [finished]);
 
     const doGrade = useCallback(
         (g: Grade) => {
             if (!card || reviewing || !revealed) return;
             const before = levels[card.id] ?? 0;
-            const after = gradeCard(before, g).level;
-            const now = Date.now();
-            const ghi = themLuot({
-                uid: ulidTangDan(now),
-                card_id: card.id,
-                session_id: phien.id,
-                mode: 'flashcard',
-                rating: SO_CHAM[g],
-                reviewed_at_ms: now,
-                duration_ms: Math.max(0, now - shownAt.current),
-            });
-            dangGhi.current.push(ghi.catch(() => {}));
-            setLevels((l) => ({ ...l, [card.id]: after }));
-            setDone((d) => [...d, { id: card.id, grade: g, before, after }]);
+            const d = ketQua(card, g, before, ghi(card, g, shownAt.current));
+            setLevels((l) => ({ ...l, [card.id]: d.after }));
+            setDone((x) => [...x, d]);
             if (g === 'quen' && (requeued[card.id] ?? 0) < MAX_REQUEUE) {
                 // Ôn lại sau ít phút: chèn thẻ vào sau vài thẻ nữa
                 setQueue((q) => {
@@ -159,7 +141,7 @@ function Phien({ phien, chuDe, chiOn, onExit }: { phien: PhienHoc; chuDe: string
             setPos((p) => p + 1);
             setRevealed(false);
         },
-        [card, reviewing, revealed, levels, phien.id, requeued, pos],
+        [card, reviewing, revealed, levels, ghi, requeued, pos],
     );
 
     // Gắn phím ngay khi thẻ hiện (layout effect chạy cùng lúc vẽ thẻ): bấm Space ngay lúc thẻ đầu vừa hiện không bị mất
@@ -215,7 +197,7 @@ function Phien({ phien, chuDe, chiOn, onExit }: { phien: PhienHoc; chuDe: string
             {queue.length === 0 ? (
                 <Empty onExit={onExit} />
             ) : finished && !reviewing ? (
-                <Summary done={done} byId={byId} chuDe={chuDe} chiOn={chiOn} tenChuDe={phien.topic?.name} daGuiHet={daGuiHet} />
+                <Summary done={done} byId={byId} chuDe={chuDe} chiOn={chiOn} cheDo="flashcard" tenChuDe={phien.topic?.name} daGuiHet={daGuiHet} />
             ) : card ? (
                 <Card
                     key={`${card.id}-${pos}-${lookBack}`}
@@ -223,6 +205,7 @@ function Phien({ phien, chuDe, chiOn, onExit }: { phien: PhienHoc; chuDe: string
                     level={level}
                     revealed={revealed || !!reviewing}
                     reviewing={reviewing}
+                    onLai={onLai}
                     focusReveal={done.length > 0}
                     langs={settings.langs}
                     onReveal={() => setRevealed(true)}
@@ -234,41 +217,13 @@ function Phien({ phien, chuDe, chiOn, onExit }: { phien: PhienHoc; chuDe: string
     );
 }
 
-function Header({ onExit, pos, total, finished = false }: { onExit: () => void; pos: number; total: number; finished?: boolean }) {
-    const pct = total === 0 ? 0 : Math.round((Math.min(pos, total) / total) * 100);
-    return (
-        <header className="mx-auto flex w-full max-w-[640px] items-center gap-4 px-4 pt-3 pb-2">
-            <button
-                type="button"
-                onClick={onExit}
-                aria-label={t('hoc.thoat')}
-                className="flex size-11 items-center justify-center rounded-md text-ink-2 hover:bg-sunken hover:text-ink"
-            >
-                <X size={24} aria-hidden="true" />
-            </button>
-            <div
-                role="progressbar"
-                aria-label={t('hoc.tienDo')}
-                aria-valuemin={0}
-                aria-valuemax={total}
-                aria-valuenow={Math.min(pos, total)}
-                className="h-2 flex-1 overflow-hidden rounded-sm bg-sunken"
-            >
-                <div className="h-full bg-tim transition-[width] duration-300" style={{ width: `${pct}%` }} />
-            </div>
-            <span className="min-w-12 text-right text-label font-semibold tabular-nums text-ink-2">
-                {Math.min(pos + (finished || total === 0 ? 0 : 1), total)}/{total}
-            </span>
-            <ChoGui />
-        </header>
-    );
-}
-
 function Card(props: {
     card: TheHoc;
     level: number;
     revealed: boolean;
     reviewing: Done | null;
+    /** Thẻ quay lại sau khi Quên: lượt này chỉ để luyện, không đổi mức. */
+    onLai: boolean;
     /** Sau khi chấm, nút vừa bấm biến mất: đặt tiêu điểm vào nút Lật thẻ của thẻ mới (thẻ đầu phiên thì không). */
     focusReveal: boolean;
     langs: { vi: boolean; en: boolean; zh: boolean };
@@ -314,7 +269,12 @@ function Card(props: {
                                     <PenTick size={22} />
                                 </span>
                             )}
-                            {card.topic && <p className="mb-3 text-label text-ink-2">{card.topic.name}</p>}
+                            {(card.topic || props.onLai) && (
+                                <p className="mb-3 flex flex-wrap gap-x-3 text-label text-ink-2">
+                                    {card.topic && <span>{card.topic.name}</span>}
+                                    {props.onLai && <span className="font-semibold text-danger">{t('hoc.onLai')}</span>}
+                                </p>
+                            )}
                             <h1 className="max-w-full text-study-word font-extrabold break-words">
                                 <TuDuc the={card} />
                             </h1>
@@ -380,7 +340,8 @@ function Card(props: {
                                 >
                                     <span className="font-bold">{g.label}</span>
                                     <span className="text-label tabular-nums">
-                                        {formatInterval(gradeCard(level, g.id).intervalDays)} <Kbd>{g.key}</Kbd>
+                                        {props.onLai ? (g.id === 'quen' ? t('hoc.latNua') : t('hoc.xong')) : formatInterval(gradeCard(level, g.id).intervalDays)}{' '}
+                                        <Kbd>{g.key}</Kbd>
                                     </span>
                                 </button>
                             ))}
@@ -389,130 +350,5 @@ function Card(props: {
                 </div>
             </footer>
         </>
-    );
-}
-
-/** Một câu tổng kết thay cho ô số: bỏ phần bằng 0 cho dễ đọc. */
-export function sessionLine(total: number, fresh: number) {
-    if (fresh === 0) return t('hoc.tongKetOn', { n: total });
-    if (fresh === total) return t('hoc.tongKetMoi', { n: total });
-    return t('hoc.tongKet', { n: total, moi: fresh, on: total - fresh });
-}
-
-function Summary(props: { done: Done[]; byId: Map<number, TheHoc>; chuDe: string | null; chiOn: boolean; tenChuDe?: string; daGuiHet: boolean }) {
-    const { done, byId, chuDe, chiOn, tenChuDe } = props;
-    const { settings } = useStore();
-    const { cho } = useHangCho();
-    const [conLai, setConLai] = useState<ConLai | null>(null);
-    // Máy chủ đã nhận hết lượt của phiên này (mất mạng thì chờ tới khi hàng chờ gửi được)
-    const daGui = props.daGuiHet && cho === 0;
-
-    // Biết phiên tới còn gì sau khi máy chủ đã nhận hết lượt của phiên này
-    useEffect(() => {
-        if (!daGui) return;
-        let bo = false;
-        api.lay<{ data: ConLai }>(`/hoc/con-lai${truyVan({ chu_de: chuDe, on: chiOn ? '1' : null })}`).then(
-            ({ data }) => !bo && setConLai(data),
-            () => {},
-        );
-        return () => {
-            bo = true;
-        };
-    }, [daGui, chuDe, chiOn]);
-
-    const stats = useMemo(() => {
-        const first = new Map<number, Done>();
-        const lastOf = new Map<number, Done>();
-        for (const d of done) {
-            if (!first.has(d.id)) first.set(d.id, d);
-            lastOf.set(d.id, d);
-        }
-        const cards = [...first.values()];
-        const grown = cards.map((f) => ({ id: f.id, from: f.before, to: lastOf.get(f.id)!.after })).filter((c) => c.to > c.from);
-        const perGrade = Object.fromEntries(GRADES.map((g) => [g.id, done.filter((d) => d.grade === g.id).length])) as Record<Grade, number>;
-        return { total: cards.length, fresh: cards.filter((c) => c.before === 0).length, grown, perGrade };
-    }, [done]);
-    const newLimit = settings.newPerSession === 'all' ? Infinity : settings.newPerSession;
-    const more = conLai !== null && conLai.review + conLai.new > 0;
-    const xong = conLai !== null && !more;
-    const back = chuDe ? { to: `/chu-de/${chuDe}`, label: t('chuDe.veChuDe') } : { to: '/hom-nay', label: t('chung.veHomNay') };
-
-    return (
-        <main className="mx-auto w-full max-w-[640px] flex-1 px-5 py-6">
-            <h1 className="text-headline font-bold">{t('hoc.xongPhien')}</h1>
-            {tenChuDe && <p className="text-ink-2">{tenChuDe}</p>}
-            <p className="mt-4 text-title">
-                {sessionLine(stats.total, stats.fresh)} {stats.grown.length > 0 ? t('hoc.theLenMuc', { n: stats.grown.length }) : t('hoc.chuaLenMuc')}
-            </p>
-            <p className="mt-1 text-label text-ink-2 tabular-nums">{GRADES.map((g) => `${g.label} ${stats.perGrade[g.id]}`).join(' · ')}</p>
-            {props.daGuiHet && cho > 0 && <p className="mt-3 text-label text-ink-2">{t('hoc.conChoGui', { n: cho })}</p>}
-
-            {stats.grown.length > 0 && <CayLonLen grown={stats.grown} byId={byId} />}
-
-            {xong && <p className="mt-8 font-semibold">{t('hoc.hetChoNay')}</p>}
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                {more && (
-                    <Link
-                        to={`/hoc${truyVan({ 'chu-de': chuDe, on: chiOn ? '1' : null })}`}
-                        className="flex min-h-12 items-center justify-center rounded-md bg-tim px-6 font-bold text-on-tim hover:bg-tim-strong"
-                    >
-                        {conLai.new > 0 ? t('chuDe.hocTiep') : t('hoc.onTiep')}
-                        <span className="ml-2 text-label font-semibold tabular-nums">{t('chuDe.onVaMoi', { on: conLai.review, moi: Math.min(conLai.new, newLimit) })}</span>
-                    </Link>
-                )}
-                <Link
-                    to={back.to}
-                    className={`flex min-h-12 items-center justify-center rounded-md px-6 font-semibold ${
-                        more ? 'border border-line-strong hover:bg-sunken' : 'bg-tim font-bold text-on-tim hover:bg-tim-strong'
-                    }`}
-                >
-                    {back.label}
-                </Link>
-            </div>
-        </main>
-    );
-}
-
-function CayLonLen({ grown, byId }: { grown: { id: number; from: number; to: number }[]; byId: Map<number, TheHoc> }) {
-    return (
-        <section aria-labelledby="cay-lon" className="mt-8">
-            <h2 id="cay-lon" className="text-title font-bold">
-                {t('hoc.cayLonLen')}
-            </h2>
-            <ul className="mt-2 grid gap-x-8 sm:grid-cols-2">
-                {grown.map((c, i) => (
-                    <CayMot key={c.id} c={c} i={i} the={byId.get(c.id)} />
-                ))}
-            </ul>
-        </section>
-    );
-}
-
-function CayMot({ c, i, the }: { c: { id: number; from: number; to: number }; i: number; the: TheHoc | undefined }) {
-    return (
-        <li className="flex min-h-12 items-center justify-between gap-4 border-b border-line py-2">
-            <span className="min-w-0 font-semibold break-words">{the && <TuDuc the={the} />}</span>
-            <span className="flex shrink-0 items-center gap-1 text-label text-ink-2">
-                <LevelIcon level={c.from} size={20} title="" className="text-tim" />
-                <ArrowRight size={14} aria-hidden="true" />
-                <span className="lb-grow inline-flex" style={{ animationDelay: `${i * 80}ms` }}>
-                    <LevelIcon level={c.to} size={28} title="" className="text-tim" />
-                </span>
-                <span className="sr-only">{t('hoc.tuMucLen', { muc: levelName(c.from) })}</span>
-                {levelName(c.to)}
-            </span>
-        </li>
-    );
-}
-
-function Empty({ onExit }: { onExit: () => void }) {
-    return (
-        <main className="mx-auto flex w-full max-w-[640px] flex-1 flex-col items-center justify-center px-5 text-center">
-            <h1 className="text-headline font-bold">{t('hoc.khongCoThe')}</h1>
-            <p className="mt-2 text-ink-2">{t('hoc.khongCoTheLyDo')}</p>
-            <button type="button" onClick={onExit} className="mt-6 min-h-12 rounded-md border border-line-strong px-6 font-semibold hover:bg-sunken">
-                {t('chung.quayLai')}
-            </button>
-        </main>
     );
 }

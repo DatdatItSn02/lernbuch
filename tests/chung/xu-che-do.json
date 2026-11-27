@@ -1,0 +1,4 @@
+{
+  "ghi_chu": "Xu cho mỗi thẻ chấm Tốt hoặc Dễ theo chế độ (Lernbuch MODE_COINS); Khó được nửa, Quên không có. Máy chủ (CaiDatHoc::XU) và app (lib/hoc.ts) cùng kiểm theo file này.",
+  "xu": {"flashcard": 5, "quiz": 10, "listening": 15, "typing": 10, "match": 10, "mixed": 20, "sentence": 20}
+}

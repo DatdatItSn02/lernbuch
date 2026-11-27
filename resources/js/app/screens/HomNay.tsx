@@ -9,6 +9,7 @@ import { DangTai, LoiTai } from '../components/TaiNoiDung';
 import { InkSprig, Margin, PenTick } from '../components/Vo';
 import { khiNhanLo } from '../lib/hangCho';
 import type { HomNayData, NgayHoc } from '../lib/hoc';
+import { ChonCheDo } from '../components/ChonCheDo';
 import { useApi } from '../lib/useApi';
 import { useTitle } from '../lib/useTitle';
 import { NEW_COUNTS, useStore, type NewCount } from '../state/store';
@@ -120,12 +121,9 @@ export function HomNay() {
 
                     <section aria-labelledby="che-do" className="mt-8 px-5 md:px-8">
                         <h2 id="che-do" className="text-title font-bold">{t('homNay.cheDoHoc')}</h2>
-                        <p className="mt-2">
-                            <Link to="/hoc" className="inline-flex min-h-11 items-center gap-2 rounded-md border border-tim px-4 font-semibold text-tim transition-colors duration-200 hover:bg-tim-tint">
-                                {t('cheDo.flashcard')}
-                            </Link>
-                        </p>
-                        <p className="mt-2 text-label text-ink-2">{t('homNay.cheDoSapCo')}</p>
+                        <div className="mt-3">
+                            <ChonCheDo nhan={t('homNay.cheDoHoc')} />
+                        </div>
                     </section>
                 </div>
             </div>
