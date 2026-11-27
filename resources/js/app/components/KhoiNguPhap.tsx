@@ -86,7 +86,7 @@ const HOP: Record<'tip' | 'recap' | 'note', { khoa: Khoa; Icon: typeof Info }> =
 function HopGhiChu({ loai, children }: { loai: keyof typeof HOP; children: ReactNode }) {
     const { khoa, Icon } = HOP[loai];
     return (
-        <aside className="mt-4 rounded-md border border-line bg-sunken px-4 py-3">
+        <aside className="mt-4 rounded-md bg-sunken px-4 py-3">
             <p className="flex items-center gap-1.5 text-label font-bold">
                 <Icon size={16} aria-hidden="true" />
                 {t(khoa)}
@@ -209,7 +209,7 @@ export function KhoiNguPhap({ khoi, langs }: { khoi: Khoi[]; langs: Langs }) {
                 break;
             case 'fm':
                 ra.push(
-                    <div key={i} className="mt-4 rounded-md border-[1.5px] border-line-strong px-4 py-3">
+                    <div key={i} className="mt-4 border-y-[1.5px] border-line-strong py-3">
                         <p lang="de" className="text-title font-bold break-words">
                             {k.x}
                         </p>

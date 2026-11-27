@@ -309,6 +309,7 @@ Góc gần vuông như giấy cắt: 3 px cho vạch tiến độ và nhãn nh�
 
 ### Dải kẻ trong trang
 - Khối phụ nằm trong trang (tiến độ của chủ đề, "Luyện bài này" ở bài ngữ pháp, kết quả phiếu bài tập) là một dải có dòng kẻ trên và dưới, không viền bốn phía, không bo góc: trang đã là một khung, khung lồng khung làm rối và lệch với dòng kẻ của vở.
+- Trong bài ngữ pháp: câu công thức là dải kẻ đậm 1,5 px trên và dưới, chữ Title đậm; Mẹo, Nhắc lại, Lưu ý là ô nền lõm bo 5 px, không viền, có biểu tượng và nhãn đậm.
 
 ### Dòng báo mất mạng (G1 tuần 5)
 - Một dòng ngay dưới thanh hộp, nền lõm (sunken), viền dòng kẻ dưới, chữ nhãn màu mực, biểu tượng mây gạch (CloudOff, Lucide) đứng trước; nói việc vẫn làm được ("vẫn học được chủ đề đã tải về máy; lượt chấm sẽ tự gửi khi có mạng"). Là `role="status"`, không có nút đóng; có mạng lại thì tự mất. Không dùng màu lỗi: mất mạng là trạng thái, không phải lỗi.
