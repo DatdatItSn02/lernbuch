@@ -57,7 +57,9 @@ for (const theme of ['light', 'dark'] as const) {
             const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
             expect(overflow, 'tràn ngang (px)').toBeLessThanOrEqual(0);
             expect(await axe(page)).toEqual([]);
-            expect(errors).toEqual([]);
+            // Trang chủ đề không có: API trả 404 là đúng, trình duyệt ghi dòng "Failed to load resource" vào console
+            const coY = path === '/app/chu-de/khong-co' ? /status of 404/ : null;
+            expect(errors.filter((e) => !coY?.test(e))).toEqual([]);
         });
     }
 }
