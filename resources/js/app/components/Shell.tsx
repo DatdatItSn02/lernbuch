@@ -1,6 +1,7 @@
 import { BookOpen, CalendarDays, Library, Search, Settings, Star } from 'lucide-react';
 import { useEffect, useRef, type ReactNode } from 'react';
 import { Link, NavLink, useLocation } from 'react-router';
+import { ChoGui } from './ChoGui';
 import { t, type Khoa } from '../i18n';
 
 type MucDieuHuong = { to: string; khoa: Khoa; icon: typeof CalendarDays; cung?: string[]; dienThoai?: boolean };
@@ -20,8 +21,6 @@ const dangMo = (m: MucDieuHuong, duong: string) => duong === m.to || duong.start
 /** Khung app học: thanh mực tím trên cùng (điều hướng ở máy tính), thanh điều hướng dưới ở điện thoại; nội dung trên nền giấy vở. */
 export function Shell({ children }: { children: ReactNode }) {
     const { pathname } = useLocation();
-    // Hôm nay vẫn dùng dữ liệu mẫu (tiến độ lưu trên tài khoản có ở bước sau); các trang nội dung dùng dữ liệu thật
-    const mau = pathname === '/hom-nay';
     const mainRef = useRef<HTMLElement>(null);
     const firstPath = useRef(pathname);
 
@@ -63,7 +62,7 @@ export function Shell({ children }: { children: ReactNode }) {
                         })}
                     </nav>
                     <span className="ml-auto flex items-center gap-1">
-                        {mau && <span className="text-label text-on-box/80">{t('khung.duLieuMau')}</span>}
+                        <ChoGui mau="text-on-box/85" />
                         <NavLink
                             to="/cai-dat"
                             aria-label={t('khung.caiDat')}
@@ -78,7 +77,6 @@ export function Shell({ children }: { children: ReactNode }) {
             </header>
 
             <main ref={mainRef} id="noi-dung" tabIndex={-1} className="mx-auto max-w-[var(--sheet-max)] pb-24 md:px-6 md:pt-6 md:pb-12">
-                {mau && <p className="border-b border-line px-5 py-1.5 text-label text-ink-2 md:hidden">{t('khung.matKhiTaiLai')}</p>}
                 {children}
             </main>
 

@@ -712,6 +712,7 @@ CREATE TABLE review_logs (
   box_before   TINYINT UNSIGNED NOT NULL,
   box_after    TINYINT UNSIGNED NOT NULL,
   coins        SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+  no_coin_reason VARCHAR(20) CHARACTER SET ascii COLLATE ascii_bin NULL COMMENT 'lý do không cộng xu: too_fast (chấm nhanh hơn ngưỡng của chế độ)',
   duration_ms  INT UNSIGNED NULL,
   reviewed_at  INT UNSIGNED NOT NULL,
   PRIMARY KEY (id, reviewed_at),

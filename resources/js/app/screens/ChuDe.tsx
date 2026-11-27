@@ -4,11 +4,14 @@ import { Link, useParams, useSearchParams } from 'react-router';
 import { coDang, DongDang, TuDuc } from '../components/Article';
 import { Choice } from '../components/Choice';
 import { Kbd } from '../components/Kbd';
+import { LevelBar } from '../components/LevelBar';
 import { Sheet } from '../components/Shell';
 import { DangTai, LoiTai } from '../components/TaiNoiDung';
 import { demThe, docCap, tenCap, tenLoaiTu, trangCuaBo, truyVan, type TheTomTat, type TrangChuDe } from '../lib/noiDung';
+import type { TienDoChuDe } from '../lib/hoc';
 import { useApi } from '../lib/useApi';
 import { useTitle } from '../lib/useTitle';
+import { useStore } from '../state/store';
 import { KhongThay } from './KhongThay';
 import { so, t } from '../i18n';
 
@@ -140,7 +143,7 @@ function TopicPage({ slug }: { slug: string }) {
                 <p className="mt-2 text-label font-semibold tabular-nums">
                     {dl.topic.collection.name} · {demThe(bo, dl.topic.card_count)}
                 </p>
-                <p className="mt-3 max-w-xl rounded-md border border-dashed border-line-strong px-4 py-2.5 text-label text-ink-2">{t('noiDung.hocSau')}</p>
+                <HocChuDe slug={dl.topic.slug} tienDo={dl.progress} />
 
                 {dl.levels.length > 1 && (
                     <div role="group" aria-label={t('chuDe.locCapThe')} className="mt-4 flex flex-wrap gap-1.5">
@@ -346,3 +349,35 @@ function Covered({ label, onClick }: { label: string; onClick: () => void }) {
         </button>
     );
 }
+
+/** Ô học của trang chủ đề: tiến độ của người học trong chủ đề và nút học (thẻ đến hạn và từ mới đều trong chủ đề này). */
+function HocChuDe({ slug, tienDo }: { slug: string; tienDo: TienDoChuDe }) {
+    const { settings } = useStore();
+    const moi = settings.newPerSession === 'all' ? tienDo.new : Math.min(settings.newPerSession, tienDo.new);
+    const on = Math.min(tienDo.due, ON_MOI_PHIEN);
+    return (
+        <div className="mt-4 flex max-w-2xl flex-col gap-3 rounded-md border border-line px-4 py-3 sm:flex-row sm:items-center sm:gap-5">
+            <div className="min-w-0 flex-1">
+                <p className="text-label font-semibold">{t('chuDe.tienDo')}</p>
+                <p className="text-label text-ink-2 tabular-nums">{t('chuDe.demTienDo', { denHan: tienDo.due, moi: tienDo.new, qua: tienDo.levels[5] ?? 0 })}</p>
+                <div className="mt-2">
+                    <LevelBar counts={tienDo.levels} compact />
+                </div>
+            </div>
+            {on + moi > 0 ? (
+                <Link
+                    to={`/hoc?chu-de=${slug}`}
+                    className="flex min-h-12 shrink-0 flex-col items-center justify-center rounded-md bg-tim px-5 py-1.5 text-on-tim transition-colors duration-200 hover:bg-tim-strong"
+                >
+                    <span className="font-bold">{moi > 0 ? t('chuDe.hocChuDe') : t('chuDe.onChuDe')}</span>
+                    <span className="text-label tabular-nums">{t('chuDe.onVaMoi', { on, moi })}</span>
+                </Link>
+            ) : (
+                <p className="text-label font-semibold">{t('chuDe.daHocHet')}</p>
+            )}
+        </div>
+    );
+}
+
+/** Phiên học lấy tối đa chừng này thẻ đến hạn (máy chủ: PhienHoc::ON_TOI_DA). */
+const ON_MOI_PHIEN = 50;

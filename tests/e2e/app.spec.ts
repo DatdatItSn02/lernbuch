@@ -2,8 +2,8 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 
 // App học trên trình duyệt thật, cỡ máy tính và cỡ điện thoại: không tràn ngang, không lỗi console, đạt WCAG 2.2 AA
-// theo axe ở cả giao diện sáng và tối, dùng được bằng bàn phím. Hôm nay và Học còn dùng dữ liệu mẫu; các trang nội dung
-// đọc API với nội dung mẫu nhỏ (NoiDungThuSeeder). Thẻ từ có id tự tăng nên ở noi-dung.spec.ts, mở qua trang chủ đề.
+// theo axe ở cả giao diện sáng và tối, dùng được bằng bàn phím. Mọi trang đọc API với nội dung mẫu nhỏ (NoiDungThuSeeder).
+// Thẻ từ có id tự tăng nên ở noi-dung.spec.ts, mở qua trang chủ đề. Phiên học có chấm thẻ ở hoc.spec.ts (tài khoản riêng).
 
 const SCREENS = [
     ['Hôm nay', '/app/hom-nay'],
@@ -63,37 +63,6 @@ for (const theme of ['light', 'dark'] as const) {
         });
     }
 }
-
-test('phiên học bằng bàn phím: Space lật, 1–4 chấm, ← xem lại, Esc thoát', async ({ page }) => {
-    await open(page, '/app/hoc');
-    await expect(page.getByText('1/21')).toBeVisible();
-    await expect(page.locator('h1')).toHaveText('die Orange');
-    await page.keyboard.press('Space');
-    await expect(page.getByText('quả cam')).toBeVisible();
-    // Sau khi lật mới chấm WCAG: lúc này có thêm 4 nút chấm và phần đáp án
-    expect(await axe(page)).toEqual([]);
-    await page.keyboard.press('3');
-    await expect(page.locator('h1')).toHaveText('der Teig');
-    await expect(page.getByRole('status').first()).toContainText('Orange lên mức Khá');
-    await page.keyboard.press('ArrowLeft');
-    await expect(page.locator('h1')).toHaveText('die Orange');
-    await page.keyboard.press('ArrowRight');
-    await expect(page.locator('h1')).toHaveText('der Teig');
-    await page.keyboard.press('Escape');
-    await expect(page).toHaveURL(/\/app\/hom-nay$/);
-});
-
-test('đi hết một phiên ôn và xem tổng kết', async ({ page }) => {
-    await open(page, '/app/hoc?chu-de=trai-cay&on=1');
-    for (let i = 0; i < 7; i++) {
-        await page.keyboard.press('Space');
-        await page.keyboard.press('3');
-    }
-    await expect(page.getByRole('heading', { name: 'Xong phiên' })).toBeVisible();
-    expect(await axe(page)).toEqual([]);
-    await page.getByRole('link', { name: /Học tiếp/ }).click();
-    await expect(page.getByText('1/3')).toBeVisible();
-});
 
 test('trang chủ đề: phím / vào ô tìm, máy chủ lọc khi ngừng gõ (không dấu vẫn ra), che cột rồi chạm để xem, sang trang 2', async ({ page }) => {
     await open(page, '/app/chu-de/so-dem-tu-vung');

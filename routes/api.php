@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\CaiDatController;
+use App\Http\Controllers\Api\V1\HocController;
 use App\Http\Controllers\Api\V1\NoiDungController;
 use App\Http\Controllers\Api\V1\PhienController;
 use App\Http\Controllers\Api\V1\SoTayController;
@@ -30,6 +31,12 @@ Route::prefix('v1')->middleware(['auth:sanctum', 'da-xac-minh', 'ngon-ngu'])->gr
     // Sổ tay: sao và ghi chú riêng, luôn của người đang đăng nhập
     Route::get('so-tay', [SoTayController::class, 'index']);
     Route::put('the/{id}/so-tay', [SoTayController::class, 'update'])->whereNumber('id');
+
+    // Học: Hôm nay, phiên học, lượt chấm gửi theo lô (hàng chờ trên máy gửi lại khi có mạng)
+    Route::get('hom-nay', [HocController::class, 'homNay']);
+    Route::post('hoc/phien', [HocController::class, 'taoPhien']);
+    Route::get('hoc/con-lai', [HocController::class, 'conLai']);
+    Route::post('hoc/luot-cham', [HocController::class, 'luotCham']);
 
     // Tra từ
     Route::get('tra-tu', [TraTuController::class, 'tim']);

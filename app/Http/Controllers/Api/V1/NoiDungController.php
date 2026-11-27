@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Support\Hoc\PhienHoc;
 use App\Support\NoiDung;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
@@ -130,6 +131,7 @@ class NoiDungController extends Controller
                 'group' => $ong !== null ? NoiDung::tenGon($ong) : null,
                 'levels' => NoiDung::demTheoCap($goc()),
                 'pos' => NoiDung::demTheoLoaiTu($goc()),
+                'progress' => PhienHoc::tienDoChuDe($user, $t),
                 'cards' => NoiDung::tomTat($the, $user),
             ],
             'meta' => ['page' => $trang, 'per_page' => NoiDung::MOI_TRANG, 'total' => $tong, 'pages' => $soTrang],

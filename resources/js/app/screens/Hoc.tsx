@@ -1,23 +1,27 @@
 import { ArrowRight, X } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router';
-import { GermanWord, PluralLine } from '../components/Article';
+import { DongDang, TuDuc } from '../components/Article';
 import { AudioButton } from '../components/AudioButton';
+import { ChoGui } from '../components/ChoGui';
 import { Kbd } from '../components/Kbd';
 import { LevelIcon } from '../components/LevelIcon';
+import { DangTai, LoiTai } from '../components/TaiNoiDung';
 import { PenTick } from '../components/Vo';
-import { currentTopicId, topics, words, type Word } from '../data/demo';
-import { buildSession, isDue, isNew } from '../lib/session';
+import { api, LoiApi } from '../lib/api';
+import { guiDi, themLuot, useHangCho } from '../lib/hangCho';
+import type { ConLai, PhienHoc, TheHoc } from '../lib/hoc';
+import { truyVan } from '../lib/noiDung';
 import { speak } from '../lib/speech';
-import { GRADES, levelName, stageName, formatInterval, grade as gradeCard, type Grade } from '../lib/srs';
+import { GRADES, SO_CHAM, formatInterval, grade as gradeCard, levelName, stageName, type Grade } from '../lib/srs';
+import { ulidTangDan } from '../lib/ulid';
 import { useStore } from '../state/store';
 import { useTitle } from '../lib/useTitle';
 import { t } from '../i18n';
 import { tGhep } from '../i18n/ghep';
 
-type Done = { id: string; grade: Grade; before: number; after: number };
+type Done = { id: number; grade: Grade; before: number; after: number };
 
-const byId = new Map(words.map((w) => [w.id, w]));
 const MAX_REQUEUE = 2;
 
 const GRADE_STYLE: Record<Grade, string> = {
@@ -31,68 +35,141 @@ const isTyping = (el: EventTarget | null) => el instanceof HTMLElement && (el.is
 /** Space/Enter trên nút hay liên kết đang có tiêu điểm thì để trình duyệt bấm chính nút đó. */
 const onControl = (el: EventTarget | null) => el instanceof HTMLElement && !!el.closest('button, a');
 
+type Tai = { trangThai: 'dang-tai' } | { trangThai: 'loi'; loi: LoiApi } | { trangThai: 'xong'; phien: PhienHoc };
+
+/**
+ * Phiên học Flashcard: máy chủ lập phiên (thẻ đến hạn và từ mới, xen kẽ), app chạy phiên, mỗi lượt chấm vào hàng chờ
+ * trên máy rồi gửi theo lô. Mất mạng giữa phiên vẫn chấm tiếp được; lượt chờ gửi khi có mạng.
+ */
 export function Hoc() {
     const [params] = useSearchParams();
     const navigate = useNavigate();
-    const { progress, settings, dispatch } = useStore();
     useTitle(t('hoc.tieuDe'));
-    const topicId = params.get('chu-de') ?? undefined;
-    const reviewOnly = params.get('on') === '1';
-    const topic = topicId ? topics.find((cd) => cd.id === topicId) : undefined;
+    const chuDe = params.get('chu-de');
+    const chiOn = params.get('on') === '1';
+    const [tai, setTai] = useState<Tai>({ trangThai: 'dang-tai' });
+    const [lan, setLan] = useState(0);
+    const daGoi = useRef(-1);
 
-    // Lập phiên một lần khi mở trang; chấm thẻ không làm phiên đổi theo (trừ thẻ Quên được chèn lại)
-    const [queue, setQueue] = useState<string[]>(() =>
-        buildSession(words, progress, {
-            dueTopicId: topicId,
-            newTopicId: topicId ?? currentTopicId,
-            newCount: settings.newPerSession,
-            reviewOnly,
-        }),
-    );
+    // Mở trang là lập một phiên (StrictMode chạy effect hai lần: chỉ gọi một lần cho mỗi lần thử)
+    useEffect(() => {
+        if (daGoi.current === lan) return;
+        daGoi.current = lan;
+        api.gui<{ data: PhienHoc }>('/hoc/phien', { topic: chuDe, review_only: chiOn, mode: 'flashcard' }).then(
+            ({ data }) => setTai({ trangThai: 'xong', phien: data }),
+            (e: unknown) => setTai({ trangThai: 'loi', loi: e instanceof LoiApi ? e : new LoiApi(0, 'mat_mang') }),
+        );
+    }, [chuDe, chiOn, lan]);
+
+    const exit = useCallback(() => {
+        void guiDi();
+        navigate(chuDe ? `/chu-de/${chuDe}` : '/hom-nay');
+    }, [navigate, chuDe]);
+
+    if (tai.trangThai !== 'xong') {
+        return (
+            <div className="flex min-h-dvh flex-col bg-paper text-ink">
+                <Header onExit={exit} pos={0} total={0} />
+                <main className="mx-auto w-full max-w-[640px] flex-1 px-5">
+                    <h1 className="sr-only">{t('hoc.tieuDe')}</h1>
+                    {tai.trangThai === 'dang-tai' ? (
+                        <DangTai />
+                    ) : (
+                        <LoiTai
+                            loi={tai.loi}
+                            taiLai={() => {
+                                setTai({ trangThai: 'dang-tai' });
+                                setLan((n) => n + 1);
+                            }}
+                        />
+                    )}
+                </main>
+            </div>
+        );
+    }
+
+    return <Phien phien={tai.phien} chuDe={chuDe} chiOn={chiOn} onExit={exit} />;
+}
+
+function Phien({ phien, chuDe, chiOn, onExit }: { phien: PhienHoc; chuDe: string | null; chiOn: boolean; onExit: () => void }) {
+    const { settings } = useStore();
+    const byId = useMemo(() => new Map(phien.cards.map((c) => [c.id, c])), [phien]);
+    const [queue, setQueue] = useState<number[]>(() => phien.cards.map((c) => c.id));
+    const [levels, setLevels] = useState<Record<number, number>>(() => Object.fromEntries(phien.cards.map((c) => [c.id, c.box])));
     const [pos, setPos] = useState(0);
     const [revealed, setRevealed] = useState(false);
     const [done, setDone] = useState<Done[]>([]);
-    const [requeued, setRequeued] = useState<Record<string, number>>({});
+    const [requeued, setRequeued] = useState<Record<number, number>>({});
     const [lookBack, setLookBack] = useState(0); // 0: thẻ đang học; n: xem lại thẻ đã chấm thứ n tính từ cuối
+    const [daGuiHet, setDaGuiHet] = useState(false);
+    // Lúc thẻ đang học hiện lên (đặt trong effect bên dưới)
+    const shownAt = useRef(0);
+    // Lượt đang ghi vào hàng chờ (IndexedDB ghi không đồng bộ): xong phiên thì chờ ghi hết rồi mới gửi
+    const dangGhi = useRef<Promise<void>[]>([]);
 
     const finished = pos >= queue.length;
     const reviewing = lookBack > 0 ? done[done.length - lookBack] : null;
-    const word = reviewing ? byId.get(reviewing.id) : finished ? undefined : byId.get(queue[pos]);
-    const level = word ? (reviewing ? reviewing.after : (progress[word.id]?.level ?? 0)) : 0;
+    const card = reviewing ? byId.get(reviewing.id) : finished ? undefined : byId.get(queue[pos]);
+    const level = card ? (reviewing ? reviewing.after : (levels[card.id] ?? 0)) : 0;
     const last = done[done.length - 1];
 
-    // Phiên học còn dùng dữ liệu mẫu (chủ đề mẫu không có trang riêng): thoát thì về Hôm nay
-    const exit = useCallback(() => navigate('/hom-nay'), [navigate]);
+    // Thời gian thẻ hiện trên màn hình (máy chủ dùng để nhận ra chấm quá nhanh)
+    useEffect(() => {
+        shownAt.current = Date.now();
+    }, [pos]);
+
+    // Xong phiên: chờ ghi hết lượt vào hàng chờ, gửi ngay, rồi bảng tổng kết mới hỏi máy chủ phiên tới còn gì
+    useEffect(() => {
+        if (!finished) return;
+        let bo = false;
+        void Promise.all(dangGhi.current)
+            .then(() => guiDi())
+            .then(() => !bo && setDaGuiHet(true));
+        return () => {
+            bo = true;
+        };
+    }, [finished]);
 
     const doGrade = useCallback(
         (g: Grade) => {
-            if (!word || reviewing || !revealed) return;
-            const before = progress[word.id]?.level ?? 0;
+            if (!card || reviewing || !revealed) return;
+            const before = levels[card.id] ?? 0;
             const after = gradeCard(before, g).level;
-            dispatch({ type: 'grade', id: word.id, grade: g });
-            setDone((d) => [...d, { id: word.id, grade: g, before, after }]);
-            if (g === 'quen' && (requeued[word.id] ?? 0) < MAX_REQUEUE) {
+            const now = Date.now();
+            const ghi = themLuot({
+                uid: ulidTangDan(now),
+                card_id: card.id,
+                session_id: phien.id,
+                mode: 'flashcard',
+                rating: SO_CHAM[g],
+                reviewed_at_ms: now,
+                duration_ms: Math.max(0, now - shownAt.current),
+            });
+            dangGhi.current.push(ghi.catch(() => {}));
+            setLevels((l) => ({ ...l, [card.id]: after }));
+            setDone((d) => [...d, { id: card.id, grade: g, before, after }]);
+            if (g === 'quen' && (requeued[card.id] ?? 0) < MAX_REQUEUE) {
                 // Ôn lại sau ít phút: chèn thẻ vào sau vài thẻ nữa
                 setQueue((q) => {
                     const at = Math.min(q.length, pos + 4);
-                    return [...q.slice(0, at), word.id, ...q.slice(at)];
+                    return [...q.slice(0, at), card.id, ...q.slice(at)];
                 });
-                setRequeued((r) => ({ ...r, [word.id]: (r[word.id] ?? 0) + 1 }));
+                setRequeued((r) => ({ ...r, [card.id]: (r[card.id] ?? 0) + 1 }));
             }
             setPos((p) => p + 1);
             setRevealed(false);
         },
-        [word, reviewing, revealed, progress, dispatch, requeued, pos],
+        [card, reviewing, revealed, levels, phien.id, requeued, pos],
     );
 
     useEffect(() => {
         const onKey = (e: KeyboardEvent) => {
             if (isTyping(e.target) || e.altKey || e.ctrlKey || e.metaKey) return;
             const k = e.key.toLowerCase();
-            if (k === 'escape') return exit();
+            if (k === 'escape') return onExit();
             if (k === 'arrowleft') return setLookBack((n) => Math.min(done.length, n + 1));
             if (k === 'arrowright') return setLookBack((n) => Math.max(0, n - 1));
-            if (!word) return;
+            if (!card) return;
             if ((k === ' ' || k === 'enter') && onControl(e.target)) return;
             if (k === ' ' || k === 'spacebar') {
                 e.preventDefault();
@@ -101,75 +178,47 @@ export function Hoc() {
             }
             const g = GRADES.find((x) => x.key === k);
             if (g && revealed) return doGrade(g.id);
-            if (k === 'p') void speak(word.lemma);
-            if (k === 's') void speak(word.lemma, true);
-            if (k === 'e' && word.examples[0]) void speak(word.examples[0].de);
+            if (k === 'p') void speak(card.front);
+            if (k === 's') void speak(card.front, true);
+            if (k === 'e' && card.example) void speak(card.example.sentence);
         };
         window.addEventListener('keydown', onKey);
         return () => window.removeEventListener('keydown', onKey);
-    }, [word, revealed, reviewing, doGrade, exit, done.length]);
+    }, [card, revealed, reviewing, doGrade, onExit, done.length]);
 
-    const lastWord = last ? byId.get(last.id) : undefined;
+    const lastCard = last ? byId.get(last.id) : undefined;
     const lastRequeued = !!last && last.grade === 'quen' && queue.indexOf(last.id, pos) >= pos;
     let status: ReactNode = null;
     if (reviewing) {
         status = <>{t('hoc.dangXemLai', { cham: GRADES.find((g) => g.id === reviewing.grade)?.label ?? '' })}</>;
-    } else if (!finished && lastWord && last && last.after > last.before) {
+    } else if (!finished && lastCard && last && last.after > last.before) {
         status = (
             <span className="inline-flex items-center gap-1">
-                {tGhep('hoc.lenMuc', { tu: <span lang="de">{lastWord.lemma}</span>, muc: levelName(last.after) })}
+                {tGhep('hoc.lenMuc', { tu: <TuDuc the={lastCard} />, muc: levelName(last.after) })}
                 <span className="lb-grow inline-flex">
                     <LevelIcon level={last.after} size={20} className="text-tim" />
                 </span>
             </span>
         );
-    } else if (!finished && lastWord && lastRequeued) {
-        status = (
-            <>
-                {tGhep('hoc.quayLai', { tu: <span lang="de">{lastWord.lemma}</span> })}
-            </>
-        );
+    } else if (!finished && lastCard && lastRequeued) {
+        status = <>{tGhep('hoc.quayLai', { tu: <TuDuc the={lastCard} /> })}</>;
     }
-
-    const progressPct = queue.length === 0 ? 0 : Math.round((Math.min(pos, queue.length) / queue.length) * 100);
 
     return (
         <div className="flex min-h-dvh flex-col bg-paper text-ink">
-            <header className="mx-auto flex w-full max-w-[640px] items-center gap-4 px-4 pt-3 pb-2">
-                <button
-                    type="button"
-                    onClick={exit}
-                    aria-label={t('hoc.thoat')}
-                    className="flex size-11 items-center justify-center rounded-md text-ink-2 hover:bg-sunken hover:text-ink"
-                >
-                    <X size={24} aria-hidden="true" />
-                </button>
-                <div
-                    role="progressbar"
-                    aria-label={t('hoc.tienDo')}
-                    aria-valuemin={0}
-                    aria-valuemax={queue.length}
-                    aria-valuenow={Math.min(pos, queue.length)}
-                    className="h-2 flex-1 overflow-hidden rounded-sm bg-sunken"
-                >
-                    <div className="h-full bg-tim transition-[width] duration-300" style={{ width: `${progressPct}%` }} />
-                </div>
-                <span className="min-w-12 text-right text-label font-semibold tabular-nums text-ink-2">
-                    {Math.min(pos + (finished ? 0 : 1), queue.length)}/{queue.length}
-                </span>
-            </header>
+            <Header onExit={onExit} pos={pos} total={queue.length} finished={finished} />
             <p role="status" className="mx-auto min-h-6 w-full max-w-[640px] px-5 text-center text-label text-ink-2">
                 {status}
             </p>
 
             {queue.length === 0 ? (
-                <Empty onExit={exit} />
+                <Empty onExit={onExit} />
             ) : finished && !reviewing ? (
-                <Summary done={done} topicId={topicId} topicName={topic?.name} newTopicId={topicId ?? currentTopicId} />
-            ) : word ? (
+                <Summary done={done} byId={byId} chuDe={chuDe} chiOn={chiOn} tenChuDe={phien.topic?.name} daGuiHet={daGuiHet} />
+            ) : card ? (
                 <Card
-                    key={`${word.id}-${pos}-${lookBack}`}
-                    word={word}
+                    key={`${card.id}-${pos}-${lookBack}`}
+                    card={card}
                     level={level}
                     revealed={revealed || !!reviewing}
                     reviewing={reviewing}
@@ -184,8 +233,38 @@ export function Hoc() {
     );
 }
 
+function Header({ onExit, pos, total, finished = false }: { onExit: () => void; pos: number; total: number; finished?: boolean }) {
+    const pct = total === 0 ? 0 : Math.round((Math.min(pos, total) / total) * 100);
+    return (
+        <header className="mx-auto flex w-full max-w-[640px] items-center gap-4 px-4 pt-3 pb-2">
+            <button
+                type="button"
+                onClick={onExit}
+                aria-label={t('hoc.thoat')}
+                className="flex size-11 items-center justify-center rounded-md text-ink-2 hover:bg-sunken hover:text-ink"
+            >
+                <X size={24} aria-hidden="true" />
+            </button>
+            <div
+                role="progressbar"
+                aria-label={t('hoc.tienDo')}
+                aria-valuemin={0}
+                aria-valuemax={total}
+                aria-valuenow={Math.min(pos, total)}
+                className="h-2 flex-1 overflow-hidden rounded-sm bg-sunken"
+            >
+                <div className="h-full bg-tim transition-[width] duration-300" style={{ width: `${pct}%` }} />
+            </div>
+            <span className="min-w-12 text-right text-label font-semibold tabular-nums text-ink-2">
+                {Math.min(pos + (finished || total === 0 ? 0 : 1), total)}/{total}
+            </span>
+            <ChoGui />
+        </header>
+    );
+}
+
 function Card(props: {
-    word: Word;
+    card: TheHoc;
     level: number;
     revealed: boolean;
     reviewing: Done | null;
@@ -196,11 +275,12 @@ function Card(props: {
     onGrade: (g: Grade) => void;
     onBack: () => void;
 }) {
-    const { word, level, revealed, reviewing, focusReveal, langs } = props;
-    const example = word.examples[0];
+    const { card, level, revealed, reviewing, focusReveal, langs } = props;
+    const example = card.example;
     const revealRef = useRef<HTMLButtonElement>(null);
     const answerRef = useRef<HTMLDivElement>(null);
     const wasRevealed = useRef(revealed);
+    const nghia = (['vi', 'en', 'zh'] as const).filter((l) => langs[l] && card.meanings[l]);
 
     // Giữ tiêu điểm trong phiên: thẻ mới đặt vào nút Lật thẻ, lật xong đặt vào phần đáp án để trình đọc màn hình đọc tiếp.
     useEffect(() => {
@@ -233,30 +313,32 @@ function Card(props: {
                                     <PenTick size={22} />
                                 </span>
                             )}
-                            <p className="mb-3 text-label text-ink-2">{topics.find((t) => t.id === word.topicId)?.name}</p>
+                            {card.topic && <p className="mb-3 text-label text-ink-2">{card.topic.name}</p>}
                             <h1 className="max-w-full text-study-word font-extrabold break-words">
-                                <GermanWord word={word} />
+                                <TuDuc the={card} />
                             </h1>
                             <p className="mt-1 text-ink-2">
-                                <PluralLine word={word} />
+                                <DongDang the={card} />
                             </p>
                             <div className="mt-4 flex gap-2">
-                                <AudioButton text={word.lemma} shortcut="P" iconOnly />
-                                <AudioButton text={word.lemma} slow shortcut="S" iconOnly />
+                                <AudioButton text={card.front} shortcut="P" iconOnly />
+                                <AudioButton text={card.front} slow shortcut="S" iconOnly />
                             </div>
 
                             {revealed && (
                                 <div ref={answerRef} tabIndex={-1} aria-label={t('hoc.dapAn')} className="lb-reveal mt-6 border-t border-dashed border-line-strong pt-5">
-                                    {langs.vi && <p className="text-title font-bold">{word.vi}</p>}
-                                    {langs.en && <p lang="en" className="mt-1 text-ink-2">{word.en}</p>}
-                                    {langs.zh && <p lang="zh" className="mt-1 font-zh text-ink-2">{word.zh}</p>}
-                                    {!langs.vi && !langs.en && !langs.zh && <p className="text-ink-2">{t('hoc.tatNghia')}</p>}
+                                    {nghia.map((l, i) => (
+                                        <p key={l} lang={l} className={i === 0 ? 'text-title font-bold' : `mt-1 text-ink-2 ${l === 'zh' ? 'font-zh' : ''}`}>
+                                            {card.meanings[l]}
+                                        </p>
+                                    ))}
+                                    {nghia.length === 0 && <p className="text-ink-2">{t('hoc.tatNghia')}</p>}
                                     {example && (
                                         <div className="mt-5 flex items-start gap-3">
-                                            <AudioButton text={example.de} label={t('nghe.viDu')} shortcut="E" iconOnly />
+                                            <AudioButton text={example.sentence} label={t('nghe.viDu')} shortcut="E" iconOnly />
                                             <p>
-                                                <span lang="de" className="block font-semibold">{example.de}</span>
-                                                <span className="block text-ink-2">{example.vi}</span>
+                                                <span lang="de" className="block font-semibold">{example.sentence}</span>
+                                                {langs.vi && example.translations.vi && <span className="block text-ink-2">{example.translations.vi}</span>}
                                             </p>
                                         </div>
                                     )}
@@ -316,79 +398,65 @@ export function sessionLine(total: number, fresh: number) {
     return t('hoc.tongKet', { n: total, moi: fresh, on: total - fresh });
 }
 
-function Summary({ done, topicId, topicName, newTopicId }: { done: Done[]; topicId?: string; topicName?: string; newTopicId: string }) {
-    const { progress, settings } = useStore();
-    const newLimit = settings.newPerSession === 'all' ? Infinity : settings.newPerSession;
+function Summary(props: { done: Done[]; byId: Map<number, TheHoc>; chuDe: string | null; chiOn: boolean; tenChuDe?: string; daGuiHet: boolean }) {
+    const { done, byId, chuDe, chiOn, tenChuDe } = props;
+    const { settings } = useStore();
+    const { cho } = useHangCho();
+    const [conLai, setConLai] = useState<ConLai | null>(null);
+    // Máy chủ đã nhận hết lượt của phiên này (mất mạng thì chờ tới khi hàng chờ gửi được)
+    const daGui = props.daGuiHet && cho === 0;
+
+    // Biết phiên tới còn gì sau khi máy chủ đã nhận hết lượt của phiên này
+    useEffect(() => {
+        if (!daGui) return;
+        let bo = false;
+        api.lay<{ data: ConLai }>(`/hoc/con-lai${truyVan({ chu_de: chuDe, on: chiOn ? '1' : null })}`).then(
+            ({ data }) => !bo && setConLai(data),
+            () => {},
+        );
+        return () => {
+            bo = true;
+        };
+    }, [daGui, chuDe, chiOn]);
+
     const stats = useMemo(() => {
-        const first = new Map<string, Done>();
-        const lastOf = new Map<string, Done>();
+        const first = new Map<number, Done>();
+        const lastOf = new Map<number, Done>();
         for (const d of done) {
             if (!first.has(d.id)) first.set(d.id, d);
             lastOf.set(d.id, d);
         }
         const cards = [...first.values()];
-        const grown = cards
-            .map((f) => ({ id: f.id, from: f.before, to: lastOf.get(f.id)!.after }))
-            .filter((c) => c.to > c.from);
+        const grown = cards.map((f) => ({ id: f.id, from: f.before, to: lastOf.get(f.id)!.after })).filter((c) => c.to > c.from);
         const perGrade = Object.fromEntries(GRADES.map((g) => [g.id, done.filter((d) => d.grade === g.id).length])) as Record<Grade, number>;
         return { total: cards.length, fresh: cards.filter((c) => c.before === 0).length, grown, perGrade };
     }, [done]);
-    // Còn việc trong cùng phạm vi: thẻ đến hạn (kể cả thẻ Quên cần ôn lại) hoặc từ mới của chủ đề
-    const moreDue = words.filter((w) => (!topicId || w.topicId === topicId) && isDue(progress[w.id])).length;
-    const moreNew = words.filter((w) => w.topicId === newTopicId && isNew(progress[w.id])).length;
-    const more = moreDue + moreNew > 0;
-    const back = { to: '/hom-nay', label: t('chung.veHomNay') };
+    const newLimit = settings.newPerSession === 'all' ? Infinity : settings.newPerSession;
+    const more = conLai !== null && conLai.review + conLai.new > 0;
+    const xong = conLai !== null && !more;
+    const back = chuDe ? { to: `/chu-de/${chuDe}`, label: t('chuDe.veChuDe') } : { to: '/hom-nay', label: t('chung.veHomNay') };
 
     return (
         <main className="mx-auto w-full max-w-[640px] flex-1 px-5 py-6">
             <h1 className="text-headline font-bold">{t('hoc.xongPhien')}</h1>
-            {topicName && <p className="text-ink-2">{topicName}</p>}
+            {tenChuDe && <p className="text-ink-2">{tenChuDe}</p>}
             <p className="mt-4 text-title">
-                {sessionLine(stats.total, stats.fresh)}{' '}
-                {stats.grown.length > 0 ? t('hoc.theLenMuc', { n: stats.grown.length }) : t('hoc.chuaLenMuc')}
+                {sessionLine(stats.total, stats.fresh)} {stats.grown.length > 0 ? t('hoc.theLenMuc', { n: stats.grown.length }) : t('hoc.chuaLenMuc')}
             </p>
             <p className="mt-1 text-label text-ink-2 tabular-nums">{GRADES.map((g) => `${g.label} ${stats.perGrade[g.id]}`).join(' · ')}</p>
+            {props.daGuiHet && cho > 0 && <p className="mt-3 text-label text-ink-2">{t('hoc.conChoGui', { n: cho })}</p>}
 
-            {stats.grown.length > 0 && (
-                <section aria-labelledby="cay-lon" className="mt-8">
-                    <h2 id="cay-lon" className="text-title font-bold">
-                        {t('hoc.cayLonLen')}
-                    </h2>
-                    <ul className="mt-2 grid gap-x-8 sm:grid-cols-2">
-                        {stats.grown.map((c, i) => {
-                            const w = byId.get(c.id)!;
-                            return (
-                                <li key={c.id} className="flex min-h-12 items-center justify-between gap-4 border-b border-line py-2">
-                                    <span className="min-w-0 font-semibold break-words">
-                                        <GermanWord word={w} />
-                                    </span>
-                                    <span className="flex shrink-0 items-center gap-1 text-label text-ink-2">
-                                        <LevelIcon level={c.from} size={20} title="" className="text-tim" />
-                                        <ArrowRight size={14} aria-hidden="true" />
-                                        <span className="lb-grow inline-flex" style={{ animationDelay: `${i * 80}ms` }}>
-                                            <LevelIcon level={c.to} size={28} title="" className="text-tim" />
-                                        </span>
-                                        <span className="sr-only">{t('hoc.tuMucLen', { muc: levelName(c.from) })}</span>
-                                        {levelName(c.to)}
-                                    </span>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                </section>
-            )}
+            {stats.grown.length > 0 && <CayLonLen grown={stats.grown} byId={byId} />}
 
-            {!more && <p className="mt-8 font-semibold">{t('hoc.hetChoNay')}</p>}
+            {xong && <p className="mt-8 font-semibold">{t('hoc.hetChoNay')}</p>}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 {more && (
                     <Link
-                        to={topicId ? `/hoc?chu-de=${topicId}` : '/hoc'}
+                        to={`/hoc${truyVan({ 'chu-de': chuDe, on: chiOn ? '1' : null })}`}
                         className="flex min-h-12 items-center justify-center rounded-md bg-tim px-6 font-bold text-on-tim hover:bg-tim-strong"
                     >
-                        {moreNew > 0 ? t('chuDe.hocTiep') : t('hoc.onTiep')}
-                        <span className="ml-2 text-label font-semibold tabular-nums">
-                            {t('chuDe.onVaMoi', { on: moreDue, moi: Math.min(moreNew, newLimit) })}
-                        </span>
+                        {conLai.new > 0 ? t('chuDe.hocTiep') : t('hoc.onTiep')}
+                        <span className="ml-2 text-label font-semibold tabular-nums">{t('chuDe.onVaMoi', { on: conLai.review, moi: Math.min(conLai.new, newLimit) })}</span>
                     </Link>
                 )}
                 <Link
@@ -401,6 +469,38 @@ function Summary({ done, topicId, topicName, newTopicId }: { done: Done[]; topic
                 </Link>
             </div>
         </main>
+    );
+}
+
+function CayLonLen({ grown, byId }: { grown: { id: number; from: number; to: number }[]; byId: Map<number, TheHoc> }) {
+    return (
+        <section aria-labelledby="cay-lon" className="mt-8">
+            <h2 id="cay-lon" className="text-title font-bold">
+                {t('hoc.cayLonLen')}
+            </h2>
+            <ul className="mt-2 grid gap-x-8 sm:grid-cols-2">
+                {grown.map((c, i) => (
+                    <CayMot key={c.id} c={c} i={i} the={byId.get(c.id)} />
+                ))}
+            </ul>
+        </section>
+    );
+}
+
+function CayMot({ c, i, the }: { c: { id: number; from: number; to: number }; i: number; the: TheHoc | undefined }) {
+    return (
+        <li className="flex min-h-12 items-center justify-between gap-4 border-b border-line py-2">
+            <span className="min-w-0 font-semibold break-words">{the && <TuDuc the={the} />}</span>
+            <span className="flex shrink-0 items-center gap-1 text-label text-ink-2">
+                <LevelIcon level={c.from} size={20} title="" className="text-tim" />
+                <ArrowRight size={14} aria-hidden="true" />
+                <span className="lb-grow inline-flex" style={{ animationDelay: `${i * 80}ms` }}>
+                    <LevelIcon level={c.to} size={28} title="" className="text-tim" />
+                </span>
+                <span className="sr-only">{t('hoc.tuMucLen', { muc: levelName(c.from) })}</span>
+                {levelName(c.to)}
+            </span>
+        </li>
     );
 }
 

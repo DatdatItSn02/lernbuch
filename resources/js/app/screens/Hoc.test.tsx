@@ -1,8 +1,13 @@
-import { fireEvent, screen, within } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import { words } from '../data/demo';
-import { initialState } from '../state/store';
+import 'fake-indexeddb/auto';
+import { fireEvent, screen, waitFor, within } from '@testing-library/react';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { giaApi, type LanGoi, type Tuyen } from '../../test/fakeApi';
+import { phienMau, theHoc } from '../../test/noiDungGia';
 import { renderApp } from '../../test/render';
+import { cacLuot, datLaiChoTest, type LuotCham } from '../lib/hangCho';
+import type { ConLai, PhienHoc } from '../lib/hoc';
+import { LA_ULID } from '../lib/ulid';
+import { initialState } from '../state/store';
 import { sessionLine } from './Hoc';
 
 const key = (k: string) => fireEvent.keyDown(window, { key: k });
@@ -10,165 +15,238 @@ const word = () => screen.getByRole('heading', { level: 1 }).textContent;
 const counter = () => screen.getByText(/^\d+\/\d+$/).textContent;
 const status = () => screen.getAllByRole('status')[0].textContent;
 const where = () => screen.getByTestId('duong-dan').textContent;
+const cham = (k = '3') => {
+    key(' ');
+    key(k);
+};
 
-describe('Học: phiên flashcard', () => {
-    it('ra thẻ quá hạn lâu nhất trước, chỉ có từ cho tới khi lật', () => {
-        renderApp('/hoc');
-        // 12 thẻ đến hạn + 9 từ mới của chủ đề đang học
-        expect(counter()).toBe('1/21');
-        expect(word()).toBe('die Orange');
-        expect(screen.queryByText('quả cam')).toBeNull();
+// Phiên mẫu: hai thẻ ôn (die Zahl mức 2, das Brot mức 1) xen với hai từ mới (zahlen, zählen)
+const PHIEN = () => phienMau([theHoc(10, 2), theHoc(8), theHoc(2, 1), theHoc(9)]);
+
+const nhan: Tuyen = (body) => {
+    const n = (body as { reviews: unknown[] }).reviews.length;
+    return { json: { data: { received: n, duplicates: 0, skipped: [], coins: 5 * n, too_fast: 0, cards: [], today: { reviewed: n, goal: 20, coins: 5 * n, streak: 1 } } } };
+};
+
+function moPhien(path = '/hoc', phien: PhienHoc = PHIEN(), conLai: ConLai = { review: 0, new: 3 }, doi: Record<string, Tuyen> = {}, state = initialState()): LanGoi[] {
+    const goi = giaApi({
+        'POST /api/v1/hoc/phien': () => ({ status: 201, json: { data: phien } }),
+        'POST /api/v1/hoc/luot-cham': nhan,
+        'GET /api/v1/hoc/con-lai': () => ({ json: { data: conLai } }),
+        ...doi,
+    });
+    renderApp(path, state);
+    return goi;
+}
+
+const guiLuot = (goi: LanGoi[]) => goi.filter((g) => g.url === '/api/v1/hoc/luot-cham').flatMap((g) => (g.body as { reviews: LuotCham[] }).reviews);
+
+beforeEach(async () => {
+    await datLaiChoTest();
+});
+
+afterEach(async () => {
+    await datLaiChoTest();
+});
+
+describe('Học: phiên flashcard từ máy chủ', () => {
+    it('mở trang thì xin máy chủ một phiên; thẻ đầu chỉ có từ, chưa có nghĩa tới khi lật', async () => {
+        const goi = moPhien();
+        expect(await screen.findByRole('heading', { level: 1, name: 'die Zahl' })).toBeTruthy();
+        expect(counter()).toBe('1/4');
+        expect(screen.queryByText('con số')).toBeNull();
         expect(screen.queryByRole('group', { name: 'Tự chấm' })).toBeNull();
+        const xin = goi.filter((g) => g.url === '/api/v1/hoc/phien');
+        expect(xin).toHaveLength(1);
+        expect(xin[0]).toMatchObject({ method: 'POST', body: { topic: null, review_only: false, mode: 'flashcard' } });
     });
 
-    it('bấm chuột: lật thì tiêu điểm vào đáp án, chấm xong thì vào nút Lật thẻ của thẻ mới', () => {
-        renderApp('/hoc');
-        fireEvent.click(screen.getByRole('button', { name: /Lật thẻ/ }));
+    it('học riêng một chủ đề, chỉ ôn: gửi đúng chủ đề; Esc về trang chủ đề đó', async () => {
+        const goi = moPhien('/hoc?chu-de=so-dem-tu-vung&on=1');
+        await screen.findByRole('heading', { level: 1, name: 'die Zahl' });
+        expect(goi.find((g) => g.url === '/api/v1/hoc/phien')?.body).toEqual({ topic: 'so-dem-tu-vung', review_only: true, mode: 'flashcard' });
+        key('Escape');
+        expect(where()).toBe('/chu-de/so-dem-tu-vung');
+    });
+
+    it('bấm chuột: lật thì tiêu điểm vào đáp án, chấm xong thì vào nút Lật thẻ của thẻ mới', async () => {
+        moPhien();
+        fireEvent.click(await screen.findByRole('button', { name: /Lật thẻ/ }));
         expect(document.activeElement?.getAttribute('aria-label')).toBe('Đáp án');
         fireEvent.click(screen.getByRole('button', { name: /^Tốt/ }));
-        expect(word()).toBe('der Teig');
-        expect(document.activeElement?.textContent).toContain('Lật thẻ');
+        expect(word()).toBe('zahlen');
+        await waitFor(() => expect(document.activeElement?.textContent).toContain('Lật thẻ'));
     });
 
-    it('Space lật thẻ; nút chấm ghi hạn ôn mới theo luật 6 mức', () => {
-        renderApp('/hoc');
+    it('Space lật thẻ: đủ ba thứ tiếng; nút chấm ghi hạn ôn mới theo luật 6 mức', async () => {
+        moPhien();
+        await screen.findByRole('heading', { level: 1, name: 'die Zahl' });
         key(' ');
-        expect(screen.getByText('quả cam')).toBeTruthy();
-        expect(screen.getByText('orange')).toBeTruthy();
-        expect(screen.getByText('橙子')).toBeTruthy();
+        expect(screen.getByText('con số')).toBeTruthy();
+        expect(screen.getByText('number')).toBeTruthy();
+        expect(screen.getByText('数字')).toBeTruthy();
         const grades = within(screen.getByRole('group', { name: 'Tự chấm' })).getAllByRole('button');
-        // Orange đang ở mức 2 (Quen)
-        expect(grades.map((b) => b.textContent)).toEqual(['Quên10 phút 1', 'Khó1,5 ngày 2', 'Tốt7 ngày 3', 'Dễ14 ngày 4']);
+        // die Zahl đang ở mức 2 (Quen): Khó giữ mức, nửa của 3 ngày làm tròn xuống còn 1 ngày
+        expect(grades.map((b) => b.textContent)).toEqual(['Quên10 phút 1', 'Khó1 ngày 2', 'Tốt7 ngày 3', 'Dễ14 ngày 4']);
         expect(document.activeElement?.getAttribute('aria-label')).toBe('Đáp án');
     });
 
-    it('chưa lật thì phím 1–4 không chấm', () => {
-        renderApp('/hoc');
+    it('chưa lật thì phím 1–4 không chấm', async () => {
+        moPhien();
+        await screen.findByRole('heading', { level: 1, name: 'die Zahl' });
         key('3');
-        expect(counter()).toBe('1/21');
-        expect(word()).toBe('die Orange');
+        expect(counter()).toBe('1/4');
+        expect(word()).toBe('die Zahl');
     });
 
-    it('chấm Tốt thì sang thẻ kế và báo thẻ vừa lên mức', () => {
-        renderApp('/hoc');
-        key(' ');
-        key('3');
-        expect(counter()).toBe('2/21');
-        expect(word()).toBe('der Teig');
-        expect(status()).toContain('Orange lên mức Khá');
+    it('chấm Tốt: sang thẻ kế, báo thẻ vừa lên mức; lượt chấm vào hàng chờ trên máy đủ thông tin', async () => {
+        moPhien();
+        await screen.findByRole('heading', { level: 1, name: 'die Zahl' });
+        const truoc = Date.now();
+        cham('3');
+        expect(counter()).toBe('2/4');
+        expect(word()).toBe('zahlen');
+        expect(status()).toContain('die Zahl lên mức Khá');
+        await waitFor(async () => expect(await cacLuot()).toHaveLength(1));
+        const [l] = await cacLuot();
+        expect(l).toMatchObject({ card_id: 10, session_id: 77, mode: 'flashcard', rating: 2 });
+        expect(l.uid).toMatch(LA_ULID);
+        expect(l.reviewed_at_ms).toBeGreaterThanOrEqual(truoc);
+        expect(l.duration_ms).toBeGreaterThanOrEqual(0);
     });
 
-    it('Quên thì thẻ quay lại trong phiên (phiên dài thêm một thẻ)', () => {
-        renderApp('/hoc');
-        key(' ');
-        key('1');
-        expect(counter()).toBe('2/22');
-        expect(status()).toContain('Orange sẽ quay lại sau vài thẻ');
-        // Đi qua 3 thẻ nữa thì gặp lại Orange
-        for (let i = 0; i < 3; i++) {
-            key(' ');
-            key('3');
-        }
-        expect(word()).toBe('die Orange');
+    it('Quên thì thẻ quay lại trong phiên sau vài thẻ (phiên dài thêm một thẻ)', async () => {
+        moPhien();
+        await screen.findByRole('heading', { level: 1, name: 'die Zahl' });
+        cham('1');
+        expect(counter()).toBe('2/5');
+        expect(status()).toContain('die Zahl sẽ quay lại sau vài thẻ');
+        for (let i = 0; i < 3; i++) cham('3');
+        expect(word()).toBe('die Zahl');
+        // Lần gặp lại: mức sau khi Quên (Đang học)
+        expect(screen.getByText('Mầm · Đang học')).toBeTruthy();
     });
 
-    it('← xem lại thẻ vừa chấm, → về thẻ đang học', () => {
-        renderApp('/hoc');
-        key(' ');
-        key('4');
+    it('← xem lại thẻ vừa chấm, → về thẻ đang học', async () => {
+        moPhien();
+        await screen.findByRole('heading', { level: 1, name: 'die Zahl' });
+        cham('4');
         key('ArrowLeft');
-        expect(word()).toBe('die Orange');
+        expect(word()).toBe('die Zahl');
         expect(status()).toContain('Đang xem lại thẻ đã chấm: Dễ');
         key('3'); // đang xem lại thì không chấm
         key('ArrowRight');
-        expect(word()).toBe('der Teig');
-        expect(counter()).toBe('2/21');
+        expect(word()).toBe('zahlen');
+        expect(counter()).toBe('2/4');
     });
 
-    it('Esc thoát về Hôm nay; học theo chủ đề thì thoát về chủ đề đó', () => {
-        renderApp('/hoc');
-        key('Escape');
-        expect(where()).toBe('/hom-nay');
-    });
-
-    it('Esc trong phiên của một chủ đề mẫu thì về Hôm nay (chủ đề mẫu không có trang riêng)', () => {
-        renderApp('/hoc?chu-de=trai-cay');
-        key('Escape');
-        expect(where()).toBe('/hom-nay');
-    });
-
-    it('chỉ ôn một chủ đề: học hết rồi xem bảng tổng kết', () => {
-        renderApp('/hoc?chu-de=trai-cay&on=1');
-        expect(counter()).toBe('1/7');
-        for (let i = 0; i < 7; i++) {
-            key(' ');
-            key('3');
-        }
+    it('xong phiên: gửi hết lượt chấm, hỏi máy chủ còn gì, mời Học tiếp', async () => {
+        const goi = moPhien('/hoc', PHIEN(), { review: 1, new: 12 });
+        await screen.findByRole('heading', { level: 1, name: 'die Zahl' });
+        for (let i = 0; i < 4; i++) cham('3');
         expect(screen.getByRole('heading', { level: 1, name: 'Xong phiên' })).toBeTruthy();
-        expect(screen.getByText('Táo · chuối · cam')).toBeTruthy();
-        expect(screen.getByText('Đã học 7 thẻ ôn. 7 thẻ lên mức.')).toBeTruthy();
-        expect(screen.getByText('Quên 0 · Khó 0 · Tốt 7 · Dễ 0')).toBeTruthy();
+        expect(screen.getByText('Đã học 4 thẻ: 2 từ mới, 2 thẻ ôn. 4 thẻ lên mức.')).toBeTruthy();
+        expect(screen.getByText('Quên 0 · Khó 0 · Tốt 4 · Dễ 0')).toBeTruthy();
         const grown = within(screen.getByRole('region', { name: 'Cây lớn lên' })).getAllByRole('listitem');
-        expect(grown).toHaveLength(7);
-        // Orange: Quen (mức 2) lên Khá (mức 3)
-        expect(grown[0].textContent).toBe('die Orangetừ Quen lênKhá');
-        // Hết thẻ ôn, còn 3 từ mới: Học tiếp mở phiên mới của chủ đề (có từ mới)
+        expect(grown.map((li) => li.textContent)).toEqual(['die Zahltừ Quen lênKhá', 'zahlentừ Mới lênQuen', 'das Brottừ Đang học lênQuen', 'zählentừ Mới lênQuen']);
+
+        await waitFor(() => expect(guiLuot(goi).map((l) => l.card_id)).toEqual([10, 8, 2, 9]));
+        // Hỏi phiên tới sau khi máy chủ đã nhận hết; số từ mới không quá số mỗi lượt (10)
+        const next = await screen.findByRole('link', { name: /Học tiếp/ });
+        expect(next.textContent).toContain('1 ôn · 10 mới');
+        expect(next.getAttribute('href')).toBe('/hoc');
+        expect(goi.find((g) => g.url.startsWith('/api/v1/hoc/con-lai'))?.url).toBe('/api/v1/hoc/con-lai');
         expect(screen.getByRole('link', { name: 'Về Hôm nay' }).getAttribute('href')).toBe('/hom-nay');
-        const next = screen.getByRole('link', { name: /Học tiếp/ });
-        expect(next.textContent).toContain('0 ôn · 3 mới');
-        fireEvent.click(next);
-        expect(where()).toBe('/hoc?chu-de=trai-cay');
-        expect(counter()).toBe('1/3');
-        expect(word()).toBe('die Pflaume');
     });
 
-    it('học hết cả thẻ ôn lẫn từ mới thì chỉ còn đường về', () => {
-        renderApp('/hoc?chu-de=trai-cay');
-        expect(counter()).toBe('1/10');
-        for (let i = 0; i < 10; i++) {
-            key(' ');
-            key('4');
-        }
-        expect(screen.getByText('Đã học hết thẻ đến hạn và từ mới ở đây.')).toBeTruthy();
+    it('học hết ở chủ đề: chỉ còn đường về trang chủ đề', async () => {
+        const goi = moPhien('/hoc?chu-de=so-dem-tu-vung', PHIEN(), { review: 0, new: 0 });
+        await screen.findByRole('heading', { level: 1, name: 'die Zahl' });
+        for (let i = 0; i < 4; i++) cham('4');
+        expect(await screen.findByText('Đã học hết thẻ đến hạn và từ mới ở đây.')).toBeTruthy();
         expect(screen.queryByRole('link', { name: /Học tiếp|Ôn tiếp/ })).toBeNull();
-        expect(screen.getByRole('link', { name: 'Về Hôm nay' })).toBeTruthy();
+        expect(screen.getByRole('link', { name: 'Về chủ đề' }).getAttribute('href')).toBe('/chu-de/so-dem-tu-vung');
+        expect(goi.find((g) => g.url.startsWith('/api/v1/hoc/con-lai'))?.url).toBe('/api/v1/hoc/con-lai?chu_de=so-dem-tu-vung');
     });
 
-    it('có thẻ Quên thì cuối phiên mời Ôn tiếp', () => {
-        renderApp('/hoc?chu-de=trai-cay&on=1');
-        // Quên cả 7 thẻ ba lần (mỗi thẻ chỉ chèn lại tối đa 2 lần), rồi xong phiên
-        for (let i = 0; i < 21; i++) {
-            key(' ');
-            key('1');
-        }
-        expect(screen.getByRole('heading', { level: 1, name: 'Xong phiên' })).toBeTruthy();
-        expect(screen.getByText('Quên 21 · Khó 0 · Tốt 0 · Dễ 0')).toBeTruthy();
-        expect(screen.getByText('Đã học 7 thẻ ôn. Chưa có thẻ nào lên mức.')).toBeTruthy();
-        expect(screen.queryByRole('region', { name: 'Cây lớn lên' })).toBeNull();
-        expect(screen.getByRole('link', { name: /Học tiếp/ }).textContent).toContain('7 ôn · 3 mới');
+    it('còn thẻ ôn mà hết từ mới thì mời Ôn tiếp', async () => {
+        moPhien('/hoc?on=1', PHIEN(), { review: 3, new: 0 });
+        await screen.findByRole('heading', { level: 1, name: 'die Zahl' });
+        for (let i = 0; i < 4; i++) cham('1');
+        for (let i = 0; i < 4; i++) cham('1');
+        for (let i = 0; i < 4; i++) cham('1');
+        const tiep = await screen.findByRole('link', { name: /Ôn tiếp/ });
+        expect(tiep.textContent).toContain('3 ôn · 0 mới');
+        expect(tiep.getAttribute('href')).toBe('/hoc?on=1');
+        expect(screen.getByText('Quên 12 · Khó 0 · Tốt 0 · Dễ 0')).toBeTruthy();
     });
 
-    it('không còn thẻ nào thì báo rõ, không hiện thẻ trống', () => {
-        const state = initialState();
-        state.progress = Object.fromEntries(words.map((w) => [w.id, { level: 5, dueInDays: 30, lapses: 0 }]));
-        renderApp('/hoc', state);
-        expect(screen.getByRole('heading', { level: 1, name: 'Chưa có thẻ nào để học' })).toBeTruthy();
+    it('mất mạng giữa phiên: vẫn chấm tiếp; đầu trang và bảng tổng kết ghi số lượt chờ gửi', async () => {
+        const goi = moPhien();
+        const fetchGia = globalThis.fetch;
+        vi.stubGlobal('fetch', (url: string, init?: RequestInit) =>
+            url === '/api/v1/hoc/luot-cham' ? Promise.reject(new TypeError('Failed to fetch')) : fetchGia(url, init),
+        );
+        await screen.findByRole('heading', { level: 1, name: 'die Zahl' });
+        for (let i = 0; i < 4; i++) cham('3');
+        expect(await screen.findByText('4 lượt chấm đang chờ gửi; có mạng sẽ tự gửi.')).toBeTruthy();
+        expect(await screen.findByText('4 lượt chờ gửi')).toBeTruthy();
+        expect((await cacLuot()).map((l) => l.card_id).sort((a, b) => a - b)).toEqual([2, 8, 9, 10]);
+        // Chưa gửi được thì chưa hỏi phiên tới
+        expect(goi.some((g) => g.url.startsWith('/api/v1/hoc/con-lai'))).toBe(false);
+    });
+
+    it('phiên không có thẻ nào thì báo rõ, không hiện thẻ trống', async () => {
+        moPhien('/hoc', phienMau([]));
+        expect(await screen.findByRole('heading', { level: 1, name: 'Chưa có thẻ nào để học' })).toBeTruthy();
         expect(counter()).toBe('0/0');
         fireEvent.click(screen.getByRole('button', { name: 'Quay lại' }));
         expect(where()).toBe('/hom-nay');
     });
 
-    it('tắt cả ba thứ tiếng thì báo cách bật lại', () => {
+    it('không mở được phiên (mất mạng) thì báo và cho thử lại', async () => {
+        let lan = 0;
+        const goi = giaApi({
+            'POST /api/v1/hoc/phien': () => (lan++ === 0 ? { status: 503, json: { message: 'bảo trì' } } : { status: 201, json: { data: PHIEN() } }),
+        });
+        renderApp('/hoc');
+        expect((await screen.findByRole('alert')).textContent).toContain('Không tải được nội dung.');
+        fireEvent.click(screen.getByRole('button', { name: 'Thử lại' }));
+        expect(await screen.findByRole('heading', { level: 1, name: 'die Zahl' })).toBeTruthy();
+        expect(goi.filter((g) => g.url === '/api/v1/hoc/phien')).toHaveLength(2);
+    });
+
+    it('nghĩa hiện theo các thứ tiếng đã bật; tắt cả ba thì báo cách bật lại', async () => {
+        const state = initialState();
+        state.settings = { ...state.settings, langs: { vi: true, en: false, zh: false } };
+        moPhien('/hoc', PHIEN(), undefined, {}, state);
+        await screen.findByRole('heading', { level: 1, name: 'die Zahl' });
+        key(' ');
+        expect(screen.getByText('con số')).toBeTruthy();
+        expect(screen.queryByText('number')).toBeNull();
+    });
+
+    it('tắt cả ba thứ tiếng thì báo cách bật lại', async () => {
         const state = initialState();
         state.settings = { ...state.settings, langs: { vi: false, en: false, zh: false } };
-        renderApp('/hoc', state);
+        moPhien('/hoc', PHIEN(), undefined, {}, state);
+        await screen.findByRole('heading', { level: 1, name: 'die Zahl' });
         key(' ');
         expect(screen.getByText(/Đang tắt cả ba thứ tiếng/)).toBeTruthy();
     });
 
+    it('câu ví dụ hiện sau khi lật, kèm bản dịch tiếng Việt', async () => {
+        moPhien('/hoc', phienMau([theHoc(1)]));
+        await screen.findByRole('heading', { level: 1, name: 'das Brötchen' });
+        expect(screen.queryByText('Ich möchte zwei Brötchen, bitte.')).toBeNull();
+        key(' ');
+        expect(screen.getByText('Ich möchte zwei Brötchen, bitte.')).toBeTruthy();
+        expect(screen.getByText('Cho tôi hai cái bánh mì nhỏ.')).toBeTruthy();
+    });
+
     it('trình duyệt không đọc được thành tiếng thì báo lỗi ngay dưới nút nghe', async () => {
-        renderApp('/hoc');
-        fireEvent.click(screen.getByRole('button', { name: 'Nghe (phím P)' }));
+        moPhien();
+        fireEvent.click(await screen.findByRole('button', { name: 'Nghe (phím P)' }));
         expect(await screen.findByText('Trình duyệt này không đọc được thành tiếng.')).toBeTruthy();
     });
 });

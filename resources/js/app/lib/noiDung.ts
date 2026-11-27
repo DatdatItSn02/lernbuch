@@ -47,6 +47,8 @@ export type TrangChuDe = {
         group: TenGon | null;
         levels: DemCap[];
         pos: DemLoaiTu[];
+        /** Tiến độ của người học trong chủ đề: đến hạn hôm nay, chưa học, số thẻ theo 6 mức. */
+        progress: { due: number; new: number; levels: number[] };
         cards: TheTomTat[];
     };
     meta: PhanTrang;

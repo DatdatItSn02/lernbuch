@@ -38,38 +38,17 @@ describe('cài đặt lưu trên trình duyệt', () => {
 });
 
 describe('reducer', () => {
-    it('chấm Tốt: lên một mức, hạn ôn theo mức mới, cộng xu và số thẻ đã ôn', () => {
+    it('cài đặt gộp phần đổi, không sửa trạng thái cũ', () => {
         const s0 = initialState();
-        const s1 = reducer(s0, { type: 'grade', id: 'broetchen', grade: 'tot' });
-        expect(s1.progress.broetchen).toEqual({ level: 3, dueInDays: 7, lapses: 0 });
-        expect(s1.reviewedToday).toBe(s0.reviewedToday + 1);
-        expect(s1.coins).toBe(s0.coins + 5);
-        // không sửa trạng thái cũ
-        expect(s0.progress.broetchen.level).toBe(2);
+        const s1 = reducer(s0, { type: 'settings', patch: { theme: 'dark' } });
+        expect(s1.settings).toEqual({ ...defaultSettings, theme: 'dark' });
+        expect(s0.settings).toEqual(defaultSettings);
+        expect(reducer(s1, { type: 'settings', patch: { newPerSession: 'all' } }).settings).toEqual({ ...defaultSettings, theme: 'dark', newPerSession: 'all' });
     });
 
-    it('chấm Quên: lùi mức, tính một lần quên, không có xu', () => {
-        const s1 = reducer(initialState(), { type: 'grade', id: 'brot', grade: 'quen' });
-        expect(s1.progress.brot.level).toBe(1);
-        expect(s1.progress.brot.lapses).toBe(1);
-        expect(s1.coins).toBe(initialState().coins);
-    });
-
-    it('từ chưa có tiến độ thì coi như từ mới', () => {
-        const s1 = reducer(initialState(), { type: 'grade', id: 'tu-la', grade: 'de' });
-        expect(s1.progress['tu-la']).toEqual({ level: 3, dueInDays: 7, lapses: 0 });
-    });
-
-    it('sao bật tắt; ghi chú lưu theo từ; cài đặt gộp phần đổi', () => {
-        let s = initialState();
-        s = reducer(s, { type: 'star', id: 'brot' });
-        expect(s.starred.brot).toBe(true);
-        s = reducer(s, { type: 'star', id: 'brot' });
-        expect(s.starred.brot).toBe(false);
-        s = reducer(s, { type: 'note', id: 'brot', text: 'ăn sáng' });
-        expect(s.notes.brot).toBe('ăn sáng');
-        s = reducer(s, { type: 'settings', patch: { theme: 'dark' } });
-        expect(s.settings).toEqual({ ...defaultSettings, theme: 'dark' });
+    it('việc lạ thì giữ nguyên trạng thái', () => {
+        const s0 = initialState();
+        expect(reducer(s0, { type: 'khac' } as never)).toBe(s0);
     });
 });
 

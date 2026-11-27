@@ -12,6 +12,12 @@
             <directory>tests/Feature</directory>
         </testsuite>
     </testsuites>
+    <groups>
+        <!-- Bài đo hiệu năng dựng dữ liệu cỡ thật: chạy riêng bằng tùy chọn group hieu-nang của php artisan test -->
+        <exclude>
+            <group>hieu-nang</group>
+        </exclude>
+    </groups>
     <source>
         <include>
             <directory>app</directory>

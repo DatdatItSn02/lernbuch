@@ -18,7 +18,7 @@ async function mo(duong: string) {
 }
 
 describe('Trang chủ đề (API): sổ từ hai cột', () => {
-    it('đầu trang: vị trí trong cây, tên hai thứ tiếng, loại thẻ và số từ, ghi chú phần học', async () => {
+    it('đầu trang: vị trí trong cây, tên hai thứ tiếng, loại thẻ và số từ, ô học chủ đề', async () => {
         await mo('/chu-de/banh-mi-tu-vung');
         expect(screen.getByRole('heading', { level: 1, name: 'Bánh mì · bánh ngọt' })).toBeTruthy();
         expect(screen.getByText('Bread · cake').getAttribute('lang')).toBe('en');
@@ -26,7 +26,11 @@ describe('Trang chủ đề (API): sổ từ hai cột', () => {
         expect(crumbs.map((c) => c.textContent)).toEqual(['Chủ đề', 'Ăn uống', 'Bánh và tiệm bánh']);
         expect(within(crumbs[0]).getByRole('link').getAttribute('href')).toBe('/chu-de');
         expect(screen.getByText('Từ vựng · 5 từ')).toBeTruthy();
-        expect(screen.getByText(/Học và ôn theo chủ đề này có ở bản tiếp theo/)).toBeTruthy();
+        // Người học chưa học thẻ nào: 5 chưa học, nút học lấy 5 từ mới (số mỗi lượt là 10)
+        expect(screen.getByText('0 đến hạn · 5 chưa học · 0 đã thành quả')).toBeTruthy();
+        const hoc = screen.getByRole('link', { name: /Học chủ đề này/ });
+        expect(hoc.getAttribute('href')).toBe('/hoc?chu-de=banh-mi-tu-vung');
+        expect(hoc.textContent).toContain('0 ôn · 5 mới');
         // Tiêu đề trang đặt trong useEffect, có thể chạy sau lúc bảng đã hiện: chờ chứ không kiểm ngay
         await waitFor(() => expect(document.title).toBe('Bánh mì · bánh ngọt · Lernbuch'));
     });

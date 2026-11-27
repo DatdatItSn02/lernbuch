@@ -15,6 +15,11 @@ class NguoiHocThuSeeder extends Seeder
 
     public const MAT_KHAU = 'thu-lernbuch-2026';
 
+    /** Tài khoản riêng cho test trình duyệt có chấm thẻ: mỗi cỡ màn hình, mỗi test một tài khoản để tiến độ không lẫn nhau. */
+    public const CO_MAN_HINH = ['may-tinh', 'dien-thoai'];
+
+    public const SO_TAI_KHOAN_HOC = 5;
+
     public function run(): void
     {
         if (app()->isProduction()) {
@@ -23,9 +28,26 @@ class NguoiHocThuSeeder extends Seeder
             return;
         }
 
-        $user = User::query()->firstOrNew(['email' => self::EMAIL]);
+        $this->tao(self::EMAIL, 'Người học thử');
+
+        foreach (self::CO_MAN_HINH as $co) {
+            for ($i = 1; $i <= self::SO_TAI_KHOAN_HOC; $i++) {
+                $this->tao(self::emailHoc($co, $i), "Học thử {$co} {$i}");
+            }
+        }
+    }
+
+    /** Email tài khoản học thử, vd hoc-may-tinh-1@lernbuch.test (tests/e2e/phien.ts ghép cùng cách). */
+    public static function emailHoc(string $coManHinh, int $so): string
+    {
+        return "hoc-{$coManHinh}-{$so}@lernbuch.test";
+    }
+
+    private function tao(string $email, string $ten): void
+    {
+        $user = User::query()->firstOrNew(['email' => $email]);
         $user->forceFill([
-            'name' => 'Người học thử',
+            'name' => $ten,
             'password' => self::MAT_KHAU,
             'email_verified_at' => now(),
         ])->save();

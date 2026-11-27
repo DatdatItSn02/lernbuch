@@ -52,6 +52,7 @@ step "Test công cụ tự kiểm G0 (cả trường hợp lỗi)" python3 -m un
 step "Test script deploy trên máy chủ (quay lại, giữ bản, migration hỏng)" python3 -m unittest deploy/test_remote.py
 step "Test tạo .env cho alwaysdata (mật khẩu có ký tự đặc biệt)" python3 .github/scripts/test_env_production.py
 step "Pest (database lernbuch_test)" env DB_DATABASE=lernbuch_test php artisan test
+step "Hiệu năng với dữ liệu cỡ thật (tạo phiên p95 < 150 ms, API khác < 200 ms)" env DB_DATABASE=lernbuch_test php artisan test --group=hieu-nang
 
 echo
 echo "KẾT QUẢ: $((total - ${#fails[@]}))/${total} bước đạt"

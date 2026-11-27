@@ -1,6 +1,4 @@
 import { createContext, useContext, useEffect, useMemo, useReducer, type ReactNode } from 'react';
-import { coinsBefore, initialProgress, reviewedTodayBefore, type Progress } from '../data/demo';
-import { grade as gradeCard, type Grade } from '../lib/srs';
 
 export type Theme = 'light' | 'dark';
 export type FontSize = 'sm' | 'md' | 'lg';
@@ -16,20 +14,12 @@ export type Settings = {
     newPerSession: NewCount;
 };
 
+// Tiến độ học, xu, sổ tay nằm ở máy chủ; ở đây chỉ còn cài đặt (đồng bộ theo tài khoản trong taiKhoan.tsx).
 type State = {
-    progress: Record<string, Progress>;
-    reviewedToday: number;
-    coins: number;
-    starred: Record<string, boolean>;
-    notes: Record<string, string>;
     settings: Settings;
 };
 
-type Action =
-    | { type: 'grade'; id: string; grade: Grade }
-    | { type: 'star'; id: string }
-    | { type: 'note'; id: string; text: string }
-    | { type: 'settings'; patch: Partial<Settings> };
+type Action = { type: 'settings'; patch: Partial<Settings> };
 
 export const SETTINGS_KEY = 'lernbuch.caidat.v1';
 
@@ -62,7 +52,7 @@ export function sanitizeSettings(raw: unknown): Settings {
     };
 }
 
-// Cài đặt nhớ theo trình duyệt (G1 lưu theo tài khoản); tiến độ mẫu đặt lại mỗi lần tải trang.
+// Cài đặt nhớ cả trên trình duyệt, để mở app là có giao diện đúng ngay trước khi tải xong tài khoản.
 export function loadSettings(): Settings {
     try {
         const raw = window.localStorage.getItem(SETTINGS_KEY);
@@ -94,23 +84,6 @@ function saveSettings(s: Settings) {
 
 export function reducer(state: State, action: Action): State {
     switch (action.type) {
-        case 'grade': {
-            const before = state.progress[action.id] ?? { level: 0, dueInDays: null, lapses: 0 };
-            const r = gradeCard(before.level, action.grade);
-            return {
-                ...state,
-                progress: {
-                    ...state.progress,
-                    [action.id]: { level: r.level, dueInDays: r.intervalDays, lapses: before.lapses + (r.lapsed ? 1 : 0) },
-                },
-                reviewedToday: state.reviewedToday + 1,
-                coins: state.coins + r.coins,
-            };
-        }
-        case 'star':
-            return { ...state, starred: { ...state.starred, [action.id]: !state.starred[action.id] } };
-        case 'note':
-            return { ...state, notes: { ...state.notes, [action.id]: action.text } };
         case 'settings':
             return { ...state, settings: { ...state.settings, ...action.patch } };
         default:
@@ -119,14 +92,7 @@ export function reducer(state: State, action: Action): State {
 }
 
 export function initialState(settings: Settings = defaultSettings): State {
-    return {
-        progress: { ...initialProgress },
-        reviewedToday: reviewedTodayBefore,
-        coins: coinsBefore,
-        starred: { broetchen: true },
-        notes: {},
-        settings,
-    };
+    return { settings };
 }
 
 export function seasonOf(date: Date): Exclude<Season, 'auto'> {

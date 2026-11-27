@@ -1,4 +1,5 @@
 // Nội dung giả cho test màn hình nội dung: cùng dạng với API /api/v1 (và cùng số liệu với NoiDungThuSeeder phía PHP).
+import type { HomNayData, PhienHoc, TheHoc } from '../app/lib/hoc';
 import type { CayChuDe, DemCap, KetQuaTra, MucLichSu, TheChiTiet, TheSoTay, TheTomTat, TrangChuDe } from '../app/lib/noiDung';
 import { giaApi, type LanGoi, type Tuyen } from './fakeApi';
 
@@ -100,6 +101,7 @@ export function trangChuDe(slug: string, u: URL): TrangChuDe | null {
             group: { slug: cd.group[0], name: cd.group[1] },
             levels: demCap(goc),
             pos: demLoaiTu(goc),
+            progress: { due: 0, new: goc.length, levels: [goc.length, 0, 0, 0, 0, 0] },
             cards: loc.slice((page - 1) * 20, page * 20).map(tomTat),
         },
         meta: { page, per_page: 20, total: loc.length, pages },
@@ -236,3 +238,58 @@ export const tuyenThe = (id: number, doi: Partial<TheChiTiet> = {}): Record<stri
         return kq ? { json: { data: kq } } : { status: 404, json: { code: 'khong_thay', message: 'Không tìm thấy.' } };
     },
 });
+
+/** Thẻ trong phiên học, từ thẻ mẫu (mức hiện tại box; thẻ 1 có câu ví dụ). */
+export function theHoc(id: number, box = 0): TheHoc {
+    const th = CAC_THE.find((x) => x.id === id);
+    if (!th) throw new Error(`Không có thẻ mẫu ${id}`);
+    const cd = CHU_DE[th.chuDe as keyof typeof CHU_DE];
+    const viDu = id === 1 ? { sentence: 'Ich möchte zwei Brötchen, bitte.', translations: { vi: 'Cho tôi hai cái bánh mì nhỏ.', en: 'Two bread rolls, please.' } } : null;
+    return { ...tomTat(th), example: viDu, topic: { slug: th.chuDe, name: cd.name }, box, due_at: null };
+}
+
+export function phienMau(cards: TheHoc[], doi: Partial<PhienHoc> = {}): PhienHoc {
+    return {
+        id: 77,
+        mode: 'flashcard',
+        started_at: 1764208800,
+        topic: null,
+        new_topic: { slug: 'so-dem-tu-vung', name: 'Số đếm' },
+        counts: { review: cards.filter((c) => c.box > 0).length, new: cards.filter((c) => c.box === 0).length },
+        cards,
+        ...doi,
+    };
+}
+
+/** Số liệu Hôm nay mẫu: thứ Sáu 27/11/2026, 12 thẻ đến hạn, chủ đề đang học còn 9 từ mới. */
+export function homNayMau(doi: Partial<HomNayData> = {}): HomNayData {
+    const qua = [12, 0, 18, 25, 9, 0, 22, 31, 14, 20];
+    return {
+        date: '2026-11-27',
+        timezone: 'Asia/Ho_Chi_Minh',
+        due: 12,
+        due_by_level: [0, 4, 3, 3, 2, 0],
+        levels: [12, 7, 5, 4, 3, 2],
+        new_next: 9,
+        new_available: 9,
+        new_topic: { slug: 'banh-mi-tu-vung', name: 'Bánh mì · bánh ngọt', new: 9 },
+        reviewed_today: 8,
+        goal: 20,
+        coins: 340,
+        coins_today: 40,
+        streak: 5,
+        streak_longest: 9,
+        days: [
+            ...qua.map((count, i) => ({ date: `2026-11-${String(17 + i).padStart(2, '0')}`, count, kind: 'past' as const })),
+            { date: '2026-11-27', count: 8, kind: 'today' },
+            { date: '2026-11-28', count: 2, kind: 'future' },
+            { date: '2026-11-29', count: 0, kind: 'future' },
+            { date: '2026-11-30', count: 3, kind: 'future' },
+        ],
+        due_topics: [
+            { slug: 'banh-mi-tu-vung', name: 'Bánh mì · bánh ngọt', collection: 'vocab', due: 5, new: 9, levels: [9, 3, 2, 0, 0, 0] },
+            { slug: 'so-dem-tu-vung', name: 'Số đếm', collection: 'vocab', due: 7, new: 3, levels: [3, 4, 3, 4, 3, 2] },
+        ],
+        ...doi,
+    };
+}
