@@ -1,8 +1,8 @@
 workflow: ci  job: deploy  status: success
-commit: cff71a05fb77ef52bba053b39df8ed9e2fac4969  ref: main  run: 45990773618
+commit: 35ba412d38da92f802f504483a1f6e35fdc0896c  ref: main  run: 45995451819
 
-✔ Web đã chạy bản 20261127113129-cff71a0 sau khoảng 0 giây
-✔ /up trả 200 (20261127113129-cff71a0)
+✔ Web đã chạy bản 20261127120658-35ba412 sau khoảng 0 giây
+✔ /up trả 200 (20261127120658-35ba412)
 
 ----- cuối log -----
 Installing dependencies from lock file
@@ -366,7 +366,7 @@ Generating optimized autoload files
 84 packages you are using are looking for funding.
 Use the `composer fund` command to find out more!
 
-added 302 packages in 4s
+added 302 packages in 6s
 
 > build
 > vite build
@@ -403,21 +403,23 @@ public/build/assets/theme-DVHi_9sl.css                                   716.36 
 public/build/assets/app-BvRk9kiK.js                                        0.00 kB │ gzip:   0.02 kB
 public/build/assets/main-B70Jf7P4.js                                     391.89 kB │ gzip: 121.08 kB
 
-[32m✓ built in 734ms[39m
--rw-r--r-- 1 runner runner 16M Nov 27 11:31 /tmp/20261127113129-cff71a0.tgz
+[32m✓ built in 831ms[39m
+-rw-r--r-- 1 runner runner 16M Nov 27 12:07 /tmp/20261127120658-35ba412.tgz
 Trước deploy: /up trả 200
-Bản đang chạy: 20261127105804-b9f97b1
-Dung lượng: 117M	releases/20261126230606-4f3b262
+Bản đang chạy: 20261127113129-cff71a0
 Dung lượng: 117M	releases/20261126231523-4f3b262
 Dung lượng: 117M	releases/20261127105804-b9f97b1
+Dung lượng: 117M	releases/20261127113129-cff71a0
 Dung lượng: 1.4M	shared
 Dung lượng: 15M	.
-Nhịp trong 10 phút qua: 10/10 (cần ít nhất 9).
-== Giải nén 20261127113129-cff71a0
+Nhịp trong 10 phút qua: 9/10 (cần ít nhất 9).
+== Giải nén 20261127120658-35ba412
 == Cập nhật .env (giữ APP_KEY cũ)
 == Migration
 
-   INFO  Nothing to migrate.  
+   INFO  Running migrations.  
+
+  2026_11_27_000004_change_exercises_sig_to_utf8mb4_bin ......... 29.55ms DONE
 
 == Dữ liệu khởi tạo (seed.sql: ngôn ngữ, khoá học, vai trò; chạy lại không nhân đôi, không đè chỗ đã sửa trong admin)
 
@@ -427,14 +429,14 @@ Nhịp trong 10 phút qua: 10/10 (cần ít nhất 9).
 
    INFO  Caching framework bootstrap, configuration, and metadata.  
 
-  config ........................................................ 54.31ms DONE
-  events ......................................................... 4.77ms DONE
-  routes ........................................................ 59.48ms DONE
-  views ........................................................ 860.89ms DONE
-  blade-icons .................................................... 5.72ms DONE
-  filament ...................................................... 10.31ms DONE
+  config ........................................................ 78.01ms DONE
+  events ......................................................... 3.95ms DONE
+  routes ........................................................ 56.46ms DONE
+  views .......................................................... 1 giây DONE
+  blade-icons .................................................... 4.98ms DONE
+  filament ....................................................... 8.39ms DONE
 
-== Đổi current sang 20261127113129-cff71a0
+== Đổi current sang 20261127120658-35ba412
 
    INFO  Broadcasting queue restart signal.  
 
@@ -443,6 +445,6 @@ Nhịp trong 10 phút qua: 10/10 (cần ít nhất 9).
 Thư mục app: 365M
 Cả thư mục nhà: 369M
 Database: 6.3M (92 bảng)
-Xong: 20261127113129-cff71a0
-✔ Web đã chạy bản 20261127113129-cff71a0 sau khoảng 0 giây
-✔ /up trả 200 (20261127113129-cff71a0)
+Xong: 20261127120658-35ba412
+✔ Web đã chạy bản 20261127120658-35ba412 sau khoảng 0 giây
+✔ /up trả 200 (20261127120658-35ba412)
