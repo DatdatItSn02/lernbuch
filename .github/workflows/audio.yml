@@ -49,7 +49,7 @@ jobs:
         run: |
           set -eo pipefail
           { pip install --quiet "piper-tts>=1.2,<2"
-            pip show piper-tts | head -2
+            python3 -c "import importlib.metadata as m; print('piper-tts', m.version('piper-tts'))"
             command -v ffmpeg >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; }
             ffmpeg -hide_banner -version | head -1; } 2>&1 | tee -a /tmp/audio.log
       - name: Đọc 20 chữ mẫu bằng từng giọng
