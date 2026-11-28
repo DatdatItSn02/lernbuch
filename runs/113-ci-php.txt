@@ -1,0 +1,530 @@
+workflow: ci  job: php  status: failure
+commit: 3f8f1e15e0c1f05576e24c3f96ef05a38d6e96f1  ref: work/g2-tuan2  run: 46138458598
+
+✘ Pint (định dạng code)
+✘ Larastan (phân tích tĩnh)
+✔ Dựng database tham chiếu từ schema.sql
+✔ Migrate lên
+✔ Khớp với schema.sql (0 khác biệt)
+✔ Quy ước LoWo (không khoá ngoại, thời gian số nguyên)
+✔ Migrate xuống hết
+✔ Sau khi xuống chỉ còn bảng migrations
+✔ Migrate lên lại
+✔ Seeder chạy hai lần không nhân đôi
+✔ test_schema.py (cấu trúc và tình huống)
+✔ Test công cụ so khớp và quy ước
+✔ Test trình kiểm file nhập
+✔ Test công cụ audio (giọng được dùng để bán, tên file theo hash)
+✔ Test công cụ tự kiểm G0, G1 (cả trường hợp lỗi)
+✔ Test script deploy trên máy chủ (quay lại, giữ bản, migration hỏng)
+✔ Test tạo .env cho alwaysdata (mật khẩu có ký tự đặc biệt)
+✘ Pest (database lernbuch_test)
+✔ Hiệu năng với dữ liệu cỡ thật (tạo phiên p95 < 150 ms, API khác < 200 ms)
+KẾT QUẢ: 16/19 bước đạt
+✘ lỗi: Pint (định dạng code)
+✘ lỗi: Larastan (phân tích tĩnh)
+✘ lỗi: Pest (database lernbuch_test)
+
+----- cuối log -----
+[90mit thẻ nháp, thẻ không có, mã sai thì 404; thẻ riêng của người khác[39m[90m…[39m [90m0.08s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\PagesTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit trả 200 ở /up[39m[90m                                                    [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit trang chào hiện đúng chữ tiếng Việt và tiếng Đức[39m[90m                 [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit mở được khung app học, cả đường dẫn con, khi đã đăng nhập và xác[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập thì app học về trang đăng nhập[39m[90m                    [39m [90m0.01s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit không lộ file .env và log[39m[90m                                        [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit có manifest đủ điều kiện cài app: tên, trang mở đầu, mở như app,[39m[90m…[39m [90m0.01s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit trang kiểm chữ có đủ vai trò chữ và không cho máy tìm kiếm lập c[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit /up trả 500 khi một kiểm tra sức khoẻ lỗi (để workflow deploy tự[39m[90m…[39m [90m0.01s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit /up không lỗi trên máy dev dù có kiểm tra cố ý hỏng chỉ dành cho[39m[90m…[39m [90m0.01s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\QuanTriNguoiHocTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit cần quyền xem người dùng; chỉ liệt kê người học (không có nhân v[39m[90m…[39m [90m0.15s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit xem tiến độ: cùng số liệu với trang Hôm nay của người học (thẻ t[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit khoá: đăng xuất mọi máy, API trả 403, trang app về đăng nhập, kh[39m[90m…[39m [90m0.63s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ người có quyền quản lý người dùng mới khoá được; khoá hai lầ[39m[90m…[39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nút Lọc của bảng có tên đọc được kèm số bộ lọc đang dùng, như số[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit danh sách mở trang người học bằng mã ULID (không bằng id); nhãn[39m[90m… [39m [90m0.11s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\QuanTriNoiDungTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit trang nội dung cần quyền sửa nội dung; nhật ký thao tác và job l[39m[90m…[39m [90m0.40s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa thẻ: dạng, nghĩa, câu ví dụ; ghi nhật ký từng phần; tìm được[39m[90m…[39m [90m0.25s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit người duyệt đổi trạng thái: thẻ ẩn thì người học không thấy, số[39m[90m… [39m [90m0.13s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa chủ đề: đổi tên, ghi nhật ký; mã và đường dẫn không đổi[39m[90m      [39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa bài ngữ pháp: nội dung sai dạng thì báo, đúng thì lưu (tăng[39m[90m… [39m [90m0.20s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa câu bài tập: đáp án trắc nghiệm phải là một lựa chọn; lưu th[39m[90m…[39m [90m0.24s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa động từ: bảng chia và nghĩa; giữ phần không có trên form, bả[39m[90m…[39m [90m0.13s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit thêm nguồn: mã không trùng, đúng dạng; ghi người tạo và nhật ký[39m[90m  [39m [90m0.15s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nhật ký thao tác: xem danh sách và giá trị trước, sau; không có[39m[90m… [39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit job lỗi: chạy lại đưa job về hàng đợi, bỏ thì xoá; mỗi việc ghi[39m[90m… [39m [90m0.13s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\QuanTriTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit người học (không phải nhân viên) vào /admin thì bị từ chối 403;[39m[90m… [39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ người có quyền phân quyền mới thấy trang Vai trò và Nhân viê[39m[90m…[39m [90m0.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa quyền của vai trò: có hiệu lực ngay, ghi nhật ký quyền trước[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit không sửa được vai trò Quản trị cao nhất (đã có mọi quyền)[39m[90m       [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit tạo nhân viên: mật khẩu dưới 12 ký tự bị từ chối; đủ thì tạo tài[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa nhân viên: khoá tài khoản, đổi vai trò được ghi nhật ký; khô[39m[90m…[39m [90m0.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nhân viên sửa nội dung thì ghi người sửa và nhật ký trước/sau; n[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đăng nhập trang quản trị: sai 5 lần thì lần thứ 6 bị chặn tạm, k[39m[90m…[39m [90m1.15s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\QuyenLoiTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit không có gói: tắt mở tạm thì theo gói miễn phí (3), bật mở tạm t[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit gói đang chạy được tính, kể cả dùng thử; gói hết hạn, chưa bắt đ[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit gói trọn đời không kèm AI (0), nhưng đang mở tạm thì vẫn được 50[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit -1 (không giới hạn) thắng mọi số; gói mở tạm trỏ tới gói không c[39m[90m…[39m [90m0.03s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\SoTayApiTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit đánh dấu sao rồi ghi chú: lưu theo tài khoản, thẻ từ và danh sác[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit gửi ô nào đổi ô đó; bỏ sao và xoá ghi chú thì xoá hẳn dòng[39m[90m       [39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì[39m[90m                         [39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit danh sách sổ tay: lọc sao, có ghi chú, tìm chữ; sửa gần nhất trư[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit người A không đọc, không sửa được sổ tay của người B; thẻ không[39m[90m… [39m [90m0.08s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\TaiKhoanTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit hiện trang đăng nhập, đăng ký, quên mật khẩu bằng tiếng Việt[39m[90m     [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đăng ký: tạo tài khoản, email viết thường, gửi thư xác minh qua[39m[90m… [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đăng ký: email đã có thì báo lỗi ngay ô email[39m[90m                    [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đăng ký: mật khẩu thiếu số hoặc nhập lại không khớp thì báo lỗi[39m[90m  [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đăng ký: mỗi địa chỉ IP tạo tối đa 5 tài khoản mỗi giờ, lần thứ[39m[90m… [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chưa xác minh email mà vào học thì được dẫn tới trang gửi lại th[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bấm link xác minh thì xác minh xong và vào học[39m[90m                   [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit link xác minh hết hạn hoặc không khớp email thì không dùng được[39m[90m  [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit gửi lại thư xác minh[39m[90m                                             [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đăng nhập đúng (email viết hoa cũng được) thì vào app học và ghi[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sai mật khẩu 5 lần thì lần thứ 6 bị chặn tạm, kể cả đúng mật khẩ[39m[90m…[39m [90m1.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit quên mật khẩu: gửi link, đặt mật khẩu mới, dùng lại link thì khô[39m[90m…[39m [90m0.23s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit thư xác minh và thư đặt lại mật khẩu viết bằng tiếng Việt, link[39m[90m… [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đăng xuất thì về trang chào và ghi lịch sử[39m[90m                       [39m [90m0.02s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\TraTuApiTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit "zahlen" và "zählen": từ đúng từng chữ đứng đầu, rồi dạng khác ([39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit gõ không dấu ở 4 thứ tiếng: Đức (ö → o hoặc oe), Việt, Anh, Trun[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chữ quá ngắn, ký tự đại diện, thẻ nháp và thẻ riêng của người kh[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kết quả có nghĩa, mạo từ tách riêng, sao của chính mình; tối đa[39m[90m… [39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bấm một chữ trong câu: đúng dạng (số nhiều, dạng chia), viết hoa[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit lịch sử tra: ghi khi mở thẻ, mới nhất trước, gộp lần tra lặp lại[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit lịch sử tra sai dữ liệu thì 422; thẻ không xem được thì không gh[39m[90m…[39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit xoá lịch sử: chỉ mục của mình; mục của người khác thì 404 và vẫn[39m[90m…[39m [90m0.07s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Utf8DatabaseTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Brötchen')[39m[90m [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Straße')[39m[90m   [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('tiếng Việt[39m[90m…[39m [90m0.01s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('ẞ ắ ặ ộ ữ[39m[90m… [39m [90m0.01s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kết nối sai bảng mã thì chữ có dấu đọc ra bị hỏng, nên test bắt[39m[90m… [39m [90m0.01s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kết nối database dùng utf8mb4[39m[90m                                    [39m [90m0.01s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\XemThuTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit tắt (mặc định): app học về trang đăng nhập, API trả 401, trang đ[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: mở app học không cần đăng nhập; chỉ có một tài khoản khách,[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: API của app học chạy với tài khoản khách và báo guest[39m[90m       [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: các trang đăng nhập, đăng ký, quên và đặt lại mật khẩu đưa[39m[90m… [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: các trang đăng nhập, đăng ký, quên và đặt lại mật khẩu đưa[39m[90m… [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: các trang đăng nhập, đăng ký, quên và đặt lại mật khẩu đưa[39m[90m… [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: các trang đăng nhập, đăng ký, quên và đặt lại mật khẩu đưa[39m[90m… [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: trang quản trị vẫn cần đăng nhập; khách không vào được[39m[90m      [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: người đã đăng nhập vẫn là chính họ, không bị đổi thành khác[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: khách không đổi được tên, múi giờ của tài khoản chung; cài[39m[90m… [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: giới hạn số lần gọi API của khách tính theo IP, người này k[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: tài khoản khách bị khoá thì app học đóng lại, không chuyển[39m[90m… [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật rồi tắt: người chưa đăng nhập lại phải đăng nhập, tài khoản[39m[90m… [39m [90m0.23s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: tài khoản khách chung không bao giờ dùng AI, không khai ngà[39m[90m…[39m [90m0.03s[39m  
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiCacheTest[22m [90m>[39m it qua API: Dịch, Sửa… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiCacheTest.php[39;22m:[39;1m97[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiCacheTest[22m [90m>[39m it qua API: Dịch, Sửa… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiCacheTest.php[39;22m:[39;1m97[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiCacheTest[22m [90m>[39m it qua API: Dịch, Sửa… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiCacheTest.php[39;22m:[39;1m97[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiCacheTest[22m [90m>[39m it qua API: Dịch, Sửa… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiCacheTest.php[39;22m:[39;1m97[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiCacheTest[22m [90m>[39m it qua API: Dịch, Sửa… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiCacheTest.php[39;22m:[39;1m97[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiCacheTest[22m [90m>[39m it qua API: Dịch, Sửa… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiCacheTest.php[39;22m:[39;1m97[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiCacheTest[22m [90m>[39m it qua API: Dịch, Sửa… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiCacheTest.php[39;22m:[39;1m97[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiCacheTest[22m [90m>[39m it qua API: Dịch, Sửa… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiCacheTest.php[39;22m:[39;1m97[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiCacheTest[22m [90m>[39m it qua API: Dịch, Sửa… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiCacheTest.php[39;22m:[39;1m97[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiCacheTest[22m [90m>[39m it qua API: Dịch, Sửa… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiCacheTest.php[39;22m:[39;1m97[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiDuLieuGuiTest[22m [90m>[39m it cả 10 đường gọ… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiDuLieuGuiTest.php[39;22m:[39;1m86[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiDuLieuGuiTest[22m [90m>[39m it cả 10 đường gọ… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiDuLieuGuiTest.php[39;22m:[39;1m86[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiDuLieuGuiTest[22m [90m>[39m it cả 10 đường gọ… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiDuLieuGuiTest.php[39;22m:[39;1m86[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiDuLieuGuiTest[22m [90m>[39m it cả 10 đường gọ… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiDuLieuGuiTest.php[39;22m:[39;1m86[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiDuLieuGuiTest[22m [90m>[39m it cả 10 đường gọ… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiDuLieuGuiTest.php[39;22m:[39;1m86[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiDuLieuGuiTest[22m [90m>[39m it cả 10 đường gọ… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiDuLieuGuiTest.php[39;22m:[39;1m86[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiDuLieuGuiTest[22m [90m>[39m it cả 10 đường gọ… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiDuLieuGuiTest.php[39;22m:[39;1m86[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiDuLieuGuiTest[22m [90m>[39m it cả 10 đường gọ… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiDuLieuGuiTest.php[39;22m:[39;1m86[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiDuLieuGuiTest[22m [90m>[39m it cả 10 đường gọ… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiDuLieuGuiTest.php[39;22m:[39;1m86[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiDuLieuGuiTest[22m [90m>[39m it cả 10 đường gọ… [41;1m ErrorException [49;22m  
+[39;1m  Undefined array key "das Brot"[39;22m
+
+  at [32mdatabase/seeders/NoiDungThuSeeder.php[39m:[32m237[39m
+    233▕             ['die Zahl', 'Die ____ ist sehr groß.', 'Zahl'],
+    234▕             ['Ich hätte gern zwei Brötchen.', 'Ich hätte gern zwei ____.', 'Brötchen'],
+    235▕             ['der Teig', 'Der ____ muss ruhen.', 'Teig'],
+    236▕         ] as [$front, $cauTrong, $dapAn]) {
+  ➜ 237▕             DB::table('cards')->where('id', $this->the[$front])->update(['cloze' => $cauTrong, 'cloze_answer' => $dapAn]);
+    238▕         }
+    239▕ 
+    240▕         return $this;
+    241▕     }
+
+  [33m1   [39m[39;1mtests/Feature/AiDuLieuGuiTest.php[39;22m:[39;1m86[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiKiemDapAnTest[22m [90m>[39m it câu sửa lỗi cũng dùng được; th…   
+[39;1m  Expected response status code [200] but received 422.
+Failed asserting that 422 is identical to 200.[39;22m
+
+  at [32mtests/Feature/AiKiemDapAnTest.php[39m:[32m26[39m
+     22▕         ->toEqual((object) ['context_type' => 'exercise', 'context_id' => $this->m->cau['lb3:4']]);
+     23▕ });
+     24▕ 
+     25▕ it('câu sửa lỗi cũng dùng được; theo thẻ: đáp án mẫu là mặt trước, câu hỏi là nghĩa', function () {
+  ➜  26▕     $this->postJson('/api/v1/ai/kiem-dap-an', ['exercise_id' => $this->m->cau['dx:g1:1A:2'], 'text' => 'Die Frau heißt Anne.'])->assertOk();
+     27▕     $this->postJson('/api/v1/ai/kiem-dap-an', ['card_id' => theMau('das Brötchen'), 'text' => 'die Semmel'])->assertOk();
+     28▕ 
+     29▕     expect(aiGia()->daNhan[1]->nguoiDung)->toContain('Đáp án mẫu: das Brötchen. Câu hỏi: Viết từ tiếng Đức có nghĩa: bánh mì nhỏ (ổ tròn).')
+     30▕         ->and(DB::table('ai_requests')->where('context_type', 'card')->value('context_id'))->toBe(theMau('das Brötchen'));
+
+
+  [90mTests:[39m    [31;1m21 failed[39;22m[90m,[39m[39m [39m[32;1m574 passed[39;22m[90m (5848 assertions)[39m
+  [90mDuration:[39m [39m74.56s[39m
+
+✘ Pest (database lernbuch_test)
+::endgroup::
+::group::Hiệu năng với dữ liệu cỡ thật (tạo phiên p95 < 150 ms, API khác < 200 ms)
+
+Hiệu năng (11882 thẻ, 620 chủ đề nhỏ, 5000 dòng tiến độ):
+  POST hoc/phien                 p50    7.9 ms   p95   10.8 ms   max   10.9 ms
+  POST hoc/phien (Quiz)          p50   49.9 ms   p95   52.6 ms   max   53.0 ms
+  GET hoc/con-lai                p50    4.1 ms   p95    4.8 ms   max    4.8 ms
+  GET hom-nay                    p50   33.8 ms   p95   34.7 ms   max   34.8 ms
+  GET chu-de/{slug}              p50    5.3 ms   p95    5.8 ms   max    6.1 ms
+  GET chu-de (cây)               p50   37.7 ms   p95   38.5 ms   max   38.9 ms
+  GET tra-tu                     p50   41.5 ms   p95   42.7 ms   max   42.8 ms
+  POST hoc/luot-cham (20 lượt)   p50   12.9 ms   p95   13.5 ms   max   13.6 ms
+  GET ngu-phap                   p50    7.4 ms   p95    7.6 ms   max    7.7 ms
+  GET ngu-phap/{slug}            p50    2.3 ms   p95    2.4 ms   max    2.4 ms
+  GET bai-tap                    p50   14.4 ms   p95   14.9 ms   max   14.9 ms
+  GET bai-tap/phien (Luyện nhanh) p50    7.7 ms   p95    7.8 ms   max    7.9 ms
+  GET bai-tap/phien (Ôn câu sai) p50   13.2 ms   p95   13.4 ms   max   14.1 ms
+  POST bai-tap/ket-qua (15 câu)  p50    6.5 ms   p95    7.0 ms   max    7.1 ms
+  GET dong-tu                    p50    8.4 ms   p95    9.1 ms   max    9.1 ms
+  GET dong-tu?q=                 p50    5.9 ms   p95    7.2 ms   max    9.4 ms
+  GET dong-tu/luyen              p50    3.4 ms   p95    3.9 ms   max    4.6 ms
+  GET bai-tap/dien-cau           p50   27.8 ms   p95   28.3 ms   max   28.7 ms
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\HieuNangHocTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu cỡ thật: tạo phiên p95 dưới 150 ms, các API học và nội d[39m[90m…[39m [90m9.24s[39m  
+
+  [90mTests:[39m    [32;1m1 passed[39;22m[90m (735 assertions)[39m
+  [90mDuration:[39m [39m9.35s[39m
+
+✔ Hiệu năng với dữ liệu cỡ thật (tạo phiên p95 < 150 ms, API khác < 200 ms)
+::endgroup::
+
+KẾT QUẢ: 16/19 bước đạt
+✘ lỗi: Pint (định dạng code)
+✘ lỗi: Larastan (phân tích tĩnh)
+✘ lỗi: Pest (database lernbuch_test)
