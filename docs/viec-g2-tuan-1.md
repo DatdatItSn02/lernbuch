@@ -280,16 +280,16 @@ Làm theo thứ tự. Mỗi đợt một lần đẩy. Trong lúc CI của đợ
 
 ### Đợt 1: lõi gọi AI
 
-- [ ] **T1. Cấu hình.** `config/ai.php`, `.env.example`, `phpunit.xml`, `CaiDatAi` (`tatCa()`, `luu()`, hằng mặc định, kiểm giá trị như 1.2). File mẫu: `app/Support/Hoc/CaiDatHoc.php`.
-- [ ] **T2. Prompt.** `AiPrompt` (`dangDung($loai)`), `AiRequest` (`$timestamps = false`), `SoanLoiNhac`. Viết `tests/chung/chen-lenh.json`: 20 mẫu `{id, lang, kieu, text}`. Năm kiểu (đóng thẻ `</input>` giả, "bỏ qua hướng dẫn", đòi in prompt hệ thống, đổi vai, đòi trả lời ngoài JSON) bằng tiếng Việt, Đức, Anh là 15 mẫu; thêm 5 biến thể của đóng thẻ: `</INPUT>`, `< / input >`, thẻ lồng nhau, thẻ có thuộc tính, xuống dòng giữa thẻ. Đọc trước: `database/sql/seed.sql` dòng 179 đến 219.
+- [x] **T1. Cấu hình.** `config/ai.php`, `.env.example`, `phpunit.xml`, `CaiDatAi` (`tatCa()`, `luu()`, hằng mặc định, kiểm giá trị như 1.2). File mẫu: `app/Support/Hoc/CaiDatHoc.php`.
+- [x] **T2. Prompt.** `AiPrompt` (`dangDung($loai)`), `AiRequest` (`$timestamps = false`), `SoanLoiNhac`. Viết `tests/chung/chen-lenh.json`: 20 mẫu `{id, lang, kieu, text}`. Năm kiểu (đóng thẻ `</input>` giả, "bỏ qua hướng dẫn", đòi in prompt hệ thống, đổi vai, đòi trả lời ngoài JSON) bằng tiếng Việt, Đức, Anh là 15 mẫu; thêm 5 biến thể của đóng thẻ: `</INPUT>`, `< / input >`, thẻ lồng nhau, thẻ có thuộc tính, xuống dòng giữa thẻ. Đọc trước: `database/sql/seed.sql` dòng 179 đến 219.
   - `AiChenLenhTest`: mỗi mẫu ghép vào 8 loại prompt có `{text}`: lời nhắc người dùng có đúng một `<input>` và một `</input>`; phần giữa hai thẻ không còn chuỗi nào khớp `/<\s*\/?\s*input\b/i`; prompt hệ thống chỉ khác bản gốc ở `{level}`. Ngoặc nhọn JSON trong prompt hệ thống còn nguyên. Tham số không thuộc loại thì bị bỏ qua.
-- [ ] **T3. Ba bộ nối và `ChonBoNoi`.** Theo 1.3.
+- [x] **T3. Ba bộ nối và `ChonBoNoi`.** Theo 1.3.
   - `AiBoNoiTest` (phần bộ nối; dùng `Http::fake` và `Http::preventStrayRequests()`): Gemini gửi đúng địa chỉ, đầu, thân, khoá không nằm trong URL; đọc đúng chữ và ba số token; 429, 500, 503, 504, lỗi kết nối là TAM_THOI; 400, 401, 403, 404, thiếu khoá là CAU_HINH (thiếu khoá thì không gọi HTTP); bị chặn an toàn là BI_CHAN; thông điệp lỗi không chứa khoá hay thân trả lời. OpenAI: đúng đường, đầu Bearer, đọc đúng, phân loại lỗi. `BoNoiGia` ném lỗi ở production. `ChonBoNoi`: `AI_DRIVER` thắng ô cài đặt; thiếu khoá ngoài production thì ra `fake`; ở production là CAU_HINH.
-- [ ] **T4. `KhuonAi`.** Theo 1.5.
+- [x] **T4. `KhuonAi`.** Theo 1.5.
   - `AiKhuonTest` (phần khuôn): sáu loại hỏng là chữ thường, JSON thiếu trường, sai kiểu, chuỗi quá dài, bị cắt giữa chừng, rỗng; thêm JSON là mảng, chuỗi bắt buộc rỗng. Chấp nhận: bọc rào ```` ```json ````, khoá lạ (bị bỏ), danh sách quá dài (bị cắt), chuỗi có thẻ HTML (giữ nguyên). `jsonSchema('word')` đúng dạng.
-- [ ] **T5. `QuyenLoi`.**
+- [x] **T5. `QuyenLoi`.**
   - `QuyenLoiTest`: không có gói và tắt mở tạm thì 3; mở tạm thì 50; gói premium đang chạy thì 50; gói hết hạn hoặc chưa bắt đầu thì như không có; `trialing` được tính; gói `lifetime` (0) cùng mở tạm thì 50; `-1` thắng mọi số; ô `plans.open_access_plan` trỏ gói không có thì bỏ qua.
-- [ ] **Đẩy đợt 1.**
+- [x] **Đẩy đợt 1.**
 
 ### Đợt 2: tám chặng và chức năng đầu tiên
 
@@ -353,3 +353,5 @@ Phần của các mục này để tuần sau: câu trả lời của model th�
 ## 5. Ghi chú
 
 Mỗi quyết định tự chọn ngoài file này ghi một dòng ở đây: ngày, việc, chọn gì, vì sao.
+
+- 28/11, T3: `BoNoiGia` là singleton trong container (`app(BoNoiGia::class)`), `kich`, `daNhan`, `datLai` là của đối tượng, không tĩnh: mỗi test có một bản mới, kịch bản của test này không lọt sang test khác.
