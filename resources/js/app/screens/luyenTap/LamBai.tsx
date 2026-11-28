@@ -70,6 +70,7 @@ const tuCau = (c: CauBaiTap): CauChay => ({
     lead: c.lead,
     frag: c.frag,
     nhom: c.set.title,
+    ai: c.kind === 'fill' || c.kind === 'fix' ? { exercise_id: c.id } : null,
 });
 
 /** Làm bộ bài: ?bo=…&n=&thu-tu=1&cham=phieu (một bộ theo thứ tự thì làm được cả phiếu), ?on=1 Ôn câu sai, không có bộ là Luyện nhanh. */

@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Support\Ai\CaiDatAi;
 use App\Support\Ai\DanhSachThu;
+use App\Support\Ai\DongYAi;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -27,12 +28,15 @@ class NguoiHocThuSeeder extends Seeder
 
     /**
      * 1–3: phiên Flashcard (tests/e2e/hoc.spec.ts); 4–10: mỗi chế độ học một tài khoản (tests/e2e/che-do.spec.ts);
-     * 11: học khi mất mạng (tests/e2e/pwa.spec.ts); 12, 13: AI (tests/e2e/ai.spec.ts).
+     * 11: học khi mất mạng (tests/e2e/pwa.spec.ts); 12, 13: AI (tests/e2e/ai.spec.ts); 14, 15: Hỏi AI (tests/e2e/hoi-ai.spec.ts).
      */
-    public const SO_TAI_KHOAN_HOC = 13;
+    public const SO_TAI_KHOAN_HOC = 15;
 
     /** Tài khoản học nằm trong danh sách thử AI; mỗi lần chạy seeder thì xoá ngày sinh, đồng ý và nhật ký AI của chúng. */
     public const TAI_KHOAN_AI = [12, 13];
+
+    /** Tài khoản dùng được AI ngay (người lớn, đã đồng ý); mỗi lần chạy seeder thì xoá dữ liệu AI của chúng. */
+    public const TAI_KHOAN_AI_SAN = [14, 15];
 
     public function run(): void
     {
@@ -51,11 +55,18 @@ class NguoiHocThuSeeder extends Seeder
                 if (in_array($i, self::TAI_KHOAN_AI, true)) {
                     $this->datLaiAi($user);
                 }
+
+                if (in_array($i, self::TAI_KHOAN_AI_SAN, true)) {
+                    $this->datLaiAi($user);
+                    $user->forceFill(['birth_date' => gmmktime(0, 0, 0, 1, 1, 1990)])->saveQuietly();
+                    DongYAi::ghi($user, true);
+                }
             }
         }
 
         // AI bật cho danh sách thử (AI giả trên máy dev và CI, AI_DRIVER=fake)
-        CaiDatAi::luu(['enabled' => true, 'audience' => 'testers'], null);
+        // Trần hệ thống nới rộng: test trình duyệt chạy song song nhiều lượt hỏi AI giả
+        CaiDatAi::luu(['enabled' => true, 'audience' => 'testers', 'rpm_cap' => 1000, 'rpd_cap' => 100000], null);
 
         // Nhân viên thử cho test trình duyệt trang quản trị (tests/e2e/quan-tri.spec.ts); vai trò có sau khi chạy seed.sql
         $quanTri = $this->tao(self::EMAIL_QUAN_TRI, 'Quản trị thử');
@@ -78,6 +89,11 @@ class NguoiHocThuSeeder extends Seeder
         $user->forceFill(['birth_date' => null])->saveQuietly();
         DB::table('consents')->where('user_id', $user->id)->delete();
         DB::table('ai_requests')->where('user_id', $user->id)->delete();
+        $cuoc = DB::table('ai_conversations')->where('user_id', $user->id)->pluck('id');
+        DB::table('ai_messages')->whereIn('conversation_id', $cuoc)->delete();
+        DB::table('ai_conversations')->where('user_id', $user->id)->delete();
+        DB::table('user_ai_lessons')->where('user_id', $user->id)->delete();
+        DB::table('writing_submissions')->where('user_id', $user->id)->delete();
         DanhSachThu::dat($user, true);
     }
 

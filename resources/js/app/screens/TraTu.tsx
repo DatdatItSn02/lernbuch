@@ -2,14 +2,17 @@ import { History, Search, Star, X } from 'lucide-react';
 import { useEffect, useId, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { DongDang, TuDuc } from '../components/Article';
+import { TraTuAi } from '../components/ai/TraTuAi';
 import { Kbd } from '../components/Kbd';
 import { Sheet } from '../components/Shell';
 import { DangTai, LoiTai } from '../components/TaiNoiDung';
+import { coTabAi, GIOI_HAN } from '../lib/ai';
 import { api } from '../lib/api';
 import { tenLoaiTu, type KetQuaTra, type MucLichSu, type SoTay } from '../lib/noiDung';
 import { quenDaTai, useApi, type KetQuaApi } from '../lib/useApi';
 import { useTitle } from '../lib/useTitle';
 import { useStore } from '../state/store';
+import { useTaiKhoan } from '../state/taiKhoan';
 import { so, t } from '../i18n';
 
 /** Ngừng gõ chừng này thì tra. */
@@ -27,6 +30,7 @@ export function TraTu() {
     const uid = useId();
     const [params, setParams] = useSearchParams();
     const q = (params.get('q') ?? '').trim();
+    const coAi = coTabAi(useTaiKhoan().toi?.ai);
     const [chu, setChu] = useState(params.get('q') ?? '');
     const oTim = useRef<HTMLInputElement>(null);
 
@@ -129,7 +133,11 @@ export function TraTu() {
 
             {q !== '' && !quaNgan(q) && (
                 <section aria-label={t('khung.traTu')} aria-busy={kq.dangTai} className="border-t border-line">
-                    {ketQua ? (
+                    {ketQua && tong === 0 && coAi && q.trim().length <= GIOI_HAN.traTu ? (
+                        <div className="px-5 py-5 md:px-8">
+                            <TraTuAi tu={q.trim()} />
+                        </div>
+                    ) : ketQua ? (
                         <ul className="divide-y divide-line">
                             {ketQua.map((the) => (
                                 <KetQua key={the.id} the={the} onMo={() => ghiLichSu(q, the.id)} onSao={() => void batSao(the)} />

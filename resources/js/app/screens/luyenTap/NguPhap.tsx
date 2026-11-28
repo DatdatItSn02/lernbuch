@@ -3,6 +3,7 @@
 import { ArrowLeft, ArrowRight, Search } from 'lucide-react';
 import { useDeferredValue, useMemo, useState, type MouseEvent, type ReactNode } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
+import { HoiNguPhap } from '../../components/ai/HoiNguPhap';
 import { Choice } from '../../components/Choice';
 import { KhoiNguPhap, cacPhan } from '../../components/KhoiNguPhap';
 import { Sheet } from '../../components/Shell';
@@ -14,6 +15,8 @@ import { tenCap, truyVan } from '../../lib/noiDung';
 import { useApi } from '../../lib/useApi';
 import { useTitle } from '../../lib/useTitle';
 import { useStore } from '../../state/store';
+import { useTaiKhoan } from '../../state/taiKhoan';
+import { coTabAi } from '../../lib/ai';
 import { so, t } from '../../i18n';
 import { CAC_CAP, NutLink } from './chung';
 
@@ -180,6 +183,7 @@ export function NguPhap() {
 export function BaiNguPhap() {
     const { slug = '' } = useParams();
     const { settings } = useStore();
+    const coAi = coTabAi(useTaiKhoan().toi?.ai);
     const { duLieu, loi, taiLai } = useApi<{ data: BaiApi }>(`/ngu-phap/${encodeURIComponent(slug)}`);
     const bai = duLieu?.data.slug === slug ? duLieu.data : undefined;
     useTitle(bai?.title ?? t('khung.nguPhap'));
@@ -247,7 +251,12 @@ export function BaiNguPhap() {
                         )}
 
                         <article className="mt-4 text-pretty">
-                            <KhoiNguPhap khoi={bai.blocks} langs={settings.langs} />
+                            {coAi && phan.length === 0 && <HoiNguPhap slug={bai.slug} phan={0} ten="" />}
+                            <KhoiNguPhap
+                                khoi={bai.blocks}
+                                langs={settings.langs}
+                                sauTieuDe={coAi ? (so, ten) => <HoiNguPhap slug={bai.slug} phan={so} ten={ten} /> : undefined}
+                            />
                         </article>
 
                         <nav aria-label={t('nguPhap.chuyenBai')} className="mt-10 flex flex-wrap justify-between gap-3 border-t border-line pt-4">

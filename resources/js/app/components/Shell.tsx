@@ -1,11 +1,13 @@
-import { BookOpen, CalendarDays, CloudOff, Library, PencilLine, Search, Settings, Star } from 'lucide-react';
+import { BookOpen, CalendarDays, CloudOff, Library, MessageCircleQuestion, PencilLine, Search, Settings, Star } from 'lucide-react';
 import { useEffect, useRef, type ReactNode } from 'react';
 import { Link, NavLink, useLocation } from 'react-router';
 import { ChoGui } from './ChoGui';
+import { coTabAi } from '../lib/ai';
 import { useCoMang } from '../lib/mang';
+import { useTaiKhoan } from '../state/taiKhoan';
 import { t, type Khoa } from '../i18n';
 
-type MucDieuHuong = { to: string; khoa: Khoa; icon: typeof CalendarDays; cung?: string[]; dienThoai?: boolean };
+type MucDieuHuong = { to: string; khoa: Khoa; icon: typeof CalendarDays; cung?: string[]; dienThoai?: boolean; ai?: boolean };
 
 // Chủ đề gồm cả Cấp độ, Giao tiếp và thẻ từ; Ngữ pháp gồm Bảng động từ; Bài tập gồm Số nhiều.
 // Điện thoại: thanh dưới 5 mục; Sổ tay và Cài đặt là hai nút trên thanh trên.
@@ -15,6 +17,7 @@ const NAV: MucDieuHuong[] = [
     { to: '/ngu-phap', khoa: 'khung.nguPhap', icon: BookOpen, cung: ['/dong-tu'] },
     { to: '/bai-tap', khoa: 'khung.baiTap', icon: PencilLine, cung: ['/so-nhieu'] },
     { to: '/tra-tu', khoa: 'khung.traTu', icon: Search },
+    { to: '/hoi-ai', khoa: 'khung.hoiAi', icon: MessageCircleQuestion, dienThoai: false, ai: true },
     { to: '/so-tay', khoa: 'khung.soTay', icon: Star, dienThoai: false },
     { to: '/cai-dat', khoa: 'khung.caiDat', icon: Settings, dienThoai: false },
 ];
@@ -27,6 +30,8 @@ export function Shell({ children }: { children: ReactNode }) {
     const mainRef = useRef<HTMLElement>(null);
     const firstPath = useRef(pathname);
     const coMang = useCoMang();
+    // Hỏi AI chỉ hiện khi AI mở cho tài khoản này (còn bước khai ngày sinh, đồng ý, hoặc đã dùng được)
+    const coAi = coTabAi(useTaiKhoan().toi?.ai);
 
     // Chuyển màn hình: lên đầu trang và đặt tiêu điểm vào nội dung mới (lần mở trang đầu thì để nguyên).
     useEffect(() => {
@@ -47,7 +52,7 @@ export function Shell({ children }: { children: ReactNode }) {
                         {t('chung.tenApp')}
                     </NavLink>
                     <nav aria-label={t('khung.dieuHuong')} className="hidden h-full items-stretch gap-1 md:flex">
-                        {NAV.map((m) => {
+                        {NAV.filter((m) => !m.ai || coAi).map((m) => {
                             const on = dangMo(m, pathname);
                             const Icon = m.icon;
                             return (
@@ -67,6 +72,17 @@ export function Shell({ children }: { children: ReactNode }) {
                     </nav>
                     <span className="ml-auto flex items-center gap-1">
                         <ChoGui mau="text-on-box/85" />
+                        {coAi && (
+                            <NavLink
+                                to="/hoi-ai"
+                                aria-label={t('khung.hoiAi')}
+                                className={({ isActive }) =>
+                                    `flex size-11 items-center justify-center rounded-md focus-visible:outline-on-box! md:hidden ${isActive ? 'text-on-box' : 'text-on-box/80 hover:text-on-box'}`
+                                }
+                            >
+                                <MessageCircleQuestion size={22} aria-hidden="true" />
+                            </NavLink>
+                        )}
                         <NavLink
                             to="/so-tay"
                             aria-label={t('khung.soTay')}

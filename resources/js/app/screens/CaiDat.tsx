@@ -6,7 +6,7 @@ import { MayDangNhap } from '../components/MayDangNhap';
 import { Sheet } from '../components/Shell';
 import { t, type Khoa } from '../i18n';
 import { guiDongY } from '../lib/ai';
-import { LoiApi } from '../lib/api';
+import { api, LoiApi } from '../lib/api';
 import { useCaiApp } from '../lib/caiApp';
 import { cacMuiGio } from '../lib/muiGio';
 import { donMay } from '../lib/offline';
@@ -128,7 +128,7 @@ export function CaiDat() {
 
 /** AI: đã đồng ý thì rút được; chưa khai, chưa đủ tuổi, chưa đồng ý thì một câu giải thích. AI chưa mở cho tài khoản này thì ẩn. */
 function MucAi() {
-    const { toi, nhanToi } = useTaiKhoan();
+    const { toi, nhanToi, taiLaiToi } = useTaiKhoan();
     const uid = useId();
     const [loi, setLoi] = useState<string | null>(null);
     const [dangGui, setDangGui] = useState(false);
@@ -164,6 +164,33 @@ function MucAi() {
                     >
                         {t('ai.caiDat.rut')}
                     </button>
+                    <label className="mt-5 flex min-h-11 items-start gap-3">
+                        <input
+                            type="checkbox"
+                            checked={toi?.settings.ai_auto_explain === true}
+                            disabled={dangGui}
+                            aria-describedby={`${uid}-tu-mo-ta`}
+                            onChange={async (e) => {
+                                setLoi(null);
+                                setDangGui(true);
+                                try {
+                                    await api.sua('/toi/cai-dat', { ai_auto_explain: e.target.checked });
+                                    await taiLaiToi();
+                                } catch (er) {
+                                    setLoi(chuLoi(er));
+                                } finally {
+                                    setDangGui(false);
+                                }
+                            }}
+                            className="mt-1 size-5 shrink-0 accent-tim"
+                        />
+                        <span>
+                            <span className="font-semibold">{t('ai.caiDat.tuGiaiThich')}</span>
+                            <span id={`${uid}-tu-mo-ta`} className="block text-label text-ink-2">
+                                {t('ai.caiDat.tuGiaiThichMoTa')}
+                            </span>
+                        </span>
+                    </label>
                 </>
             ) : (
                 <p className="mt-2 text-ink-2">

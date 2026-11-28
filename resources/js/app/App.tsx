@@ -1,6 +1,7 @@
-import type { ReactNode } from 'react';
+import { lazy, Suspense, type ReactNode } from 'react';
 import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation } from 'react-router';
-import { Shell } from './components/Shell';
+import { Sheet, Shell } from './components/Shell';
+import { DangTai } from './components/TaiNoiDung';
 import { CaiDat } from './screens/CaiDat';
 import { CapDo } from './screens/CapDo';
 import { ChuDe } from './screens/ChuDe';
@@ -15,8 +16,28 @@ import { BaiNguPhap, NguPhap } from './screens/luyenTap/NguPhap';
 import { SoTay } from './screens/SoTay';
 import { TheTu } from './screens/TheTu';
 import { TraTu } from './screens/TraTu';
+import { VietCau } from './screens/luyenTap/VietCau';
 import { StoreProvider } from './state/store';
 import { TaiKhoanProvider } from './state/taiKhoan';
+
+// Phần AI tải riêng (gói nhỏ hơn cho người không dùng AI)
+const HoiAi = lazy(() => import('./screens/ai/HoiAi'));
+const CuocTroChuyen = lazy(() => import('./screens/ai/CuocTroChuyen'));
+const XemBaiHocAi = lazy(() => import('./screens/ai/XemBaiHocAi'));
+
+function Cho({ children }: { children: ReactNode }) {
+    return (
+        <Suspense
+            fallback={
+                <Sheet className="px-5 py-6 md:px-8">
+                    <DangTai />
+                </Sheet>
+            }
+        >
+            {children}
+        </Suspense>
+    );
+}
 
 function ShellLayout() {
     return (
@@ -62,6 +83,10 @@ export function AppRoutes() {
                 <Route path="tra-tu" element={<TraTu />} />
                 <Route path="so-tay" element={<SoTay />} />
                 <Route path="cai-dat" element={<CaiDat />} />
+                <Route path="bai-tap/viet-cau" element={<KhoaTheoDuong>{(k) => <VietCau key={k} />}</KhoaTheoDuong>} />
+                <Route path="hoi-ai" element={<Cho><HoiAi /></Cho>} />
+                <Route path="hoi-ai/tro-chuyen/:ma" element={<Cho><CuocTroChuyen /></Cho>} />
+                <Route path="hoi-ai/bai-hoc/:id" element={<Cho><XemBaiHocAi /></Cho>} />
                 <Route path="*" element={<KhongThay />} />
             </Route>
         </Routes>

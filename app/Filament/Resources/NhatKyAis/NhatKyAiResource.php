@@ -101,7 +101,7 @@ class NhatKyAiResource extends Resource
                 TextColumn::make('user.email')->label('Người học')->placeholder('Chạy thử'),
                 TextColumn::make('kind')->label('Loại')->formatStateUsing(fn (string $state) => PromptAi::tenLoai($state)),
                 TextColumn::make('status')->label('Trạng thái')->formatStateUsing(fn (string $state) => self::TRANG_THAI[$state] ?? $state),
-                TextColumn::make('cache_hit')->label('Cache')->formatStateUsing(fn (bool $state) => $state ? 'Có' : ''),
+                TextColumn::make('cache_hit')->label('Cache')->formatStateUsing(fn (bool $state) => $state ? 'Có' : 'Không'),
                 TextColumn::make('model')->label('Model')->placeholder('—'),
                 TextColumn::make('token')->label('Token')->state(fn (AiRequest $record) => $record->getAttribute('input_tokens') + $record->getAttribute('output_tokens')),
                 TextColumn::make('cost_micro_usd')->label('Chi phí (USD)')->formatStateUsing(fn (int $state) => ThongKeAi::usd($state)),

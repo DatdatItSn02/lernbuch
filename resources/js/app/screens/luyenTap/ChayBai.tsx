@@ -1,5 +1,8 @@
 // Làm bài tập theo Lernbuch (exercises.js): chấm ngay từng câu (drive: câu sai quay lại một lần sau 4 câu, tổng kết,
 // làm lại câu sai) và làm cả phiếu rồi chấm (runSheet). Mỗi câu tính lần trả lời đầu tiên; câu ôn lại chỉ để luyện.
+import { KiemDapAn } from '../../components/ai/KiemDapAn';
+import { nenTuGiaiThich } from '../../components/ai/NutGiaiThichTu';
+import { useTaiKhoan } from '../../state/taiKhoan';
 import { Check, Coins, X } from 'lucide-react';
 import { Fragment, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from 'react';
 import { Link, useNavigate } from 'react-router';
@@ -34,6 +37,8 @@ export type CauChay = {
     /** Thêm dưới câu hỏi (nghĩa của từ cần điền) và sau khi trả lời (câu đầy đủ kèm bản dịch). */
     truoc?: ReactNode;
     sau?: ReactNode;
+    /** Câu bài tập điền từ, sửa lỗi: hỏi AI khi câu trả lời khác đáp án mẫu (Kiểm đáp án). */
+    ai?: { exercise_id: number } | null;
 };
 
 export type KetQuaCau = { khoa: string; diem: Diem; traLoi: string };
@@ -75,6 +80,7 @@ function chuBao(diem: Diem, traLoi: string, phieu = false) {
 
 /** Sau khi trả lời: báo đúng sai, đáp án (khi sai hoặc có lời giải), lời giải, phần thêm. */
 function SauTraLoi({ c, diem, traLoi }: { c: CauChay; diem: Diem; traLoi: string }) {
+    const { toi } = useTaiKhoan();
     return (
         <>
             <BaoKetQua diem={diem} chu={chuBao(diem, traLoi)} phu={traLoi && diem < 2 ? <s>{traLoi}</s> : undefined} />
@@ -85,6 +91,7 @@ function SauTraLoi({ c, diem, traLoi }: { c: CauChay; diem: Diem; traLoi: string
                 </p>
             )}
             {c.explanation && <p className="mt-1 text-ink-2">{c.explanation}</p>}
+            {c.ai && diem < 2 && <KiemDapAn than={c.ai} traLoi={traLoi} tuDong={nenTuGiaiThich(toi, true)} />}
             {c.nghe && (
                 <div className="mt-3 flex gap-2">
                     <AudioButton text={c.nghe.chu} url={c.nghe.url} label={t('lamBai.phatAm')} shortcut="P" />

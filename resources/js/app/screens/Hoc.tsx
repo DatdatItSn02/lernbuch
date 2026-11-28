@@ -1,3 +1,4 @@
+import { NutGiaiThichTu } from '../components/ai/NutGiaiThichTu';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router';
 import { DongDang, TuDuc } from '../components/Article';
@@ -328,6 +329,7 @@ function Card(props: {
                                             </p>
                                         </div>
                                     )}
+                                    <NutGiaiThichTu cardId={card.id} />
                                 </div>
                             )}
                         </div>

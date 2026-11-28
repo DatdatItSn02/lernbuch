@@ -13,6 +13,8 @@ export type CaiDatApi = {
     font_size: 'sm' | 'md' | 'lg';
     season: Season;
     meaning_langs: string[];
+    /** AI tự giải thích khi trả lời sai (mỗi lần sai tốn một lượt AI); mặc định tắt. */
+    ai_auto_explain?: boolean;
 };
 
 export type Toi = {

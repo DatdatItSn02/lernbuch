@@ -85,7 +85,7 @@ class AiPromptResource extends Resource
             ->columns([
                 TextColumn::make('kind')->label('Loại')->formatStateUsing(fn (string $state) => PromptAi::tenLoai($state)),
                 TextColumn::make('version')->label('Phiên bản'),
-                TextColumn::make('is_active')->label('Đang dùng')->formatStateUsing(fn (bool $state) => $state ? 'Đang dùng' : '')->placeholder(''),
+                TextColumn::make('is_active')->label('Đang dùng')->formatStateUsing(fn (bool $state) => $state ? 'Đang dùng' : 'Không'),
                 TextColumn::make('model')->label('Model'),
                 TextColumn::make('max_tokens')->label('Token tối đa'),
                 TextColumn::make('temperature')->label('Nhiệt độ'),

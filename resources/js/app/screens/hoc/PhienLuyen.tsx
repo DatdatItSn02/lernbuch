@@ -1,5 +1,7 @@
 // Phiên luyện tập ngoài Flashcard, theo Lernbuch (modes.js): Quiz, Listening, Typing, Ghép cặp, Hỗn hợp, Đặt câu.
 // Mỗi thẻ được chấm 0 (Quên), 1 (Khó) hoặc 2 (Tốt) như lượt chấm Flashcard; chỉ lượt đầu của thẻ được tính.
+import { KiemDapAn } from '../../components/ai/KiemDapAn';
+import { NutGiaiThichTu } from '../../components/ai/NutGiaiThichTu';
 import { Check, X } from 'lucide-react';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { DongDang, TuDuc } from '../../components/Article';
@@ -187,7 +189,7 @@ function CacNghia({ the, langs, lon = false }: { the: Pick<TheHoc, 'meanings'>; 
 }
 
 /** Đáp án đủ thông tin sau khi trả lời: từ có mạo từ, dạng, nghĩa, câu ví dụ. */
-function DapAnThe({ the, langs, hienTu = true }: { the: TheHoc; langs: Langs; hienTu?: boolean }) {
+function DapAnThe({ the, langs, hienTu = true, sai = false }: { the: TheHoc; langs: Langs; hienTu?: boolean; sai?: boolean }) {
     return (
         <div className="lb-reveal mt-6 border-t border-dashed border-line-strong pt-5">
             {hienTu && (
@@ -212,6 +214,7 @@ function DapAnThe({ the, langs, hienTu = true }: { the: TheHoc; langs: Langs; hi
                     </p>
                 </div>
             )}
+            <NutGiaiThichTu cardId={the.id} sai={sai} />
         </div>
     );
 }
@@ -282,7 +285,7 @@ function CauQuiz({ muc, langs, onCham, onTiep }: CauProps<Extract<MucMot, { kieu
             {chon !== null && (
                 <>
                     <BaoKetQua diem={dung ? 2 : 0} chu={dung ? t('luyen.dung') : t('luyen.chuaDung')} phu={dung ? undefined : t('luyen.banChon', { chu: dapAn.cacDapAn[chon] })} />
-                    <DapAnThe the={the} langs={langs} hienTu={false} />
+                    <DapAnThe the={the} langs={langs} hienTu={false} sai={!dung} />
                     <NutDay nutRef={nutTiep} onClick={() => onTiep(dung ? 2 : 0)}>
                         {t('luyen.tiep')} <Kbd>{t('phim.enter')}</Kbd>
                     </NutDay>
@@ -460,7 +463,8 @@ function CauGo({ muc, langs, onCham, onTiep }: CauProps<Extract<MucMot, { kieu: 
                             </>
                         }
                     />
-                    <DapAnThe the={the} langs={langs} />
+                    {go.trim() && kq.lyDo !== 'dung' && <KiemDapAn than={{ card_id: the.id }} traLoi={go} />}
+                    <DapAnThe the={the} langs={langs} sai={kq.diem === 0} />
                 </>
             )}
             {kq ? (

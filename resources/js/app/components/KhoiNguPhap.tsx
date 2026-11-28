@@ -132,7 +132,8 @@ function Bang({ rows }: { rows: Extract<Khoi, { t: 'tbl' }>['rows'] }) {
  * Nội dung bài ngữ pháp từ các khối (Lernbuch renderBlocks): tiêu đề, đoạn, danh sách, cặp khoá–giải thích, công thức,
  * ví dụ (câu tiếng Đức và bản dịch theo thứ tiếng người học bật), mẹo, nhắc lại, lưu ý, bảng.
  */
-export function KhoiNguPhap({ khoi, langs }: { khoi: Khoi[]; langs: Langs }) {
+/** sauTieuDe: phần chèn ngay sau mỗi tiêu đề h2 (nút Hỏi AI về phần này), số phần đếm từ 0 như DoanNguPhap ở máy chủ. */
+export function KhoiNguPhap({ khoi, langs, sauTieuDe }: { khoi: Khoi[]; langs: Langs; sauTieuDe?: (soPhan: number, ten: string) => ReactNode }) {
     const phan = cacPhan(khoi);
     const ra: ReactNode[] = [];
     let soPhan = 0;
@@ -174,12 +175,14 @@ export function KhoiNguPhap({ khoi, langs }: { khoi: Khoi[]; langs: Langs }) {
 
         switch (k.t) {
             case 'h2': {
-                const p = phan[soPhan++];
+                const so = soPhan++;
+                const p = phan[so];
                 ra.push(
                     <h2 key={i} id={p.id} className="mt-8 scroll-mt-20 border-b border-line pb-1 text-title font-bold">
                         {p.chu}
                     </h2>,
                 );
+                if (sauTieuDe) ra.push(<Fragment key={`ai-${i}`}>{sauTieuDe(so, p.chu)}</Fragment>);
                 break;
             }
             case 'h3': {

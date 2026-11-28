@@ -197,16 +197,16 @@ Làm theo thứ tự. Mỗi đợt một lần đẩy. Trong lúc CI chạy thì
 
 ### Đợt 1: nền chung và các chức năng không lưu
 
-- [ ] **T1. Prompt bản 2.** `PromptBan2`, migration, ba dòng trong `seed.sql`, `SoanLoiNhac` (1.2). File mẫu: `database/migrations/2026_11_27_000003_mark_lernbuch_sources_allowed.php`.
+- [x] **T1. Prompt bản 2.** `PromptBan2`, migration, ba dòng trong `seed.sql`, `SoanLoiNhac` (1.2). File mẫu: `database/migrations/2026_11_27_000003_mark_lernbuch_sources_allowed.php`.
   - `AiPromptBan2Test`: database mới có đúng 10 prompt, ba loại khớp `PromptBan2::MAU`; đổi một dòng về chữ cũ rồi gọi `nangCap()` thì có bản 2 đang dùng, bản 1 tắt; gọi lần hai không thêm dòng; bản 2 đã có sẵn thì không đụng.
   - Sửa `AiChenLenhTest`: thêm `history`, `topic`, `words` vào các tham số được ghép mẫu chèn lệnh; cả 9 loại có chữ người học vẫn có đúng một cặp thẻ.
-- [ ] **T2. Khuôn.** `KhuonAi` (1.3), `BoNoiGia::mau()` cho 10 loại (câu mẫu có chứa chữ đầu vào để test nhận ra).
+- [x] **T2. Khuôn.** `KhuonAi` (1.3), `BoNoiGia::mau()` cho 10 loại (câu mẫu có chứa chữ đầu vào để test nhận ra).
   - Thêm vào `AiKhuonTest`: mẫu của `BoNoiGia` qua khuôn ở cả 10 loại; từng kiểu mới với giá trị sai (`"true"`, `1.5`, `"3"`, giá trị ngoài danh sách, danh sách thiếu phần tử tối thiểu); `lesson` có `answer` vượt số lựa chọn; `jsonSchema()` của 10 loại có `boolean`, `integer`, `enum` đúng chỗ; loại trong `KHONG_GUI_KHUON` trả `null`.
-- [ ] **T3. Phần dùng chung.** `HoiAi::hoiKem`, `ChuNhap`, `CoChu`, `TrinhDoAi`, `DoanNguPhap` (1.4, 1.7).
-- [ ] **T4. Sáu đường không lưu.** `ai/dich`, `ai/sua-ngu-phap`, `ai/tra-tu`, `ai/ngu-phap/giai-thich`, `ai/ngu-phap/hoi`, `ai/kiem-dap-an` (1.5, 1.7).
+- [x] **T3. Phần dùng chung.** `HoiAi::hoiKem`, `ChuNhap`, `CoChu`, `TrinhDoAi`, `DoanNguPhap` (1.4, 1.7).
+- [x] **T4. Sáu đường không lưu.** `ai/dich`, `ai/sua-ngu-phap`, `ai/tra-tu`, `ai/ngu-phap/giai-thich`, `ai/ngu-phap/hoi`, `ai/kiem-dap-an` (1.5, 1.7).
   - `AiNguPhapTest`: chữ gửi đi có nội dung phần được chọn và không có phần khác; bảng và ví dụ được ghép; cắt ở 1.500 ký tự; bài không có `h2`; phần ngoài phạm vi 422; bài không có 404; câu hỏi kèm tên bài; hỏi lại cùng phần thì lấy từ cache.
   - `AiKiemDapAnTest`: theo câu bài tập và theo thẻ; thiếu cả hai hoặc có cả hai 422; dạng `mc` thì `ai_khong_ap_dung`; trả lời khớp mẫu thì `ai_dap_an_khop_mau` và không gọi AI; câu nháp, thẻ của người khác 404; nhật ký đúng ngữ cảnh.
-- [ ] **Đẩy đợt 1.**
+- [x] **Đẩy đợt 1.**
 
 ### Đợt 2: các chức năng có lưu, và test phủ cả 10 chức năng
 
@@ -232,20 +232,20 @@ Làm theo thứ tự. Mỗi đợt một lần đẩy. Trong lúc CI chạy thì
 - [x] **T11. `app:ai-thu` và workflow.** Theo 1.9.
   - `AiThuLenhTest` (`Http::fake`, `--nghi=0`): gửi đúng 60 lượt, khoá chỉ nằm ở đầu `x-goog-api-key`; 38/40 đúng khuôn thì mã 0, 37/40 thì mã 1; trung vị và lâu nhất vượt ngưỡng thì mã 1; 3 câu chèn lệnh "làm theo" thì mã 1; từng dấu hiệu 1 đến 6 có một ca bắt được và một ca không bắt nhầm; 429 rồi thành công thì ghi `thu_lai = 1`; thiếu khoá thì mã 2 và không gọi mạng; hai file ra không chứa khoá; `mau-thu.json` có đúng 4 câu mỗi loại và đủ tham số của loại.
 - [x] **T12. Khoá Gemini trong deploy.** Theo 1.10. README: bổ sung mục AI (ba trang quản trị, lệnh và workflow `ai-thu`, secret `GEMINI_API_KEY`).
-- [ ] **Đẩy đợt 3.** Rồi đẩy nhánh `ai/thu` một lần: có secret thì đọc `ai-thu/ket-qua.md` trên nhánh `ci-results`; chưa có secret thì ghi lại là đang chờ khoá. Loại nào trượt ngưỡng vì prompt thì sửa trong `PromptBan2` (nếu là ba loại bản 2) hoặc ghi đề xuất sửa vào mục 5; không chạy quá 2 lần một ngày.
+- [x] **Đẩy đợt 3.** Rồi đẩy nhánh `ai/thu` một lần: có secret thì đọc `ai-thu/ket-qua.md` trên nhánh `ci-results`; chưa có secret thì ghi lại là đang chờ khoá. Loại nào trượt ngưỡng vì prompt thì sửa trong `PromptBan2` (nếu là ba loại bản 2) hoặc ghi đề xuất sửa vào mục 5; không chạy quá 2 lần một ngày.
 
 ### Đợt 4: app học
 
-- [ ] **T13. Nền giao diện.** `lib/ai.ts` (kiểu kết quả của 9 loại, các hàm gọi API), `useHoiAi`, `OHoiAi`, `KetQuaAi`, đường mới trong `App.tsx`, mục điều hướng, `HoiAi.tsx` với bốn tab.
+- [x] **T13. Nền giao diện.** `lib/ai.ts` (kiểu kết quả của 9 loại, các hàm gọi API), `useHoiAi`, `OHoiAi`, `KetQuaAi`, đường mới trong `App.tsx`, mục điều hướng, `HoiAi.tsx` với bốn tab.
   - `OHoiAi.test.tsx`: bộ đếm; quá dài thì nút tắt và có câu báo; toàn ký hiệu không gọi API; đang gửi có `status`; lỗi có `alert` và nút Thử lại đúng luật; `ai_het_luot` hiện giờ có lượt mới.
   - `HoiAi.test.tsx`: `hidden` thì không có mục điều hướng và vào `/hoi-ai` thấy trang Không tìm thấy; `need_consent` thì thấy cổng; đổi tab đổi `?tab`.
-- [ ] **T14. Bốn tab.** `Dich`, `SuaNguPhap`, `TroChuyen`, `CuocTroChuyen`, `BaiHocAi`, `XemBaiHocAi`.
+- [x] **T14. Bốn tab.** `Dich`, `SuaNguPhap`, `TroChuyen`, `CuocTroChuyen`, `BaiHocAi`, `XemBaiHocAi`.
   - Mỗi màn một file test: hiện đủ các phần của kết quả, phần rỗng bị ẩn, chuỗi có thẻ HTML hiện nguyên văn; Trò chuyện: gửi thì thêm hai tin, AI lỗi thì chữ còn trong ô, xoá có hỏi lại rồi về danh sách, cuộc không có (404) hiện Không tìm thấy; Bài học: quá 10 từ báo ngay, chấm bài gửi đúng `score`.
-- [ ] **T15. AI ở các màn đang có.** `TraTuAi`, `HoiNguPhap`, `KiemDapAn`, `NutGiaiThichTu`, `VietCau`, tuỳ chọn tự giải thích.
+- [x] **T15. AI ở các màn đang có.** `TraTuAi`, `HoiNguPhap`, `KiemDapAn`, `NutGiaiThichTu`, `VietCau`, tuỳ chọn tự giải thích.
   - Test thêm vào file test của từng màn: `hidden` thì không có nút nào; Tra từ có kết quả thì không có khối AI; nút ở đúng phần của bài ngữ pháp và gửi đúng `section`; Kiểm đáp án chỉ hiện khi sai và có chữ, không đổi điểm; bật tự giải thích thì tự gọi đúng một lần mỗi câu sai, tắt thì không gọi, hết lượt thì không gọi.
-- [ ] **T16. Test trình duyệt và hoàn tất.** `NguoiHocThuSeeder`: `SO_TAI_KHOAN_HOC = 15`; tài khoản 14, 15 của mỗi cỡ màn hình nằm trong danh sách thử, có sẵn ngày sinh người lớn và lời đồng ý; mỗi lần chạy seeder xoá cuộc trò chuyện, bài học AI, câu đã viết, `ai_requests` của hai tài khoản đó. Sửa `NguoiHocThuSeederTest`.
+- [x] **T16. Test trình duyệt và hoàn tất.** `NguoiHocThuSeeder`: `SO_TAI_KHOAN_HOC = 15`; tài khoản 14, 15 của mỗi cỡ màn hình nằm trong danh sách thử, có sẵn ngày sinh người lớn và lời đồng ý; mỗi lần chạy seeder xoá cuộc trò chuyện, bài học AI, câu đã viết, `ai_requests` của hai tài khoản đó. Sửa `NguoiHocThuSeederTest`.
   - `tests/e2e/hoi-ai.spec.ts` (mục 10, hai cỡ màn hình, AI giả): Dịch; dán 10.000 ký tự thì nút tắt; Sửa ngữ pháp; Trò chuyện (mở cuộc, gửi 2 tin, xoá); Bài học AI (soạn, chấm, thấy trong danh sách); Tra từ AI với chữ không có trong từ điển; bài ngữ pháp (giải thích một phần, hỏi một câu); Kiểm đáp án trong một bài điền từ; Viết câu; Giải thích từ trong phiên học. Mỗi màn: axe sạch ở sáng và tối, không tràn ngang, `chupDu`.
-- [ ] **Đẩy đợt 4**, thông điệp commit có `[anh]`.
+- [x] **Đẩy đợt 4**, thông điệp commit có `[anh]`.
 
 ## 3. Mục tự kiểm và file test
 
@@ -275,9 +275,15 @@ Còn lại cho tuần sau: chấm phát âm trong mục 6, 7, 8 (tuần 3); cả
 Mỗi quyết định tự chọn ngoài file này ghi một dòng ở đây: ngày, việc, chọn gì, vì sao.
 
 - 28/11 (Fable, lúc soạn file): Viết câu chưa cộng xu và chưa ghi `exercise_runs`, vì điểm do AI chấm; kết quả Kiểm đáp án không đổi điểm của câu; Thống kê AI tính ngày theo giờ Thái Bình Dương cho khớp trần của Google; lượt "Chạy thử" của quản trị tính vào trần hệ thống nhưng không vào hạn mức của ai; cột `ai_messages.corrections` của tin AI chứa cả nghĩa tiếng Việt và gợi ý (không thêm cột).
+- 28/11 (Opus), trước T1: gộp `main` (chế độ xem thử `XEM_THU`) vào nhánh tuần 2. Tài khoản khách xem thử dùng chung không bao giờ dùng AI: `TrangThaiAi::moChoNguoi` trả false, `PUT toi/ngay-sinh` và `toi/dong-y-ai` trả `ai_chua_mo` (test ở `XemThuTest`).
+- 28/11, T3: `DoanNguPhap`: các khối trước tiêu đề `h2` đầu tiên (phần mở đầu) không thuộc phần nào, đúng như cách app đặt nút sau từng `h2`.
+- 28/11, T2: `gender` của `lookup` không gửi `enum` trong JSON Schema vì danh sách có chuỗi rỗng; máy chủ vẫn kiểm. Danh sách `KHONG_GUI_KHUON` đọc qua `KhuonAi::khongGuiKhuon()` (Larastan báo lỗi khi dùng thẳng hằng rỗng).
 - 28/11, đợt 1: `tests/e2e/ai.spec.ts` tắt hiệu ứng chuyển màu trước khi đo axe: đổi giao diện ngay trên trang thì nút có `transition-colors` còn đang chuyển màu, axe báo lỗi tương phản giả ở giao diện tối.
 - 28/11, T8: bảng mười đường gọi AI là `DUONG_AI` và `duongAi($ten, $user)` trong `tests/Pest.php`; `AiChucNangTest`, `AiCongTest`, `AiCacheTest`, `AiDuLieuGuiTest` dùng chung.
 - 28/11, T9: các nút của Prompt nằm ở trang xem một phiên bản (giống trang Job lỗi); luật mẫu kiểm ở ô của form (`PromptAi::loiHeThong`, `loiMauCau`) và lại một lần trong `PromptAi::taoBanMoi`. Lượt hỏi thật và Chạy thử đều dùng model ở Cài đặt AI; cột `model` của prompt chỉ ghi model lúc tạo.
 - 28/11, T10: Thống kê AI là trang Blade (`resources/views/filament/pages/thong-ke-ai.blade.php`) với bảng HTML có `caption`, `th scope`; Nhật ký AI phân trang kiểu đơn giản (`PaginationMode::Simple`).
 - 28/11, T11: `app:ai-thu` gọi thẳng `BoNoiGemini` (không qua tám chặng, không ghi `ai_requests`); nghỉ bằng `Sleep` để test giả được.
 - 28/11, đợt 3: hàm truyền cho Filament (`modifyQueryUsing`, `query` của bộ lọc) phải đặt tên tham số là `$query`: Filament đưa giá trị theo tên, đặt `$q` thì nhận null và trang lỗi 500.
+- 28/11, T13: `useHoiAi`, `TrangThaiHoi`, `ConLuotAi`, các khối kết quả nằm ở `components/ai/KetQuaAi.tsx`; `TabHoiAi` dùng lại chúng và xuất `GiaiThich` (có `tuDong`) cho phiên học. Lỗi 422 không có nút Thử lại.
+- 28/11, T15: Kiểm đáp án chỉ gắn vào câu `fill`, `fix` của bộ bài tập (`CauChay.ai`), không gắn vào Điền câu (đáp án là một chữ trong câu ví dụ) và Chia động từ; trong phiên luyện gõ thì kiểm theo thẻ. Viết câu nằm trong khung app (có thanh điều hướng).
+- 28/11, T16: `NguoiHocThuSeeder` nới trần hệ thống (1.000 lượt mỗi phút) cho test trình duyệt; tài khoản 14, 15 có sẵn ngày sinh và đồng ý.

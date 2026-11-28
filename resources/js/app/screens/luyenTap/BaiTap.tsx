@@ -1,17 +1,19 @@
 // Bài tập theo Lernbuch (viewExercises, viewPlural): ô luyện nhanh, bài theo cấp (cấp › chương › bài ngữ pháp › bộ),
 // tab Ôn tập (Từ vựng, Ngữ pháp theo chương, chọn cách chấm), trang Số nhiều.
-import { ArrowRight, Coins, PencilLine, RefreshCcw, Shuffle, Table2, Tally5, type LucideIcon } from 'lucide-react';
+import { ArrowRight, Coins, MessageSquareText, PencilLine, RefreshCcw, Shuffle, Table2, Tally5, type LucideIcon } from 'lucide-react';
 import { useMemo, useState, type ReactNode } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { Choice } from '../../components/Choice';
 import { Sheet } from '../../components/Shell';
 import { DangTai, LoiTai } from '../../components/TaiNoiDung';
+import { coTabAi } from '../../lib/ai';
 import { XU } from '../../lib/hoc';
 import { XU_CAU, XU_DONG_TU, docCachCham, ghiCachCham, type BoBai, type CachCham, type DanhSachBaiTap } from '../../lib/baiTap';
 import { tachTenBai } from '../../lib/nguPhap';
 import { docCap, tenCap, truyVan } from '../../lib/noiDung';
 import { useApi } from '../../lib/useApi';
 import { useTitle } from '../../lib/useTitle';
+import { useTaiKhoan } from '../../state/taiKhoan';
 import { so, t } from '../../i18n';
 import { LOP_CHIP, LocCap, NutLink, ThanhNho } from './chung';
 
@@ -203,6 +205,7 @@ function TheoCap({ d, capChon, cham }: { d: DanhSachBaiTap; capChon: number[]; c
 }
 
 export function BaiTap() {
+    const coAi = coTabAi(useTaiKhoan().toi?.ai);
     useTitle(t('khung.baiTap'));
     const [params, setParams] = useSearchParams();
     const onTap = params.get('tab') === 'on-tap';
@@ -244,6 +247,11 @@ export function BaiTap() {
                         <li>
                             <O to="/so-nhieu" Icon={Tally5} ten={t('baiTap.soNhieu')} moTa={t('baiTap.soNhieuMoTa')} />
                         </li>
+                        {coAi && (
+                            <li>
+                                <O to="/bai-tap/viet-cau" Icon={MessageSquareText} ten={t('baiTap.vietCau')} moTa={t('baiTap.vietCauMoTa')} />
+                            </li>
+                        )}
                         {sai > 0 && (
                             <li>
                                 <O to={`/bai-tap/lam${truyVan({ on: 1, n: 15 })}`} Icon={RefreshCcw} ten={t('baiTap.onCauSai')} moTa={t('baiTap.onCauSaiMoTa', { n: so(sai) })} xu={XU_CAU} />
