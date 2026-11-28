@@ -347,6 +347,7 @@ dat	pest	-	tests/Feature/AiTranTest.php	đủ số lượt gọi cùng lúc: ch�
 dat	pest	-	tests/Feature/AiTranTest.php	bộ nối ném lỗi thì chỗ gọi vẫn được nhả
 dat	pest	-	tests/Feature/AiTranTest.php	lượt trúng cache không bị trần chặn
 dat	pest	-	tests/Feature/AiTroChuyenTest.php	mở cuộc theo tình huống, gửi tin: lưu hai tin đúng vai, đúng request_id, cập nhật số tin, tiêu đề
+dat	pest	-	tests/Feature/AiTroChuyenTest.php	gửi hai tin liền nhau trong cùng cuộc: lượt hai nhận lượt một trong lịch sử, đủ bốn tin
 dat	pest	-	tests/Feature/AiTroChuyenTest.php	cuộc dài 40 tin: AI chỉ nhận tin 31 đến 40, cũ trước, không có tin 30; tin dài bị cắt 300 ký tự
 dat	pest	-	tests/Feature/AiTroChuyenTest.php	lịch sử không có tin của cuộc khác, kể cả cuộc khác của chính mình
 dat	pest	-	tests/Feature/AiTroChuyenTest.php	cuộc của người khác, mã không có, mã sai dạng: 404 ở đọc, gửi, xoá; không gọi AI, không đổi gì
