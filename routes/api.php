@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\AiBaiHocController;
 use App\Http\Controllers\Api\V1\AiController;
+use App\Http\Controllers\Api\V1\AiPhatAmController;
 use App\Http\Controllers\Api\V1\AiTroChuyenController;
 use App\Http\Controllers\Api\V1\BaiTapController;
 use App\Http\Controllers\Api\V1\CaiDatController;
@@ -77,6 +78,8 @@ Route::prefix('v1')->middleware(['khach-xem-thu', 'auth:sanctum', 'con-hoat-dong
     Route::post('ai/ngu-phap/hoi', [AiController::class, 'hoiNguPhap']);
     Route::post('ai/kiem-dap-an', [AiController::class, 'kiemDapAn']);
     Route::post('ai/viet-cau', [AiController::class, 'vietCau']);
+    Route::post('ai/phat-am', [AiPhatAmController::class, 'cham']);
+    Route::post('ai/phat-am/du-phong', [AiPhatAmController::class, 'duPhong']);
     Route::get('ai/tro-chuyen', [AiTroChuyenController::class, 'index']);
     Route::post('ai/tro-chuyen', [AiTroChuyenController::class, 'store']);
     Route::get('ai/tro-chuyen/{ma}', [AiTroChuyenController::class, 'show'])->where('ma', '[0-9A-HJKMNP-TV-Z]{26}');

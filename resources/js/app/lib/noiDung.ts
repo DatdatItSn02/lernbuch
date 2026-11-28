@@ -79,7 +79,7 @@ export type TheChiTiet = TheTomTat & {
     tip: string | null;
     lektion: string | null;
     extra: Record<string, unknown> | null;
-    examples: { sentence: string; translations: Partial<Record<NgonNguNghia, string>> }[];
+    examples: { id?: number; sentence: string; translations: Partial<Record<NgonNguNghia, string>> }[];
     verb: DongTu | null;
     topic: TenGon | null;
     nav: { index: number; total: number; prev: { id: number; front: string } | null; next: { id: number; front: string } | null } | null;

@@ -15,4 +15,16 @@ return [
         'khoa' => env('AI_OPENAI_API_KEY'),
         'goc' => env('AI_OPENAI_BASE_URL'),
     ],
+    // Chấm phát âm bằng Azure Speech. goc trống thì dựng từ vùng (https://<vùng>.stt.speech.microsoft.com/...)
+    'azure' => [
+        'khoa' => env('AZURE_SPEECH_KEY'),
+        'vung' => env('AZURE_SPEECH_REGION'),
+        'goc' => env('AZURE_SPEECH_ENDPOINT'),
+    ],
+    'phat_am' => [
+        // fake: bộ chấm giả (test, máy dev); trống: Azure theo cài đặt trong trang quản trị
+        'bo_cham' => env('PRON_DRIVER'),
+        // Giây chờ Azure tối đa cho một lượt chấm, không thử lại
+        'cho_toi_da' => 15,
+    ],
 ];

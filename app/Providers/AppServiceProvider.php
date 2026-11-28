@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Support\Ai\BoNoi\BoNoiGia;
 use App\Support\Ai\DanhSachThu;
+use App\Support\PhatAm\BoChamGia;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -24,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // AI giả: một bản cho mỗi app (mỗi test, mỗi request), để kịch bản của test này không lọt sang test khác.
         $this->app->singleton(BoNoiGia::class);
+        $this->app->singleton(BoChamGia::class);
     }
 
     public function boot(): void

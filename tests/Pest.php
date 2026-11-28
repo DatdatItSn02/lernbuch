@@ -5,6 +5,7 @@ use App\Support\Ai\BoNoi\BoNoiGia;
 use App\Support\Ai\CaiDatAi;
 use App\Support\Ai\DanhSachThu;
 use App\Support\Ai\DongYAi;
+use App\Support\PhatAm\BoChamGia;
 use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
@@ -162,4 +163,49 @@ function cuocTroChuyen(User $user, string $tinhHuong = 'restaurant'): string
     DB::table('ai_conversations')->insert(['public_id' => $ma, 'user_id' => $user->id, 'scenario' => $tinhHuong, 'level' => 'A1', 'message_count' => 0, 'created_at' => now()->getTimestamp()]);
 
     return $ma;
+}
+
+// Dùng chung cho các test chấm phát âm (tests/Feature/PhatAm*Test.php): bộ chấm giả (PRON_DRIVER=fake trong phpunit.xml).
+
+function chamGia(): BoChamGia
+{
+    return app(BoChamGia::class);
+}
+
+/**
+ * File WAV dựng tay: sóng vuông biên độ $bienDo (0 là im lặng). Các tham số khác dùng để tạo file sai định dạng.
+ * $truocData: chèn một khối LIST giữa fmt và data (như file của một số trình ghi âm).
+ */
+function wavMau(float $giay = 2.0, int $bienDo = 8000, int $tanSo = 16000, int $kenh = 1, int $bit = 16, int $ma = 1, bool $truocData = false): string
+{
+    $soMau = (int) round($giay * $tanSo) * $kenh;
+    $data = '';
+
+    for ($i = 0; $i < $soMau; $i++) {
+        $v = intdiv($i, 20) % 2 === 0 ? $bienDo : -$bienDo;
+        $data .= $bit === 8 ? chr(128 + intdiv($v, 256)) : pack('v', $v & 0xFFFF);
+    }
+
+    $byteMoiMau = intdiv($bit, 8);
+    $fmt = pack('vvVVvv', $ma, $kenh, $tanSo, $tanSo * $kenh * $byteMoiMau, $kenh * $byteMoiMau, $bit);
+    $khoi = 'fmt '.pack('V', strlen($fmt)).$fmt;
+
+    if ($truocData) {
+        $khoi .= 'LIST'.pack('V', 5).'INFOx'."\0";
+    }
+
+    $khoi .= 'data'.pack('V', strlen($data)).$data;
+
+    return 'RIFF'.pack('V', 4 + strlen($khoi)).'WAVE'.$khoi;
+}
+
+function wav64(float $giay = 2.0, int $bienDo = 8000): string
+{
+    return base64_encode(wavMau($giay, $bienDo));
+}
+
+/** Mã câu ví dụ đầu tiên của thẻ mẫu. */
+function viDuMau(string $front): int
+{
+    return (int) DB::table('card_examples')->where('card_id', theMau($front))->orderBy('sort')->value('id');
 }

@@ -50,3 +50,27 @@ it('tắt công tắc giữa hai lượt thì lượt sau bị chặn ở mọi 
 
     expect(DB::table('ai_requests')->where('status', 'ok')->count())->toBeGreaterThanOrEqual(1);
 })->with(DUONG_AI);
+
+it('chấm phát âm và bản dự phòng × năm ca cổng: đúng mã, không gọi bộ chấm, không ghi gì', function (string $duong) {
+    $ca = [
+        'ai_tam_tat' => [fn () => nguoiHocAi(), 503, fn () => CaiDatAi::luu(['enabled' => false], null)],
+        'ai_chua_mo' => [fn () => nguoiHocAi(thu: false), 403, null],
+        'ai_can_ngay_sinh' => [fn () => nguoiHocAi(['birth_date' => null]), 403, null],
+        'ai_chua_du_tuoi' => [fn () => nguoiHocAi(['birth_date' => now()->subYears(17)->startOfDay()->getTimestamp()]), 403, null],
+        'ai_can_dong_y' => [fn () => nguoiHocAi(dongY: false), 403, null],
+    ];
+    $than = $duong === 'ai/phat-am' ? ['audio' => wav64()] : ['heard' => 'das brötchen'];
+
+    foreach ($ca as $ma => [$tao, $http, $truoc]) {
+        batAi();
+        $user = $tao();
+
+        if ($truoc !== null) {
+            $truoc();
+        }
+
+        $this->actingAs($user)->postJson('/api/v1/'.$duong, ['card_id' => theMau('das Brötchen')] + $than)->assertStatus($http)->assertJsonPath('code', $ma);
+    }
+
+    expect(chamGia()->daNhan)->toBe([])->and(DB::table('pronunciation_attempts')->count())->toBe(0);
+})->with(['ai/phat-am', 'ai/phat-am/du-phong']);

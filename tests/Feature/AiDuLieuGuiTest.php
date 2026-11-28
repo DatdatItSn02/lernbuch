@@ -94,3 +94,22 @@ it('cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài
     $chu = $yc->heThong.$yc->nguoiDung.json_encode($yc->thamSo, JSON_UNESCAPED_UNICODE);
     expect($chu)->not->toContain('Rất Dễ Nhận')->not->toContain('rat-de-nhan')->not->toContain($user->public_id)->not->toContain((string) $user->id.'@');
 })->with(DUONG_AI);
+
+it('chấm phát âm: yêu cầu gửi Azure chỉ có file ghi âm, câu mẫu, mã ngôn ngữ; không có tên, email, mã tài khoản, IP', function () {
+    $user = nguoiDeNhan();
+    $this->actingAs($user);
+    config(['ai.phat_am.bo_cham' => null, 'ai.azure.khoa' => 'khoa-thu', 'ai.azure.vung' => 'westeurope']);
+    Http::preventStrayRequests();
+    Http::fake(['*.stt.speech.microsoft.com/*' => Http::response(['RecognitionStatus' => 'Success', 'NBest' => [['PronScore' => 90, 'Words' => [['Word' => 'brötchen', 'AccuracyScore' => 90, 'ErrorType' => 'None']]]]])]);
+
+    $this->postJson('/api/v1/ai/phat-am', ['card_id' => theMau('das Brötchen'), 'audio' => wav64()])->assertOk();
+
+    Http::assertSent(function (Request $r) use ($user) {
+        $tatCa = $r->url().json_encode($r->headers(), JSON_UNESCAPED_UNICODE);
+
+        return str_contains($r->url(), 'language=de-DE')
+            && ! str_contains($tatCa, 'rat-de-nhan') && ! str_contains($tatCa, 'Nhận') && ! str_contains($tatCa, $user->public_id)
+            && ! str_contains($tatCa, '127.0.0.1') && $r->hasHeader('X-Forwarded-For') === false
+            && str_starts_with($r->body(), 'RIFF');
+    });
+});

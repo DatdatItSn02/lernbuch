@@ -4,6 +4,7 @@ namespace App\Support\Ai;
 
 use App\Http\Middleware\KhachXemThu;
 use App\Models\User;
+use App\Support\PhatAm\ChamPhatAm;
 use Carbon\CarbonImmutable;
 
 /**
@@ -85,6 +86,9 @@ final class TrangThaiAi
 
         $tt = HanMucAi::trangThai($user, $cd);
 
-        return ['state' => 'ready', 'consent_version' => DongYAi::PHIEN_BAN, 'limit' => $tt['limit'], 'used' => $tt['used'], 'reset_at' => $tt['reset_at']];
+        return [
+            'state' => 'ready', 'consent_version' => DongYAi::PHIEN_BAN, 'limit' => $tt['limit'], 'used' => $tt['used'], 'reset_at' => $tt['reset_at'],
+            'pron' => ChamPhatAm::choToi($user),
+        ];
     }
 }

@@ -32,6 +32,7 @@
         <env name="CACHE_STORE" value="array"/>
         <env name="DB_DATABASE" value="lernbuch_test"/>
         <env name="AI_DRIVER" value="fake"/>
+        <env name="PRON_DRIVER" value="fake"/>
         <env name="MAIL_MAILER" value="array"/>
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>

@@ -1,0 +1,62 @@
+{
+    "_ghi_chu": "Câu trả lời mẫu của Azure Speech (REST API cho audio ngắn, format=detailed, có chấm phát âm) cho câu mẫu \"Ich möchte zwei Brötchen\". Dạng theo tài liệu Microsoft, kiểm ngày 29/11/2026; trường Phonemes theo tài liệu cũ, chưa kiểm bằng khoá thật.",
+    "dung": {
+        "RecognitionStatus": "Success", "Offset": 700000, "Duration": 18400000, "DisplayText": "Ich möchte zwei Brötchen.",
+        "NBest": [{
+            "Confidence": 0.97, "Lexical": "ich möchte zwei brötchen", "Display": "Ich möchte zwei Brötchen.",
+            "AccuracyScore": 96.4, "FluencyScore": 91.0, "CompletenessScore": 100.0, "PronScore": 93.6,
+            "Words": [
+                {"Word": "ich", "AccuracyScore": 98.0, "ErrorType": "None"},
+                {"Word": "möchte", "AccuracyScore": 95.0, "ErrorType": "None"},
+                {"Word": "zwei", "AccuracyScore": 97.0, "ErrorType": "None"},
+                {"Word": "brötchen", "AccuracyScore": 94.6, "ErrorType": "None"}
+            ]
+        }]
+    },
+    "sai_mot_tu": {
+        "RecognitionStatus": "Success", "Offset": 700000, "Duration": 18400000, "DisplayText": "Ich möchte drei Brötchen.",
+        "NBest": [{
+            "Confidence": 0.9, "Lexical": "ich möchte drei brötchen", "Display": "Ich möchte drei Brötchen.",
+            "AccuracyScore": 78.0, "FluencyScore": 88.0, "CompletenessScore": 100.0, "PronScore": 80.2,
+            "Words": [
+                {"Word": "ich", "AccuracyScore": 97.0, "ErrorType": "None"},
+                {"Word": "möchte", "AccuracyScore": 93.0, "ErrorType": "None"},
+                {"Word": "zwei", "AccuracyScore": 35.0, "ErrorType": "Mispronunciation"},
+                {"Word": "brötchen", "AccuracyScore": 90.0, "ErrorType": "None"}
+            ]
+        }]
+    },
+    "bo_mot_tu": {
+        "RecognitionStatus": "Success", "Offset": 700000, "Duration": 12000000, "DisplayText": "Ich möchte zwei.",
+        "NBest": [{
+            "Confidence": 0.88, "Lexical": "ich möchte zwei", "Display": "Ich möchte zwei.",
+            "AccuracyScore": 92.0, "FluencyScore": 85.0, "CompletenessScore": 75.0, "PronScore": 79.5,
+            "Words": [
+                {"Word": "ich", "AccuracyScore": 96.0, "ErrorType": "None"},
+                {"Word": "möchte", "AccuracyScore": 90.0, "ErrorType": "None"},
+                {"Word": "zwei", "AccuracyScore": 91.0, "ErrorType": "None"},
+                {"Word": "brötchen", "AccuracyScore": 0.0, "ErrorType": "Omission"}
+            ]
+        }]
+    },
+    "co_am": {
+        "RecognitionStatus": "Success", "Offset": 700000, "Duration": 6000000, "DisplayText": "Brötchen.",
+        "NBest": [{
+            "Confidence": 0.95, "Lexical": "brötchen", "Display": "Brötchen.",
+            "AccuracyScore": 82.0, "FluencyScore": 100.0, "CompletenessScore": 100.0, "PronScore": 86.5,
+            "Words": [
+                {"Word": "brötchen", "AccuracyScore": 82.0, "ErrorType": "None", "Phonemes": [
+                    {"Phoneme": "b", "AccuracyScore": 100.0},
+                    {"Phoneme": "r", "AccuracyScore": 95.0},
+                    {"Phoneme": "ø", "AccuracyScore": 41.0},
+                    {"Phoneme": "t", "AccuracyScore": 99.0},
+                    {"Phoneme": "ç", "AccuracyScore": 76.0},
+                    {"Phoneme": "ə", "AccuracyScore": 90.0},
+                    {"Phoneme": "n", "AccuracyScore": 98.0}
+                ]}
+            ]
+        }]
+    },
+    "im_lang": {"RecognitionStatus": "NoMatch", "Offset": 30000000, "Duration": 0},
+    "on": {"RecognitionStatus": "BabbleTimeout", "Offset": 0, "Duration": 0}
+}

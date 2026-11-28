@@ -144,8 +144,8 @@ class NoiDungController extends Controller
         $user = $this->nguoiDung($request);
         $t = NoiDung::cacThe($user)->where('cards.id', (int) $id)->first() ?? abort(404);
 
-        $viDu = DB::table('card_examples')->where('card_id', $t->id)->orderBy('sort')->get(['sentence', 'translations'])
-            ->map(fn ($v) => ['sentence' => (string) $v->sentence, 'translations' => (object) (json_decode((string) $v->translations, true) ?: [])])->all();
+        $viDu = DB::table('card_examples')->where('card_id', $t->id)->orderBy('sort')->get(['id', 'sentence', 'translations'])
+            ->map(fn ($v) => ['id' => (int) $v->id, 'sentence' => (string) $v->sentence, 'translations' => (object) (json_decode((string) $v->translations, true) ?: [])])->all();
 
         $chuDe = $t->topic_id !== null ? NoiDung::cacChuDe()->where('id', $t->topic_id)->first() : null;
         $soTay = DB::table('user_card_notes')->where('user_id', $user->id)->where('card_id', $t->id)->first();

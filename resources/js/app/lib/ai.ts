@@ -8,7 +8,10 @@ export type TrangThaiAi =
     | { state: 'need_birth_date'; min_age: number }
     | { state: 'underage'; min_age: number }
     | { state: 'need_consent'; min_age: number; consent_version: string }
-    | { state: 'ready'; consent_version: string; limit: number; used: number; reset_at: number };
+    | { state: 'ready'; consent_version: string; limit: number; used: number; reset_at: number; pron?: TrangThaiPhatAm };
+
+/** Chấm phát âm: cách chấm đang dùng (azure, browser: bản dự phòng, off), lượt mỗi ngày, số giây ghi âm tối đa. */
+export type TrangThaiPhatAm = { mode: 'azure' | 'browser' | 'off'; limit: number; used: number; reset_at: number; max_seconds: number };
 
 export type GiaiThichTu = { meaning: string; usage: string; examples: { de: string; vi: string }[]; common_mistakes: string[] };
 

@@ -102,5 +102,6 @@ it('GET /toi có khối ai: sẵn sàng, hạn mức, đã dùng, giờ có lư�
     $this->getJson('/api/v1/toi')->assertOk()->assertJsonPath('data.ai', [
         'state' => 'ready', 'consent_version' => '2026-11', 'limit' => 50, 'used' => 1,
         'reset_at' => LapLich::dauNgayMai(now()->getTimestamp(), $user->timezone),
+        'pron' => ['mode' => 'azure', 'limit' => 20, 'used' => 0, 'reset_at' => LapLich::dauNgayMai(now()->getTimestamp(), $user->timezone), 'max_seconds' => 15],
     ]);
 });
