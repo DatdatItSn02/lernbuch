@@ -15,6 +15,140 @@ dat	vitest	-	resources/js/app/i18n/i18n.test.ts	t(): chữ giao diện theo ngô
 dat	vitest	-	resources/js/app/i18n/i18n.test.ts	t(): chữ giao diện theo ngôn ngữ › số viết theo tiếng Việt
 dat	vitest	-	resources/js/app/i18n/i18n.test.ts	t(): chữ giao diện theo ngôn ngữ › từ điển tiếng Việt: mọi chữ khác rỗng, không thừa khoảng trắng đầu cuối
 dat	vitest	-	resources/js/app/i18n/i18n.test.ts	cả màn hình khi tài khoản đặt tiếng Anh mà chưa có bản dịch › Cài đặt vẫn hiện đủ chữ tiếng Việt
+dat	vitest	-	resources/js/app/components/AudioButton.test.tsx	AudioButton: nút nghe › bấm lần hai khi lần đầu chưa đọc xong: đọc lại từ đầu, không hiện lỗi
+dat	vitest	-	resources/js/app/components/AudioButton.test.tsx	AudioButton: nút nghe › bấm liên tục nhiều lần cũng không hiện lỗi
+dat	vitest	-	resources/js/app/components/AudioButton.test.tsx	AudioButton: nút nghe › bấm nút nghe khác khi đang đọc: nút trước thôi đọc, không nút nào hiện lỗi
+dat	vitest	-	resources/js/app/components/AudioButton.test.tsx	AudioButton: nút nghe › lỗi thật của trình duyệt vẫn báo dưới nút; bấm lại thì dòng báo mất
+dat	vitest	-	resources/js/app/components/AudioButton.test.tsx	AudioButton: nút nghe › máy không có giọng tiếng Đức thì báo cách thêm giọng
+dat	vitest	-	resources/js/app/components/TaiVeMay.test.tsx	Tải chủ đề về máy để học khi không có mạng › bấm tải: báo đang tải, xong thì ghi đã tải lúc nào; audio vào kho audio; xoá khỏi máy thì tải lại được
+dat	vitest	-	resources/js/app/components/TaiVeMay.test.tsx	Tải chủ đề về máy để học khi không có mạng › đã tải từ trước thì mở trang là thấy ngay; tải lại bản mới thì xin máy chủ lần nữa
+dat	vitest	-	resources/js/app/components/TaiVeMay.test.tsx	Tải chủ đề về máy để học khi không có mạng › không tải được (mất mạng, máy chủ lỗi) thì báo, bấm lại được
+dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › chưa lưu gì thì dùng mặc định
+dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › JSON hỏng thì dùng mặc định
+dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › giữ giá trị đúng, bỏ giá trị lạ
+dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › không phải object (null, mảng chuỗi, số) thì về mặc định
+dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › nhận đủ các số từ mới hợp lệ, kể cả "all"
+dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › canPersist báo đúng khi localStorage ghi được
+dat	vitest	-	resources/js/app/state/store.test.ts	reducer › cài đặt gộp phần đổi, không sửa trạng thái cũ
+dat	vitest	-	resources/js/app/state/store.test.ts	reducer › việc lạ thì giữ nguyên trạng thái
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 0 (đếm từ 0) là winter
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 1 (đếm từ 0) là winter
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 2 (đếm từ 0) là spring
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 4 (đếm từ 0) là spring
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 5 (đếm từ 0) là summer
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 7 (đếm từ 0) là summer
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 8 (đếm từ 0) là autumn
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 10 (đếm từ 0) là autumn
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 11 (đếm từ 0) là winter
+dat	vitest	-	resources/js/app/state/store.test.ts	useStore ngoài StoreProvider thì báo lỗi rõ ràng
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	đổi cài đặt giữa app và API › 0 từ mới mỗi lượt là "tất cả", ngôn ngữ nghĩa là danh sách mã
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	đổi cài đặt giữa app và API › giá trị lạ từ máy chủ về mặc định, không làm vỡ app
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	đổi cài đặt giữa app và API › chỉ gửi phần đã đổi; không đổi gì thì không gửi
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › mở app: áp cài đặt của tài khoản (máy khác đã đổi sang giao diện tối)
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › đổi cài đặt: chờ ngừng bấm rồi gửi một lần phần đã đổi, báo đã lưu
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › lưu lên máy chủ hỏng: báo rõ, cài đặt trên máy vẫn đổi
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › đổi cài đặt khi hồ sơ chưa tải xong (mạng chậm): giữ lựa chọn của người dùng, bản máy chủ không đè, rồi gửi lên
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › đổi rồi tải lại trang ngay (chưa kịp gửi): lần mở sau, phần chờ trên máy thắng và được gửi tiếp
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › rời trang ngay sau khi đổi: gửi luôn bằng keepalive, không chờ
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › không tải được tài khoản (mất mạng): app vẫn chạy, cài đặt lưu trên trình duyệt
+dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt › đổi giao diện tối: gắn data-theme lên html và lưu lại
+dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt › cỡ chữ, mùa, số từ mới, thứ tiếng của nghĩa đều lưu
+dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt › mở lại app thì dùng cài đặt đã lưu
+dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt › dữ liệu lưu bị hỏng thì dùng mặc định, không vỡ trang
+dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt › giá trị lạ trong dữ liệu lưu bị bỏ, giá trị đúng giữ lại
+dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt › trình duyệt chặn lưu thì báo rõ, cài đặt vẫn đổi được trong lúc dùng
+dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt › mùa "Theo tháng" ghi rõ mùa đang dùng
+dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: phần tài khoản › chọn mục tiêu và trình độ: gửi lên tài khoản, báo đã lưu
+dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: phần tài khoản › tên để trống thì báo ngay, không gửi; máy chủ từ chối thì hiện lỗi của máy chủ
+dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: phần tài khoản › danh sách máy đang đăng nhập: ghi rõ máy này; đăng xuất máy khác cần đúng mật khẩu
+dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: phần tài khoản › có nút đăng xuất gửi về trang đăng xuất của máy chủ
+dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: cài app và đăng xuất trên máy học offline › đăng xuất: gửi nốt lượt chấm, dọn chủ đề đã tải, phiên dở và bản lưu trên máy, rồi mới gửi form
+dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: cài app và đăng xuất trên máy học offline › không có mạng thì báo cần có mạng để đăng xuất, không gửi form
+dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: cài app và đăng xuất trên máy học offline › cài app: trình duyệt cho cài thì có nút mở hộp cài; chưa cho thì hướng dẫn cài từ menu trình duyệt
+dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › đầu trang: vị trí trong cây, tên hai thứ tiếng, loại thẻ và số từ, ô học chủ đề
+dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › bảng: mạo từ tách riêng, link sang thẻ, dòng dạng từ và cấp; "–" là không có số nhiều; thẻ chưa xếp cấp không ghi cấp
+dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › lọc theo cấp: bấm chọn, bấm lần nữa bỏ; đường dẫn và câu hỏi máy chủ đổi theo
+dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › lọc theo loại từ: chỉ có loại từ của chủ đề, kèm số thẻ
+dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › phím / vào ô tìm; ngừng gõ thì máy chủ lọc (không dấu vẫn ra); Esc xoá chữ
+dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › không có từ nào khớp thì báo và cho bỏ lọc
+dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › 20 từ mỗi trang; sang trang 2 thì đường dẫn có ?trang=2 và tiêu điểm về đầu danh sách
+dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › số trang quá lớn thì hiện trang cuối (máy chủ trả trang cuối)
+dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › che cột tiếng Đức: chỉ còn nút Xem; chạm vào thì hiện từ của dòng đó; Hiện hết
+dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › che cột tiếng Việt: nhãn nút đọc ra từ tiếng Đức của dòng
+dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › chủ đề Giao tiếp: đường dẫn đầu về trang Giao tiếp, đếm theo câu
+dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › chủ đề không có thì báo không tìm thấy, có đường về danh sách
+dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › mất mạng: báo rõ và có nút Thử lại; thử lại được thì hiện chủ đề
+dat	vitest	-	resources/js/app/screens/ChuDeIndex.test.tsx	Chủ đề, Cấp độ, Giao tiếp: cây chủ đề từ API › Chủ đề: nhóm › chủ đề vừa › chủ đề nhỏ theo thứ tự của máy chủ, số chủ đề và số từ
+dat	vitest	-	resources/js/app/screens/ChuDeIndex.test.tsx	Chủ đề, Cấp độ, Giao tiếp: cây chủ đề từ API › dải "Đến nhóm" nhảy tới từng nhóm; dải cách xem đánh dấu trang đang mở
+dat	vitest	-	resources/js/app/screens/ChuDeIndex.test.tsx	Chủ đề, Cấp độ, Giao tiếp: cây chủ đề từ API › Giao tiếp: cây của loại thẻ Giao tiếp, đếm theo câu; một nhóm thì không có dải Đến nhóm
+dat	vitest	-	resources/js/app/screens/ChuDeIndex.test.tsx	Chủ đề, Cấp độ, Giao tiếp: cây chủ đề từ API › chuyển từ Chủ đề sang Giao tiếp không hiện lẫn cây cũ
+dat	vitest	-	resources/js/app/screens/ChuDeIndex.test.tsx	Chủ đề, Cấp độ, Giao tiếp: cây chủ đề từ API › máy chủ lỗi: báo không tải được, Thử lại tải lại
+dat	vitest	-	resources/js/app/screens/ChuDeIndex.test.tsx	Chủ đề, Cấp độ, Giao tiếp: cây chủ đề từ API › Cấp độ: tab loại thẻ (không có Giao tiếp), chọn cấp và loại từ thì đường dẫn và câu hỏi máy chủ đổi theo
+dat	vitest	-	resources/js/app/screens/ChuDeIndex.test.tsx	Chủ đề, Cấp độ, Giao tiếp: cây chủ đề từ API › Cấp độ: bộ lọc không khớp chủ đề nào thì báo và gợi ý bỏ bớt
+dat	vitest	-	resources/js/app/screens/ChuDeIndex.test.tsx	Chủ đề, Cấp độ, Giao tiếp: cây chủ đề từ API › Cấp độ: đổi loại thẻ thì bỏ bộ lọc cũ
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › mở trang thì xin máy chủ một phiên; thẻ đầu chỉ có từ, chưa có nghĩa tới khi lật
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › học riêng một chủ đề, chỉ ôn: gửi đúng chủ đề; Esc về trang chủ đề đó
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › bấm chuột: lật thì tiêu điểm vào đáp án, chấm xong thì vào nút Lật thẻ của thẻ mới
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › Space lật thẻ: đủ ba thứ tiếng; nút chấm ghi hạn ôn mới theo luật 6 mức
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › chưa lật thì phím 1–4 không chấm
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › chấm Tốt: sang thẻ kế, báo thẻ vừa lên mức; lượt chấm vào hàng chờ trên máy đủ thông tin
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › Quên thì thẻ quay lại trong phiên sau vài thẻ (phiên dài thêm một thẻ)
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › P nghe từ, S nghe chậm, E nghe câu ví dụ (cả trước khi lật); thẻ không có câu ví dụ thì E không đọc
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › ← xem lại thẻ vừa chấm, → về thẻ đang học
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › xong phiên: gửi hết lượt chấm, hỏi máy chủ còn gì, mời Học tiếp
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › học hết ở chủ đề: chỉ còn đường về trang chủ đề
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › còn thẻ ôn mà hết từ mới thì mời Ôn tiếp; thẻ Quên quay lại tối đa 2 lần nhưng chỉ lượt đầu được gửi
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › mất mạng giữa phiên: vẫn chấm tiếp; đầu trang và bảng tổng kết ghi số lượt chờ gửi
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › phiên không có thẻ nào thì báo rõ, không hiện thẻ trống
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › không mở được phiên (mất mạng) thì báo và cho thử lại
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › nghĩa hiện theo các thứ tiếng đã bật; tắt cả ba thì báo cách bật lại
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › tắt cả ba thứ tiếng thì báo cách bật lại
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › câu ví dụ hiện sau khi lật, kèm bản dịch tiếng Việt
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › trình duyệt không đọc được thành tiếng thì báo lỗi ngay dưới nút nghe
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học khi mất mạng (PWA) › chủ đề đã tải: lập phiên trên máy, báo đang học khi không có mạng; lượt chấm chờ gửi, không có mã phiên, gói đổi mức
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học khi mất mạng (PWA) › có phiên dở cùng phạm vi (mở lúc có mạng): học tiếp từ thẻ chưa chấm, lượt chấm giữ mã phiên
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học khi mất mạng (PWA) › chưa tải chủ đề: báo không có mạng và cách tải chủ đề, có nút thử lại; có mạng lại thì vào phiên
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học khi mất mạng (PWA) › có mạng: phiên máy chủ lập được giữ trên máy, chấm thẻ nào đánh dấu thẻ đó, xong phiên thì bỏ
+dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	sessionLine: câu tổng kết phiên › bỏ phần bằng 0
+dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › tiêu đề là một câu nói việc hôm nay; dòng trên ghi thứ, ngày, chuỗi ngày, xu
+dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › hộp thẻ đọc ra số thẻ từng ngăn, số đến hạn và số từ mới sắp học
+dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › 14 ô ngày: 10 ngày qua, hôm nay đang chọn, 3 ngày tới, thứ theo ngày của máy chủ
+dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › Học ngay ghi số thẻ đến hạn và số từ mới; mục tiêu ngày theo số đã ôn
+dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › đổi số từ mới mỗi lượt thì số từ mới tính lại ngay (không quá số từ chưa học còn lại)
+dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › phím mũi tên chọn ngày trước, End sang ngày xa nhất, Home về ngày đầu
+dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › hết thẻ đến hạn và hết từ mới thì không có nút Học ngay, chỉ đường sang Chủ đề
+dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › thẻ đến hạn chia theo chủ đề nhỏ, bấm vào thì học chủ đề đó
+dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › chế độ học: đủ 7 chế độ như Lernbuch, mỗi ô ghi xu mỗi thẻ và mở phiên bằng chế độ đó
+dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › không tải được thì báo và cho thử lại
+dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › máy chủ vừa nhận lô lượt chấm (từ hàng chờ) thì tải lại số liệu
+dat	vitest	-	resources/js/app/screens/SoTay.test.tsx	Sổ tay › danh sách thẻ có sao và ghi chú riêng; lọc theo loại kèm số đếm
+dat	vitest	-	resources/js/app/screens/SoTay.test.tsx	Sổ tay › bỏ sao thì gửi lên tài khoản rồi tải lại danh sách
+dat	vitest	-	resources/js/app/screens/SoTay.test.tsx	Sổ tay › sổ tay trống thì chỉ cách thêm thẻ; không có ô lọc
+dat	vitest	-	resources/js/app/screens/SoTay.test.tsx	Sổ tay › tìm trong sổ tay: ngừng gõ thì hỏi máy chủ; không khớp thì báo
+dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › đầu thẻ: mạo từ tô màu có chữ, số nhiều, loại thẻ, loại từ, cấp; đường về chủ đề; tiêu đề trang
+dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › tab Nghĩa và ví dụ: ba thứ tiếng, câu ví dụ kèm bản dịch, mẹo viết tay
+dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › tắt EN thì ẩn nghĩa và bản dịch tiếng Anh; tắt cả ba thì nhắc bật lại
+dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › bấm một chữ trong câu ví dụ: tra đúng chữ, hiện nghĩa và link mở thẻ; chữ chưa có thì báo; đóng được
+dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › câu ví dụ là một điểm dừng Tab; mũi tên trái/phải, Home, End đi giữa các chữ
+dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › phím mũi tên, Home, End chuyển tab và dời tiêu điểm theo
+dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › Ngữ pháp của danh từ: giống, số ít, số nhiều; "–" là thường chỉ dùng số ít
+dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › Ngữ pháp của danh từ không có số nhiều
+dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › Ngữ pháp của động từ: ba dạng chính và bảng chia ba thì
+dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › Ngữ pháp của tính từ: nguyên dạng, so sánh hơn, so sánh nhất lấy từ dòng dạng từ
+dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › nút sao: gửi lên tài khoản; máy chủ lỗi thì trả lại như cũ và báo
+dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › ghi chú: ngừng gõ thì tự lưu; đếm chữ, tối đa 500; đổi tab rồi quay lại vẫn còn
+dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › ghi chú lưu lỗi thì báo và có nút Lưu lại
+dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › từ trước và từ sau trong chủ đề; từ đầu không có từ trước
+dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › nghĩa ẩn theo cài đặt đã chọn từ trước
+dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › thẻ không có (hay đã ẩn) thì báo không tìm thấy; mã không phải số thì không hỏi máy chủ
+dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › ô trống thì hiện tra gần đây: mở lại thẻ đã xem, bấm chữ cũ để tra lại
+dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › gõ rồi ngừng thì tra; từ khớp đúng đứng đầu; đếm kết quả; chữ tra nằm trên đường dẫn
+dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › mở đường dẫn có ?q= thì tra ngay; một chữ cái thì nhắc gõ thêm, không hỏi máy chủ
+dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › không có kết quả thì gợi ý bỏ dấu hoặc gõ ngắn hơn
+dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › mở thẻ từ kết quả thì ghi lịch sử (chữ đã tra và thẻ); Enter thì ghi chữ đã tra
+dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › nút sao trên kết quả thêm thẻ vào sổ tay; lỗi thì trả lại như cũ
+dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › xoá một mục lịch sử và xoá hết
+dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › phím / đưa tiêu điểm vào ô tra; Esc xoá chữ
 dat	vitest	-	resources/js/app/lib/amThanh.test.ts	nghe: file audio Piper, dự phòng giọng trình duyệt › có file: phát file, không dùng giọng trình duyệt; nghe chậm phát ở 0,65, giữ cao độ
 dat	vitest	-	resources/js/app/lib/amThanh.test.ts	nghe: file audio Piper, dự phòng giọng trình duyệt › thẻ chưa có file: đọc bằng giọng trình duyệt
 dat	vitest	-	resources/js/app/lib/amThanh.test.ts	nghe: file audio Piper, dự phòng giọng trình duyệt › file trả 404 (lỗi tải): chuyển sang giọng trình duyệt, đọc chậm nếu đang nghe chậm
@@ -178,140 +312,6 @@ dat	vitest	-	resources/js/app/lib/srs.test.ts	đầu ngày theo múi giờ › m
 dat	vitest	-	resources/js/app/lib/srs.test.ts	nút chấm › ghi khoảng ôn theo mức mới; Quên ôn lại sau 10 phút
 dat	vitest	-	resources/js/app/lib/srs.test.ts	nút chấm › báo lỗi khi mức hoặc kiểu chấm sai
 dat	vitest	-	resources/js/app/lib/srs.test.ts	nút chấm › ghi hạn ôn ngắn gọn
-dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt › đổi giao diện tối: gắn data-theme lên html và lưu lại
-dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt › cỡ chữ, mùa, số từ mới, thứ tiếng của nghĩa đều lưu
-dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt › mở lại app thì dùng cài đặt đã lưu
-dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt › dữ liệu lưu bị hỏng thì dùng mặc định, không vỡ trang
-dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt › giá trị lạ trong dữ liệu lưu bị bỏ, giá trị đúng giữ lại
-dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt › trình duyệt chặn lưu thì báo rõ, cài đặt vẫn đổi được trong lúc dùng
-dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt › mùa "Theo tháng" ghi rõ mùa đang dùng
-dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: phần tài khoản › chọn mục tiêu và trình độ: gửi lên tài khoản, báo đã lưu
-dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: phần tài khoản › tên để trống thì báo ngay, không gửi; máy chủ từ chối thì hiện lỗi của máy chủ
-dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: phần tài khoản › danh sách máy đang đăng nhập: ghi rõ máy này; đăng xuất máy khác cần đúng mật khẩu
-dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: phần tài khoản › có nút đăng xuất gửi về trang đăng xuất của máy chủ
-dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: cài app và đăng xuất trên máy học offline › đăng xuất: gửi nốt lượt chấm, dọn chủ đề đã tải, phiên dở và bản lưu trên máy, rồi mới gửi form
-dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: cài app và đăng xuất trên máy học offline › không có mạng thì báo cần có mạng để đăng xuất, không gửi form
-dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: cài app và đăng xuất trên máy học offline › cài app: trình duyệt cho cài thì có nút mở hộp cài; chưa cho thì hướng dẫn cài từ menu trình duyệt
-dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › đầu trang: vị trí trong cây, tên hai thứ tiếng, loại thẻ và số từ, ô học chủ đề
-dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › bảng: mạo từ tách riêng, link sang thẻ, dòng dạng từ và cấp; "–" là không có số nhiều; thẻ chưa xếp cấp không ghi cấp
-dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › lọc theo cấp: bấm chọn, bấm lần nữa bỏ; đường dẫn và câu hỏi máy chủ đổi theo
-dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › lọc theo loại từ: chỉ có loại từ của chủ đề, kèm số thẻ
-dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › phím / vào ô tìm; ngừng gõ thì máy chủ lọc (không dấu vẫn ra); Esc xoá chữ
-dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › không có từ nào khớp thì báo và cho bỏ lọc
-dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › 20 từ mỗi trang; sang trang 2 thì đường dẫn có ?trang=2 và tiêu điểm về đầu danh sách
-dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › số trang quá lớn thì hiện trang cuối (máy chủ trả trang cuối)
-dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › che cột tiếng Đức: chỉ còn nút Xem; chạm vào thì hiện từ của dòng đó; Hiện hết
-dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › che cột tiếng Việt: nhãn nút đọc ra từ tiếng Đức của dòng
-dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › chủ đề Giao tiếp: đường dẫn đầu về trang Giao tiếp, đếm theo câu
-dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › chủ đề không có thì báo không tìm thấy, có đường về danh sách
-dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › mất mạng: báo rõ và có nút Thử lại; thử lại được thì hiện chủ đề
-dat	vitest	-	resources/js/app/screens/ChuDeIndex.test.tsx	Chủ đề, Cấp độ, Giao tiếp: cây chủ đề từ API › Chủ đề: nhóm › chủ đề vừa › chủ đề nhỏ theo thứ tự của máy chủ, số chủ đề và số từ
-dat	vitest	-	resources/js/app/screens/ChuDeIndex.test.tsx	Chủ đề, Cấp độ, Giao tiếp: cây chủ đề từ API › dải "Đến nhóm" nhảy tới từng nhóm; dải cách xem đánh dấu trang đang mở
-dat	vitest	-	resources/js/app/screens/ChuDeIndex.test.tsx	Chủ đề, Cấp độ, Giao tiếp: cây chủ đề từ API › Giao tiếp: cây của loại thẻ Giao tiếp, đếm theo câu; một nhóm thì không có dải Đến nhóm
-dat	vitest	-	resources/js/app/screens/ChuDeIndex.test.tsx	Chủ đề, Cấp độ, Giao tiếp: cây chủ đề từ API › chuyển từ Chủ đề sang Giao tiếp không hiện lẫn cây cũ
-dat	vitest	-	resources/js/app/screens/ChuDeIndex.test.tsx	Chủ đề, Cấp độ, Giao tiếp: cây chủ đề từ API › máy chủ lỗi: báo không tải được, Thử lại tải lại
-dat	vitest	-	resources/js/app/screens/ChuDeIndex.test.tsx	Chủ đề, Cấp độ, Giao tiếp: cây chủ đề từ API › Cấp độ: tab loại thẻ (không có Giao tiếp), chọn cấp và loại từ thì đường dẫn và câu hỏi máy chủ đổi theo
-dat	vitest	-	resources/js/app/screens/ChuDeIndex.test.tsx	Chủ đề, Cấp độ, Giao tiếp: cây chủ đề từ API › Cấp độ: bộ lọc không khớp chủ đề nào thì báo và gợi ý bỏ bớt
-dat	vitest	-	resources/js/app/screens/ChuDeIndex.test.tsx	Chủ đề, Cấp độ, Giao tiếp: cây chủ đề từ API › Cấp độ: đổi loại thẻ thì bỏ bộ lọc cũ
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › mở trang thì xin máy chủ một phiên; thẻ đầu chỉ có từ, chưa có nghĩa tới khi lật
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › học riêng một chủ đề, chỉ ôn: gửi đúng chủ đề; Esc về trang chủ đề đó
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › bấm chuột: lật thì tiêu điểm vào đáp án, chấm xong thì vào nút Lật thẻ của thẻ mới
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › Space lật thẻ: đủ ba thứ tiếng; nút chấm ghi hạn ôn mới theo luật 6 mức
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › chưa lật thì phím 1–4 không chấm
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › chấm Tốt: sang thẻ kế, báo thẻ vừa lên mức; lượt chấm vào hàng chờ trên máy đủ thông tin
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › Quên thì thẻ quay lại trong phiên sau vài thẻ (phiên dài thêm một thẻ)
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › P nghe từ, S nghe chậm, E nghe câu ví dụ (cả trước khi lật); thẻ không có câu ví dụ thì E không đọc
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › ← xem lại thẻ vừa chấm, → về thẻ đang học
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › xong phiên: gửi hết lượt chấm, hỏi máy chủ còn gì, mời Học tiếp
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › học hết ở chủ đề: chỉ còn đường về trang chủ đề
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › còn thẻ ôn mà hết từ mới thì mời Ôn tiếp; thẻ Quên quay lại tối đa 2 lần nhưng chỉ lượt đầu được gửi
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › mất mạng giữa phiên: vẫn chấm tiếp; đầu trang và bảng tổng kết ghi số lượt chờ gửi
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › phiên không có thẻ nào thì báo rõ, không hiện thẻ trống
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › không mở được phiên (mất mạng) thì báo và cho thử lại
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › nghĩa hiện theo các thứ tiếng đã bật; tắt cả ba thì báo cách bật lại
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › tắt cả ba thứ tiếng thì báo cách bật lại
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › câu ví dụ hiện sau khi lật, kèm bản dịch tiếng Việt
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học: phiên flashcard từ máy chủ › trình duyệt không đọc được thành tiếng thì báo lỗi ngay dưới nút nghe
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học khi mất mạng (PWA) › chủ đề đã tải: lập phiên trên máy, báo đang học khi không có mạng; lượt chấm chờ gửi, không có mã phiên, gói đổi mức
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học khi mất mạng (PWA) › có phiên dở cùng phạm vi (mở lúc có mạng): học tiếp từ thẻ chưa chấm, lượt chấm giữ mã phiên
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học khi mất mạng (PWA) › chưa tải chủ đề: báo không có mạng và cách tải chủ đề, có nút thử lại; có mạng lại thì vào phiên
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	Học khi mất mạng (PWA) › có mạng: phiên máy chủ lập được giữ trên máy, chấm thẻ nào đánh dấu thẻ đó, xong phiên thì bỏ
-dat	vitest	-	resources/js/app/screens/Hoc.test.tsx	sessionLine: câu tổng kết phiên › bỏ phần bằng 0
-dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › tiêu đề là một câu nói việc hôm nay; dòng trên ghi thứ, ngày, chuỗi ngày, xu
-dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › hộp thẻ đọc ra số thẻ từng ngăn, số đến hạn và số từ mới sắp học
-dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › 14 ô ngày: 10 ngày qua, hôm nay đang chọn, 3 ngày tới, thứ theo ngày của máy chủ
-dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › Học ngay ghi số thẻ đến hạn và số từ mới; mục tiêu ngày theo số đã ôn
-dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › đổi số từ mới mỗi lượt thì số từ mới tính lại ngay (không quá số từ chưa học còn lại)
-dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › phím mũi tên chọn ngày trước, End sang ngày xa nhất, Home về ngày đầu
-dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › hết thẻ đến hạn và hết từ mới thì không có nút Học ngay, chỉ đường sang Chủ đề
-dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › thẻ đến hạn chia theo chủ đề nhỏ, bấm vào thì học chủ đề đó
-dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › chế độ học: đủ 7 chế độ như Lernbuch, mỗi ô ghi xu mỗi thẻ và mở phiên bằng chế độ đó
-dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › không tải được thì báo và cho thử lại
-dat	vitest	-	resources/js/app/screens/HomNay.test.tsx	Hôm nay: số liệu thật từ máy chủ › máy chủ vừa nhận lô lượt chấm (từ hàng chờ) thì tải lại số liệu
-dat	vitest	-	resources/js/app/screens/SoTay.test.tsx	Sổ tay › danh sách thẻ có sao và ghi chú riêng; lọc theo loại kèm số đếm
-dat	vitest	-	resources/js/app/screens/SoTay.test.tsx	Sổ tay › bỏ sao thì gửi lên tài khoản rồi tải lại danh sách
-dat	vitest	-	resources/js/app/screens/SoTay.test.tsx	Sổ tay › sổ tay trống thì chỉ cách thêm thẻ; không có ô lọc
-dat	vitest	-	resources/js/app/screens/SoTay.test.tsx	Sổ tay › tìm trong sổ tay: ngừng gõ thì hỏi máy chủ; không khớp thì báo
-dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › đầu thẻ: mạo từ tô màu có chữ, số nhiều, loại thẻ, loại từ, cấp; đường về chủ đề; tiêu đề trang
-dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › tab Nghĩa và ví dụ: ba thứ tiếng, câu ví dụ kèm bản dịch, mẹo viết tay
-dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › tắt EN thì ẩn nghĩa và bản dịch tiếng Anh; tắt cả ba thì nhắc bật lại
-dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › bấm một chữ trong câu ví dụ: tra đúng chữ, hiện nghĩa và link mở thẻ; chữ chưa có thì báo; đóng được
-dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › câu ví dụ là một điểm dừng Tab; mũi tên trái/phải, Home, End đi giữa các chữ
-dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › phím mũi tên, Home, End chuyển tab và dời tiêu điểm theo
-dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › Ngữ pháp của danh từ: giống, số ít, số nhiều; "–" là thường chỉ dùng số ít
-dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › Ngữ pháp của danh từ không có số nhiều
-dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › Ngữ pháp của động từ: ba dạng chính và bảng chia ba thì
-dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › Ngữ pháp của tính từ: nguyên dạng, so sánh hơn, so sánh nhất lấy từ dòng dạng từ
-dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › nút sao: gửi lên tài khoản; máy chủ lỗi thì trả lại như cũ và báo
-dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › ghi chú: ngừng gõ thì tự lưu; đếm chữ, tối đa 500; đổi tab rồi quay lại vẫn còn
-dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › ghi chú lưu lỗi thì báo và có nút Lưu lại
-dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › từ trước và từ sau trong chủ đề; từ đầu không có từ trước
-dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › nghĩa ẩn theo cài đặt đã chọn từ trước
-dat	vitest	-	resources/js/app/screens/TheTu.test.tsx	Thẻ từ (API) › thẻ không có (hay đã ẩn) thì báo không tìm thấy; mã không phải số thì không hỏi máy chủ
-dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › ô trống thì hiện tra gần đây: mở lại thẻ đã xem, bấm chữ cũ để tra lại
-dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › gõ rồi ngừng thì tra; từ khớp đúng đứng đầu; đếm kết quả; chữ tra nằm trên đường dẫn
-dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › mở đường dẫn có ?q= thì tra ngay; một chữ cái thì nhắc gõ thêm, không hỏi máy chủ
-dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › không có kết quả thì gợi ý bỏ dấu hoặc gõ ngắn hơn
-dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › mở thẻ từ kết quả thì ghi lịch sử (chữ đã tra và thẻ); Enter thì ghi chữ đã tra
-dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › nút sao trên kết quả thêm thẻ vào sổ tay; lỗi thì trả lại như cũ
-dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › xoá một mục lịch sử và xoá hết
-dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › phím / đưa tiêu điểm vào ô tra; Esc xoá chữ
-dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › chưa lưu gì thì dùng mặc định
-dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › JSON hỏng thì dùng mặc định
-dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › giữ giá trị đúng, bỏ giá trị lạ
-dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › không phải object (null, mảng chuỗi, số) thì về mặc định
-dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › nhận đủ các số từ mới hợp lệ, kể cả "all"
-dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › canPersist báo đúng khi localStorage ghi được
-dat	vitest	-	resources/js/app/state/store.test.ts	reducer › cài đặt gộp phần đổi, không sửa trạng thái cũ
-dat	vitest	-	resources/js/app/state/store.test.ts	reducer › việc lạ thì giữ nguyên trạng thái
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 0 (đếm từ 0) là winter
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 1 (đếm từ 0) là winter
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 2 (đếm từ 0) là spring
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 4 (đếm từ 0) là spring
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 5 (đếm từ 0) là summer
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 7 (đếm từ 0) là summer
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 8 (đếm từ 0) là autumn
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 10 (đếm từ 0) là autumn
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 11 (đếm từ 0) là winter
-dat	vitest	-	resources/js/app/state/store.test.ts	useStore ngoài StoreProvider thì báo lỗi rõ ràng
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	đổi cài đặt giữa app và API › 0 từ mới mỗi lượt là "tất cả", ngôn ngữ nghĩa là danh sách mã
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	đổi cài đặt giữa app và API › giá trị lạ từ máy chủ về mặc định, không làm vỡ app
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	đổi cài đặt giữa app và API › chỉ gửi phần đã đổi; không đổi gì thì không gửi
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › mở app: áp cài đặt của tài khoản (máy khác đã đổi sang giao diện tối)
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › đổi cài đặt: chờ ngừng bấm rồi gửi một lần phần đã đổi, báo đã lưu
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › lưu lên máy chủ hỏng: báo rõ, cài đặt trên máy vẫn đổi
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › đổi cài đặt khi hồ sơ chưa tải xong (mạng chậm): giữ lựa chọn của người dùng, bản máy chủ không đè, rồi gửi lên
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › đổi rồi tải lại trang ngay (chưa kịp gửi): lần mở sau, phần chờ trên máy thắng và được gửi tiếp
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › rời trang ngay sau khi đổi: gửi luôn bằng keepalive, không chờ
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › không tải được tài khoản (mất mạng): app vẫn chạy, cài đặt lưu trên trình duyệt
-dat	vitest	-	resources/js/app/components/AudioButton.test.tsx	AudioButton: nút nghe › bấm lần hai khi lần đầu chưa đọc xong: đọc lại từ đầu, không hiện lỗi
-dat	vitest	-	resources/js/app/components/AudioButton.test.tsx	AudioButton: nút nghe › bấm liên tục nhiều lần cũng không hiện lỗi
-dat	vitest	-	resources/js/app/components/AudioButton.test.tsx	AudioButton: nút nghe › bấm nút nghe khác khi đang đọc: nút trước thôi đọc, không nút nào hiện lỗi
-dat	vitest	-	resources/js/app/components/AudioButton.test.tsx	AudioButton: nút nghe › lỗi thật của trình duyệt vẫn báo dưới nút; bấm lại thì dòng báo mất
-dat	vitest	-	resources/js/app/components/AudioButton.test.tsx	AudioButton: nút nghe › máy không có giọng tiếng Đức thì báo cách thêm giọng
-dat	vitest	-	resources/js/app/components/TaiVeMay.test.tsx	Tải chủ đề về máy để học khi không có mạng › bấm tải: báo đang tải, xong thì ghi đã tải lúc nào; audio vào kho audio; xoá khỏi máy thì tải lại được
-dat	vitest	-	resources/js/app/components/TaiVeMay.test.tsx	Tải chủ đề về máy để học khi không có mạng › đã tải từ trước thì mở trang là thấy ngay; tải lại bản mới thì xin máy chủ lần nữa
-dat	vitest	-	resources/js/app/components/TaiVeMay.test.tsx	Tải chủ đề về máy để học khi không có mạng › không tải được (mất mạng, máy chủ lỗi) thì báo, bấm lại được
 dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › chọn bằng phím 1–4; sai thì thẻ quay lại để luyện nhưng chỉ lượt đầu được tính; tổng kết đúng số
 dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › Esc thoát về Hôm nay; chế độ lạ trên đường dẫn thì học Flashcard
 dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › chế độ lạ trên đường dẫn thì xin phiên Flashcard
