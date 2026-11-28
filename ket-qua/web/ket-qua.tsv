@@ -186,6 +186,34 @@ dat	vitest	-	resources/js/app/lib/srs.test.ts	đầu ngày theo múi giờ › m
 dat	vitest	-	resources/js/app/lib/srs.test.ts	nút chấm › ghi khoảng ôn theo mức mới; Quên ôn lại sau 10 phút
 dat	vitest	-	resources/js/app/lib/srs.test.ts	nút chấm › báo lỗi khi mức hoặc kiểu chấm sai
 dat	vitest	-	resources/js/app/lib/srs.test.ts	nút chấm › ghi hạn ôn ngắn gọn
+dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › chưa lưu gì thì dùng mặc định
+dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › JSON hỏng thì dùng mặc định
+dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › giữ giá trị đúng, bỏ giá trị lạ
+dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › không phải object (null, mảng chuỗi, số) thì về mặc định
+dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › nhận đủ các số từ mới hợp lệ, kể cả "all"
+dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › canPersist báo đúng khi localStorage ghi được
+dat	vitest	-	resources/js/app/state/store.test.ts	reducer › cài đặt gộp phần đổi, không sửa trạng thái cũ
+dat	vitest	-	resources/js/app/state/store.test.ts	reducer › việc lạ thì giữ nguyên trạng thái
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 0 (đếm từ 0) là winter
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 1 (đếm từ 0) là winter
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 2 (đếm từ 0) là spring
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 4 (đếm từ 0) là spring
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 5 (đếm từ 0) là summer
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 7 (đếm từ 0) là summer
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 8 (đếm từ 0) là autumn
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 10 (đếm từ 0) là autumn
+dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 11 (đếm từ 0) là winter
+dat	vitest	-	resources/js/app/state/store.test.ts	useStore ngoài StoreProvider thì báo lỗi rõ ràng
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	đổi cài đặt giữa app và API › 0 từ mới mỗi lượt là "tất cả", ngôn ngữ nghĩa là danh sách mã
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	đổi cài đặt giữa app và API › giá trị lạ từ máy chủ về mặc định, không làm vỡ app
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	đổi cài đặt giữa app và API › chỉ gửi phần đã đổi; không đổi gì thì không gửi
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › mở app: áp cài đặt của tài khoản (máy khác đã đổi sang giao diện tối)
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › đổi cài đặt: chờ ngừng bấm rồi gửi một lần phần đã đổi, báo đã lưu
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › lưu lên máy chủ hỏng: báo rõ, cài đặt trên máy vẫn đổi
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › đổi cài đặt khi hồ sơ chưa tải xong (mạng chậm): giữ lựa chọn của người dùng, bản máy chủ không đè, rồi gửi lên
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › đổi rồi tải lại trang ngay (chưa kịp gửi): lần mở sau, phần chờ trên máy thắng và được gửi tiếp
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › rời trang ngay sau khi đổi: gửi luôn bằng keepalive, không chờ
+dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › không tải được tài khoản (mất mạng): app vẫn chạy, cài đặt lưu trên trình duyệt
 dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt › đổi giao diện tối: gắn data-theme lên html và lưu lại
 dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt › cỡ chữ, mùa, số từ mới, thứ tiếng của nghĩa đều lưu
 dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt › mở lại app thì dùng cài đặt đã lưu
@@ -289,40 +317,28 @@ dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › mở thẻ t�
 dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › nút sao trên kết quả thêm thẻ vào sổ tay; lỗi thì trả lại như cũ
 dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › xoá một mục lịch sử và xoá hết
 dat	vitest	-	resources/js/app/screens/TraTu.test.tsx	Tra từ › phím / đưa tiêu điểm vào ô tra; Esc xoá chữ
-dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › chưa lưu gì thì dùng mặc định
-dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › JSON hỏng thì dùng mặc định
-dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › giữ giá trị đúng, bỏ giá trị lạ
-dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › không phải object (null, mảng chuỗi, số) thì về mặc định
-dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › nhận đủ các số từ mới hợp lệ, kể cả "all"
-dat	vitest	-	resources/js/app/state/store.test.ts	cài đặt lưu trên trình duyệt › canPersist báo đúng khi localStorage ghi được
-dat	vitest	-	resources/js/app/state/store.test.ts	reducer › cài đặt gộp phần đổi, không sửa trạng thái cũ
-dat	vitest	-	resources/js/app/state/store.test.ts	reducer › việc lạ thì giữ nguyên trạng thái
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 0 (đếm từ 0) là winter
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 1 (đếm từ 0) là winter
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 2 (đếm từ 0) là spring
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 4 (đếm từ 0) là spring
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 5 (đếm từ 0) là summer
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 7 (đếm từ 0) là summer
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 8 (đếm từ 0) là autumn
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 10 (đếm từ 0) là autumn
-dat	vitest	-	resources/js/app/state/store.test.ts	mùa theo tháng › tháng 11 (đếm từ 0) là winter
-dat	vitest	-	resources/js/app/state/store.test.ts	useStore ngoài StoreProvider thì báo lỗi rõ ràng
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	đổi cài đặt giữa app và API › 0 từ mới mỗi lượt là "tất cả", ngôn ngữ nghĩa là danh sách mã
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	đổi cài đặt giữa app và API › giá trị lạ từ máy chủ về mặc định, không làm vỡ app
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	đổi cài đặt giữa app và API › chỉ gửi phần đã đổi; không đổi gì thì không gửi
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › mở app: áp cài đặt của tài khoản (máy khác đã đổi sang giao diện tối)
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › đổi cài đặt: chờ ngừng bấm rồi gửi một lần phần đã đổi, báo đã lưu
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › lưu lên máy chủ hỏng: báo rõ, cài đặt trên máy vẫn đổi
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › đổi cài đặt khi hồ sơ chưa tải xong (mạng chậm): giữ lựa chọn của người dùng, bản máy chủ không đè, rồi gửi lên
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › đổi rồi tải lại trang ngay (chưa kịp gửi): lần mở sau, phần chờ trên máy thắng và được gửi tiếp
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › rời trang ngay sau khi đổi: gửi luôn bằng keepalive, không chờ
-dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › không tải được tài khoản (mất mạng): app vẫn chạy, cài đặt lưu trên trình duyệt
 dat	vitest	-	resources/js/app/components/ai/CongAi.test.tsx	Cổng AI › AI chưa mở cho tài khoản (hidden): thẻ từ không có tab Hỏi AI
 dat	vitest	-	resources/js/app/components/ai/CongAi.test.tsx	Cổng AI › chưa đủ tuổi từ trước: không có tab Hỏi AI
 dat	vitest	-	resources/js/app/components/ai/CongAi.test.tsx	Cổng AI › khai ngày sinh: chọn thiếu hay ngày không có thật thì báo ngay, không gọi API
 dat	vitest	-	resources/js/app/components/ai/CongAi.test.tsx	Cổng AI › khai xong thì sang bước đồng ý, tiêu điểm ở tiêu đề mới; đồng ý thì gửi đúng phiên bản và tới nút Giải thích
 dat	vitest	-	resources/js/app/components/ai/CongAi.test.tsx	Cổng AI › khai xong mà chưa đủ tuổi: hiện câu giải thích, không có phần AI; tab vẫn mở tới khi rời trang
 dat	vitest	-	resources/js/app/components/ai/CongAi.test.tsx	Cổng AI › lỗi của máy chủ khi khai ngày sinh hiện dưới các ô
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › chọn bằng phím 1–4; sai thì thẻ quay lại để luyện nhưng chỉ lượt đầu được tính; tổng kết đúng số
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › Esc thoát về Hôm nay; chế độ lạ trên đường dẫn thì học Flashcard
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › chế độ lạ trên đường dẫn thì xin phiên Flashcard
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › P nghe từ, S nghe chậm, cả trước khi chọn (từ tiếng Đức đã hiện sẵn)
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Typing: chưa trả lời thì P, Alt+P không đọc (khỏi lộ đáp án); trả lời rồi thì P, S đọc từ
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Listening: đọc từ ngay khi hiện; đang gõ thì Alt+P, Alt+S đọc lại, P không có Alt là chữ p
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Đặt câu: P nghe câu, S nghe chậm
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Typing: thiếu mạo từ được Khó; gợi ý thì tối đa Khó; nút chữ đặc biệt chèn ä ö ü ß vào ô
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Typing: ô trống thì chưa chấm; sai mạo từ là Quên
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Listening: gõ lại từ vừa nghe; hết 30 giây thì chấm Quên với lý do hết giờ
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › bấm chữ theo đúng thứ tự là Tốt; sai rồi sửa là Khó; Backspace bỏ chữ cuối
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › chưa đủ chữ thì chưa kiểm được; Xem đáp án là Quên
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › phiên Đặt câu không có thẻ nào có câu ví dụ thì báo rõ
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Ghép cặp: nối đúng thì khoá cặp; thẻ từng nối sai là Khó; xong vòng thì tổng kết
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Ghép cặp: chưa chọn từ thì P không đọc; chọn từ rồi thì P, S đọc từ vừa chọn
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Hỗn hợp: kiểu câu hỏi theo mức của thẻ, lượt chấm ghi chế độ Hỗn hợp
 dat	vitest	-	resources/js/app/screens/ai/TabHoiAi.test.tsx	Tab Hỏi AI › bấm giải thích: đang trả lời rồi bốn phần; gửi đúng mã thẻ; số lượt còn lại từ máy chủ
 dat	vitest	-	resources/js/app/screens/ai/TabHoiAi.test.tsx	Tab Hỏi AI › phần rỗng bị ẩn; chữ có thẻ HTML hiện nguyên văn, không sinh phần tử
 dat	vitest	-	resources/js/app/screens/ai/TabHoiAi.test.tsx	Tab Hỏi AI › hết lượt: chữ của máy chủ và giờ có lượt mới theo múi giờ tài khoản; không có nút Thử lại
@@ -346,22 +362,6 @@ dat	vitest	-	resources/js/app/screens/luyenTap/LuyenTap.test.tsx	Làm bài: ch�
 dat	vitest	-	resources/js/app/screens/luyenTap/LuyenTap.test.tsx	Làm cả phiếu rồi chấm › Enter sang câu sau, từ cho sẵn, Ctrl+Enter hỏi lại khi còn câu chưa làm, chấm và gửi, ghi nhớ, làm lại câu sai
 dat	vitest	-	resources/js/app/screens/luyenTap/LuyenTap.test.tsx	Điền câu và Chia động từ › Điền câu: mỗi câu trả lời lần đầu là một lượt chấm thẻ chế độ cloze (Tốt, Khó hay Quên); câu đầy đủ kèm bản dịch
 dat	vitest	-	resources/js/app/screens/luyenTap/LuyenTap.test.tsx	Điền câu và Chia động từ › Chia động từ: hỏi một dạng, nghe động từ sau khi trả lời; gửi theo mã câu, loại lượt chia động từ
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › chọn bằng phím 1–4; sai thì thẻ quay lại để luyện nhưng chỉ lượt đầu được tính; tổng kết đúng số
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › Esc thoát về Hôm nay; chế độ lạ trên đường dẫn thì học Flashcard
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › chế độ lạ trên đường dẫn thì xin phiên Flashcard
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › P nghe từ, S nghe chậm, cả trước khi chọn (từ tiếng Đức đã hiện sẵn)
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Typing: chưa trả lời thì P, Alt+P không đọc (khỏi lộ đáp án); trả lời rồi thì P, S đọc từ
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Listening: đọc từ ngay khi hiện; đang gõ thì Alt+P, Alt+S đọc lại, P không có Alt là chữ p
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Đặt câu: P nghe câu, S nghe chậm
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Typing: thiếu mạo từ được Khó; gợi ý thì tối đa Khó; nút chữ đặc biệt chèn ä ö ü ß vào ô
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Typing: ô trống thì chưa chấm; sai mạo từ là Quên
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Listening: gõ lại từ vừa nghe; hết 30 giây thì chấm Quên với lý do hết giờ
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › bấm chữ theo đúng thứ tự là Tốt; sai rồi sửa là Khó; Backspace bỏ chữ cuối
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › chưa đủ chữ thì chưa kiểm được; Xem đáp án là Quên
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › phiên Đặt câu không có thẻ nào có câu ví dụ thì báo rõ
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Ghép cặp: nối đúng thì khoá cặp; thẻ từng nối sai là Khó; xong vòng thì tổng kết
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Ghép cặp: chưa chọn từ thì P không đọc; chọn từ rồi thì P, S đọc từ vừa chọn
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Hỗn hợp: kiểu câu hỏi theo mức của thẻ, lượt chấm ghi chế độ Hỗn hợp
 dat	playwright	dang-nhap	tests/e2e/dang-nhap.setup.ts	đăng nhập bằng tài khoản người học thử
 dat	playwright	dang-nhap	tests/e2e/dang-nhap.setup.ts	đăng nhập trang quản trị bằng nhân viên thử
 dat	playwright	may-tinh	tests/e2e/ai.spec.ts	khai ngày sinh, đồng ý, Giải thích từ; hỏi lại sau khi tải lại trang thì lấy từ cache, không trừ lượt
