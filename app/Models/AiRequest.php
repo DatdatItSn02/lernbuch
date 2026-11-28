@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Nhật ký gọi AI (ai_requests): một dòng mỗi lượt, kể cả lượt bị chặn (quota, blocked) và lượt lấy từ cache.
@@ -30,5 +31,11 @@ class AiRequest extends Model
             'input_tokens' => 'integer', 'cached_tokens' => 'integer', 'output_tokens' => 'integer', 'cost_micro_usd' => 'integer',
             'cache_hit' => 'boolean', 'latency_ms' => 'integer', 'created_at' => 'integer',
         ];
+    }
+
+    /** @return BelongsTo<User, $this> */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

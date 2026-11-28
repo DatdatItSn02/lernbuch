@@ -23,7 +23,7 @@ it('câu điền từ: gửi đáp án mẫu, đề đã bỏ dấu tô đậm, 
 });
 
 it('câu sửa lỗi cũng dùng được; theo thẻ: đáp án mẫu là mặt trước, câu hỏi là nghĩa', function () {
-    $this->postJson('/api/v1/ai/kiem-dap-an', ['exercise_id' => $this->m->cau['dx:g1:1A:2'], 'text' => 'Die Frau heißt Anne.'])->assertOk();
+    $this->postJson('/api/v1/ai/kiem-dap-an', ['exercise_id' => $this->m->cau['dx:g1:1A:2'], 'text' => 'Den Frau heißt Anna.'])->assertOk();
     $this->postJson('/api/v1/ai/kiem-dap-an', ['card_id' => theMau('das Brötchen'), 'text' => 'die Semmel'])->assertOk();
 
     expect(aiGia()->daNhan[1]->nguoiDung)->toContain('Đáp án mẫu: das Brötchen. Câu hỏi: Viết từ tiếng Đức có nghĩa: bánh mì nhỏ (ổ tròn).')

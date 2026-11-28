@@ -30,6 +30,9 @@ const MAN: [string, string, RegExp | null][] = [
     ['nhan-vien', '/admin/nhan-vien', /\/admin\/nhan-vien\/\d+\/edit$/],
     ['cai-dat-hoc', '/admin/cai-dat-hoc', null],
     ['cai-dat-ai', '/admin/cai-dat-ai', null],
+    ['ai-prompt', '/admin/ai-prompt', /\/admin\/ai-prompt\/\d+$/],
+    ['thong-ke-ai', '/admin/thong-ke-ai', null],
+    ['nhat-ky-ai', '/admin/nhat-ky-ai', null],
 ];
 
 /** Mở trang quản trị bằng phiên của nhân viên thử, ở giao diện sáng hay tối (Filament đọc localStorage "filament:theme:mode"). */

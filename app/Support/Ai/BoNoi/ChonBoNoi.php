@@ -39,8 +39,8 @@ final class ChonBoNoi
     public static function khoa(string $ten): string
     {
         return match ($ten) {
-            'gemini' => (string) config('ai.gemini.khoa'),
-            'openai_compatible' => (string) config('ai.openai.khoa'),
+            'gemini' => trim((string) config('ai.gemini.khoa')),
+            'openai_compatible' => trim((string) config('ai.openai.khoa')),
             default => '',
         };
     }

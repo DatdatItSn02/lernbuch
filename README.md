@@ -57,6 +57,9 @@ Web chạy ở `127.0.0.1:8001`, không dùng `localhost:8000` để không trù
 - Biến môi trường: `AI_DRIVER` (`fake` là AI giả, dùng cho máy dev và test; trống thì theo ô Nhà cung cấp), `GEMINI_API_KEY` (chỉ đặt trên máy chủ, qua GitHub Secrets). Ngoài máy chủ thật, thiếu khoá thì tự dùng AI giả.
 - Trang quản trị Cài đặt AI (`/admin/cai-dat-ai`, quyền `ai.manage`): bật tắt, ai được dùng, model, lượt mỗi phút, mỗi ngày, chi phí mỗi ngày, lượt cùng lúc, hạn mức giai đoạn thử. Cho một người thử AI: trang người học, nút Cho thử AI.
 - Lệnh `php artisan app:ai-don` (lịch chạy mỗi ngày): xoá trắng đoạn trích câu hỏi quá 30 ngày, xoá cache AI hết hạn.
+- Ba trang quản trị nữa (quyền `ai.manage`): Prompt AI (`/admin/ai-prompt`: phiên bản, Tạo bản mới, Chạy thử, Dùng bản này, Quay lại bản trước), Thống kê AI (`/admin/thong-ke-ai`, ngày theo giờ Thái Bình Dương), Nhật ký AI (`/admin/nhat-ky-ai`, chỉ xem).
+- Thử model thật: workflow `ai-thu` (bấm chạy ở Actions khi đã ở `main`, hoặc đẩy nhánh `ai/thu`) gọi `php artisan app:ai-thu` với secret `GEMINI_API_KEY`: 40 câu thường (`resources/ai/mau-thu.json`) và 20 câu chèn lệnh; kết quả ở nhánh `ci-results`, thư mục `ai-thu/`. Mỗi lần tốn 60 lượt của hạn mức ngày.
+- Deploy điền `GEMINI_API_KEY` vào `.env` của máy chủ từ secret cùng tên (như `MAIL_PASSWORD`); thiếu secret thì để trống.
 - Đổi nhà cung cấp AI hoặc chuyển Gemini sang bậc trả tiền thì phải sửa lời đồng ý trong app (`resources/js/app/i18n/vi.ts`, nhóm `ai.dongY`) và tăng `DongYAi::PHIEN_BAN` cùng `PHIEN_BAN_DONG_Y` trong `resources/js/app/lib/ai.ts`: mọi người phải đồng ý lại.
 
 ## Quy ước database

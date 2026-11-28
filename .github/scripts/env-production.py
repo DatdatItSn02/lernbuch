@@ -1,6 +1,6 @@
 """In ra .env cho alwaysdata từ .env.production.example, điền bí mật lấy từ biến môi trường (GitHub Secrets).
 
-DB_PASSWORD giữ cách điền cũ (nguyên văn). MAIL_PASSWORD bọc nháy để ký tự đặc biệt (#, $, khoảng trắng) không làm hỏng .env.
+DB_PASSWORD giữ cách điền cũ (nguyên văn). MAIL_PASSWORD, GEMINI_API_KEY bọc nháy để ký tự đặc biệt (#, $, khoảng trắng) không làm hỏng .env.
 Chạy: DB_PASSWORD=... MAIL_PASSWORD=... python3 .github/scripts/env-production.py > /tmp/ten.env
 """
 import os
@@ -18,7 +18,8 @@ def dotenv_value(value):
 
 def render(template, env):
     out = template.replace('__DB_PASSWORD__', env.get('DB_PASSWORD', ''))
-    return out.replace('__MAIL_PASSWORD__', dotenv_value(env.get('MAIL_PASSWORD', '')))
+    out = out.replace('__MAIL_PASSWORD__', dotenv_value(env.get('MAIL_PASSWORD', '')))
+    return out.replace('__GEMINI_API_KEY__', dotenv_value(env.get('GEMINI_API_KEY', '')))
 
 
 if __name__ == '__main__':

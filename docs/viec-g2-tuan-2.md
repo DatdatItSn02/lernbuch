@@ -224,14 +224,14 @@ Làm theo thứ tự. Mỗi đợt một lần đẩy. Trong lúc CI chạy thì
 
 ### Đợt 3: quản trị, thử model thật, khoá trong deploy
 
-- [ ] **T9. Trang Prompt.** `PromptAi`, `AiPromptResource` (1.8). File mẫu: `ViewNguoiHoc.php` (nút có hỏi lại, nhật ký), `AiNguoiHoc.php`, `NhatKyResource`.
+- [x] **T9. Trang Prompt.** `PromptAi`, `AiPromptResource` (1.8). File mẫu: `ViewNguoiHoc.php` (nút có hỏi lại, nhật ký), `AiNguoiHoc.php`, `NhatKyResource`.
   - `AiQuanTriPromptTest` (mục 17): tạo bản mới ra `version + 1`, chưa dùng, có nhật ký; sáu ca luật sai (thiếu `{level}`, thiếu tham số, tham số lạ, hai cặp `<input>`, `{text}` ngoài thẻ, token ngoài khoảng) báo lỗi đúng ô và không lưu; chạy thử hiện kết quả, token, chi phí, ghi `ai_requests` không có người học, không đổi bản đang dùng, bị chặn khi chạm trần; "Dùng bản này" thì lượt hỏi kế tiếp của người học dùng chữ mới (`BoNoiGia::$daNhan`) và `prompt_id` mới, mỗi loại chỉ một bản đang dùng, cache của bản cũ không được dùng; "Quay lại bản trước" trả về bản cũ; đổi model ở Cài đặt AI thì lượt kế tiếp gửi model mới; `content_editor` và người học bị 403 ở cả ba trang và ở từng hành động; mỗi thay đổi có nhật ký trước, sau.
-- [ ] **T10. Thống kê và Nhật ký AI.** `ThongKeAi`, `TrangThongKeAi`, `NhatKyAiResource` (1.8).
+- [x] **T10. Thống kê và Nhật ký AI.** `ThongKeAi`, `TrangThongKeAi`, `NhatKyAiResource` (1.8).
   - `AiThongKeTest`: dữ liệu mẫu qua `dongAi()` ở ba ngày, có lượt sát nửa đêm giờ Thái Bình Dương nằm đúng ngày; từng cột đúng số; ngày không có lượt là 0; bảng theo loại đúng; trang không có lượt nào vẫn mở được.
   - `AiNhatKyTest`: mới trước; lọc loại, trạng thái; đoạn trích cắt 80 ký tự ở bảng và đủ ở trang xem; lượt chạy thử để trống người học; không có nút tạo, sửa, xoá.
-- [ ] **T11. `app:ai-thu` và workflow.** Theo 1.9.
+- [x] **T11. `app:ai-thu` và workflow.** Theo 1.9.
   - `AiThuLenhTest` (`Http::fake`, `--nghi=0`): gửi đúng 60 lượt, khoá chỉ nằm ở đầu `x-goog-api-key`; 38/40 đúng khuôn thì mã 0, 37/40 thì mã 1; trung vị và lâu nhất vượt ngưỡng thì mã 1; 3 câu chèn lệnh "làm theo" thì mã 1; từng dấu hiệu 1 đến 6 có một ca bắt được và một ca không bắt nhầm; 429 rồi thành công thì ghi `thu_lai = 1`; thiếu khoá thì mã 2 và không gọi mạng; hai file ra không chứa khoá; `mau-thu.json` có đúng 4 câu mỗi loại và đủ tham số của loại.
-- [ ] **T12. Khoá Gemini trong deploy.** Theo 1.10. README: bổ sung mục AI (ba trang quản trị, lệnh và workflow `ai-thu`, secret `GEMINI_API_KEY`).
+- [x] **T12. Khoá Gemini trong deploy.** Theo 1.10. README: bổ sung mục AI (ba trang quản trị, lệnh và workflow `ai-thu`, secret `GEMINI_API_KEY`).
 - [ ] **Đẩy đợt 3.** Rồi đẩy nhánh `ai/thu` một lần: có secret thì đọc `ai-thu/ket-qua.md` trên nhánh `ci-results`; chưa có secret thì ghi lại là đang chờ khoá. Loại nào trượt ngưỡng vì prompt thì sửa trong `PromptBan2` (nếu là ba loại bản 2) hoặc ghi đề xuất sửa vào mục 5; không chạy quá 2 lần một ngày.
 
 ### Đợt 4: app học
@@ -277,3 +277,6 @@ Mỗi quyết định tự chọn ngoài file này ghi một dòng ở đây: ng
 - 28/11 (Fable, lúc soạn file): Viết câu chưa cộng xu và chưa ghi `exercise_runs`, vì điểm do AI chấm; kết quả Kiểm đáp án không đổi điểm của câu; Thống kê AI tính ngày theo giờ Thái Bình Dương cho khớp trần của Google; lượt "Chạy thử" của quản trị tính vào trần hệ thống nhưng không vào hạn mức của ai; cột `ai_messages.corrections` của tin AI chứa cả nghĩa tiếng Việt và gợi ý (không thêm cột).
 - 28/11, đợt 1: `tests/e2e/ai.spec.ts` tắt hiệu ứng chuyển màu trước khi đo axe: đổi giao diện ngay trên trang thì nút có `transition-colors` còn đang chuyển màu, axe báo lỗi tương phản giả ở giao diện tối.
 - 28/11, T8: bảng mười đường gọi AI là `DUONG_AI` và `duongAi($ten, $user)` trong `tests/Pest.php`; `AiChucNangTest`, `AiCongTest`, `AiCacheTest`, `AiDuLieuGuiTest` dùng chung.
+- 28/11, T9: các nút của Prompt nằm ở trang xem một phiên bản (giống trang Job lỗi); luật mẫu kiểm ở ô của form (`PromptAi::loiHeThong`, `loiMauCau`) và lại một lần trong `PromptAi::taoBanMoi`. Lượt hỏi thật và Chạy thử đều dùng model ở Cài đặt AI; cột `model` của prompt chỉ ghi model lúc tạo.
+- 28/11, T10: Thống kê AI là trang Blade (`resources/views/filament/pages/thong-ke-ai.blade.php`) với bảng HTML có `caption`, `th scope`; Nhật ký AI phân trang kiểu đơn giản (`PaginationMode::Simple`).
+- 28/11, T11: `app:ai-thu` gọi thẳng `BoNoiGemini` (không qua tám chặng, không ghi `ai_requests`); nghỉ bằng `Sleep` để test giả được.

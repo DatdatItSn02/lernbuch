@@ -1,0 +1,82 @@
+name: ai-thu
+# Thử model AI thật (G2, mục tự kiểm 12 và phần model thật của mục 3): 40 câu thường (resources/ai/mau-thu.json) và
+# 20 câu chèn lệnh (tests/chung/chen-lenh.json), dùng secret GEMINI_API_KEY. Kết quả (có nguyên văn câu trả lời) ghi vào
+# nhánh ci-results, thư mục ai-thu/: ket-qua.md để đọc, ket-qua.json để máy đọc.
+# Mỗi lần chạy tốn 60 lượt của hạn mức ngày (Google tính lại lúc nửa đêm giờ Thái Bình Dương): chạy tối đa 2 lần mỗi ngày.
+# Chạy: Actions → ai-thu → Run workflow (khi workflow đã ở main), hoặc đẩy nhánh ai/thu.
+on:
+  workflow_dispatch:
+    inputs:
+      model:
+        description: 'Model (để trống thì theo Cài đặt AI: gemini-3.1-flash-lite)'
+        required: false
+        default: ''
+  push:
+    branches: ['ai/thu']
+
+permissions:
+  contents: write   # chỉ để ghi kết quả vào nhánh ci-results
+
+concurrency:
+  group: ai-thu
+  cancel-in-progress: false
+
+jobs:
+  ai-thu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    services:
+      db:
+        image: mariadb:11.4
+        env:
+          MARIADB_ROOT_PASSWORD: root
+          MARIADB_DATABASE: lernbuch
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s --health-timeout=5s --health-retries=30
+    env:
+      DB_CONNECTION: mariadb
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_DATABASE: lernbuch
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      APP_ENV: testing
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, intl, pdo_mysql, zip, bcmath
+          tools: composer:v2
+          coverage: none
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/composer
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-
+      - name: Cài đặt và dựng database
+        run: |
+          set -eo pipefail
+          { composer install --no-interaction --prefer-dist --no-progress
+            cp .env.example .env
+            php artisan key:generate --force -n
+            php artisan migrate --force -n
+            php artisan db:seed --force -n; } 2>&1 | tee /tmp/ai-thu.log
+      - name: Gửi 60 câu tới model thật
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          AI_DRIVER: gemini
+          MODEL: ${{ inputs.model }}
+        run: |
+          set -o pipefail
+          mkdir -p /tmp/ai-thu
+          php artisan app:ai-thu --ra=/tmp/ai-thu ${MODEL:+--model="$MODEL"} -n 2>&1 | tee -a /tmp/ai-thu.log
+      - name: Ghi kết quả vào nhánh ci-results
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPORT_FILES: /tmp/ai-thu
+          REPORT_FILES_TO: ai-thu
+        run: bash .github/scripts/report.sh ai-thu "${{ job.status }}" /tmp/ai-thu.log

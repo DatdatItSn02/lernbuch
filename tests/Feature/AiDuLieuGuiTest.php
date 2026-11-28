@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Http;
 
 beforeEach(function () {
     $this->seed();
-    (new NoiDungThuSeeder)->tao();
+    $this->m = (new NoiDungThuSeeder)->tao();
     batAi();
 });
 
@@ -83,7 +83,7 @@ it('app:ai-don có trong lịch chạy mỗi ngày', function () {
 });
 
 it('cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học', function (string $ten) {
-    (new NoiDungThuSeeder)->taoLuyenTap();
+    $this->m->taoLuyenTap();
     $user = nguoiDeNhan();
     $this->actingAs($user);
     $d = duongAi($ten, $user);

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 beforeEach(function () {
     $this->seed();
-    (new NoiDungThuSeeder)->tao();
+    $this->m = (new NoiDungThuSeeder)->tao();
     batAi();
 });
 
@@ -94,7 +94,7 @@ it('kết quả hỏng không được lưu; bốn loại chứa chữ riêng c�
 });
 
 it('qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache', function (string $ten) {
-    (new NoiDungThuSeeder)->taoLuyenTap();
+    $this->m->taoLuyenTap();
     $user = nguoiHocAi();
     $this->actingAs($user);
     $d = duongAi($ten, $user);

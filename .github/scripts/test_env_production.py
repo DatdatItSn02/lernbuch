@@ -35,6 +35,13 @@ class EnvProductionTest(unittest.TestCase):
         out = env_production.render(mau, {'DB_PASSWORD': 'd', 'MAIL_PASSWORD': 'm'})
         self.assertNotIn('__DB_PASSWORD__', out)
         self.assertNotIn('__MAIL_PASSWORD__', out)
+        self.assertIn('GEMINI_API_KEY=__GEMINI_API_KEY__', mau)
+        self.assertNotIn('__GEMINI_API_KEY__', env_production.render(mau, {}))
+
+    def test_khoa_gemini_boc_nhay_thieu_thi_de_trong(self):
+        mau = 'GEMINI_API_KEY=__GEMINI_API_KEY__\n'
+        self.assertEqual(env_production.render(mau, {'GEMINI_API_KEY': 'AIza#x$y'}), "GEMINI_API_KEY='AIza#x$y'\n")
+        self.assertEqual(env_production.render(mau, {}), 'GEMINI_API_KEY=\n')
 
 
 if __name__ == '__main__':

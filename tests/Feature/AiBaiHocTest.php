@@ -3,6 +3,7 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Testing\TestResponse;
 
 // Mục tự kiểm 10 (phần Bài học AI): soạn, lưu theo người, dùng chung cache, xem lại, ghi điểm, xoá.
 
@@ -13,7 +14,7 @@ beforeEach(function () {
     $this->actingAs($this->user);
 });
 
-function soanBai(array $doi = []): Illuminate\Testing\TestResponse
+function soanBai(array $doi = []): TestResponse
 {
     return test()->postJson('/api/v1/ai/bai-hoc', $doi + ['topic' => 'Ăn uống', 'level' => 'A2', 'words' => ['das Brot', 'trinken']]);
 }

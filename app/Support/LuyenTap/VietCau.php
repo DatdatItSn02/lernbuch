@@ -24,6 +24,6 @@ final class VietCau
             ->leftJoin('card_progress as p', fn (JoinClause $j) => $j->on('p.card_id', '=', 'cards.id')->where('p.user_id', '=', $user->id)), $cap);
         $dong = $q->orderByRaw('p.card_id IS NULL')->orderByRaw('COALESCE(p.box, 0)')->inRandomOrder()->limit($n)->get(NoiDung::cotTomTat());
 
-        return array_values(NoiDung::tomTat($dong, $user));
+        return NoiDung::tomTat($dong, $user);
     }
 }

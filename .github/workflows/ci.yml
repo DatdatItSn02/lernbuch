@@ -169,6 +169,7 @@ jobs:
         env:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       - name: Nạp khoá SSH
         run: |
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
