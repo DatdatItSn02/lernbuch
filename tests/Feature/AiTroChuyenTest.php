@@ -45,6 +45,18 @@ it('mở cuộc theo tình huống, gửi tin: lưu hai tin đúng vai, đúng r
     $this->getJson("/api/v1/ai/tro-chuyen/{$c['id']}")->assertOk()->assertJsonCount(2, 'data.messages');
 });
 
+it('gửi hai tin liền nhau trong cùng cuộc: lượt hai nhận lượt một trong lịch sử, đủ bốn tin', function () {
+    $ma = cuocTroChuyen($this->user);
+
+    $this->postJson("/api/v1/ai/tro-chuyen/{$ma}/tin", ['text' => 'Guten Tag, ich heißen Lan.'])->assertOk();
+    $this->postJson("/api/v1/ai/tro-chuyen/{$ma}/tin", ['text' => 'Ich möchte ein Wasser.'])->assertOk()
+        ->assertJsonPath('conversation.message_count', 4)
+        ->assertJsonPath('messages.0.content', 'Ich möchte ein Wasser.');
+
+    expect(aiGia()->daNhan[1]->nguoiDung)->toContain("Người học: Guten Tag, ich heißen Lan.\nAI: Sehr gut!")
+        ->and(DB::table('ai_messages')->count())->toBe(4);
+});
+
 it('cuộc dài 40 tin: AI chỉ nhận tin 31 đến 40, cũ trước, không có tin 30; tin dài bị cắt 300 ký tự', function () {
     $ma = cuocTroChuyen($this->user);
     themTin($ma, 40);

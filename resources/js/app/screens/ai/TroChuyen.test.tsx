@@ -55,6 +55,34 @@ describe('Trò chuyện', () => {
         expect((o as HTMLTextAreaElement).value).toBe('');
     });
 
+    it('gửi hai tin liền nhau trong cùng cuộc: cả bốn tin hiện theo thứ tự', async () => {
+        let n = 0;
+        mo(`/hoi-ai/tro-chuyen/${MA}`, {
+            [`POST /api/v1/ai/tro-chuyen/${MA}/tin`]: (b) => {
+                n += 2;
+                const chu = (b as { text: string }).text;
+                return {
+                    json: {
+                        data: {},
+                        meta: META,
+                        messages: [
+                            { id: n - 1, role: 'user', content: chu, extra: null, created_at: n },
+                            { id: n, role: 'assistant', content: `Antwort ${n}`, extra: null, created_at: n },
+                        ],
+                        conversation: { ...CUOC, message_count: n },
+                    },
+                };
+            },
+        });
+        const o = await screen.findByLabelText('Tin nhắn của bạn (tiếng Đức)');
+        for (const cau of ['Guten Tag.', 'Ich möchte ein Wasser.']) {
+            fireEvent.change(o, { target: { value: cau } });
+            fireEvent.click(screen.getByRole('button', { name: 'Gửi' }));
+            expect(await screen.findByText(cau)).toBeTruthy();
+        }
+        expect(screen.getByText('Antwort 4')).toBeTruthy();
+    });
+
     it('AI lỗi: chữ vẫn còn trong ô, có nút Thử lại', async () => {
         mo(`/hoi-ai/tro-chuyen/${MA}`, {
             [`POST /api/v1/ai/tro-chuyen/${MA}/tin`]: () => ({ status: 503, json: { code: 'ai_loi_tam_thoi', message: 'AI chưa trả lời được, thử lại sau.' } }),

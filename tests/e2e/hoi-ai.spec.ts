@@ -19,6 +19,8 @@ function ghiLoi(page: Page) {
 }
 
 async function kiem(page: Page, info: TestInfo, ten: string) {
+    // Lên đầu trang: nút nằm dưới thanh trên (sticky) thì axe báo target-size giả
+    await page.evaluate(() => window.scrollTo(0, 0));
     await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; animation: none !important; }' });
     for (const theme of ['light', 'dark'] as const) {
         await page.evaluate((t) => (document.documentElement.dataset.theme = t), theme);
@@ -64,7 +66,11 @@ test('trang Hỏi AI: Dịch, Sửa ngữ pháp, Trò chuyện, Bài học AI', 
     await expect(page.getByText('AI chỉ đọc 10 tin gần nhất.')).toBeVisible();
     for (const cau of ['Guten Tag, ich heißen Lan.', 'Ich möchte ein Wasser.']) {
         await page.getByLabel('Tin nhắn của bạn (tiếng Đức)').fill(cau);
-        await page.getByRole('button', { name: 'Gửi', exact: true }).click();
+        const [tl] = await Promise.all([
+            page.waitForResponse((r) => r.url().endsWith('/tin') && r.request().method() === 'POST'),
+            page.getByRole('button', { name: 'Gửi', exact: true }).click(),
+        ]);
+        expect(tl.status(), await tl.text()).toBe(200);
         await expect(page.getByText(cau, { exact: true })).toBeVisible();
     }
     await expect(page.getByText('Sehr gut! Und was möchten Sie trinken?')).toHaveCount(2);
