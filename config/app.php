@@ -99,6 +99,9 @@ return [
     // trên cùng một tài khoản thử nên đặt cao hơn qua API_MOI_PHUT.
     'api_moi_phut' => (int) env('API_MOI_PHUT', 120),
 
+    // Chế độ xem thử (tạm thời): app học mở không cần đăng nhập, các trang đăng nhập, đăng ký tắt. Xem App\Http\Middleware\KhachXemThu.
+    'xem_thu' => (bool) env('XEM_THU', false),
+
     // Audio đọc từ tiếng Đức tạo sẵn bằng Piper (workflow audio, tools/audio): giọng đang dùng và địa chỉ thư mục audio.
     // Trên alwaysdata thư mục audio dùng chung nối vào public/audio khi deploy; chuyển sang kho file khác (R2) chỉ cần
     // chép file và đổi AUDIO_URL.

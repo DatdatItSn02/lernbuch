@@ -421,6 +421,7 @@ export const vi = {
         daLuu: 'Đã lưu.',
         luuLoi: 'Chưa lưu được lên tài khoản; đổi lại một lần nữa để thử lại.',
         luuTrenTrinhDuyet: 'Cài đặt lưu trên trình duyệt này.',
+        xemThu: 'Bạn đang xem thử, không cần đăng nhập. Tiến độ học ở đây dùng chung cho mọi người xem thử.',
         biChanLuu: 'Trình duyệt đang chặn lưu (có thể là chế độ riêng tư): cài đặt chỉ giữ đến khi tải lại trang.',
         giaoDien: 'Giao diện',
         sang: 'Sáng',

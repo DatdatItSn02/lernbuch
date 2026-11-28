@@ -23,6 +23,8 @@ export type Toi = {
     created_at: number | null;
     course: { slug: string; level_min: number; level_max: number; goal: MucTieu | null; level: number | null } | null;
     settings: CaiDatApi;
+    /** Chế độ xem thử (tạm thời): đang dùng tài khoản khách chung, không có phần tài khoản và đăng xuất. */
+    guest?: boolean;
 };
 
 export type HoSoMoi = Partial<{ name: string; timezone: string; goal: MucTieu | null; level: number | null }>;

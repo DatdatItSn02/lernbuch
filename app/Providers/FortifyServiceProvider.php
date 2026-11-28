@@ -6,6 +6,7 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Http\Middleware\KhachXemThu;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -37,14 +38,17 @@ class FortifyServiceProvider extends ServiceProvider
             return $user;
         });
 
-        Fortify::loginView(fn () => view('tai-khoan.dang-nhap'));
-        Fortify::registerView(fn () => view('tai-khoan.dang-ky'));
-        Fortify::requestPasswordResetLinkView(fn () => view('tai-khoan.quen-mat-khau'));
-        Fortify::resetPasswordView(fn (Request $request) => view('tai-khoan.dat-lai-mat-khau', [
+        // Chế độ xem thử (tạm thời): các trang đăng nhập, đăng ký, quên mật khẩu tắt, đưa về trang chủ
+        $trang = fn (string $view, array $duLieu = []) => KhachXemThu::bat() ? redirect('/') : view($view, $duLieu);
+
+        Fortify::loginView(fn () => $trang('tai-khoan.dang-nhap'));
+        Fortify::registerView(fn () => $trang('tai-khoan.dang-ky'));
+        Fortify::requestPasswordResetLinkView(fn () => $trang('tai-khoan.quen-mat-khau'));
+        Fortify::resetPasswordView(fn (Request $request) => $trang('tai-khoan.dat-lai-mat-khau', [
             'token' => $request->route('token'),
             'email' => $request->query('email'),
         ]));
-        Fortify::verifyEmailView(fn () => view('tai-khoan.xac-minh-email'));
+        Fortify::verifyEmailView(fn () => $trang('tai-khoan.xac-minh-email'));
         Fortify::confirmPasswordView(fn () => view('tai-khoan.xac-nhan-mat-khau'));
     }
 }
