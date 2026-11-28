@@ -59,6 +59,8 @@ it('tài khoản 14, 15 dùng được AI ngay; chạy lại thì mất cuộc t
     $this->seed(NguoiHocThuSeeder::class);
     $u = User::query()->where('email', NguoiHocThuSeeder::emailHoc('dien-thoai', 14))->firstOrFail();
     expect(TrangThaiAi::choToi($u)['state'])->toBe('ready');
+    // Gói Premium cấp tay: 50 lượt AI mỗi ngày (gói free chỉ 3)
+    expect(TrangThaiAi::choToi($u)['limit'])->toBe(50);
 
     $ma = cuocTroChuyen($u);
     DB::table('ai_messages')->insert(['conversation_id' => DB::table('ai_conversations')->where('public_id', $ma)->value('id'), 'role' => 'user', 'content' => 'Hallo', 'created_at' => 1]);

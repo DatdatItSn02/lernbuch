@@ -773,7 +773,6 @@ export const vi = {
         },
         nguPhap: {
             nut: 'Hỏi AI về phần này',
-            nutTen: 'Hỏi AI về phần “{ten}”',
             giaiThich: 'Giải thích phần này',
             cauHoi: 'Câu hỏi của bạn',
             hoi: 'Hỏi',

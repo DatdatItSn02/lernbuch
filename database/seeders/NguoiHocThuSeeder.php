@@ -60,6 +60,7 @@ class NguoiHocThuSeeder extends Seeder
                     $this->datLaiAi($user);
                     $user->forceFill(['birth_date' => gmmktime(0, 0, 0, 1, 1, 1990)])->saveQuietly();
                     DongYAi::ghi($user, true);
+                    $this->goiPremium($user);
                 }
             }
         }
@@ -95,6 +96,21 @@ class NguoiHocThuSeeder extends Seeder
         DB::table('user_ai_lessons')->where('user_id', $user->id)->delete();
         DB::table('writing_submissions')->where('user_id', $user->id)->delete();
         DanhSachThu::dat($user, true);
+    }
+
+    /** Gói Premium cấp tay (50 lượt AI mỗi ngày, gói free chỉ 3): test trình duyệt hỏi AI nhiều lượt. */
+    private function goiPremium(User $user): void
+    {
+        $goi = DB::table('plans')->where('code', 'premium_12m')->value('id');
+
+        if ($goi === null) {
+            return;
+        }
+
+        DB::table('subscriptions')->updateOrInsert(
+            ['user_id' => $user->id, 'source' => 'admin', 'note' => 'tài khoản thử AI'],
+            ['plan_id' => (int) $goi, 'status' => 'active', 'starts_at' => now()->getTimestamp() - 60, 'ends_at' => null, 'created_at' => now()->getTimestamp()],
+        );
     }
 
     private function tao(string $email, string $ten): User

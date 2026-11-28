@@ -15,11 +15,11 @@ export function HoiNguPhap({ slug, phan, ten }: { slug: string; phan: number; te
                 type="button"
                 aria-expanded={mo}
                 aria-controls={id}
-                aria-label={ten ? t('ai.nguPhap.nutTen', { ten }) : undefined}
                 onClick={() => setMo(!mo)}
-                className="min-h-11 text-label font-semibold underline underline-offset-2"
+                className="inline-flex min-h-11 items-center text-label font-semibold underline underline-offset-2"
             >
                 {t('ai.nguPhap.nut')}
+                {ten && <span className="sr-only">{`: ${ten}`}</span>}
             </button>
             {mo && (
                 <div id={id} className="mt-2 border-y border-line py-3">
