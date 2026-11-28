@@ -1,8 +1,11 @@
 <?php
 
+use App\Filament\Resources\NguoiHocs\Pages\ViewNguoiHoc;
+use App\Models\User;
 use Carbon\CarbonImmutable;
 use Database\Seeders\NoiDungThuSeeder;
 use Illuminate\Support\Facades\DB;
+use Livewire\Livewire;
 
 // Mục tự kiểm 6: AI chỉ cho người từ 18 tuổi đã đồng ý. Ngày sinh khai một lần; đủ tuổi tính theo ngày ở múi giờ người học.
 
@@ -124,4 +127,28 @@ it('ô Tuổi tối thiểu đặt 16 trong database: vẫn dùng 18', function 
     $this->actingAs(nguoiHocAi(['birth_date' => gmmktime(0, 0, 0, 1, 1, 2009)]));
 
     expect(trangThaiAiCuaToi())->toBe(['state' => 'underage', 'min_age' => 18]);
+});
+
+it('trang người học: có users.manage thì sửa được ngày sinh, có nhật ký kèm lý do; thiếu quyền thì không thấy nút', function () {
+    $hoc = User::factory()->create(['birth_date' => gmmktime(0, 0, 0, 3, 11, 2010)]);
+
+    $this->actingAs($nguoi = nhanVien('support'));
+    Livewire::test(ViewNguoiHoc::class, ['record' => $hoc->public_id])
+        ->assertSee('11/03/2010')
+        ->assertActionVisible('sua-ngay-sinh')
+        ->callAction('sua-ngay-sinh', data: ['ngay_sinh' => '2030-01-01', 'ly_do' => 'x'])
+        ->assertHasActionErrors(['ngay_sinh'])
+        ->callAction('sua-ngay-sinh', data: ['ngay_sinh' => '2000-03-11', 'ly_do' => 'Người học gửi giấy tờ'])
+        ->assertHasNoActionErrors();
+
+    expect($hoc->fresh()->birth_date)->toBe(gmmktime(0, 0, 0, 3, 11, 2000));
+    $dong = dongNhatKy('user.ngay_sinh');
+    expect($dong['actor_id'])->toBe($nguoi->id)
+        ->and(json_decode($dong['changes'], true))->toBe(['before' => ['birth_date' => '2010-03-11'], 'after' => ['birth_date' => '2000-03-11', 'ly_do' => 'Người học gửi giấy tờ']]);
+
+    // xem được người học (users.view) nhưng không có users.manage
+    $chiXem = nhanVien('content_editor');
+    $chiXem->givePermissionTo('users.view');
+    $this->actingAs($chiXem);
+    Livewire::test(ViewNguoiHoc::class, ['record' => $hoc->public_id])->assertActionHidden('sua-ngay-sinh');
 });

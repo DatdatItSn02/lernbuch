@@ -4,10 +4,14 @@ namespace App\Filament\Resources\NguoiHocs\Pages;
 
 use App\Filament\Resources\NguoiHocs\NguoiHocResource;
 use App\Models\User;
+use App\Support\Ai\DanhSachThu;
+use App\Support\Ai\DongYAi;
+use App\Support\QuanTri\AiNguoiHoc;
 use App\Support\QuanTri\KhoaTaiKhoan;
 use App\Support\QuanTri\TienDoNguoiHoc;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ViewRecord;
@@ -17,7 +21,10 @@ use Filament\Support\Components\Attributes\Unexposed;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Carbon;
 
-/** Xem một người học: tài khoản và tiến độ (cùng số liệu với trang Hôm nay của họ); khoá, mở khoá cần users.manage. */
+/**
+ * Xem một người học: tài khoản, AI và tiến độ (cùng số liệu với trang Hôm nay của họ). Khoá, mở khoá, sửa ngày sinh cần
+ * users.manage; cho vào hay bỏ khỏi danh sách thử AI cần ai.manage.
+ */
 class ViewNguoiHoc extends ViewRecord
 {
     protected static string $resource = NguoiHocResource::class;
@@ -52,6 +59,44 @@ class ViewNguoiHoc extends ViewRecord
                     KhoaTaiKhoan::moKhoa($this->nguoiHoc());
                     Notification::make()->title('Đã mở khoá tài khoản')->success()->send();
                 }),
+            Action::make('cho-thu-ai')
+                ->label('Cho thử AI')
+                ->icon(Heroicon::OutlinedSparkles)
+                ->visible(fn () => self::quanLyAi() && ! DanhSachThu::co($this->nguoiHoc()))
+                ->requiresConfirmation()
+                ->modalHeading('Cho người này thử AI?')
+                ->modalDescription('Người học dùng được AI khi AI đang bật, đủ 18 tuổi và đã đồng ý gửi nội dung cho AI.')
+                ->modalSubmitActionLabel('Cho thử')
+                ->action(function (): void {
+                    AiNguoiHoc::datThu($this->nguoiHoc(), true);
+                    Notification::make()->title('Đã cho thử AI')->success()->send();
+                }),
+            Action::make('bo-thu-ai')
+                ->label('Bỏ thử AI')
+                ->icon(Heroicon::OutlinedNoSymbol)
+                ->visible(fn () => self::quanLyAi() && DanhSachThu::co($this->nguoiHoc()))
+                ->requiresConfirmation()
+                ->modalHeading('Bỏ người này khỏi danh sách thử AI?')
+                ->modalSubmitActionLabel('Bỏ thử')
+                ->action(function (): void {
+                    AiNguoiHoc::datThu($this->nguoiHoc(), false);
+                    Notification::make()->title('Đã bỏ thử AI')->success()->send();
+                }),
+            Action::make('sua-ngay-sinh')
+                ->label('Sửa ngày sinh')
+                ->icon(Heroicon::OutlinedCake)
+                ->visible(fn () => NguoiHocResource::duocKhoa())
+                ->fillForm(fn () => ['ngay_sinh' => AiNguoiHoc::ngay($this->nguoiHoc()->getAttribute('birth_date'))])
+                ->schema([
+                    TextInput::make('ngay_sinh')->label('Ngày sinh')->type('date')->required()
+                        ->rule('date_format:Y-m-d')->rule('after_or_equal:1900-01-01')->rule('before_or_equal:today'),
+                    Textarea::make('ly_do')->label('Lý do (ghi vào nhật ký thao tác)')->required()->maxLength(KhoaTaiKhoan::LY_DO_TOI_DA),
+                ])
+                ->modalSubmitActionLabel('Lưu')
+                ->action(function (array $data): void {
+                    AiNguoiHoc::suaNgaySinh($this->nguoiHoc(), (string) $data['ngay_sinh'], (string) $data['ly_do']);
+                    Notification::make()->title('Đã sửa ngày sinh')->success()->send();
+                }),
         ];
     }
 
@@ -80,6 +125,13 @@ class ViewNguoiHoc extends ViewRecord
                 TextEntry::make('timezone')->label('Múi giờ'),
                 TextEntry::make('public_id')->label('Mã người học'),
             ]),
+            Section::make('AI')->columns(3)->schema([
+                TextEntry::make('ngay_sinh')->label('Ngày sinh')->state(AiNguoiHoc::ngay($user->getAttribute('birth_date')))
+                    ->formatStateUsing(fn (string $state) => substr($state, 8, 2).'/'.substr($state, 5, 2).'/'.substr($state, 0, 4))
+                    ->placeholder('Chưa khai'),
+                TextEntry::make('thu_ai')->label('Thử AI')->state(DanhSachThu::co($user) ? 'Có' : 'Không'),
+                TextEntry::make('dong_y_ai')->label('Đồng ý AI')->state(DongYAi::dangDongY($user) ? 'Đã đồng ý' : 'Chưa đồng ý'),
+            ]),
             Section::make('Tiến độ học')->columns(3)->schema([
                 TextEntry::make('da_hoc')->label('Thẻ đã học')->state($so($t['da_hoc'])),
                 TextEntry::make('due')->label('Đến hạn hôm nay')->state($so($t['due'])),
@@ -98,6 +150,12 @@ class ViewNguoiHoc extends ViewRecord
                 TextEntry::make('ngay')->label('Số thẻ ôn 10 ngày qua và hôm nay')->state(implode(' · ', $ngay))->columnSpanFull(),
             ]),
         ]);
+    }
+
+    /** Cho vào hay bỏ khỏi danh sách thử AI: cần quyền ai.manage. */
+    private static function quanLyAi(): bool
+    {
+        return auth()->user()?->can('ai.manage') ?? false;
     }
 
     private function nguoiHoc(): User

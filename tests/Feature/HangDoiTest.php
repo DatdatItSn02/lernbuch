@@ -17,7 +17,8 @@ beforeEach(fn () => config(['queue.default' => 'database']));
 it('lịch có việc ghi nhịp chạy mỗi phút', function () {
     Artisan::call('schedule:list');
 
-    expect(Artisan::output())->toContain('ghi-nhip')->toContain('* * * * *');
+    // Cột lịch được căn theo việc có lịch dài nhất, nên giữa các dấu * có thể nhiều hơn một dấu cách
+    expect(Artisan::output())->toMatch('/\*\s+\*\s+\*\s+\*\s+\*\s+ghi-nhip/');
 });
 
 it('job thử chạy xong qua hàng đợi database', function () {

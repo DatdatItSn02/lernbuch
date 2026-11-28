@@ -311,10 +311,10 @@ Làm theo thứ tự. Mỗi đợt một lần đẩy. Trong lúc CI của đợ
 
 ### Đợt 3: quản trị
 
-- [ ] **T10. `TrangCaiDatAi` và ba nút ở `ViewNguoiHoc`.** Theo 1.9. File mẫu: `TrangCaiDatHoc.php`, `ViewNguoiHoc.php`, `tests/Feature/CaiDatHocTest.php`, `tests/Feature/QuanTriNguoiHocTest.php`. Thêm trang mới vào danh sách trang trong `tests/e2e/quan-tri.spec.ts`.
+- [x] **T10. `TrangCaiDatAi` và ba nút ở `ViewNguoiHoc`.** Theo 1.9. File mẫu: `TrangCaiDatHoc.php`, `ViewNguoiHoc.php`, `tests/Feature/CaiDatHocTest.php`, `tests/Feature/QuanTriNguoiHocTest.php`. Thêm trang mới vào danh sách trang trong `tests/e2e/quan-tri.spec.ts`.
   - `AiCaiDatTest`: người học và `content_editor` bị 403, `admin` vào được; lưu có hiệu lực ngay và ghi nhật ký trước, sau; lưu y như cũ không ghi thêm; giá trị sai (số âm, chữ, 0 lượt mỗi phút, model rỗng, nhà cung cấp lạ) báo lỗi đúng ô và không lưu; giá trị hỏng trong `settings` thì dùng mặc định; trang không chứa giá trị khoá (đặt `config('ai.gemini.khoa')` rồi kiểm HTML).
   - Thêm vào `AiDanhSachThuTest`: có `ai.manage` thì bật, tắt được và có nhật ký `user.ai_thu`; thiếu quyền thì không thấy nút và gọi hành động bị từ chối. Thêm vào `AiTuoiDongYTest`: có `users.manage` thì sửa được ngày sinh, có nhật ký `user.ngay_sinh`; thiếu quyền thì không.
-- [ ] **Đẩy đợt 3.**
+- [x] **Đẩy đợt 3.**
 
 ### Đợt 4: app học
 
@@ -355,3 +355,5 @@ Phần của các mục này để tuần sau: câu trả lời của model th�
 Mỗi quyết định tự chọn ngoài file này ghi một dòng ở đây: ngày, việc, chọn gì, vì sao.
 
 - 28/11, T3: `BoNoiGia` là singleton trong container (`app(BoNoiGia::class)`), `kich`, `daNhan`, `datLai` là của đối tượng, không tĩnh: mỗi test có một bản mới, kịch bản của test này không lọt sang test khác.
+- 28/11, T9: `HangDoiTest` so cột lịch bằng regex: thêm việc `app:ai-don` (lịch `17 3 * * *`) làm cột lịch của `schedule:list` được căn rộng hơn.
+- 28/11, T10: việc cho thử AI và sửa ngày sinh nằm ở `app/Support/QuanTri/AiNguoiHoc.php` (giống `KhoaTaiKhoan`), trang chỉ gọi.
