@@ -307,12 +307,12 @@ dat	pest	-	tests/Feature/AiNguPhapTest.php	câu hỏi rỗng, quá 300 ký tự,
 dat	pest	-	tests/Feature/AiNguPhapTest.php	câu hỏi rỗng, quá 300 ký tự, toàn ký hiệu thì 422 with data set "(' ')"
 dat	pest	-	tests/Feature/AiNguPhapTest.php	câu hỏi rỗng, quá 300 ký tự, toàn ký hiệu thì 422 with data set "('?!… 123 🙂')"
 dat	pest	-	tests/Feature/AiNguPhapTest.php	câu hỏi rỗng, quá 300 ký tự, toàn ký hiệu thì 422 with data set "('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa…aaaaaa')"
-hong	pest	-	tests/Feature/AiNhatKyTest.php	mới trước; lọc theo loại và trạng thái; lượt chạy thử để trống người học
-hong	pest	-	tests/Feature/AiNhatKyTest.php	đoạn trích cắt 80 ký tự ở bảng, đủ ở trang xem; không có nút tạo, sửa, xoá
+dat	pest	-	tests/Feature/AiNhatKyTest.php	mới trước; lọc theo loại và trạng thái; lượt chạy thử để trống người học
+dat	pest	-	tests/Feature/AiNhatKyTest.php	đoạn trích cắt 80 ký tự ở bảng, đủ ở trang xem; không có nút tạo, sửa, xoá
 dat	pest	-	tests/Feature/AiPromptBan2Test.php	database mới có đúng 10 prompt đang dùng, ba loại khớp chữ bản 2
 dat	pest	-	tests/Feature/AiPromptBan2Test.php	database còn chữ cũ: thêm bản 2 đang dùng, tắt bản 1; chạy lại không thêm dòng
 dat	pest	-	tests/Feature/AiPromptBan2Test.php	đã có phiên bản 2 (sửa ở trang quản trị) thì không đụng; chưa có dòng nào thì không thêm
-hong	pest	-	tests/Feature/AiQuanTriPromptTest.php	chỉ người có ai.manage vào được ba trang; người học, content_editor bị 403
+dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	chỉ người có ai.manage vào được ba trang; người học, content_editor bị 403
 dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	tạo bản mới: version + 1, chưa dùng, model mặc định lúc tạo, có nhật ký; bản đang dùng không đổi
 dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	luật mẫu: sáu ca sai báo lỗi, không lưu with data set "dataset "thiếu {level}""
 dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	luật mẫu: sáu ca sai báo lỗi, không lưu with data set "dataset "thiếu tham số""
@@ -323,7 +323,7 @@ dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	luật mẫu: sáu ca sai báo 
 dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	luật mẫu ở lớp xử lý: đúng thì null; prompt seed của cả 10 loại đều đúng
 dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	chạy thử: hiện kết quả, ghi nhật ký AI không có người học, không đổi bản đang dùng
 dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	chạy thử bị chặn khi chạm trần hệ thống: không gọi AI, nhật ký blocked
-hong	pest	-	tests/Feature/AiQuanTriPromptTest.php	Dùng bản này: lượt hỏi kế tiếp dùng chữ mới và prompt_id mới, không dùng cache của bản cũ; mỗi loại chỉ một bản đang dùng
+dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	Dùng bản này: lượt hỏi kế tiếp dùng chữ mới và prompt_id mới, không dùng cache của bản cũ; mỗi loại chỉ một bản đang dùng
 dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	Quay lại bản trước: trả về bản cũ, có nhật ký; bản đầu tiên không có nút quay lại
 dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	đổi model ở Cài đặt AI thì lượt kế tiếp gửi model mới
 dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	content_editor gọi thẳng hành động trên trang cũng bị từ chối

@@ -1,7 +1,7 @@
-workflow: ci  job: php  status: failure
-commit: 5afa449bf241ba97ff60f64321c1b2f3cc9f859b  ref: work/g2-tuan2  run: 46139199554
+workflow: ci  job: php  status: success
+commit: 336f501dcd347174df0488f61463edb4874b9df1  ref: work/g2-tuan2  run: 46139910795
 
-✘ Pint (định dạng code)
+✔ Pint (định dạng code)
 ✔ Larastan (phân tích tĩnh)
 ✔ Dựng database tham chiếu từ schema.sql
 ✔ Migrate lên
@@ -18,285 +18,323 @@ commit: 5afa449bf241ba97ff60f64321c1b2f3cc9f859b  ref: work/g2-tuan2  run: 46139
 ✔ Test công cụ tự kiểm G0, G1 (cả trường hợp lỗi)
 ✔ Test script deploy trên máy chủ (quay lại, giữ bản, migration hỏng)
 ✔ Test tạo .env cho alwaysdata (mật khẩu có ký tự đặc biệt)
-✘ Pest (database lernbuch_test)
+✔ Pest (database lernbuch_test)
 ✔ Hiệu năng với dữ liệu cỡ thật (tạo phiên p95 < 150 ms, API khác < 200 ms)
-KẾT QUẢ: 17/19 bước đạt
-✘ lỗi: Pint (định dạng code)
-✘ lỗi: Pest (database lernbuch_test)
+KẾT QUẢ: 19/19 bước đạt
 
 ----- cuối log -----
-#33 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Features/SupportPageComponents/HandlesPageComponents.php(19): Livewire\LivewireManager->mount()
-#34 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Features/SupportPageComponents/SupportPageComponents.php(119): Livewire\Component->{closure:Livewire\Features\SupportPageComponents\HandlesPageComponents::__invoke():14}()
-#35 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Features/SupportPageComponents/HandlesPageComponents.php(14): Livewire\Features\SupportPageComponents\SupportPageComponents::interceptTheRenderOfTheComponentAndRetreiveTheLayoutConfiguration()
-#36 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): Livewire\Component->__invoke()
-#37 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Route.php(276): Illuminate\Routing\ControllerDispatcher->dispatch()
-#38 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Route.php(216): Illuminate\Routing\Route->runController()
-#39 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(835): Illuminate\Routing\Route->run()
-#40 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\Routing\Router->{closure:Illuminate\Routing\Router::runRouteWithinStack():834}()
-#41 /home/runner/work/lernbuch/lernbuch/vendor/filament/filament/src/Http/Middleware/DispatchServingFilamentEvent.php(15): Illuminate\Pipeline\Pipeline->{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}()
-#42 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Http\Middleware\DispatchServingFilamentEvent->handle()
-#43 /home/runner/work/lernbuch/lernbuch/vendor/filament/filament/src/Http/Middleware/DisableBladeIconComponents.php(14): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#44 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Http\Middleware\DisableBladeIconComponents->handle()
-#45 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(52): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#46 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Routing\Middleware\SubstituteBindings->handle()
-#47 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestForgery.php(104): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#48 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\PreventRequestForgery->handle()
-#49 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Session/Middleware/AuthenticateSession.php(70): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#50 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Session\Middleware\AuthenticateSession->handle()
-#51 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(63): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#52 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Auth\Middleware\Authenticate->handle()
-#53 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php(48): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#54 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\View\Middleware\ShareErrorsFromSession->handle()
-#55 /home/runner/work/lernbuch/lernbuch/vendor/filament/notifications/src/Http/Middleware/InitializeNotificationMailbox.php(18): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#56 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Notifications\Http\Middleware\InitializeNotificationMailbox->handle()
-#57 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(120): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#58 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(63): Illuminate\Session\Middleware\StartSession->handleStatefulRequest()
-#59 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Session\Middleware\StartSession->handle()
-#60 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(36): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#61 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse->handle()
-#62 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php(74): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#63 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Cookie\Middleware\EncryptCookies->handle()
-#64 /home/runner/work/lernbuch/lernbuch/vendor/filament/filament/src/Http/Middleware/SetUpPanel.php(23): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#65 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Http\Middleware\SetUpPanel->handle()
-#66 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#67 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(834): Illuminate\Pipeline\Pipeline->then()
-#68 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(813): Illuminate\Routing\Router->runRouteWithinStack()
-#69 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(777): Illuminate\Routing\Router->runRoute()
-#70 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(766): Illuminate\Routing\Router->dispatchToRoute()
-#71 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\Routing\Router->dispatch()
-#72 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\Foundation\Http\Kernel->{closure:Illuminate\Foundation\Http\Kernel::dispatchToRouter():197}()
-#73 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Features/SupportDisablingBackButtonCache/DisableBackButtonCacheMiddleware.php(19): Illuminate\Pipeline\Pipeline->{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}()
-#74 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Livewire\Features\SupportDisablingBackButtonCache\DisableBackButtonCacheMiddleware->handle()
-#75 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(38): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#76 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle()
-#77 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle()
-#78 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(38): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#79 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle()
-#80 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\TrimStrings->handle()
-#81 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#82 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Http\Middleware\ValidatePostSize->handle()
-#83 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#84 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle()
-#85 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(61): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#86 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Http\Middleware\HandleCors->handle()
-#87 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#88 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Http\Middleware\TrustProxies->handle()
-#89 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#90 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle()
-#91 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(28): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#92 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Http\Middleware\ValidatePathEncoding->handle()
-#93 /home/runner/work/lernbuch/lernbuch/vendor/filament/notifications/src/Http/Middleware/PublishNotifications.php(16): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#94 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Notifications\Http\Middleware\PublishNotifications->handle()
-#95 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#96 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\Pipeline\Pipeline->then()
-#97 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
-#98 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(638): Illuminate\Foundation\Http\Kernel->handle()
-#99 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(368): Illuminate\Foundation\Testing\TestCase->call()
-#100 /home/runner/work/lernbuch/lernbuch/tests/Feature/AiQuanTriPromptTest.php(36): Illuminate\Foundation\Testing\TestCase->get()
-#101 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Factories/TestCaseMethodFactory.php(130): P\Tests\Feature\AiQuanTriPromptTest->{closure:/home/runner/work/lernbuch/lernbuch/tests/Feature/AiQuanTriPromptTest.php:32}()
-#102 [internal function]: P\Tests\Feature\AiQuanTriPromptTest->{closure:Pest\Factories\TestCaseMethodFactory::getClosure():120}()
-#103 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Concerns/Testable.php(509): call_user_func_array()
-#104 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Support/ExceptionTrace.php(24): P\Tests\Feature\AiQuanTriPromptTest->{closure:Pest\Concerns\Testable::__callClosure():509}()
-#105 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Concerns/Testable.php(509): Pest\Support\ExceptionTrace::ensure()
-#106 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Concerns/Testable.php(323): P\Tests\Feature\AiQuanTriPromptTest->__callClosure()
-#107 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Factories/TestCaseFactory.php(175) : eval()'d code(22): P\Tests\Feature\AiQuanTriPromptTest->__runTest()
-#108 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestCase.php(1137): P\Tests\Feature\AiQuanTriPromptTest->__pest_evaluable_it_chỉ_người_có_ai_manage_vào_được_ba_trang__người_học__content__editor_bị_403()
-#109 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestCase.php(1495): PHPUnit\Framework\TestCase->invokeTestMethod()
-#110 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestCase.php(399): PHPUnit\Framework\TestCase->runTest()
-#111 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(161): PHPUnit\Framework\TestCase->runLifecycle()
-#112 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(88): PHPUnit\Framework\TestRunner\TestRunner->runInProcess()
-#113 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestCase.php(290): PHPUnit\Framework\TestRunner\TestRunner->run()
-#114 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(654): PHPUnit\Framework\TestCase->run()
-#115 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(430): PHPUnit\Framework\TestSuite->runTests()
-#116 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(654): PHPUnit\Framework\TestSuite->run()
-#117 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(430): PHPUnit\Framework\TestSuite->runTests()
-#118 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(654): PHPUnit\Framework\TestSuite->run()
-#119 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(430): PHPUnit\Framework\TestSuite->runTests()
-#120 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/TextUI/TestRunner.php(72): PHPUnit\Framework\TestSuite->run()
-#121 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/TextUI/Application.php(283): PHPUnit\TextUI\TestRunner->run()
-#122 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Kernel.php(104): PHPUnit\TextUI\Application->run()
-#123 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/bin/pest(207): Pest\Kernel->handle()
-#124 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/bin/pest(215): {closure:/home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/bin/pest:21}()
-#125 {main}
+39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Chrome[39m[90m… [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Safari[39m[90m… [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Edge"[39m[90m   [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Samsung[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Firefox[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Chrome[39m[90m… [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Android[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "trống"[39m[90m  [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit tuỳ chọn AI tự giải thích khi sai: mặc định tắt, lưu được, giá t[39m[90m…[39m [90m0.05s[39m  
 
-Next Illuminate\View\ViewException: Call to a member function newQueryWithoutRelationships() on null (View: /home/runner/work/lernbuch/lernbuch/vendor/filament/filament/resources/views/pages/page.blade.php) in /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:383
-Stack trace:
-#0 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(58): Illuminate\View\Engines\CompilerEngine->handleViewException()
-#1 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(40): Livewire\Mechanisms\ExtendBlade\ExtendedCompilerEngine->handleViewException()
-#2 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\Mechanisms\ExtendBlade\ExtendedCompilerEngine->evaluatePath()
-#3 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(16): Illuminate\View\Engines\CompilerEngine->get()
-#4 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/View/View.php(208): Livewire\Mechanisms\ExtendBlade\ExtendedCompilerEngine->get()
-#5 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/View/View.php(191): Illuminate\View\View->getContents()
-#6 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/View/View.php(160): Illuminate\View\View->renderContents()
-#7 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(335): Illuminate\View\View->render()
-#8 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(388): Livewire\Mechanisms\HandleComponents\HandleComponents->{closure:Livewire\Mechanisms\HandleComponents\HandleComponents::render():326}()
-#9 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(326): Livewire\Mechanisms\HandleComponents\HandleComponents->trackInRenderStack()
-#10 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(65): Livewire\Mechanisms\HandleComponents\HandleComponents->render()
-#11 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/LivewireManager.php(103): Livewire\Mechanisms\HandleComponents\HandleComponents->mount()
-#12 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Features/SupportPageComponents/HandlesPageComponents.php(19): Livewire\LivewireManager->mount()
-#13 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Features/SupportPageComponents/SupportPageComponents.php(119): Livewire\Component->{closure:Livewire\Features\SupportPageComponents\HandlesPageComponents::__invoke():14}()
-#14 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Features/SupportPageComponents/HandlesPageComponents.php(14): Livewire\Features\SupportPageComponents\SupportPageComponents::interceptTheRenderOfTheComponentAndRetreiveTheLayoutConfiguration()
-#15 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): Livewire\Component->__invoke()
-#16 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Route.php(276): Illuminate\Routing\ControllerDispatcher->dispatch()
-#17 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Route.php(216): Illuminate\Routing\Route->runController()
-#18 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(835): Illuminate\Routing\Route->run()
-#19 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\Routing\Router->{closure:Illuminate\Routing\Router::runRouteWithinStack():834}()
-#20 /home/runner/work/lernbuch/lernbuch/vendor/filament/filament/src/Http/Middleware/DispatchServingFilamentEvent.php(15): Illuminate\Pipeline\Pipeline->{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}()
-#21 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Http\Middleware\DispatchServingFilamentEvent->handle()
-#22 /home/runner/work/lernbuch/lernbuch/vendor/filament/filament/src/Http/Middleware/DisableBladeIconComponents.php(14): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#23 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Http\Middleware\DisableBladeIconComponents->handle()
-#24 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(52): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#25 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Routing\Middleware\SubstituteBindings->handle()
-#26 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestForgery.php(104): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#27 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\PreventRequestForgery->handle()
-#28 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Session/Middleware/AuthenticateSession.php(70): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#29 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Session\Middleware\AuthenticateSession->handle()
-#30 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(63): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#31 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Auth\Middleware\Authenticate->handle()
-#32 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php(48): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#33 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\View\Middleware\ShareErrorsFromSession->handle()
-#34 /home/runner/work/lernbuch/lernbuch/vendor/filament/notifications/src/Http/Middleware/InitializeNotificationMailbox.php(18): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#35 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Notifications\Http\Middleware\InitializeNotificationMailbox->handle()
-#36 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(120): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#37 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(63): Illuminate\Session\Middleware\StartSession->handleStatefulRequest()
-#38 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Session\Middleware\StartSession->handle()
-#39 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(36): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#40 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse->handle()
-#41 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php(74): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#42 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Cookie\Middleware\EncryptCookies->handle()
-#43 /home/runner/work/lernbuch/lernbuch/vendor/filament/filament/src/Http/Middleware/SetUpPanel.php(23): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#44 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Http\Middleware\SetUpPanel->handle()
-#45 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#46 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(834): Illuminate\Pipeline\Pipeline->then()
-#47 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(813): Illuminate\Routing\Router->runRouteWithinStack()
-#48 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(777): Illuminate\Routing\Router->runRoute()
-#49 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(766): Illuminate\Routing\Router->dispatchToRoute()
-#50 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\Routing\Router->dispatch()
-#51 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\Foundation\Http\Kernel->{closure:Illuminate\Foundation\Http\Kernel::dispatchToRouter():197}()
-#52 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Features/SupportDisablingBackButtonCache/DisableBackButtonCacheMiddleware.php(19): Illuminate\Pipeline\Pipeline->{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}()
-#53 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Livewire\Features\SupportDisablingBackButtonCache\DisableBackButtonCacheMiddleware->handle()
-#54 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(38): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#55 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle()
-#56 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle()
-#57 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(38): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#58 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle()
-#59 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\TrimStrings->handle()
-#60 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#61 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Http\Middleware\ValidatePostSize->handle()
-#62 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#63 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle()
-#64 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(61): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#65 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Http\Middleware\HandleCors->handle()
-#66 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#67 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Http\Middleware\TrustProxies->handle()
-#68 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#69 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle()
-#70 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(28): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#71 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Http\Middleware\ValidatePathEncoding->handle()
-#72 /home/runner/work/lernbuch/lernbuch/vendor/filament/notifications/src/Http/Middleware/PublishNotifications.php(16): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#73 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Notifications\Http\Middleware\PublishNotifications->handle()
-#74 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
-#75 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\Pipeline\Pipeline->then()
-#76 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
-#77 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(638): Illuminate\Foundation\Http\Kernel->handle()
-#78 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(368): Illuminate\Foundation\Testing\TestCase->call()
-#79 /home/runner/work/lernbuch/lernbuch/tests/Feature/AiQuanTriPromptTest.php(36): Illuminate\Foundation\Testing\TestCase->get()
-#80 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Factories/TestCaseMethodFactory.php(130): P\Tests\Feature\AiQuanTriPromptTest->{closure:/home/runner/work/lernbuch/lernbuch/tests/Feature/AiQuanTriPromptTest.php:32}()
-#81 [internal function]: P\Tests\Feature\AiQuanTriPromptTest->{closure:Pest\Factories\TestCaseMethodFactory::getClosure():120}()
-#82 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Concerns/Testable.php(509): call_user_func_array()
-#83 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Support/ExceptionTrace.php(24): P\Tests\Feature\AiQuanTriPromptTest->{closure:Pest\Concerns\Testable::__callClosure():509}()
-#84 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Concerns/Testable.php(509): Pest\Support\ExceptionTrace::ensure()
-#85 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Concerns/Testable.php(323): P\Tests\Feature\AiQuanTriPromptTest->__callClosure()
-#86 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Factories/TestCaseFactory.php(175) : eval()'d code(22): P\Tests\Feature\AiQuanTriPromptTest->__runTest()
-#87 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestCase.php(1137): P\Tests\Feature\AiQuanTriPromptTest->__pest_evaluable_it_chỉ_người_có_ai_manage_vào_được_ba_trang__người_học__content__editor_bị_403()
-#88 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestCase.php(1495): PHPUnit\Framework\TestCase->invokeTestMethod()
-#89 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestCase.php(399): PHPUnit\Framework\TestCase->runTest()
-#90 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(161): PHPUnit\Framework\TestCase->runLifecycle()
-#91 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(88): PHPUnit\Framework\TestRunner\TestRunner->runInProcess()
-#92 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestCase.php(290): PHPUnit\Framework\TestRunner\TestRunner->run()
-#93 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(654): PHPUnit\Framework\TestCase->run()
-#94 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(430): PHPUnit\Framework\TestSuite->runTests()
-#95 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(654): PHPUnit\Framework\TestSuite->run()
-#96 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(430): PHPUnit\Framework\TestSuite->runTests()
-#97 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(654): PHPUnit\Framework\TestSuite->run()
-#98 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(430): PHPUnit\Framework\TestSuite->runTests()
-#99 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/TextUI/TestRunner.php(72): PHPUnit\Framework\TestSuite->run()
-#100 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/TextUI/Application.php(283): PHPUnit\TextUI\TestRunner->run()
-#101 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Kernel.php(104): PHPUnit\TextUI\Application->run()
-#102 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/bin/pest(207): Pest\Kernel->handle()
-#103 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/bin/pest(215): {closure:/home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/bin/pest:21}()
-#104 {main}
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\BanDichFilamentTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit mọi khoá dịch của Filament có tiếng Việt (của gói hoặc lang/vend[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit khoá không có thì cách kiểm báo thiếu (không lẫn với khoá có thậ[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit trang quản trị không còn mã khoá dịch nào trong HTML[39m[90m             [39m [90m0.25s[39m  
 
-----------------------------------------------------------------------------------
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\BaoMatTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit lỗi máy chủ chỉ hiện trang lỗi chung, không lộ nội dung lỗi hay[39m[90m… [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đúng email và mật khẩu thì đăng nhập được trang quản trị[39m[90m         [39m [90m0.05s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nhập sai mật khẩu 5 lần thì bị chặn tạm thời, kể cả lần sau đúng[39m[90m…[39m [90m1.12s[39m  
 
-Call to a member function newQueryWithoutRelationships() on null (View: /home/runner/work/lernbuch/lernbuch/vendor/filament/filament/resources/views/pages/page.blade.php)[39;22m
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\CaiDatHocTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit chưa sửa gì thì dùng ngưỡng mặc định[39m[90m                             [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ người có quyền cấu hình hệ thống mới vào được trang Cài đặt[39m[90m… [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit lưu ngưỡng: có hiệu lực ngay, ghi nhật ký trước và sau[39m[90m           [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ngưỡng âm, quá 10 giây hay không phải số thì báo lỗi đúng ô, khô[39m[90m…[39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ngưỡng âm, quá 10 giây hay không phải số thì báo lỗi đúng ô, khô[39m[90m…[39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ngưỡng âm, quá 10 giây hay không phải số thì báo lỗi đúng ô, khô[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ngưỡng âm, quá 10 giây hay không phải số thì báo lỗi đúng ô, khô[39m[90m…[39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit giá trị lưu hỏng trong bảng settings thì bỏ, dùng mặc định cho ô[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit xu mỗi lượt: Tốt, Dễ đủ xu của chế độ; Khó một nửa làm tròn xuốn[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit xu theo chế độ khớp bảng dùng chung với app (tests/chung/xu-che-[39m[90m…[39m [90m0.02s[39m  
 
-  at [32mtests/Feature/AiQuanTriPromptTest.php[39m:[32m36[39m
-     32▕ it('chỉ người có ai.manage vào được ba trang; người học, content_editor bị 403', function () {
-     33▕     foreach (['/admin/ai-prompt', '/admin/ai-prompt/'.$this->word->id, '/admin/thong-ke-ai', '/admin/nhat-ky-ai'] as $trang) {
-     34▕         $this->actingAs(User::factory()->create())->get($trang)->assertForbidden();
-     35▕         $this->actingAs(nhanVien('content_editor'))->get($trang)->assertForbidden();
-  ➜  36▕         $this->actingAs(nhanVien('admin'))->get($trang)->assertOk();
-     37▕     }
-     38▕ });
-     39▕ 
-     40▕ it('tạo bản mới: version + 1, chưa dùng, model mặc định lúc tạo, có nhật ký; bản đang dùng không đổi', function () {
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\CheDoHocTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit Quiz: mỗi thẻ có 6 đáp án nhiễu; cùng loại từ, cùng chủ đề đứng[39m[90m… [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Flash[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Quiz"[39m[90m [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Liste[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Typin[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Ghép[39m[90m… [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Hỗn h[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Đặt c[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit Đặt câu: chỉ thẻ có câu ví dụ, cả ôn và mới; không đổi chủ đề đa[39m[90m…[39m [90m0.13s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit Đặt câu trong một chủ đề không có câu nào thì phiên rỗng; chế độ[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit lượt chấm ở các chế độ được xu theo chế độ: Hỗn hợp 20, Listenin[39m[90m…[39m [90m0.10s[39m  
 
-  [31m────────────────────────────────────────────────────────────────────────────[39m  
-  [41;1m FAILED [49;22m [1mTests\Feature\AiQuanTriPromptTest[22m [90m>[39m it Dùng bản này: lượt hỏi kế…    
-[39;1m  Expecting null not to be null 'không có nhật ký ai_prompt.dung'.[39;22m
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\CreateAdminCommandTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit tạo tài khoản quản trị bằng lệnh[39m[90m                                 [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đã nạp seed.sql thì gán đúng vai trò có sẵn, không tạo vai trò t[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit từ chối email đã có, kể cả khác hoa thường[39m[90m                       [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit từ chối mật khẩu ngắn hơn 12 ký tự[39m[90m                               [39m [90m0.03s[39m  
 
-  at [32mtests/Pest.php[39m:[32m61[39m
-     57▕ /** @return array<string, mixed> dòng nhật ký thao tác mới nhất của một việc */
-     58▕ function dongNhatKy(string $viec): array
-     59▕ {
-     60▕     $dong = DB::table('audit_logs')->where('action', $viec)->latest('id')->first();
-  ➜  61▕     expect($dong)->not->toBeNull("không có nhật ký {$viec}");
-     62▕ 
-     63▕     return (array) $dong;
-     64▕ }
-     65▕
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\DungLuongTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit in dung lượng database và số bảng, rồi số nội dung đã xuất bản,[39m[90m… [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit không đo được database thì báo lỗi mà không lộ chi tiết kết nối[39m[90m  [39m [90m0.02s[39m  
 
-  [33m1   [39m[39;1mtests/Pest.php[39;22m:[39;1m61[39;22m
-  [33m2   [39m[39;1mtests/Feature/AiQuanTriPromptTest.php[39;22m:[39;1m128[39;22m
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\HangDoiTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit lịch có việc ghi nhịp chạy mỗi phút[39m[90m                              [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit job thử chạy xong qua hàng đợi database[39m[90m                          [39m [90m3.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit job cố ý lỗi vào failed_jobs sau đúng 3 lần thử[39m[90m                  [39m [90m3.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit cache database (như trên alwaysdata) vẫn đếm đủ 3 lần thử[39m[90m        [39m [90m3.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit lệnh thử hàng đợi: đưa 2 job vào, worker chạy xong thì kiểm đạt[39m[90m  [39m [90m3.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit 10 phút lịch chạy mỗi phút qua hàng đợi thì đủ 10 nhịp[39m[90m          [39m [90m30.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit thiếu nhịp (lịch hay hàng đợi dừng) thì kiểm nhịp báo lỗi[39m[90m        [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit job ghi nhịp ghi đúng phút hiện tại[39m[90m                              [39m [90m0.02s[39m  
 
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\HocApiTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit người mới: phiên có 10 từ mới của chủ đề đầu tiên theo thứ tự tr[39m[90m…[39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chấm một lô: tiến độ theo luật 6 mức, xu, nhật ký, phiên, thống[39m[90m… [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit mục 4: gửi một lô hai lần (và trùng ngay trong lô) thì ghi một l[39m[90m…[39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit mục 6: hai máy chấm cùng thẻ, lô tới lệch thứ tự: kết quả theo g[39m[90m…[39m [90m0.15s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit mục 7: chấm 20 thẻ trong 2 giây thì tiến độ vẫn ghi, xu không cộ[39m[90m…[39m [90m0.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit mục 8: phiên của người khác thì 404 và không ghi gì; thẻ riêng c[39m[90m…[39m [90m0.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "mã lượt v[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "mã lượt c[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "chấm 4"[39m[90m   [39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "chế độ lạ[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "giờ chấm[39m[90m… [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "thẻ 0"[39m[90m    [39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "thời gian[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit lô rỗng, quá 200 lượt hoặc thiếu ô phiên thì 422[39m[90m                 [39m [90m0.16s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit giờ chấm trên máy: quá xa tương lai thì lấy giờ máy chủ, trước l[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit phiên ngày sau: thẻ đến hạn (quá hạn lâu nhất trước) xen kẽ với[39m[90m… [39m [90m0.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit hết từ mới của chủ đề đang học thì sang chủ đề kế theo thứ tự; "[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit "tất cả" từ mới: lấy hết từ mới của chủ đề đang học, không sang[39m[90m… [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit học riêng một chủ đề: ôn và mới đều trong chủ đề đó, chủ đề đó t[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chuỗi ngày: ngày liền nhau thì tăng, bỏ một ngày thì về 1; lượt[39m[90m… [39m [90m0.15s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit mục tiêu ngày: đủ số thẻ thì ghi đã đạt[39m[90m                          [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit người mới mở Hôm nay: mọi số bằng 0, 14 ngày, chủ đề đang học là[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit trang chủ đề có tiến độ của người học: đến hạn, chưa học, số thẻ[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập thì 401[39m[90m                                           [39m [90m0.07s[39m  
 
-  [90mTests:[39m    [31;1m4 failed[39;22m[90m,[39m[39m [39m[32;1m620 passed[39;22m[90m (6218 assertions)[39m
-  [90mDuration:[39m [39m92.83s[39m
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\HocOfflineTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit service worker ở /sw.js: không cần đăng nhập, không lưu đệm, phi[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit tải chủ đề: mọi thẻ người học xem được theo thứ tự trong chủ đề,[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit tải chủ đề: chủ đề không có, đã ẩn hay không phải chủ đề nhỏ thì[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit lượt chấm lúc mất mạng gửi sau, không có mã phiên: máy chủ nhận[39m[90m… [39m [90m0.08s[39m  
 
-✘ Pest (database lernbuch_test)
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\LuyenTapApiTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit danh sách ngữ pháp: bài theo thứ tự giáo trình, kèm chương và số[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit một bài ngữ pháp: khối nội dung, bộ bài tập của bài, bài trước v[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bài nháp, bài không có, slug lạ thì 404; chưa đăng nhập thì 401[39m[90m  [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit danh sách bộ bài: theo thứ tự, kèm bài ngữ pháp, chương, số câu;[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit phiên theo bộ có thứ tự: đúng thứ tự trong bộ, đủ thông tin để l[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit trắc nghiệm: lựa chọn đủ và trộn; đáp án lưu khác lựa chọn chỉ ở[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit Luyện nhanh: không lấy bộ Ôn tập; lọc cấp thì bộ không có cấp (S[39m[90m…[39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ghi kết quả: máy chủ chấm lại từng câu, đếm đúng liên tiếp, cộng[39m[90m…[39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit gửi lại cùng mã: không ghi lần hai, xu không cộng lần hai, trả k[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit làm quá nhanh (dưới 1 giây mỗi câu): vẫn ghi đúng sai, không cộn[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kết quả tới trễ (làm trước lần đã ghi): chỉ cộng vào số đếm, khô[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit Ôn câu sai: câu đã làm mà chưa thuộc, ở mọi bộ (cả bộ Ôn tập); c[39m[90m…[39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit người khác không thấy và không đổi được tiến độ bài tập của mình[39m[90m [39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kết quả sai dạng thì báo lỗi đúng ô; câu nháp, câu của bộ nháp,[39m[90m… [39m [90m0.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bảng động từ: theo chữ cái, tìm nguyên mẫu hoặc nghĩa không cần[39m[90m… [39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit luyện chia động từ: mỗi động từ một câu, đáp án đúng dạng hỏi; m[39m[90m…[39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit Điền câu: thẻ Từ vựng có câu trống; câu đầy đủ kèm bản dịch; dan[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit Điền câu: thẻ đã gặp đứng trước thẻ chưa học; kết quả gửi như lư[39m[90m…[39m [90m0.11s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\MauQuanTriTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit nút mọi màu của trang quản trị đạt 4.5:1 ở giao diện sáng và tối[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nút mọi màu của trang quản trị đạt 4.5:1 ở giao diện sáng và tối[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nút mọi màu của trang quản trị đạt 4.5:1 ở giao diện sáng và tối[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nút mọi màu của trang quản trị đạt 4.5:1 ở giao diện sáng và tối[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nút mọi màu của trang quản trị đạt 4.5:1 ở giao diện sáng và tối[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chữ màu (bậc 600 trên nền trắng, bậc 400 trên nền tối slate-900,[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chữ màu (bậc 600 trên nền trắng, bậc 400 trên nền tối slate-900,[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chữ màu (bậc 600 trên nền trắng, bậc 400 trên nền tối slate-900,[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chữ màu (bậc 600 trên nền trắng, bậc 400 trên nền tối slate-900,[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chữ màu (bậc 600 trên nền trắng, bậc 400 trên nền tối slate-900,[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit primary bậc 600 đúng mực tím của app; bảng Filament tự sinh từ m[39m[90m…[39m [90m0.02s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\NgonNguTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit trang app học đặt [39m[90m<html lang>[39m[90m theo ngôn ngữ giao diện và có mã C[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chọn ngôn ngữ chưa có bản dịch (tiếng Anh khi G1 chỉ có tiếng Vi[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ngôn ngữ đã bật nhưng còn thiếu bản dịch: chữ thiếu hiện tiếng V[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bài ngữ pháp và bộ bài tập có ngôn ngữ giải thích, mặc định tiến[39m[90m…[39m [90m0.02s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\NguoiHocThuSeederTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit tạo tài khoản chung, tài khoản học riêng cho mỗi cỡ màn hình và[39m[90m… [39m [90m0.17s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit tài khoản AI (12, 13) trong danh sách thử, chạy lại thì về lúc c[39m[90m…[39m [90m0.18s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit không tạo gì trên máy chủ thật, kể cả khi chạy db:seed --force[39m[90m   [39m [90m0.02s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\NhapLernbuchTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit chạy thử: đếm đúng theo loại, nguồn, cấp; bỏ thẻ đã tắt và dòng[39m[90m… [39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ghi: thẻ, chủ đề 3 tầng, nghĩa, câu ví dụ, dạng từ, ngữ pháp, bà[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dạng từ "–" (danh từ không có số nhiều) giữ nguyên, khác với để[39m[90m… [39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chạy lại lần hai: không thêm dòng nào, giữ id (nên giữ tiến độ h[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nguồn đánh dấu "Không" thì không có dòng nào của nguồn đó, kể cả[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sig câu bài tập có chữ Đức ghi nguyên văn, khớp chính xác (Föhn[39m[90m… [39m [90m0.13s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit quy tắc bài tập: sig trùng hoặc dài quá 64 ký tự thì báo đúng câ[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit quy tắc dữ liệu: cụm từ trong Từ vựng, thẻ không có chủ đề thì b[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit lỗi database lúc ghi: in gọn thông báo gốc và tên bảng, không in[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nhận cả file lernweb.zip và thẳng file seed.db[39m[90m                   [39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nguồn sai: báo lỗi rõ, mã thoát 2, không ghi gì[39m[90m                  [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.03s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\NoiDungApiTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập thì 401, chưa xác minh email thì 403, không lộ nộ[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit loại thẻ: chỉ loại có thẻ đã xuất bản, theo thứ tự, kèm số thẻ[39m[90m   [39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit cây chủ đề Từ vựng: nhóm › chủ đề vừa › chủ đề nhỏ theo thứ tự;[39m[90m… [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit lọc theo cấp (khoảng cấp, 0 = chưa xếp) và loại từ: chỉ còn chủ[39m[90m… [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit Giao tiếp và loại thẻ khác dùng cùng cây chủ đề; loại chưa có th[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bộ lọc sai thì 422 đúng ô[39m[90m                                        [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit trang chủ đề: thông tin, vị trí, số thẻ theo cấp và loại từ, 20[39m[90m… [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit trang chủ đề: lọc theo chữ (không dấu, ae/oe/ue, tiếng Việt khôn[39m[90m…[39m [90m0.14s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chủ đề không có, đã ẩn, hay không phải chủ đề nhỏ thì 404 khong_[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit thẻ từ: nghĩa, câu ví dụ, mẹo, vị trí trong chủ đề, sổ tay của c[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit thẻ nháp, thẻ không có, mã sai thì 404; thẻ riêng của người khác[39m[90m…[39m [90m0.10s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\PagesTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit trả 200 ở /up[39m[90m                                                    [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit trang chào hiện đúng chữ tiếng Việt và tiếng Đức[39m[90m                 [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit mở được khung app học, cả đường dẫn con, khi đã đăng nhập và xác[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập thì app học về trang đăng nhập[39m[90m                    [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit không lộ file .env và log[39m[90m                                        [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit có manifest đủ điều kiện cài app: tên, trang mở đầu, mở như app,[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit trang kiểm chữ có đủ vai trò chữ và không cho máy tìm kiếm lập c[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit /up trả 500 khi một kiểm tra sức khoẻ lỗi (để workflow deploy tự[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit /up không lỗi trên máy dev dù có kiểm tra cố ý hỏng chỉ dành cho[39m[90m…[39m [90m0.02s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\QuanTriNguoiHocTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit cần quyền xem người dùng; chỉ liệt kê người học (không có nhân v[39m[90m…[39m [90m0.17s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit xem tiến độ: cùng số liệu với trang Hôm nay của người học (thẻ t[39m[90m…[39m [90m0.13s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit khoá: đăng xuất mọi máy, API trả 403, trang app về đăng nhập, kh[39m[90m…[39m [90m0.68s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ người có quyền quản lý người dùng mới khoá được; khoá hai lầ[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nút Lọc của bảng có tên đọc được kèm số bộ lọc đang dùng, như số[39m[90m…[39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit danh sách mở trang người học bằng mã ULID (không bằng id); nhãn[39m[90m… [39m [90m0.13s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\QuanTriNoiDungTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit trang nội dung cần quyền sửa nội dung; nhật ký thao tác và job l[39m[90m…[39m [90m0.47s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa thẻ: dạng, nghĩa, câu ví dụ; ghi nhật ký từng phần; tìm được[39m[90m…[39m [90m0.30s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit người duyệt đổi trạng thái: thẻ ẩn thì người học không thấy, số[39m[90m… [39m [90m0.16s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa chủ đề: đổi tên, ghi nhật ký; mã và đường dẫn không đổi[39m[90m      [39m [90m0.13s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa bài ngữ pháp: nội dung sai dạng thì báo, đúng thì lưu (tăng[39m[90m… [39m [90m0.26s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa câu bài tập: đáp án trắc nghiệm phải là một lựa chọn; lưu th[39m[90m…[39m [90m0.27s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa động từ: bảng chia và nghĩa; giữ phần không có trên form, bả[39m[90m…[39m [90m0.17s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit thêm nguồn: mã không trùng, đúng dạng; ghi người tạo và nhật ký[39m[90m  [39m [90m0.19s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nhật ký thao tác: xem danh sách và giá trị trước, sau; không có[39m[90m… [39m [90m0.15s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit job lỗi: chạy lại đưa job về hàng đợi, bỏ thì xoá; mỗi việc ghi[39m[90m… [39m [90m0.18s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\QuanTriTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit người học (không phải nhân viên) vào /admin thì bị từ chối 403;[39m[90m… [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ người có quyền phân quyền mới thấy trang Vai trò và Nhân viê[39m[90m…[39m [90m0.15s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa quyền của vai trò: có hiệu lực ngay, ghi nhật ký quyền trước[39m[90m…[39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit không sửa được vai trò Quản trị cao nhất (đã có mọi quyền)[39m[90m       [39m [90m0.05s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit tạo nhân viên: mật khẩu dưới 12 ký tự bị từ chối; đủ thì tạo tài[39m[90m…[39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa nhân viên: khoá tài khoản, đổi vai trò được ghi nhật ký; khô[39m[90m…[39m [90m0.15s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nhân viên sửa nội dung thì ghi người sửa và nhật ký trước/sau; n[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đăng nhập trang quản trị: sai 5 lần thì lần thứ 6 bị chặn tạm, k[39m[90m…[39m [90m1.16s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\QuyenLoiTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit không có gói: tắt mở tạm thì theo gói miễn phí (3), bật mở tạm t[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit gói đang chạy được tính, kể cả dùng thử; gói hết hạn, chưa bắt đ[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit gói trọn đời không kèm AI (0), nhưng đang mở tạm thì vẫn được 50[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit -1 (không giới hạn) thắng mọi số; gói mở tạm trỏ tới gói không c[39m[90m…[39m [90m0.03s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\SoTayApiTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit đánh dấu sao rồi ghi chú: lưu theo tài khoản, thẻ từ và danh sác[39m[90m…[39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit gửi ô nào đổi ô đó; bỏ sao và xoá ghi chú thì xoá hẳn dòng[39m[90m       [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì[39m[90m                         [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit danh sách sổ tay: lọc sao, có ghi chú, tìm chữ; sửa gần nhất trư[39m[90m…[39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit người A không đọc, không sửa được sổ tay của người B; thẻ không[39m[90m… [39m [90m0.09s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\TaiKhoanTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit hiện trang đăng nhập, đăng ký, quên mật khẩu bằng tiếng Việt[39m[90m     [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đăng ký: tạo tài khoản, email viết thường, gửi thư xác minh qua[39m[90m… [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đăng ký: email đã có thì báo lỗi ngay ô email[39m[90m                    [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đăng ký: mật khẩu thiếu số hoặc nhập lại không khớp thì báo lỗi[39m[90m  [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đăng ký: mỗi địa chỉ IP tạo tối đa 5 tài khoản mỗi giờ, lần thứ[39m[90m… [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chưa xác minh email mà vào học thì được dẫn tới trang gửi lại th[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bấm link xác minh thì xác minh xong và vào học[39m[90m                   [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit link xác minh hết hạn hoặc không khớp email thì không dùng được[39m[90m  [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit gửi lại thư xác minh[39m[90m                                             [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đăng nhập đúng (email viết hoa cũng được) thì vào app học và ghi[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sai mật khẩu 5 lần thì lần thứ 6 bị chặn tạm, kể cả đúng mật khẩ[39m[90m…[39m [90m1.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit quên mật khẩu: gửi link, đặt mật khẩu mới, dùng lại link thì khô[39m[90m…[39m [90m0.24s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit thư xác minh và thư đặt lại mật khẩu viết bằng tiếng Việt, link[39m[90m… [39m [90m0.05s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đăng xuất thì về trang chào và ghi lịch sử[39m[90m                       [39m [90m0.02s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\TraTuApiTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit "zahlen" và "zählen": từ đúng từng chữ đứng đầu, rồi dạng khác ([39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit gõ không dấu ở 4 thứ tiếng: Đức (ö → o hoặc oe), Việt, Anh, Trun[39m[90m…[39m [90m0.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chữ quá ngắn, ký tự đại diện, thẻ nháp và thẻ riêng của người kh[39m[90m…[39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kết quả có nghĩa, mạo từ tách riêng, sao của chính mình; tối đa[39m[90m… [39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bấm một chữ trong câu: đúng dạng (số nhiều, dạng chia), viết hoa[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit lịch sử tra: ghi khi mở thẻ, mới nhất trước, gộp lần tra lặp lại[39m[90m…[39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit lịch sử tra sai dữ liệu thì 422; thẻ không xem được thì không gh[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit xoá lịch sử: chỉ mục của mình; mục của người khác thì 404 và vẫn[39m[90m…[39m [90m0.09s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Utf8DatabaseTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Brötchen')[39m[90m [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Straße')[39m[90m   [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('tiếng Việt[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('ẞ ắ ặ ộ ữ[39m[90m… [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kết nối sai bảng mã thì chữ có dấu đọc ra bị hỏng, nên test bắt[39m[90m… [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kết nối database dùng utf8mb4[39m[90m                                    [39m [90m0.02s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\XemThuTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit tắt (mặc định): app học về trang đăng nhập, API trả 401, trang đ[39m[90m…[39m [90m0.05s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: mở app học không cần đăng nhập; chỉ có một tài khoản khách,[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: API của app học chạy với tài khoản khách và báo guest[39m[90m       [39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: các trang đăng nhập, đăng ký, quên và đặt lại mật khẩu đưa[39m[90m… [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: các trang đăng nhập, đăng ký, quên và đặt lại mật khẩu đưa[39m[90m… [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: các trang đăng nhập, đăng ký, quên và đặt lại mật khẩu đưa[39m[90m… [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: các trang đăng nhập, đăng ký, quên và đặt lại mật khẩu đưa[39m[90m… [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: trang quản trị vẫn cần đăng nhập; khách không vào được[39m[90m      [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: người đã đăng nhập vẫn là chính họ, không bị đổi thành khác[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: khách không đổi được tên, múi giờ của tài khoản chung; cài[39m[90m… [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: giới hạn số lần gọi API của khách tính theo IP, người này k[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: tài khoản khách bị khoá thì app học đóng lại, không chuyển[39m[90m… [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật rồi tắt: người chưa đăng nhập lại phải đăng nhập, tài khoản[39m[90m… [39m [90m0.23s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bật: tài khoản khách chung không bao giờ dùng AI, không khai ngà[39m[90m…[39m [90m0.04s[39m  
+
+  [90mTests:[39m    [32;1m624 passed[39;22m[90m (6243 assertions)[39m
+  [90mDuration:[39m [39m87.83s[39m
+
+✔ Pest (database lernbuch_test)
 ::endgroup::
 ::group::Hiệu năng với dữ liệu cỡ thật (tạo phiên p95 < 150 ms, API khác < 200 ms)
 
 Hiệu năng (11882 thẻ, 620 chủ đề nhỏ, 5000 dòng tiến độ):
-  POST hoc/phien                 p50   13.2 ms   p95   14.0 ms   max   15.4 ms
-  POST hoc/phien (Quiz)          p50   74.0 ms   p95   74.6 ms   max   75.8 ms
-  GET hoc/con-lai                p50    5.8 ms   p95    6.0 ms   max    6.4 ms
-  GET hom-nay                    p50   48.4 ms   p95   49.5 ms   max   50.4 ms
-  GET chu-de/{slug}              p50    9.6 ms   p95    9.7 ms   max    9.8 ms
-  GET chu-de (cây)               p50   51.5 ms   p95   52.4 ms   max   65.6 ms
-  GET tra-tu                     p50   54.6 ms   p95   63.0 ms   max   66.1 ms
-  POST hoc/luot-cham (20 lượt)   p50   20.0 ms   p95   20.3 ms   max   21.2 ms
-  GET ngu-phap                   p50    9.7 ms   p95    9.8 ms   max    9.9 ms
-  GET ngu-phap/{slug}            p50    3.4 ms   p95    3.8 ms   max    4.0 ms
-  GET bai-tap                    p50   20.0 ms   p95   20.1 ms   max   20.7 ms
-  GET bai-tap/phien (Luyện nhanh) p50   11.4 ms   p95   11.7 ms   max   11.7 ms
-  GET bai-tap/phien (Ôn câu sai) p50   19.6 ms   p95   19.7 ms   max   19.8 ms
-  POST bai-tap/ket-qua (15 câu)  p50   10.6 ms   p95   14.9 ms   max   15.6 ms
-  GET dong-tu                    p50   11.6 ms   p95   12.3 ms   max   12.5 ms
-  GET dong-tu?q=                 p50    8.3 ms   p95    8.4 ms   max    8.5 ms
-  GET dong-tu/luyen              p50    4.8 ms   p95    4.9 ms   max    5.1 ms
-  GET bai-tap/dien-cau           p50   37.7 ms   p95   41.6 ms   max   41.7 ms
+  POST hoc/phien                 p50   11.5 ms   p95   12.3 ms   max   12.6 ms
+  POST hoc/phien (Quiz)          p50   59.4 ms   p95   77.4 ms   max   89.0 ms
+  GET hoc/con-lai                p50    5.4 ms   p95    5.6 ms   max    5.9 ms
+  GET hom-nay                    p50   43.6 ms   p95   45.1 ms   max   45.3 ms
+  GET chu-de/{slug}              p50    8.4 ms   p95    9.3 ms   max    9.4 ms
+  GET chu-de (cây)               p50   44.9 ms   p95   45.3 ms   max   45.4 ms
+  GET tra-tu                     p50   50.2 ms   p95   50.6 ms   max   50.9 ms
+  POST hoc/luot-cham (20 lượt)   p50   16.9 ms   p95   18.0 ms   max   18.5 ms
+  GET ngu-phap                   p50    9.2 ms   p95    9.4 ms   max    9.6 ms
+  GET ngu-phap/{slug}            p50    3.6 ms   p95    3.6 ms   max    3.6 ms
+  GET bai-tap                    p50   18.2 ms   p95   18.4 ms   max   18.5 ms
+  GET bai-tap/phien (Luyện nhanh) p50   10.1 ms   p95   10.5 ms   max   10.8 ms
+  GET bai-tap/phien (Ôn câu sai) p50   17.3 ms   p95   17.6 ms   max   17.8 ms
+  POST bai-tap/ket-qua (15 câu)  p50    9.1 ms   p95    9.2 ms   max    9.3 ms
+  GET dong-tu                    p50    9.9 ms   p95   10.0 ms   max   10.0 ms
+  GET dong-tu?q=                 p50    7.1 ms   p95    8.1 ms   max    8.6 ms
+  GET dong-tu/luyen              p50    4.7 ms   p95    4.8 ms   max    4.8 ms
+  GET bai-tap/dien-cau           p50   32.5 ms   p95   33.0 ms   max   33.2 ms
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\HieuNangHocTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit dữ liệu cỡ thật: tạo phiên p95 dưới 150 ms, các API học và nội[39m[90m… [39m [90m13.31s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu cỡ thật: tạo phiên p95 dưới 150 ms, các API học và nội[39m[90m… [39m [90m12.62s[39m  
 
   [90mTests:[39m    [32;1m1 passed[39;22m[90m (735 assertions)[39m
-  [90mDuration:[39m [39m13.47s[39m
+  [90mDuration:[39m [39m12.76s[39m
 
 ✔ Hiệu năng với dữ liệu cỡ thật (tạo phiên p95 < 150 ms, API khác < 200 ms)
 ::endgroup::
 
-KẾT QUẢ: 17/19 bước đạt
-✘ lỗi: Pint (định dạng code)
-✘ lỗi: Pest (database lernbuch_test)
+KẾT QUẢ: 19/19 bước đạt
