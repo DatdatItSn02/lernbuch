@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Middleware\KhachXemThu;
 use App\Models\Role;
 use App\Models\User;
 use App\Support\Ai\BoNoi\BoNoiGia;
@@ -37,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         Feature::define(DanhSachThu::TEN, fn (User $user) => false);
 
         RateLimiter::for('api', fn (Request $request) => Limit::perMinute(max(1, (int) config('app.api_moi_phut', self::API_MOI_PHUT)))
-            ->by($request->user()?->getAuthIdentifier() ?? $request->ip()));
+            // Khách xem thử dùng chung một tài khoản: tính theo IP để người này không làm người kia hết lượt
+            ->by(KhachXemThu::la($request->user()) ? 'khach:'.$request->ip() : ($request->user()?->getAuthIdentifier() ?? $request->ip())));
     }
 }

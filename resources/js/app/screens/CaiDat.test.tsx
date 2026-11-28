@@ -125,6 +125,31 @@ describe('Cài đặt: phần tài khoản', () => {
         expect(await screen.findByText('Tên không được dài quá 100 ký tự.')).toBeTruthy();
     });
 
+    it('xem thử (tài khoản khách chung): không có phần tài khoản, máy đang đăng nhập, đăng xuất; mục tiêu vẫn chọn được', async () => {
+        const goi = giaApi({
+            'GET /api/v1/toi': () => ({ json: { data: toiMau({ guest: true, name: 'Khách xem thử' }) } }),
+            'PUT /api/v1/toi/ho-so': () => ({ json: { data: toiMau({ guest: true }) } }),
+        });
+        renderAppCoTaiKhoan('/cai-dat');
+
+        expect(await screen.findByText(/Bạn đang xem thử, không cần đăng nhập/)).toBeTruthy();
+        expect(screen.getByText('Cài đặt lưu trên trình duyệt này.')).toBeTruthy();
+        expect(screen.queryByRole('button', { name: 'Đăng xuất' })).toBeNull();
+        expect(screen.queryByRole('button', { name: 'Lưu tên' })).toBeNull();
+        expect(screen.queryByLabelText('Múi giờ')).toBeNull();
+        expect(goi.some((g) => g.url.includes('/toi/phien'))).toBe(false);
+
+        fireEvent.click(screen.getByRole('radio', { name: 'Đi làm' }));
+        expect(await screen.findByText('Đã lưu.')).toBeTruthy();
+    });
+
+    it('tài khoản thường: vẫn có phần tài khoản và nút đăng xuất', async () => {
+        moi();
+        expect(await screen.findByRole('button', { name: 'Lưu tên' })).toBeTruthy();
+        expect(screen.getByRole('button', { name: 'Đăng xuất' })).toBeTruthy();
+        expect(screen.queryByText(/Bạn đang xem thử/)).toBeNull();
+    });
+
     it('danh sách máy đang đăng nhập: ghi rõ máy này; đăng xuất máy khác cần đúng mật khẩu', async () => {
         const goi = moi({
             'POST /api/v1/toi/phien/dang-xuat-may-khac': (b) =>

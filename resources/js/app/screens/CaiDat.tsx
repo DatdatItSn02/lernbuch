@@ -38,7 +38,9 @@ export function CaiDat() {
     const [saving] = useState(canPersist);
     const uid = useId();
     const set = (patch: Partial<Settings>) => dispatch({ type: 'settings', patch });
-    const theoTaiKhoan = trangThai === 'xong' && toi !== null;
+    const coTaiKhoan = trangThai === 'xong' && toi !== null;
+    // Khách xem thử dùng chung một tài khoản: cài đặt giao diện của mỗi người chỉ nằm trên trình duyệt
+    const theoTaiKhoan = coTaiKhoan && !toi.guest;
 
     return (
         <Sheet className="mx-auto max-w-[720px] px-5 py-6 md:px-8">
@@ -119,7 +121,7 @@ export function CaiDat() {
             </div>
 
             {theoTaiKhoan && <MucAi />}
-            {theoTaiKhoan && <TaiKhoanPhan />}
+            {coTaiKhoan && <TaiKhoanPhan />}
         </Sheet>
     );
 }
@@ -228,77 +230,86 @@ function TaiKhoanPhan() {
                 </section>
             )}
 
-            <section aria-labelledby={`${uid}-tai-khoan`} className="mt-10 border-t border-line pt-6">
-                <h2 id={`${uid}-tai-khoan`} className="text-title font-bold">
-                    {t('caiDat.taiKhoan')}
-                </h2>
-                <p className="mt-2 text-ink-2">{t('caiDat.email', { email: toi.email })}</p>
-                <form
-                    className="mt-4 flex flex-wrap items-end gap-3"
-                    onSubmit={async (e) => {
-                        e.preventDefault();
-                        setLoiTen(null);
-                        const tenMoi = ten.trim();
-                        if (!tenMoi) return setLoiTen(t('caiDat.tenTrong'));
-                        await luuHoSo({ name: tenMoi });
-                    }}
-                >
-                    <div className="min-w-60 flex-1">
-                        <label htmlFor={`${uid}-ten`} className="block text-label font-semibold">
-                            {t('caiDat.ten')}
-                        </label>
-                        <input
-                            id={`${uid}-ten`}
-                            value={ten}
-                            maxLength={100}
-                            autoComplete="name"
-                            onChange={(e) => setTen(e.target.value)}
-                            aria-invalid={loiTen ? true : undefined}
-                            aria-describedby={loiTen ? `${uid}-ten-loi` : undefined}
-                            className="mt-1.5 block min-h-11 w-full rounded-md border border-line-strong bg-paper px-3 py-2 text-body"
-                        />
-                        {loiTen && (
-                            <p id={`${uid}-ten-loi`} className="mt-1.5 text-label text-danger">
-                                {loiTen}
-                            </p>
-                        )}
-                    </div>
-                    <button type="submit" className="min-h-11 rounded-md border border-line-strong px-4 font-semibold hover:bg-sunken">
-                        {t('caiDat.luuTen')}
-                    </button>
-                </form>
-
-                <div className="mt-5">
-                    <label htmlFor={`${uid}-mui-gio`} className="block text-label font-semibold">
-                        {t('caiDat.muiGio')}
-                    </label>
-                    <select
-                        id={`${uid}-mui-gio`}
-                        value={toi.timezone}
-                        onChange={(e) => void luuHoSo({ timezone: e.target.value })}
-                        aria-describedby={`${uid}-mui-gio-ghi-chu`}
-                        className="mt-1.5 block min-h-11 w-full max-w-sm rounded-md border border-line-strong bg-paper px-3 text-body"
-                    >
-                        {muiGio.map((m) => (
-                            <option key={m} value={m}>
-                                {m}
-                            </option>
-                        ))}
-                    </select>
-                    <p id={`${uid}-mui-gio-ghi-chu`} className="mt-1.5 text-label text-ink-2">
-                        {t('caiDat.muiGioGhiChu')}
+            {toi.guest ? (
+                <section className="mt-10 border-t border-line pt-6">
+                    <p className="text-ink-2">{t('caiDat.xemThu')}</p>
+                    <p role="status" className={`mt-3 min-h-6 text-label ${tin?.loai === 'loi' ? 'font-semibold text-danger' : 'text-ink-2'}`}>
+                        {tin?.chu}
                     </p>
-                </div>
-                <p role="status" className={`mt-3 min-h-6 text-label ${tin?.loai === 'loi' ? 'font-semibold text-danger' : 'text-ink-2'}`}>
-                    {tin?.chu}
-                </p>
-            </section>
+                </section>
+            ) : (
+                <section aria-labelledby={`${uid}-tai-khoan`} className="mt-10 border-t border-line pt-6">
+                    <h2 id={`${uid}-tai-khoan`} className="text-title font-bold">
+                        {t('caiDat.taiKhoan')}
+                    </h2>
+                    <p className="mt-2 text-ink-2">{t('caiDat.email', { email: toi.email })}</p>
+                    <form
+                        className="mt-4 flex flex-wrap items-end gap-3"
+                        onSubmit={async (e) => {
+                            e.preventDefault();
+                            setLoiTen(null);
+                            const tenMoi = ten.trim();
+                            if (!tenMoi) return setLoiTen(t('caiDat.tenTrong'));
+                            await luuHoSo({ name: tenMoi });
+                        }}
+                    >
+                        <div className="min-w-60 flex-1">
+                            <label htmlFor={`${uid}-ten`} className="block text-label font-semibold">
+                                {t('caiDat.ten')}
+                            </label>
+                            <input
+                                id={`${uid}-ten`}
+                                value={ten}
+                                maxLength={100}
+                                autoComplete="name"
+                                onChange={(e) => setTen(e.target.value)}
+                                aria-invalid={loiTen ? true : undefined}
+                                aria-describedby={loiTen ? `${uid}-ten-loi` : undefined}
+                                className="mt-1.5 block min-h-11 w-full rounded-md border border-line-strong bg-paper px-3 py-2 text-body"
+                            />
+                            {loiTen && (
+                                <p id={`${uid}-ten-loi`} className="mt-1.5 text-label text-danger">
+                                    {loiTen}
+                                </p>
+                            )}
+                        </div>
+                        <button type="submit" className="min-h-11 rounded-md border border-line-strong px-4 font-semibold hover:bg-sunken">
+                            {t('caiDat.luuTen')}
+                        </button>
+                    </form>
 
-            <MayDangNhap />
+                    <div className="mt-5">
+                        <label htmlFor={`${uid}-mui-gio`} className="block text-label font-semibold">
+                            {t('caiDat.muiGio')}
+                        </label>
+                        <select
+                            id={`${uid}-mui-gio`}
+                            value={toi.timezone}
+                            onChange={(e) => void luuHoSo({ timezone: e.target.value })}
+                            aria-describedby={`${uid}-mui-gio-ghi-chu`}
+                            className="mt-1.5 block min-h-11 w-full max-w-sm rounded-md border border-line-strong bg-paper px-3 text-body"
+                        >
+                            {muiGio.map((m) => (
+                                <option key={m} value={m}>
+                                    {m}
+                                </option>
+                            ))}
+                        </select>
+                        <p id={`${uid}-mui-gio-ghi-chu`} className="mt-1.5 text-label text-ink-2">
+                            {t('caiDat.muiGioGhiChu')}
+                        </p>
+                    </div>
+                    <p role="status" className={`mt-3 min-h-6 text-label ${tin?.loai === 'loi' ? 'font-semibold text-danger' : 'text-ink-2'}`}>
+                        {tin?.chu}
+                    </p>
+                </section>
+            )}
+
+            {!toi.guest && <MayDangNhap />}
 
             <CaiApp />
 
-            <DangXuat />
+            {!toi.guest && <DangXuat />}
         </>
     );
 }

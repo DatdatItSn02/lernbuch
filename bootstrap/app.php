@@ -3,7 +3,9 @@
 use App\Http\Middleware\ConHoatDong;
 use App\Http\Middleware\DatNgonNgu;
 use App\Http\Middleware\DaXacMinhEmail;
+use App\Http\Middleware\KhachXemThu;
 use App\Support\LoiApi;
+use Illuminate\Contracts\Auth\Middleware\AuthenticatesRequests;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -24,7 +26,9 @@ return Application::configure(basePath: dirname(__DIR__))
         // Đổi mật khẩu hoặc "đăng xuất các máy khác" thì phiên trên máy khác hết hiệu lực, kể cả máy đã chọn "Ghi nhớ".
         $middleware->authenticateSessions();
         $middleware->web(append: [DatNgonNgu::class]);
-        $middleware->alias(['da-xac-minh' => DaXacMinhEmail::class, 'ngon-ngu' => DatNgonNgu::class, 'con-hoat-dong' => ConHoatDong::class]);
+        $middleware->alias(['da-xac-minh' => DaXacMinhEmail::class, 'ngon-ngu' => DatNgonNgu::class, 'con-hoat-dong' => ConHoatDong::class, 'khach-xem-thu' => KhachXemThu::class]);
+        // Chế độ xem thử phải chạy trước bước kiểm đăng nhập (auth, auth:sanctum), sau khi phiên đã mở
+        $middleware->prependToPriorityList(AuthenticatesRequests::class, KhachXemThu::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

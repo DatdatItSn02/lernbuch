@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\KhachXemThu;
 use App\Models\User;
 use App\Models\UserSetting;
 use App\Support\Ai\DongYAi;
@@ -45,7 +46,10 @@ class ToiController extends Controller
             throw ValidationException::withMessages([array_key_first($mucTieu) => __('api.chua_co_khoa_hoc')]);
         }
 
-        $user->fill(array_intersect_key($hopLe, array_flip(['name', 'timezone', 'ui_locale'])))->save();
+        // Khách xem thử dùng chung một tài khoản: không đổi tên, múi giờ, ngôn ngữ của tài khoản đó
+        if (! KhachXemThu::la($user)) {
+            $user->fill(array_intersect_key($hopLe, array_flip(['name', 'timezone', 'ui_locale'])))->save();
+        }
 
         if ($khoa !== null && $mucTieu !== []) {
             $thayDoi = [];
@@ -113,6 +117,8 @@ class ToiController extends Controller
             'course' => KhoaHoc::choApi($user, KhoaHoc::hienTai($user)),
             'settings' => UserSetting::cua($user),
             'ai' => TrangThaiAi::choToi($user),
+            // Chỉ có khi đang là khách xem thử: app ẩn phần tài khoản, đăng xuất
+            ...(KhachXemThu::la($user) ? ['guest' => true] : []),
         ];
     }
 }

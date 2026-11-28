@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\KhachXemThu;
 use App\Models\UserSetting;
 use App\Support\KhoaHoc;
 use Illuminate\Http\JsonResponse;
@@ -35,7 +36,10 @@ class CaiDatController extends Controller
             $hopLe['meaning_langs'] = array_values($hopLe['meaning_langs']);
         }
 
-        UserSetting::luu($user, $hopLe);
+        // Khách xem thử dùng chung một tài khoản: cài đặt của mỗi người chỉ nằm trên trình duyệt của họ
+        if (! KhachXemThu::la($user)) {
+            UserSetting::luu($user, $hopLe);
+        }
 
         return response()->json(['data' => UserSetting::cua($user)]);
     }

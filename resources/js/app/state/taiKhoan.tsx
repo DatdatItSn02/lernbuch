@@ -26,6 +26,8 @@ export type Toi = {
     settings: CaiDatApi;
     /** AI có mở cho người này không và còn thiếu bước nào (khai ngày sinh, đồng ý); xem lib/ai.ts. */
     ai: TrangThaiAi;
+    /** Chế độ xem thử (tạm thời): đang dùng tài khoản khách chung, không có phần tài khoản và đăng xuất. */
+    guest?: boolean;
 };
 
 export type HoSoMoi = Partial<{ name: string; timezone: string; goal: MucTieu | null; level: number | null }>;
