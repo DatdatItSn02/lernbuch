@@ -1,0 +1,302 @@
+workflow: ci  job: php  status: failure
+commit: 5afa449bf241ba97ff60f64321c1b2f3cc9f859b  ref: work/g2-tuan2  run: 46139199554
+
+✘ Pint (định dạng code)
+✔ Larastan (phân tích tĩnh)
+✔ Dựng database tham chiếu từ schema.sql
+✔ Migrate lên
+✔ Khớp với schema.sql (0 khác biệt)
+✔ Quy ước LoWo (không khoá ngoại, thời gian số nguyên)
+✔ Migrate xuống hết
+✔ Sau khi xuống chỉ còn bảng migrations
+✔ Migrate lên lại
+✔ Seeder chạy hai lần không nhân đôi
+✔ test_schema.py (cấu trúc và tình huống)
+✔ Test công cụ so khớp và quy ước
+✔ Test trình kiểm file nhập
+✔ Test công cụ audio (giọng được dùng để bán, tên file theo hash)
+✔ Test công cụ tự kiểm G0, G1 (cả trường hợp lỗi)
+✔ Test script deploy trên máy chủ (quay lại, giữ bản, migration hỏng)
+✔ Test tạo .env cho alwaysdata (mật khẩu có ký tự đặc biệt)
+✘ Pest (database lernbuch_test)
+✔ Hiệu năng với dữ liệu cỡ thật (tạo phiên p95 < 150 ms, API khác < 200 ms)
+KẾT QUẢ: 17/19 bước đạt
+✘ lỗi: Pint (định dạng code)
+✘ lỗi: Pest (database lernbuch_test)
+
+----- cuối log -----
+#33 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Features/SupportPageComponents/HandlesPageComponents.php(19): Livewire\LivewireManager->mount()
+#34 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Features/SupportPageComponents/SupportPageComponents.php(119): Livewire\Component->{closure:Livewire\Features\SupportPageComponents\HandlesPageComponents::__invoke():14}()
+#35 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Features/SupportPageComponents/HandlesPageComponents.php(14): Livewire\Features\SupportPageComponents\SupportPageComponents::interceptTheRenderOfTheComponentAndRetreiveTheLayoutConfiguration()
+#36 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): Livewire\Component->__invoke()
+#37 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Route.php(276): Illuminate\Routing\ControllerDispatcher->dispatch()
+#38 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Route.php(216): Illuminate\Routing\Route->runController()
+#39 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(835): Illuminate\Routing\Route->run()
+#40 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\Routing\Router->{closure:Illuminate\Routing\Router::runRouteWithinStack():834}()
+#41 /home/runner/work/lernbuch/lernbuch/vendor/filament/filament/src/Http/Middleware/DispatchServingFilamentEvent.php(15): Illuminate\Pipeline\Pipeline->{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}()
+#42 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Http\Middleware\DispatchServingFilamentEvent->handle()
+#43 /home/runner/work/lernbuch/lernbuch/vendor/filament/filament/src/Http/Middleware/DisableBladeIconComponents.php(14): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#44 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Http\Middleware\DisableBladeIconComponents->handle()
+#45 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(52): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#46 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Routing\Middleware\SubstituteBindings->handle()
+#47 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestForgery.php(104): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#48 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\PreventRequestForgery->handle()
+#49 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Session/Middleware/AuthenticateSession.php(70): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#50 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Session\Middleware\AuthenticateSession->handle()
+#51 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(63): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#52 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Auth\Middleware\Authenticate->handle()
+#53 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php(48): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#54 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\View\Middleware\ShareErrorsFromSession->handle()
+#55 /home/runner/work/lernbuch/lernbuch/vendor/filament/notifications/src/Http/Middleware/InitializeNotificationMailbox.php(18): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#56 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Notifications\Http\Middleware\InitializeNotificationMailbox->handle()
+#57 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(120): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#58 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(63): Illuminate\Session\Middleware\StartSession->handleStatefulRequest()
+#59 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Session\Middleware\StartSession->handle()
+#60 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(36): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#61 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse->handle()
+#62 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php(74): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#63 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Cookie\Middleware\EncryptCookies->handle()
+#64 /home/runner/work/lernbuch/lernbuch/vendor/filament/filament/src/Http/Middleware/SetUpPanel.php(23): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#65 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Http\Middleware\SetUpPanel->handle()
+#66 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#67 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(834): Illuminate\Pipeline\Pipeline->then()
+#68 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(813): Illuminate\Routing\Router->runRouteWithinStack()
+#69 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(777): Illuminate\Routing\Router->runRoute()
+#70 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(766): Illuminate\Routing\Router->dispatchToRoute()
+#71 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\Routing\Router->dispatch()
+#72 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\Foundation\Http\Kernel->{closure:Illuminate\Foundation\Http\Kernel::dispatchToRouter():197}()
+#73 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Features/SupportDisablingBackButtonCache/DisableBackButtonCacheMiddleware.php(19): Illuminate\Pipeline\Pipeline->{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}()
+#74 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Livewire\Features\SupportDisablingBackButtonCache\DisableBackButtonCacheMiddleware->handle()
+#75 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(38): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#76 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle()
+#77 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle()
+#78 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(38): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#79 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle()
+#80 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\TrimStrings->handle()
+#81 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#82 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Http\Middleware\ValidatePostSize->handle()
+#83 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#84 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle()
+#85 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(61): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#86 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Http\Middleware\HandleCors->handle()
+#87 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#88 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Http\Middleware\TrustProxies->handle()
+#89 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#90 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle()
+#91 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(28): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#92 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Http\Middleware\ValidatePathEncoding->handle()
+#93 /home/runner/work/lernbuch/lernbuch/vendor/filament/notifications/src/Http/Middleware/PublishNotifications.php(16): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#94 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Notifications\Http\Middleware\PublishNotifications->handle()
+#95 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#96 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\Pipeline\Pipeline->then()
+#97 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#98 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(638): Illuminate\Foundation\Http\Kernel->handle()
+#99 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(368): Illuminate\Foundation\Testing\TestCase->call()
+#100 /home/runner/work/lernbuch/lernbuch/tests/Feature/AiQuanTriPromptTest.php(36): Illuminate\Foundation\Testing\TestCase->get()
+#101 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Factories/TestCaseMethodFactory.php(130): P\Tests\Feature\AiQuanTriPromptTest->{closure:/home/runner/work/lernbuch/lernbuch/tests/Feature/AiQuanTriPromptTest.php:32}()
+#102 [internal function]: P\Tests\Feature\AiQuanTriPromptTest->{closure:Pest\Factories\TestCaseMethodFactory::getClosure():120}()
+#103 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Concerns/Testable.php(509): call_user_func_array()
+#104 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Support/ExceptionTrace.php(24): P\Tests\Feature\AiQuanTriPromptTest->{closure:Pest\Concerns\Testable::__callClosure():509}()
+#105 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Concerns/Testable.php(509): Pest\Support\ExceptionTrace::ensure()
+#106 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Concerns/Testable.php(323): P\Tests\Feature\AiQuanTriPromptTest->__callClosure()
+#107 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Factories/TestCaseFactory.php(175) : eval()'d code(22): P\Tests\Feature\AiQuanTriPromptTest->__runTest()
+#108 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestCase.php(1137): P\Tests\Feature\AiQuanTriPromptTest->__pest_evaluable_it_chỉ_người_có_ai_manage_vào_được_ba_trang__người_học__content__editor_bị_403()
+#109 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestCase.php(1495): PHPUnit\Framework\TestCase->invokeTestMethod()
+#110 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestCase.php(399): PHPUnit\Framework\TestCase->runTest()
+#111 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(161): PHPUnit\Framework\TestCase->runLifecycle()
+#112 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(88): PHPUnit\Framework\TestRunner\TestRunner->runInProcess()
+#113 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestCase.php(290): PHPUnit\Framework\TestRunner\TestRunner->run()
+#114 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(654): PHPUnit\Framework\TestCase->run()
+#115 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(430): PHPUnit\Framework\TestSuite->runTests()
+#116 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(654): PHPUnit\Framework\TestSuite->run()
+#117 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(430): PHPUnit\Framework\TestSuite->runTests()
+#118 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(654): PHPUnit\Framework\TestSuite->run()
+#119 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(430): PHPUnit\Framework\TestSuite->runTests()
+#120 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/TextUI/TestRunner.php(72): PHPUnit\Framework\TestSuite->run()
+#121 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/TextUI/Application.php(283): PHPUnit\TextUI\TestRunner->run()
+#122 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Kernel.php(104): PHPUnit\TextUI\Application->run()
+#123 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/bin/pest(207): Pest\Kernel->handle()
+#124 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/bin/pest(215): {closure:/home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/bin/pest:21}()
+#125 {main}
+
+Next Illuminate\View\ViewException: Call to a member function newQueryWithoutRelationships() on null (View: /home/runner/work/lernbuch/lernbuch/vendor/filament/filament/resources/views/pages/page.blade.php) in /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php:383
+Stack trace:
+#0 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(58): Illuminate\View\Engines\CompilerEngine->handleViewException()
+#1 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(40): Livewire\Mechanisms\ExtendBlade\ExtendedCompilerEngine->handleViewException()
+#2 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\Mechanisms\ExtendBlade\ExtendedCompilerEngine->evaluatePath()
+#3 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(16): Illuminate\View\Engines\CompilerEngine->get()
+#4 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/View/View.php(208): Livewire\Mechanisms\ExtendBlade\ExtendedCompilerEngine->get()
+#5 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/View/View.php(191): Illuminate\View\View->getContents()
+#6 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/View/View.php(160): Illuminate\View\View->renderContents()
+#7 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(335): Illuminate\View\View->render()
+#8 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(388): Livewire\Mechanisms\HandleComponents\HandleComponents->{closure:Livewire\Mechanisms\HandleComponents\HandleComponents::render():326}()
+#9 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(326): Livewire\Mechanisms\HandleComponents\HandleComponents->trackInRenderStack()
+#10 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(65): Livewire\Mechanisms\HandleComponents\HandleComponents->render()
+#11 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/LivewireManager.php(103): Livewire\Mechanisms\HandleComponents\HandleComponents->mount()
+#12 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Features/SupportPageComponents/HandlesPageComponents.php(19): Livewire\LivewireManager->mount()
+#13 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Features/SupportPageComponents/SupportPageComponents.php(119): Livewire\Component->{closure:Livewire\Features\SupportPageComponents\HandlesPageComponents::__invoke():14}()
+#14 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Features/SupportPageComponents/HandlesPageComponents.php(14): Livewire\Features\SupportPageComponents\SupportPageComponents::interceptTheRenderOfTheComponentAndRetreiveTheLayoutConfiguration()
+#15 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): Livewire\Component->__invoke()
+#16 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Route.php(276): Illuminate\Routing\ControllerDispatcher->dispatch()
+#17 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Route.php(216): Illuminate\Routing\Route->runController()
+#18 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(835): Illuminate\Routing\Route->run()
+#19 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\Routing\Router->{closure:Illuminate\Routing\Router::runRouteWithinStack():834}()
+#20 /home/runner/work/lernbuch/lernbuch/vendor/filament/filament/src/Http/Middleware/DispatchServingFilamentEvent.php(15): Illuminate\Pipeline\Pipeline->{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}()
+#21 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Http\Middleware\DispatchServingFilamentEvent->handle()
+#22 /home/runner/work/lernbuch/lernbuch/vendor/filament/filament/src/Http/Middleware/DisableBladeIconComponents.php(14): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#23 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Http\Middleware\DisableBladeIconComponents->handle()
+#24 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(52): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#25 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Routing\Middleware\SubstituteBindings->handle()
+#26 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestForgery.php(104): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#27 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\PreventRequestForgery->handle()
+#28 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Session/Middleware/AuthenticateSession.php(70): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#29 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Session\Middleware\AuthenticateSession->handle()
+#30 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(63): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#31 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Auth\Middleware\Authenticate->handle()
+#32 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php(48): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#33 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\View\Middleware\ShareErrorsFromSession->handle()
+#34 /home/runner/work/lernbuch/lernbuch/vendor/filament/notifications/src/Http/Middleware/InitializeNotificationMailbox.php(18): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#35 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Notifications\Http\Middleware\InitializeNotificationMailbox->handle()
+#36 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(120): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#37 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(63): Illuminate\Session\Middleware\StartSession->handleStatefulRequest()
+#38 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Session\Middleware\StartSession->handle()
+#39 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(36): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#40 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse->handle()
+#41 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php(74): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#42 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Cookie\Middleware\EncryptCookies->handle()
+#43 /home/runner/work/lernbuch/lernbuch/vendor/filament/filament/src/Http/Middleware/SetUpPanel.php(23): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#44 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Http\Middleware\SetUpPanel->handle()
+#45 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#46 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(834): Illuminate\Pipeline\Pipeline->then()
+#47 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(813): Illuminate\Routing\Router->runRouteWithinStack()
+#48 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(777): Illuminate\Routing\Router->runRoute()
+#49 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Routing/Router.php(766): Illuminate\Routing\Router->dispatchToRoute()
+#50 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\Routing\Router->dispatch()
+#51 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\Foundation\Http\Kernel->{closure:Illuminate\Foundation\Http\Kernel::dispatchToRouter():197}()
+#52 /home/runner/work/lernbuch/lernbuch/vendor/livewire/livewire/src/Features/SupportDisablingBackButtonCache/DisableBackButtonCacheMiddleware.php(19): Illuminate\Pipeline\Pipeline->{closure:Illuminate\Pipeline\Pipeline::prepareDestination():178}()
+#53 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Livewire\Features\SupportDisablingBackButtonCache\DisableBackButtonCacheMiddleware->handle()
+#54 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(38): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#55 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle()
+#56 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle()
+#57 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(38): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#58 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle()
+#59 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\TrimStrings->handle()
+#60 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#61 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Http\Middleware\ValidatePostSize->handle()
+#62 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#63 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle()
+#64 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(61): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#65 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Http\Middleware\HandleCors->handle()
+#66 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#67 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Http\Middleware\TrustProxies->handle()
+#68 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#69 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle()
+#70 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(28): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#71 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\Http\Middleware\ValidatePathEncoding->handle()
+#72 /home/runner/work/lernbuch/lernbuch/vendor/filament/notifications/src/Http/Middleware/PublishNotifications.php(16): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#73 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Filament\Notifications\Http\Middleware\PublishNotifications->handle()
+#74 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\Pipeline\Pipeline->{closure:{closure:Illuminate\Pipeline\Pipeline::carry():194}:195}()
+#75 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\Pipeline\Pipeline->then()
+#76 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
+#77 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(638): Illuminate\Foundation\Http\Kernel->handle()
+#78 /home/runner/work/lernbuch/lernbuch/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php(368): Illuminate\Foundation\Testing\TestCase->call()
+#79 /home/runner/work/lernbuch/lernbuch/tests/Feature/AiQuanTriPromptTest.php(36): Illuminate\Foundation\Testing\TestCase->get()
+#80 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Factories/TestCaseMethodFactory.php(130): P\Tests\Feature\AiQuanTriPromptTest->{closure:/home/runner/work/lernbuch/lernbuch/tests/Feature/AiQuanTriPromptTest.php:32}()
+#81 [internal function]: P\Tests\Feature\AiQuanTriPromptTest->{closure:Pest\Factories\TestCaseMethodFactory::getClosure():120}()
+#82 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Concerns/Testable.php(509): call_user_func_array()
+#83 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Support/ExceptionTrace.php(24): P\Tests\Feature\AiQuanTriPromptTest->{closure:Pest\Concerns\Testable::__callClosure():509}()
+#84 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Concerns/Testable.php(509): Pest\Support\ExceptionTrace::ensure()
+#85 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Concerns/Testable.php(323): P\Tests\Feature\AiQuanTriPromptTest->__callClosure()
+#86 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Factories/TestCaseFactory.php(175) : eval()'d code(22): P\Tests\Feature\AiQuanTriPromptTest->__runTest()
+#87 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestCase.php(1137): P\Tests\Feature\AiQuanTriPromptTest->__pest_evaluable_it_chỉ_người_có_ai_manage_vào_được_ba_trang__người_học__content__editor_bị_403()
+#88 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestCase.php(1495): PHPUnit\Framework\TestCase->invokeTestMethod()
+#89 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestCase.php(399): PHPUnit\Framework\TestCase->runTest()
+#90 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(161): PHPUnit\Framework\TestCase->runLifecycle()
+#91 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(88): PHPUnit\Framework\TestRunner\TestRunner->runInProcess()
+#92 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestCase.php(290): PHPUnit\Framework\TestRunner\TestRunner->run()
+#93 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(654): PHPUnit\Framework\TestCase->run()
+#94 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(430): PHPUnit\Framework\TestSuite->runTests()
+#95 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(654): PHPUnit\Framework\TestSuite->run()
+#96 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(430): PHPUnit\Framework\TestSuite->runTests()
+#97 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(654): PHPUnit\Framework\TestSuite->run()
+#98 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/Framework/TestSuite.php(430): PHPUnit\Framework\TestSuite->runTests()
+#99 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/TextUI/TestRunner.php(72): PHPUnit\Framework\TestSuite->run()
+#100 /home/runner/work/lernbuch/lernbuch/vendor/phpunit/phpunit/src/TextUI/Application.php(283): PHPUnit\TextUI\TestRunner->run()
+#101 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/src/Kernel.php(104): PHPUnit\TextUI\Application->run()
+#102 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/bin/pest(207): Pest\Kernel->handle()
+#103 /home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/bin/pest(215): {closure:/home/runner/work/lernbuch/lernbuch/vendor/pestphp/pest/bin/pest:21}()
+#104 {main}
+
+----------------------------------------------------------------------------------
+
+Call to a member function newQueryWithoutRelationships() on null (View: /home/runner/work/lernbuch/lernbuch/vendor/filament/filament/resources/views/pages/page.blade.php)[39;22m
+
+  at [32mtests/Feature/AiQuanTriPromptTest.php[39m:[32m36[39m
+     32▕ it('chỉ người có ai.manage vào được ba trang; người học, content_editor bị 403', function () {
+     33▕     foreach (['/admin/ai-prompt', '/admin/ai-prompt/'.$this->word->id, '/admin/thong-ke-ai', '/admin/nhat-ky-ai'] as $trang) {
+     34▕         $this->actingAs(User::factory()->create())->get($trang)->assertForbidden();
+     35▕         $this->actingAs(nhanVien('content_editor'))->get($trang)->assertForbidden();
+  ➜  36▕         $this->actingAs(nhanVien('admin'))->get($trang)->assertOk();
+     37▕     }
+     38▕ });
+     39▕ 
+     40▕ it('tạo bản mới: version + 1, chưa dùng, model mặc định lúc tạo, có nhật ký; bản đang dùng không đổi', function () {
+
+  [31m────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AiQuanTriPromptTest[22m [90m>[39m it Dùng bản này: lượt hỏi kế…    
+[39;1m  Expecting null not to be null 'không có nhật ký ai_prompt.dung'.[39;22m
+
+  at [32mtests/Pest.php[39m:[32m61[39m
+     57▕ /** @return array<string, mixed> dòng nhật ký thao tác mới nhất của một việc */
+     58▕ function dongNhatKy(string $viec): array
+     59▕ {
+     60▕     $dong = DB::table('audit_logs')->where('action', $viec)->latest('id')->first();
+  ➜  61▕     expect($dong)->not->toBeNull("không có nhật ký {$viec}");
+     62▕ 
+     63▕     return (array) $dong;
+     64▕ }
+     65▕
+
+  [33m1   [39m[39;1mtests/Pest.php[39;22m:[39;1m61[39;22m
+  [33m2   [39m[39;1mtests/Feature/AiQuanTriPromptTest.php[39;22m:[39;1m128[39;22m
+
+
+  [90mTests:[39m    [31;1m4 failed[39;22m[90m,[39m[39m [39m[32;1m620 passed[39;22m[90m (6218 assertions)[39m
+  [90mDuration:[39m [39m92.83s[39m
+
+✘ Pest (database lernbuch_test)
+::endgroup::
+::group::Hiệu năng với dữ liệu cỡ thật (tạo phiên p95 < 150 ms, API khác < 200 ms)
+
+Hiệu năng (11882 thẻ, 620 chủ đề nhỏ, 5000 dòng tiến độ):
+  POST hoc/phien                 p50   13.2 ms   p95   14.0 ms   max   15.4 ms
+  POST hoc/phien (Quiz)          p50   74.0 ms   p95   74.6 ms   max   75.8 ms
+  GET hoc/con-lai                p50    5.8 ms   p95    6.0 ms   max    6.4 ms
+  GET hom-nay                    p50   48.4 ms   p95   49.5 ms   max   50.4 ms
+  GET chu-de/{slug}              p50    9.6 ms   p95    9.7 ms   max    9.8 ms
+  GET chu-de (cây)               p50   51.5 ms   p95   52.4 ms   max   65.6 ms
+  GET tra-tu                     p50   54.6 ms   p95   63.0 ms   max   66.1 ms
+  POST hoc/luot-cham (20 lượt)   p50   20.0 ms   p95   20.3 ms   max   21.2 ms
+  GET ngu-phap                   p50    9.7 ms   p95    9.8 ms   max    9.9 ms
+  GET ngu-phap/{slug}            p50    3.4 ms   p95    3.8 ms   max    4.0 ms
+  GET bai-tap                    p50   20.0 ms   p95   20.1 ms   max   20.7 ms
+  GET bai-tap/phien (Luyện nhanh) p50   11.4 ms   p95   11.7 ms   max   11.7 ms
+  GET bai-tap/phien (Ôn câu sai) p50   19.6 ms   p95   19.7 ms   max   19.8 ms
+  POST bai-tap/ket-qua (15 câu)  p50   10.6 ms   p95   14.9 ms   max   15.6 ms
+  GET dong-tu                    p50   11.6 ms   p95   12.3 ms   max   12.5 ms
+  GET dong-tu?q=                 p50    8.3 ms   p95    8.4 ms   max    8.5 ms
+  GET dong-tu/luyen              p50    4.8 ms   p95    4.9 ms   max    5.1 ms
+  GET bai-tap/dien-cau           p50   37.7 ms   p95   41.6 ms   max   41.7 ms
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\HieuNangHocTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu cỡ thật: tạo phiên p95 dưới 150 ms, các API học và nội[39m[90m… [39m [90m13.31s[39m  
+
+  [90mTests:[39m    [32;1m1 passed[39;22m[90m (735 assertions)[39m
+  [90mDuration:[39m [39m13.47s[39m
+
+✔ Hiệu năng với dữ liệu cỡ thật (tạo phiên p95 < 150 ms, API khác < 200 ms)
+::endgroup::
+
+KẾT QUẢ: 17/19 bước đạt
+✘ lỗi: Pint (định dạng code)
+✘ lỗi: Pest (database lernbuch_test)

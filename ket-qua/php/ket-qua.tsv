@@ -132,16 +132,16 @@ dat	pest	-	tests/Feature/AiCacheTest.php	khoá cache: giống nhau khi chỉ kh�
 dat	pest	-	tests/Feature/AiCacheTest.php	prompt lên phiên bản 2 hay đổi model thì không dùng kết quả cũ
 dat	pest	-	tests/Feature/AiCacheTest.php	sau 91 ngày mục cache hết hạn: gọi lại và ghi đè
 dat	pest	-	tests/Feature/AiCacheTest.php	kết quả hỏng không được lưu; bốn loại chứa chữ riêng của người học không bao giờ lưu
-hong	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('giai-thich-tu')"
-hong	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('dich')"
-hong	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('sua-ngu-phap')"
-hong	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('tra-tu')"
-hong	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('ngu-phap-giai-thich')"
-hong	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('ngu-phap-hoi')"
-hong	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('kiem-dap-an')"
-hong	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('viet-cau')"
-hong	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('tro-chuyen')"
-hong	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('bai-hoc')"
+dat	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('giai-thich-tu')"
+dat	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('dich')"
+dat	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('sua-ngu-phap')"
+dat	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('tra-tu')"
+dat	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('ngu-phap-giai-thich')"
+dat	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('ngu-phap-hoi')"
+dat	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('kiem-dap-an')"
+dat	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('viet-cau')"
+dat	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('tro-chuyen')"
+dat	pest	-	tests/Feature/AiCacheTest.php	qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache with data set "('bai-hoc')"
 dat	pest	-	tests/Feature/AiCaiDatTest.php	chưa có gì trong database thì dùng mặc định: AI tắt, chỉ danh sách thử
 dat	pest	-	tests/Feature/AiCaiDatTest.php	chỉ người có quyền ai.manage vào được trang
 dat	pest	-	tests/Feature/AiCaiDatTest.php	lưu: có hiệu lực ngay, ghi nhật ký những ô đã đổi; lưu y như cũ thì không ghi thêm
@@ -236,16 +236,16 @@ dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	thân gửi Gemini chỉ có ba kho
 dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	đoạn trích trong nhật ký tối đa 500 ký tự, không cắt giữa một ký tự
 dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	app:ai-don: xoá trắng đoạn trích quá 30 ngày (giữ dòng), xoá cache hết hạn, giữ bài học AI và mục còn hạn
 dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	app:ai-don có trong lịch chạy mỗi ngày
-hong	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('giai-thich-tu')"
-hong	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('dich')"
-hong	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('sua-ngu-phap')"
-hong	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('tra-tu')"
-hong	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('ngu-phap-giai-thich')"
-hong	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('ngu-phap-hoi')"
-hong	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('kiem-dap-an')"
-hong	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('viet-cau')"
-hong	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('tro-chuyen')"
-hong	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('bai-hoc')"
+dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('giai-thich-tu')"
+dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('dich')"
+dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('sua-ngu-phap')"
+dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('tra-tu')"
+dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('ngu-phap-giai-thich')"
+dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('ngu-phap-hoi')"
+dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('kiem-dap-an')"
+dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('viet-cau')"
+dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('tro-chuyen')"
+dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học with data set "('bai-hoc')"
 dat	pest	-	tests/Feature/AiGiaiThichTuApiTest.php	trả đúng khuôn và số lượt; nhật ký ghi loại, thẻ, token và chi phí quy đổi
 dat	pest	-	tests/Feature/AiGiaiThichTuApiTest.php	AI nhận đúng từ và nghĩa tiếng Việt của thẻ, gói trong prompt đang dùng
 dat	pest	-	tests/Feature/AiGiaiThichTuApiTest.php	trình độ trong prompt: trình độ tự chọn, chưa chọn thì cấp của thẻ, không có thì A1
@@ -292,7 +292,7 @@ dat	pest	-	tests/Feature/AiKhuonTest.php	câu hỏi bài học có ít hơn 2 l�
 dat	pest	-	tests/Feature/AiKhuonTest.php	JSON Schema của 10 loại: boolean, integer, enum đúng chỗ; giống của từ không gửi enum vì có chuỗi rỗng
 dat	pest	-	tests/Feature/AiKhuonTest.php	loại có trong danh sách không gửi khuôn thì jsonSchema trả null, khuôn vẫn kiểm
 dat	pest	-	tests/Feature/AiKiemDapAnTest.php	câu điền từ: gửi đáp án mẫu, đề đã bỏ dấu tô đậm, câu trả lời; nhật ký ngữ cảnh exercise
-hong	pest	-	tests/Feature/AiKiemDapAnTest.php	câu sửa lỗi cũng dùng được; theo thẻ: đáp án mẫu là mặt trước, câu hỏi là nghĩa
+dat	pest	-	tests/Feature/AiKiemDapAnTest.php	câu sửa lỗi cũng dùng được; theo thẻ: đáp án mẫu là mặt trước, câu hỏi là nghĩa
 dat	pest	-	tests/Feature/AiKiemDapAnTest.php	trả lời đã khớp mẫu thì báo ai_dap_an_khop_mau, không gọi AI, không ghi nhật ký
 dat	pest	-	tests/Feature/AiKiemDapAnTest.php	dạng sắp xếp thì ai_khong_ap_dung; câu nháp, câu không có, thẻ riêng của người khác thì 404
 dat	pest	-	tests/Feature/AiKiemDapAnTest.php	thiếu cả hai mã, có cả hai mã, mã là chữ thì 422 with data set "dataset "thiếu""
@@ -307,9 +307,38 @@ dat	pest	-	tests/Feature/AiNguPhapTest.php	câu hỏi rỗng, quá 300 ký tự,
 dat	pest	-	tests/Feature/AiNguPhapTest.php	câu hỏi rỗng, quá 300 ký tự, toàn ký hiệu thì 422 with data set "(' ')"
 dat	pest	-	tests/Feature/AiNguPhapTest.php	câu hỏi rỗng, quá 300 ký tự, toàn ký hiệu thì 422 with data set "('?!… 123 🙂')"
 dat	pest	-	tests/Feature/AiNguPhapTest.php	câu hỏi rỗng, quá 300 ký tự, toàn ký hiệu thì 422 with data set "('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa…aaaaaa')"
+hong	pest	-	tests/Feature/AiNhatKyTest.php	mới trước; lọc theo loại và trạng thái; lượt chạy thử để trống người học
+hong	pest	-	tests/Feature/AiNhatKyTest.php	đoạn trích cắt 80 ký tự ở bảng, đủ ở trang xem; không có nút tạo, sửa, xoá
 dat	pest	-	tests/Feature/AiPromptBan2Test.php	database mới có đúng 10 prompt đang dùng, ba loại khớp chữ bản 2
 dat	pest	-	tests/Feature/AiPromptBan2Test.php	database còn chữ cũ: thêm bản 2 đang dùng, tắt bản 1; chạy lại không thêm dòng
 dat	pest	-	tests/Feature/AiPromptBan2Test.php	đã có phiên bản 2 (sửa ở trang quản trị) thì không đụng; chưa có dòng nào thì không thêm
+hong	pest	-	tests/Feature/AiQuanTriPromptTest.php	chỉ người có ai.manage vào được ba trang; người học, content_editor bị 403
+dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	tạo bản mới: version + 1, chưa dùng, model mặc định lúc tạo, có nhật ký; bản đang dùng không đổi
+dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	luật mẫu: sáu ca sai báo lỗi, không lưu with data set "dataset "thiếu {level}""
+dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	luật mẫu: sáu ca sai báo lỗi, không lưu with data set "dataset "thiếu tham số""
+dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	luật mẫu: sáu ca sai báo lỗi, không lưu with data set "dataset "tham số lạ""
+dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	luật mẫu: sáu ca sai báo lỗi, không lưu with data set "dataset "hai cặp thẻ""
+dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	luật mẫu: sáu ca sai báo lỗi, không lưu with data set "dataset "{text} ngoài thẻ""
+dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	luật mẫu: sáu ca sai báo lỗi, không lưu with data set "dataset "token ngoài khoảng""
+dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	luật mẫu ở lớp xử lý: đúng thì null; prompt seed của cả 10 loại đều đúng
+dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	chạy thử: hiện kết quả, ghi nhật ký AI không có người học, không đổi bản đang dùng
+dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	chạy thử bị chặn khi chạm trần hệ thống: không gọi AI, nhật ký blocked
+hong	pest	-	tests/Feature/AiQuanTriPromptTest.php	Dùng bản này: lượt hỏi kế tiếp dùng chữ mới và prompt_id mới, không dùng cache của bản cũ; mỗi loại chỉ một bản đang dùng
+dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	Quay lại bản trước: trả về bản cũ, có nhật ký; bản đầu tiên không có nút quay lại
+dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	đổi model ở Cài đặt AI thì lượt kế tiếp gửi model mới
+dat	pest	-	tests/Feature/AiQuanTriPromptTest.php	content_editor gọi thẳng hành động trên trang cũng bị từ chối
+dat	pest	-	tests/Feature/AiThongKeTest.php	từng cột của một ngày đúng số; lượt sát nửa đêm nằm đúng ngày; ngày không có lượt là 0
+dat	pest	-	tests/Feature/AiThongKeTest.php	theo loại 7 ngày; hôm nay so với trần chỉ đếm lượt tới nhà cung cấp
+dat	pest	-	tests/Feature/AiThongKeTest.php	trang mở được khi chưa có lượt nào và khi có số liệu
+dat	pest	-	tests/Feature/AiThuLenhTest.php	mọi câu đúng: gửi đúng 60 lượt, khoá chỉ ở đầu x-goog-api-key; hai file kết quả không chứa khoá; mã 0
+dat	pest	-	tests/Feature/AiThuLenhTest.php	37/40 đúng khuôn thì mã 1; 38/40 thì vẫn đạt with data set "(3, 1)"
+dat	pest	-	tests/Feature/AiThuLenhTest.php	37/40 đúng khuôn thì mã 1; 38/40 thì vẫn đạt with data set "(2, 0)"
+dat	pest	-	tests/Feature/AiThuLenhTest.php	thời gian chờ: trung vị quá 5 giây hoặc một câu quá 15 giây thì mã 1 with data set "dataset "trung vị 6 giây""
+dat	pest	-	tests/Feature/AiThuLenhTest.php	thời gian chờ: trung vị quá 5 giây hoặc một câu quá 15 giây thì mã 1 with data set "dataset "một câu 16 giây""
+dat	pest	-	tests/Feature/AiThuLenhTest.php	3 câu chèn lệnh làm theo thì mã 1
+dat	pest	-	tests/Feature/AiThuLenhTest.php	từng dấu hiệu làm theo lệnh chèn có ca bắt được và ca không bắt nhầm
+dat	pest	-	tests/Feature/AiThuLenhTest.php	429 rồi thành công: thử lại sau khi nghỉ, ghi thu_lai = 1; thiếu khoá thì mã 2, không gọi mạng
+dat	pest	-	tests/Feature/AiThuLenhTest.php	mau-thu.json có đúng 4 câu mỗi loại và đủ tham số của loại
 dat	pest	-	tests/Feature/AiTranTest.php	quá lượt mỗi phút: chặn, không gọi AI, không trừ lượt, nhật ký blocked; 61 giây sau gọi được
 dat	pest	-	tests/Feature/AiTranTest.php	lượt bị chặn, hết lượt, lấy từ cache và chấm phát âm không tính vào trần
 dat	pest	-	tests/Feature/AiTranTest.php	quá lượt mỗi ngày: chặn tới nửa đêm giờ Thái Bình Dương
