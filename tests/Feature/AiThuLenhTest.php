@@ -5,6 +5,7 @@ use App\Support\Ai\BoNoi\BoNoiGia;
 use App\Support\Ai\BoNoi\YeuCauAi;
 use App\Support\Ai\KhuonAi;
 use App\Support\Ai\SoanLoiNhac;
+use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Sleep;
@@ -41,7 +42,7 @@ function giaGemini(Closure $chu): void
         $n++;
         $kq = $chu(loaiCuaYeuCau($r), $n, $r);
 
-        return $kq instanceof GuzzleHttp\Promise\PromiseInterface ? $kq : Http::response([
+        return $kq instanceof PromiseInterface ? $kq : Http::response([
             'candidates' => [['content' => ['parts' => [['text' => $kq]]], 'finishReason' => 'STOP']],
             'usageMetadata' => ['promptTokenCount' => 120, 'candidatesTokenCount' => 60],
         ]);

@@ -81,7 +81,7 @@ class AiPromptResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn (Builder $q) => $q->whereNull('deleted_at')->orderBy('kind')->orderByDesc('version'))
+            ->modifyQueryUsing(fn (Builder $query) => $query->whereNull('deleted_at')->orderBy('kind')->orderByDesc('version'))
             ->columns([
                 TextColumn::make('kind')->label('Loại')->formatStateUsing(fn (string $state) => PromptAi::tenLoai($state)),
                 TextColumn::make('version')->label('Phiên bản'),

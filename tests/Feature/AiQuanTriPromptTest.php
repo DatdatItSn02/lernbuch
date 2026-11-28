@@ -114,7 +114,8 @@ it('Dùng bản này: lượt hỏi kế tiếp dùng chữ mới và prompt_id 
     $this->actingAs($hoc);
     giaiThich(theMau('das Brötchen'))->assertOk();
 
-    $this->actingAs(nhanVien('admin'));
+    // Đăng nhập lại ở guard web (lượt API trước đã chuyển guard mặc định sang sanctum)
+    $this->actingAs(nhanVien('admin'), 'web');
     $moi = PromptAi::taoBanMoi($this->word, banMoi());
     Livewire::test(ViewAiPrompt::class, ['record' => $moi->id])->callAction('dung');
 

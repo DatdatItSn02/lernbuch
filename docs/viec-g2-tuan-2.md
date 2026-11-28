@@ -280,3 +280,4 @@ Mỗi quyết định tự chọn ngoài file này ghi một dòng ở đây: ng
 - 28/11, T9: các nút của Prompt nằm ở trang xem một phiên bản (giống trang Job lỗi); luật mẫu kiểm ở ô của form (`PromptAi::loiHeThong`, `loiMauCau`) và lại một lần trong `PromptAi::taoBanMoi`. Lượt hỏi thật và Chạy thử đều dùng model ở Cài đặt AI; cột `model` của prompt chỉ ghi model lúc tạo.
 - 28/11, T10: Thống kê AI là trang Blade (`resources/views/filament/pages/thong-ke-ai.blade.php`) với bảng HTML có `caption`, `th scope`; Nhật ký AI phân trang kiểu đơn giản (`PaginationMode::Simple`).
 - 28/11, T11: `app:ai-thu` gọi thẳng `BoNoiGemini` (không qua tám chặng, không ghi `ai_requests`); nghỉ bằng `Sleep` để test giả được.
+- 28/11, đợt 3: hàm truyền cho Filament (`modifyQueryUsing`, `query` của bộ lọc) phải đặt tên tham số là `$query`: Filament đưa giá trị theo tên, đặt `$q` thì nhận null và trang lỗi 500.

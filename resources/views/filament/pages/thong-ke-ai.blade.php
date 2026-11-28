@@ -22,7 +22,7 @@
         </dl>
     </section>
 
-    <section aria-labelledby="tk-ngay" style="overflow-x: auto">
+    <section aria-labelledby="tk-ngay" tabindex="0" style="overflow-x: auto">
         <h2 id="tk-ngay" style="font-weight: 600; font-size: 1.125rem">30 ngày gần nhất</h2>
         <table style="width: 100%; border-collapse: collapse; margin-top: .5rem; font-size: .875rem">
             <caption style="text-align: left; padding-bottom: .5rem">Mỗi dòng một ngày, mới trước. Thời gian chờ (ms) chỉ tính lượt thành công không lấy từ cache.</caption>
@@ -63,7 +63,7 @@
         </table>
     </section>
 
-    <section aria-labelledby="tk-loai" style="overflow-x: auto">
+    <section aria-labelledby="tk-loai" tabindex="0" style="overflow-x: auto">
         <h2 id="tk-loai" style="font-weight: 600; font-size: 1.125rem">Theo loại, 7 ngày gần nhất</h2>
         @if ($loai === [])
             <p style="margin-top: .5rem">Chưa có lượt hỏi AI nào trong 7 ngày qua.</p>

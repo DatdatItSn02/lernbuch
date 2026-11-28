@@ -94,7 +94,7 @@ class NhatKyAiResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn (Builder $q) => $q->with('user:id,email'))
+            ->modifyQueryUsing(fn (Builder $query) => $query->with('user:id,email'))
             ->paginationMode(PaginationMode::Simple)
             ->columns([
                 TextColumn::make('created_at')->label('Lúc')->formatStateUsing(fn ($state) => self::luc($state)),
@@ -113,7 +113,7 @@ class NhatKyAiResource extends Resource
                 SelectFilter::make('status')->label('Trạng thái')->options(self::TRANG_THAI),
                 Filter::make('ngay')
                     ->schema([DatePicker::make('tu')->label('Từ ngày'), DatePicker::make('den')->label('Đến ngày')])
-                    ->query(fn (Builder $q, array $data) => $q
+                    ->query(fn (Builder $query, array $data) => $query
                         ->when($data['tu'] ?? null, fn (Builder $q, $tu) => $q->where('created_at', '>=', CarbonImmutable::parse((string) $tu, 'Asia/Ho_Chi_Minh')->startOfDay()->getTimestamp()))
                         ->when($data['den'] ?? null, fn (Builder $q, $den) => $q->where('created_at', '<', CarbonImmutable::parse((string) $den, 'Asia/Ho_Chi_Minh')->startOfDay()->addDay()->getTimestamp()))),
             ])
