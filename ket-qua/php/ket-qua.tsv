@@ -203,7 +203,7 @@ dat	pest	-	tests/Feature/AiTuoiDongYTest.php	đủ tuổi tính theo ngày ở m
 dat	pest	-	tests/Feature/AiTuoiDongYTest.php	chưa đồng ý: ai_can_dong_y; đồng ý ghi một dòng consents đủ cột; rút thì khoá ngay; đồng ý lại thì mở
 dat	pest	-	tests/Feature/AiTuoiDongYTest.php	đồng ý bản lời đồng ý cũ coi như chưa đồng ý; gửi sai phiên bản hay thiếu ô thì 422
 dat	pest	-	tests/Feature/AiTuoiDongYTest.php	ô Tuổi tối thiểu đặt 16 trong database: vẫn dùng 18
-hong	pest	-	tests/Feature/AiTuoiDongYTest.php	trang người học: có users.manage thì sửa được ngày sinh, có nhật ký kèm lý do; thiếu quyền thì không thấy nút
+dat	pest	-	tests/Feature/AiTuoiDongYTest.php	trang người học: có users.manage thì sửa được ngày sinh, có nhật ký kèm lý do; thiếu quyền thì không thấy nút
 dat	pest	-	tests/Feature/AmThanhTest.php	tên file khớp công cụ Python: chuẩn hoá NFC và khoảng trắng, sha1(giọng|normal|chữ), thư mục theo 2 ký tự đầu
 dat	pest	-	tests/Feature/AmThanhTest.php	chữ đem đi đọc: bỏ phần trong ngoặc, "/" đọc thành dấu phẩy, gộp khoảng trắng with data set "dataset "danh từ""
 dat	pest	-	tests/Feature/AmThanhTest.php	chữ đem đi đọc: bỏ phần trong ngoặc, "/" đọc thành dấu phẩy, gộp khoảng trắng with data set "dataset "ghi chú trong ngoặc""
@@ -336,6 +336,7 @@ dat	pest	-	tests/Feature/NgonNguTest.php	chọn ngôn ngữ chưa có bản dị
 dat	pest	-	tests/Feature/NgonNguTest.php	ngôn ngữ đã bật nhưng còn thiếu bản dịch: chữ thiếu hiện tiếng Việt, không bao giờ hiện mã khoá
 dat	pest	-	tests/Feature/NgonNguTest.php	bài ngữ pháp và bộ bài tập có ngôn ngữ giải thích, mặc định tiếng Việt; cùng slug được có bản giải thích khác
 dat	pest	-	tests/Feature/NguoiHocThuSeederTest.php	tạo tài khoản chung, tài khoản học riêng cho mỗi cỡ màn hình và một nhân viên quản trị, đã xác minh; chạy lại không nhân đôi
+dat	pest	-	tests/Feature/NguoiHocThuSeederTest.php	tài khoản AI (12, 13) trong danh sách thử, chạy lại thì về lúc chưa khai ngày sinh, chưa đồng ý, chưa hỏi; AI bật cho danh sách thử
 dat	pest	-	tests/Feature/NguoiHocThuSeederTest.php	không tạo gì trên máy chủ thật, kể cả khi chạy db:seed --force
 dat	pest	-	tests/Feature/NhapLernbuchTest.php	chạy thử: đếm đúng theo loại, nguồn, cấp; bỏ thẻ đã tắt và dòng rỗng; không ghi gì
 dat	pest	-	tests/Feature/NhapLernbuchTest.php	ghi: thẻ, chủ đề 3 tầng, nghĩa, câu ví dụ, dạng từ, ngữ pháp, bài tập, động từ đúng nội dung
