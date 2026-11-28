@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Support\LuyenTap\BaiTap;
 use App\Support\LuyenTap\DienCau;
+use App\Support\LuyenTap\VietCau;
 use App\Support\NoiDung;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -89,5 +90,17 @@ class BaiTapController extends Controller
         ]);
 
         return response()->json(['data' => DienCau::phien($user, NoiDung::docCap($hopLe['cap'] ?? null), (int) ($hopLe['n'] ?? 15))]);
+    }
+
+    /** Thẻ để đặt câu ở dạng Viết câu (AI chấm ở POST ai/viet-cau): 3 đến 10 thẻ, mặc định 5. */
+    public function vietCau(Request $request): JsonResponse
+    {
+        $user = $this->nguoiDung($request);
+        $hopLe = $request->validate([
+            'cap' => ['sometimes', 'nullable', 'string', 'max:20'],
+            'n' => ['sometimes', 'integer', 'min:1', 'max:1000'],
+        ]);
+
+        return response()->json(['data' => VietCau::phien($user, NoiDung::docCap($hopLe['cap'] ?? null), (int) ($hopLe['n'] ?? 5))]);
     }
 }

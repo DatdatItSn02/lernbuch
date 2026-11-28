@@ -63,6 +63,14 @@ final class BoNhoAi
         return $kq;
     }
 
+    /** Đọc một mục theo khoá, không tính là một lần dùng, kể cả khi đã hết hạn (bài học AI đã lưu). @return array<string, mixed>|null */
+    public static function theoHash(string $khoa): ?array
+    {
+        $kq = json_decode((string) DB::table('ai_cache')->where('hash', $khoa)->value('response'), true);
+
+        return is_array($kq) ? $kq : null;
+    }
+
     /** Lưu (ghi đè mục cũ, kể cả mục đã hết hạn). @param array<string, mixed> $kq */
     public static function luu(string $khoa, string $loai, array $kq): void
     {

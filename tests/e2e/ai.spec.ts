@@ -21,6 +21,8 @@ function ghiLoi(page: Page) {
 
 /** Sáng rồi tối (đổi data-theme ngay trên trang, giữ nguyên trạng thái đang có): axe, tràn ngang; chụp ảnh khi chạy [anh]. */
 async function kiem(page: Page, info: TestInfo, ten: string) {
+    // Đổi giao diện ngay trên trang: tắt hiệu ứng chuyển màu, không thì axe đo màu đang chuyển dở (lỗi tương phản giả)
+    await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; animation: none !important; }' });
     for (const theme of ['light', 'dark'] as const) {
         await page.evaluate((t) => (document.documentElement.dataset.theme = t), theme);
         const { violations } = await new AxeBuilder({ page }).withTags(WCAG).analyze();

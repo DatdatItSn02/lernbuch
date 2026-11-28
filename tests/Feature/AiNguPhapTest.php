@@ -19,7 +19,7 @@ it('giải thích phần 1 (Bảng mạo từ): chữ gửi đi có bảng và p
 
     $gui = aiGia()->daNhan[0]->nguoiDung;
     expect($gui)->toContain('Bảng mạo từ')
-        ->toContain(' | giống đực | giống cái | giống trung')
+        ->toContain('| giống đực | giống cái | giống trung')
         ->toContain('Nominativ | der | die | das')
         ->toContain('Học danh từ luôn kèm mạo từ')
         ->not->toContain('Das Brot ist frisch')

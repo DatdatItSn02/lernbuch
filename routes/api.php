@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AiBaiHocController;
 use App\Http\Controllers\Api\V1\AiController;
+use App\Http\Controllers\Api\V1\AiTroChuyenController;
 use App\Http\Controllers\Api\V1\BaiTapController;
 use App\Http\Controllers\Api\V1\CaiDatController;
 use App\Http\Controllers\Api\V1\DongTuController;
@@ -54,6 +56,7 @@ Route::prefix('v1')->middleware(['khach-xem-thu', 'auth:sanctum', 'con-hoat-dong
     Route::get('bai-tap/phien', [BaiTapController::class, 'phien']);
     Route::post('bai-tap/ket-qua', [BaiTapController::class, 'ketQua']);
     Route::get('bai-tap/dien-cau', [BaiTapController::class, 'dienCau']);
+    Route::get('bai-tap/viet-cau', [BaiTapController::class, 'vietCau']);
     Route::get('dong-tu', [DongTuController::class, 'index']);
     Route::get('dong-tu/luyen', [DongTuController::class, 'luyen']);
 
@@ -73,4 +76,15 @@ Route::prefix('v1')->middleware(['khach-xem-thu', 'auth:sanctum', 'con-hoat-dong
     Route::post('ai/ngu-phap/giai-thich', [AiController::class, 'giaiThichNguPhap']);
     Route::post('ai/ngu-phap/hoi', [AiController::class, 'hoiNguPhap']);
     Route::post('ai/kiem-dap-an', [AiController::class, 'kiemDapAn']);
+    Route::post('ai/viet-cau', [AiController::class, 'vietCau']);
+    Route::get('ai/tro-chuyen', [AiTroChuyenController::class, 'index']);
+    Route::post('ai/tro-chuyen', [AiTroChuyenController::class, 'store']);
+    Route::get('ai/tro-chuyen/{ma}', [AiTroChuyenController::class, 'show'])->where('ma', '[0-9A-HJKMNP-TV-Z]{26}');
+    Route::post('ai/tro-chuyen/{ma}/tin', [AiTroChuyenController::class, 'gui'])->where('ma', '[0-9A-HJKMNP-TV-Z]{26}');
+    Route::delete('ai/tro-chuyen/{ma}', [AiTroChuyenController::class, 'destroy'])->where('ma', '[0-9A-HJKMNP-TV-Z]{26}');
+    Route::get('ai/bai-hoc', [AiBaiHocController::class, 'index']);
+    Route::post('ai/bai-hoc', [AiBaiHocController::class, 'store']);
+    Route::get('ai/bai-hoc/{id}', [AiBaiHocController::class, 'show'])->whereNumber('id');
+    Route::put('ai/bai-hoc/{id}/ket-qua', [AiBaiHocController::class, 'ketQua'])->whereNumber('id');
+    Route::delete('ai/bai-hoc/{id}', [AiBaiHocController::class, 'destroy'])->whereNumber('id');
 });

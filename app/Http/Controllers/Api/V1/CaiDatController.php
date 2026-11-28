@@ -30,7 +30,12 @@ class CaiDatController extends Controller
             'season' => ['sometimes', 'required', Rule::in(['auto', 'spring', 'summer', 'autumn', 'winter'])],
             'meaning_langs' => ['sometimes', 'present', 'array', 'max:10'],
             'meaning_langs.*' => ['string', 'distinct', Rule::in(KhoaHoc::ngonNguNghia(KhoaHoc::hienTai($user)))],
+            'ai_auto_explain' => ['sometimes', 'required', 'boolean'],
         ]);
+
+        if (array_key_exists('ai_auto_explain', $hopLe)) {
+            $hopLe['ai_auto_explain'] = (bool) $hopLe['ai_auto_explain'];
+        }
 
         if (array_key_exists('meaning_langs', $hopLe)) {
             $hopLe['meaning_langs'] = array_values($hopLe['meaning_langs']);

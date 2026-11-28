@@ -41,7 +41,7 @@ it('database còn chữ cũ: thêm bản 2 đang dùng, tắt bản 1; chạy l�
 });
 
 it('đã có phiên bản 2 (sửa ở trang quản trị) thì không đụng; chưa có dòng nào thì không thêm', function () {
-    DB::table('ai_prompts')->where('kind', 'lesson')->update(['user_template' => 'cũ {level} {topic} {words}']);
+    DB::table('ai_prompts')->where('kind', 'lesson')->update(['user_template' => 'cũ {level} {topic} {words}', 'is_active' => 0]);
     DB::table('ai_prompts')->insert(['kind' => 'lesson', 'version' => 2, 'model' => 'm', 'system_prompt' => 's {level} JSON', 'user_template' => 'của quản trị {level} <input>{topic} {words}</input>', 'max_tokens' => 900, 'temperature' => 0.3, 'is_active' => 1, 'created_at' => 1]);
     DB::table('ai_prompts')->where('kind', 'lookup')->delete();
 

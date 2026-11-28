@@ -14,6 +14,7 @@ use App\Support\LuyenTap\NguPhap;
 use App\Support\NoiDung;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use stdClass;
@@ -155,6 +156,36 @@ class AiController extends Controller
             'text' => $chu,
             'level' => TrinhDoAi::cua($user, self::cap($the)),
         ], $chu, 'card', $id));
+    }
+
+    /** Viết câu: AI chấm câu người học đặt với một từ (đúng, gần đúng, sai). Mọi lượt chấm được lưu vào writing_submissions. */
+    public function vietCau(Request $request): JsonResponse
+    {
+        $user = $this->nguoiDung($request);
+        $hopLe = $request->validate(['card_id' => ['required', 'integer', 'min:1'], 'text' => ChuNhap::luat(200)]);
+        $the = NoiDung::cacThe($user)->where('cards.id', (int) $hopLe['card_id'])->first() ?? abort(404);
+        $id = (int) $the->id;
+        $chu = ChuNhap::sach((string) $hopLe['text']);
+
+        $kq = HoiAi::hoiKem($user, 'sentence', [
+            'word' => (string) $the->front,
+            'meaning' => NoiDung::nghia([$id])[$id]['vi'] ?? '?',
+            'text' => $chu,
+            'level' => TrinhDoAi::cua($user, self::cap($the)),
+        ], $chu, 'card', $id);
+
+        $luu = (int) DB::table('writing_submissions')->insertGetId([
+            'user_id' => $user->id,
+            'card_id' => $id,
+            'kind' => 'sentence',
+            'content' => $chu,
+            'verdict' => (string) $kq['data']['verdict'],
+            'result' => json_encode($kq['data'], JSON_UNESCAPED_UNICODE),
+            'ai_request_id' => $kq['request_id'],
+            'created_at' => now()->getTimestamp(),
+        ]);
+
+        return response()->json(['data' => $kq['data'], 'meta' => $kq['meta'], 'saved' => ['id' => $luu]]);
     }
 
     private static function cap(stdClass $the): ?int

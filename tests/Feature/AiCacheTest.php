@@ -92,3 +92,18 @@ it('kết quả hỏng không được lưu; bốn loại chứa chữ riêng c�
         expect(BoNhoAi::duocLuu($loai))->toBeTrue();
     }
 });
+
+it('qua API: Dịch, Sửa ngữ pháp, Trò chuyện, câu hỏi tự do gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache', function (string $ten) {
+    (new NoiDungThuSeeder)->taoLuyenTap();
+    $user = nguoiHocAi();
+    $this->actingAs($user);
+    $d = duongAi($ten, $user);
+
+    $this->postJson($d['url'], $d['than'])->assertOk()->assertJsonPath('meta.cached', false);
+    $lan2 = $this->postJson($d['url'], $d['than'])->assertOk();
+
+    $khongLuu = in_array($d['loai'], ['translate', 'grammar', 'chat', 'ask'], true);
+    expect($lan2->json('meta.cached'))->toBe(! $khongLuu)
+        ->and(aiGia()->daNhan)->toHaveCount($khongLuu ? 2 : 1)
+        ->and(DB::table('ai_cache')->where('kind', $d['loai'])->count())->toBe($khongLuu ? 0 : 1);
+})->with(DUONG_AI);

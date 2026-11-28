@@ -127,3 +127,39 @@ function dongAi(?User $user, int $soDong, array $doi = []): void
         ]);
     }
 }
+
+/** Tên mười đường gọi AI (dùng làm dataset); chi tiết từng đường ở duongAi(). */
+const DUONG_AI = ['giai-thich-tu', 'dich', 'sua-ngu-phap', 'tra-tu', 'ngu-phap-giai-thich', 'ngu-phap-hoi', 'kiem-dap-an', 'viet-cau', 'tro-chuyen', 'bai-hoc'];
+
+/**
+ * Một đường gọi AI kèm thân hợp lệ, ô chữ người học gõ và giới hạn (null nếu đường không có ô chữ), loại prompt.
+ * Cần seed nội dung mẫu: (new NoiDungThuSeeder)->tao()->taoLuyenTap(). Trò chuyện: tạo sẵn một cuộc của $user.
+ *
+ * @return array{url: string, than: array<string, mixed>, o: string|null, toiDa: int|null, loai: string}
+ */
+function duongAi(string $ten, User $user): array
+{
+    $brot = (int) DB::table('cards')->where('front', 'das Brot')->value('id');
+
+    return match ($ten) {
+        'giai-thich-tu' => ['url' => '/api/v1/ai/giai-thich-tu', 'than' => ['card_id' => $brot], 'o' => null, 'toiDa' => null, 'loai' => 'word'],
+        'dich' => ['url' => '/api/v1/ai/dich', 'than' => ['text' => 'Tôi muốn uống cà phê.', 'target' => 'de'], 'o' => 'text', 'toiDa' => 500, 'loai' => 'translate'],
+        'sua-ngu-phap' => ['url' => '/api/v1/ai/sua-ngu-phap', 'than' => ['text' => 'Ich bin gestern gegangt.'], 'o' => 'text', 'toiDa' => 800, 'loai' => 'grammar'],
+        'tra-tu' => ['url' => '/api/v1/ai/tra-tu', 'than' => ['text' => 'Fernweh'], 'o' => 'text', 'toiDa' => 60, 'loai' => 'lookup'],
+        'ngu-phap-giai-thich' => ['url' => '/api/v1/ai/ngu-phap/giai-thich', 'than' => ['slug' => 'g-A1-22', 'section' => 0], 'o' => null, 'toiDa' => null, 'loai' => 'doc'],
+        'ngu-phap-hoi' => ['url' => '/api/v1/ai/ngu-phap/hoi', 'than' => ['slug' => 'g-A1-22', 'question' => 'Vì sao là das Brot?'], 'o' => 'question', 'toiDa' => 300, 'loai' => 'ask'],
+        'kiem-dap-an' => ['url' => '/api/v1/ai/kiem-dap-an', 'than' => ['card_id' => $brot, 'text' => 'die Semmel'], 'o' => 'text', 'toiDa' => 200, 'loai' => 'answer'],
+        'viet-cau' => ['url' => '/api/v1/ai/viet-cau', 'than' => ['card_id' => $brot, 'text' => 'Ich esse Brot.'], 'o' => 'text', 'toiDa' => 200, 'loai' => 'sentence'],
+        'tro-chuyen' => ['url' => '/api/v1/ai/tro-chuyen/'.cuocTroChuyen($user).'/tin', 'than' => ['text' => 'Ich möchte ein Wasser.'], 'o' => 'text', 'toiDa' => 300, 'loai' => 'chat'],
+        'bai-hoc' => ['url' => '/api/v1/ai/bai-hoc', 'than' => ['topic' => 'Ăn uống', 'level' => 'A1', 'words' => ['das Brot']], 'o' => 'topic', 'toiDa' => 60, 'loai' => 'lesson'],
+    };
+}
+
+/** Tạo một cuộc trò chuyện (thẳng vào database, không qua cổng AI); trả mã công khai. */
+function cuocTroChuyen(User $user, string $tinhHuong = 'restaurant'): string
+{
+    $ma = (string) Str::ulid();
+    DB::table('ai_conversations')->insert(['public_id' => $ma, 'user_id' => $user->id, 'scenario' => $tinhHuong, 'level' => 'A1', 'message_count' => 0, 'created_at' => now()->getTimestamp()]);
+
+    return $ma;
+}

@@ -172,9 +172,9 @@ it('JSON Schema của 10 loại: boolean, integer, enum đúng chỗ; giống c�
 });
 
 it('loại có trong danh sách không gửi khuôn thì jsonSchema trả null, khuôn vẫn kiểm', function () {
-    expect(KhuonAi::KHONG_GUI_KHUON)->toBeArray();
+    expect(KhuonAi::khongGuiKhuon())->toBeArray();
 
-    foreach (KhuonAi::KHONG_GUI_KHUON as $loai) {
+    foreach (KhuonAi::khongGuiKhuon() as $loai) {
         expect(KhuonAi::jsonSchema($loai))->toBeNull()
             ->and(KhuonAi::doc($loai, json_encode(mauGia($loai))))->not->toBeNull();
     }

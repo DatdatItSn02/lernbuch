@@ -101,7 +101,7 @@ final class BoNoiGia implements BoNoiAi
             ],
             'chat' => [
                 'reply_de' => 'Sehr gut! Und was möchten Sie trinken?',
-                'reply_vi' => 'Rất tốt! Bạn muốn uống gì?',
+                'reply_vi' => 'Rất tốt! Bạn muốn uống gì? (AI giả)',
                 'corrections' => [['wrong' => 'Ich heißen', 'right' => 'Ich heiße', 'why' => 'Ngôi ich chia heiße.']],
                 'next_hint' => 'Ich möchte einen Kaffee, bitte.',
             ],

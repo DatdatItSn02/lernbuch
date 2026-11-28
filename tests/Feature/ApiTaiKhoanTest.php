@@ -201,3 +201,14 @@ it('đoán trình duyệt và loại máy từ User-Agent', function (string $ua
     'Android máy tính bảng' => ['Mozilla/5.0 (Linux; Android 13; SM-X710) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36', 'Chrome', 'Android', 'tablet'],
     'trống' => ['', null, null, 'desktop'],
 ]);
+
+it('tuỳ chọn AI tự giải thích khi sai: mặc định tắt, lưu được, giá trị không phải true/false thì 422', function () {
+    $this->seed();
+    $this->actingAs(User::factory()->create());
+
+    $this->getJson('/api/v1/toi/cai-dat')->assertOk()->assertJsonPath('data.ai_auto_explain', false);
+    $this->putJson('/api/v1/toi/cai-dat', ['ai_auto_explain' => true])->assertOk()->assertJsonPath('data.ai_auto_explain', true);
+    $this->putJson('/api/v1/toi/cai-dat', ['ai_auto_explain' => 'co'])->assertUnprocessable()->assertJsonValidationErrors('ai_auto_explain');
+    $this->putJson('/api/v1/toi/cai-dat', ['theme' => 'dark'])->assertOk()->assertJsonPath('data.ai_auto_explain', true);
+    $this->getJson('/api/v1/toi')->assertJsonPath('data.settings.ai_auto_explain', true);
+});

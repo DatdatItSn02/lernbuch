@@ -26,10 +26,12 @@ class UserSetting extends Model
         'font_size' => 'md',
         'season' => 'auto',
         'meaning_langs' => ['vi', 'en', 'zh'],
+        // AI tự giải thích khi trả lời sai (mỗi lần sai tốn một lượt AI): mặc định tắt
+        'ai_auto_explain' => false,
     ];
 
     /** Các khoá lưu trong cột prefs; còn lại là cột riêng. */
-    public const TRONG_PREFS = ['theme', 'font_size', 'season', 'meaning_langs'];
+    public const TRONG_PREFS = ['theme', 'font_size', 'season', 'meaning_langs', 'ai_auto_explain'];
 
     protected $primaryKey = 'user_id';
 
@@ -54,7 +56,7 @@ class UserSetting extends Model
     /**
      * Cài đặt đầy đủ của một người: giá trị đã lưu, thiếu thì lấy mặc định.
      *
-     * @return array{new_per_session: int, daily_goal: int, theme: string, font_size: string, season: string, meaning_langs: list<string>}
+     * @return array{new_per_session: int, daily_goal: int, theme: string, font_size: string, season: string, meaning_langs: list<string>, ai_auto_explain: bool}
      */
     public static function cua(User $user): array
     {
@@ -73,7 +75,7 @@ class UserSetting extends Model
             }
         }
 
-        /** @var array{new_per_session: int, daily_goal: int, theme: string, font_size: string, season: string, meaning_langs: list<string>} $kq */
+        /** @var array{new_per_session: int, daily_goal: int, theme: string, font_size: string, season: string, meaning_langs: list<string>, ai_auto_explain: bool} $kq */
         return $kq;
     }
 

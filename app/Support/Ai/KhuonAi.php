@@ -90,6 +90,12 @@ final class KhuonAi
     /** Loại không gửi khuôn cho nhà cung cấp (Google từ chối khuôn đó, xem ai-thu); khuôn vẫn được kiểm ở máy chủ. */
     public const KHONG_GUI_KHUON = [];
 
+    /** @return list<string> */
+    public static function khongGuiKhuon(): array
+    {
+        return self::KHONG_GUI_KHUON;
+    }
+
     /** @return array<string, mixed>|null kết quả đã làm sạch, hoặc null nếu hỏng hay loại chưa có khuôn */
     public static function doc(string $loai, string $chu): ?array
     {
@@ -118,7 +124,7 @@ final class KhuonAi
     /** @return array<string, mixed>|null JSON Schema để nhà cung cấp trả đúng khuôn (không có giới hạn độ dài: Google có thể từ chối khuôn phức tạp) */
     public static function jsonSchema(string $loai): ?array
     {
-        if (! isset(self::KHUON[$loai]) || in_array($loai, self::KHONG_GUI_KHUON, true)) {
+        if (! isset(self::KHUON[$loai]) || in_array($loai, self::khongGuiKhuon(), true)) {
             return null;
         }
 

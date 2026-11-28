@@ -210,17 +210,17 @@ Làm theo thứ tự. Mỗi đợt một lần đẩy. Trong lúc CI chạy thì
 
 ### Đợt 2: các chức năng có lưu, và test phủ cả 10 chức năng
 
-- [ ] **T5. Trò chuyện.** Hai model, `TroChuyenAi`, `AiTroChuyenController`, năm đường (1.6).
+- [x] **T5. Trò chuyện.** Hai model, `TroChuyenAi`, `AiTroChuyenController`, năm đường (1.6).
   - `AiTroChuyenTest` (mục 11, và phần xoá của mục 8): đọc, gửi, xoá cuộc của người khác, mã không có, mã sai dạng đều 404 và không gọi AI; cuộc có 40 tin thì chữ AI nhận có đúng tin 31 đến 40 theo thứ tự, không có tin 30; tin dài bị cắt 300 ký tự trong `{history}`; gửi thành công lưu 2 dòng, đúng `request_id`, `message_count`, `title`; AI lỗi thì không lưu dòng nào; cuộc thứ 51 và tin vượt 200 bị từ chối đúng mã; xoá thì hết dòng ở hai bảng và `input_excerpt` của các lượt đó thành rỗng; danh sách chỉ có cuộc của mình, mới trước; người đã rút đồng ý vẫn đọc và xoá được, gửi thì bị `ai_can_dong_y`.
-- [ ] **T6. Bài học AI.** Model, `BaiHocAi`, `AiBaiHocController`, năm đường (1.7).
+- [x] **T6. Bài học AI.** Model, `BaiHocAi`, `AiBaiHocController`, năm đường (1.7).
   - `AiBaiHocTest`: tạo bài lưu đúng dòng; cùng đầu vào lần hai không gọi AI, không thêm dòng; hai người cùng đầu vào dùng chung cache nhưng mỗi người một dòng; 11 từ, từ có ký hiệu, trình độ lạ 422; bài của người khác 404 ở đọc, ghi điểm, xoá; điểm ngoài 0 đến 100 thì 422; sau `app:ai-don` và sau 91 ngày bài vẫn đọc được; xoá bài không xoá mục cache.
-- [ ] **T7. Viết câu và tuỳ chọn tự giải thích.** Model, `VietCau`, hai đường; `ai_auto_explain` ở `UserSetting`, `CaiDatController`.
+- [x] **T7. Viết câu và tuỳ chọn tự giải thích.** Model, `VietCau`, hai đường; `ai_auto_explain` ở `UserSetting`, `CaiDatController`.
   - `AiVietCauTest`: lưu dòng `writing_submissions` đủ cột; lượt từ cache cũng lưu; thẻ không xem được 404; `GET bai-tap/viet-cau` trả đúng số thẻ, `n` ngoài khoảng bị kéo về khoảng. Thêm ca `ai_auto_explain` vào test cài đặt đang có (mặc định `false`, lưu được, giá trị không phải boolean 422).
-- [ ] **T8. Test phủ cả 10 chức năng.** Đặt một bảng dùng chung trong `tests/Pest.php`: `cacDuongAi()` trả 10 đường gọi AI kèm thân hợp lệ, ô chữ và giới hạn (ô trống với đường không có chữ).
+- [x] **T8. Test phủ cả 10 chức năng.** Đặt một bảng dùng chung trong `tests/Pest.php`: `cacDuongAi()` trả 10 đường gọi AI kèm thân hợp lệ, ô chữ và giới hạn (ô trống với đường không có chữ).
   - `AiChucNangTest` (mục 10): với từng đường: thân hợp lệ trả đúng khuôn, `meta`, nhật ký đúng `kind`; ô rỗng và toàn dấu cách 422; đúng giới hạn thì qua, giới hạn + 1 thì 422; toàn ký hiệu (`?!… 123 🙂`) 422; dán 10.000 ký tự 422; mọi ca 422 không gọi AI và không ghi `ai_requests`; chuỗi có `<script>` trong kết quả được trả nguyên văn.
   - `AiCongTest` (phần "cả 10 chức năng" của mục 6, 7): từng đường × năm ca (công tắc tắt, ngoài danh sách thử, chưa khai ngày sinh, chưa đủ tuổi, chưa đồng ý) trả đúng mã và không gọi AI; tắt công tắc giữa hai lượt thì lượt sau bị chặn.
   - Thêm vào `AiDuLieuGuiTest` (mục 8): chữ bộ nối nhận ở cả 10 đường không có tên, email, `public_id`; `{history}` không có tin của cuộc khác. Thêm vào `AiCacheTest` (mục 9): `translate`, `grammar`, `chat`, `ask` gọi hai lần là hai lượt thật; sáu loại còn lại lần hai lấy từ cache.
-- [ ] **Đẩy đợt 2.**
+- [x] **Đẩy đợt 2.**
 
 ### Đợt 3: quản trị, thử model thật, khoá trong deploy
 
@@ -275,3 +275,5 @@ Còn lại cho tuần sau: chấm phát âm trong mục 6, 7, 8 (tuần 3); cả
 Mỗi quyết định tự chọn ngoài file này ghi một dòng ở đây: ngày, việc, chọn gì, vì sao.
 
 - 28/11 (Fable, lúc soạn file): Viết câu chưa cộng xu và chưa ghi `exercise_runs`, vì điểm do AI chấm; kết quả Kiểm đáp án không đổi điểm của câu; Thống kê AI tính ngày theo giờ Thái Bình Dương cho khớp trần của Google; lượt "Chạy thử" của quản trị tính vào trần hệ thống nhưng không vào hạn mức của ai; cột `ai_messages.corrections` của tin AI chứa cả nghĩa tiếng Việt và gợi ý (không thêm cột).
+- 28/11, đợt 1: `tests/e2e/ai.spec.ts` tắt hiệu ứng chuyển màu trước khi đo axe: đổi giao diện ngay trên trang thì nút có `transition-colors` còn đang chuyển màu, axe báo lỗi tương phản giả ở giao diện tối.
+- 28/11, T8: bảng mười đường gọi AI là `DUONG_AI` và `duongAi($ten, $user)` trong `tests/Pest.php`; `AiChucNangTest`, `AiCongTest`, `AiCacheTest`, `AiDuLieuGuiTest` dùng chung.

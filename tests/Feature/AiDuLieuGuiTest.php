@@ -81,3 +81,16 @@ it('app:ai-don: xoá trắng đoạn trích quá 30 ngày (giữ dòng), xoá ca
 it('app:ai-don có trong lịch chạy mỗi ngày', function () {
     $this->artisan('schedule:list')->assertSuccessful()->expectsOutputToContain('app:ai-don');
 });
+
+it('cả 10 đường gọi AI: chữ gửi đi không có tên, email, mã tài khoản của người học', function (string $ten) {
+    (new NoiDungThuSeeder)->taoLuyenTap();
+    $user = nguoiDeNhan();
+    $this->actingAs($user);
+    $d = duongAi($ten, $user);
+
+    $this->postJson($d['url'], $d['than'])->assertOk();
+
+    $yc = aiGia()->daNhan[0];
+    $chu = $yc->heThong.$yc->nguoiDung.json_encode($yc->thamSo, JSON_UNESCAPED_UNICODE);
+    expect($chu)->not->toContain('Rất Dễ Nhận')->not->toContain('rat-de-nhan')->not->toContain($user->public_id)->not->toContain((string) $user->id.'@');
+})->with(DUONG_AI);
