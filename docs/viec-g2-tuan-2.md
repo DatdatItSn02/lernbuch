@@ -287,3 +287,4 @@ Mỗi quyết định tự chọn ngoài file này ghi một dòng ở đây: ng
 - 28/11, T13: `useHoiAi`, `TrangThaiHoi`, `ConLuotAi`, các khối kết quả nằm ở `components/ai/KetQuaAi.tsx`; `TabHoiAi` dùng lại chúng và xuất `GiaiThich` (có `tuDong`) cho phiên học. Lỗi 422 không có nút Thử lại.
 - 28/11, T15: Kiểm đáp án chỉ gắn vào câu `fill`, `fix` của bộ bài tập (`CauChay.ai`), không gắn vào Điền câu (đáp án là một chữ trong câu ví dụ) và Chia động từ; trong phiên luyện gõ thì kiểm theo thẻ. Viết câu nằm trong khung app (có thanh điều hướng).
 - 28/11, T16: `NguoiHocThuSeeder` nới trần hệ thống (1.000 lượt mỗi phút) cho test trình duyệt; tài khoản 14, 15 có sẵn ngày sinh và đồng ý.
+- 28/11, ai-thu: đã đẩy `ai/thu` một lần (run 46144040152), dừng ở "Chưa có GEMINI_API_KEY" (exit 2). Đang chờ người dùng thêm secret `GEMINI_API_KEY`; sau đó đẩy lại `ai/thu` hoặc bấm workflow `ai-thu`, đọc `ai-thu/ket-qua.md` trên `ci-results`.
