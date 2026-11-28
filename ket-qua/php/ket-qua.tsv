@@ -86,6 +86,48 @@ dat	pest	-	tests/Feature/AdminAccessTest.php	trang đăng nhập quản trị m�
 dat	pest	-	tests/Feature/AdminAccessTest.php	người học thường không vào được trang quản trị
 dat	pest	-	tests/Feature/AdminAccessTest.php	nhân viên đang hoạt động vào được trang quản trị
 dat	pest	-	tests/Feature/AdminAccessTest.php	nhân viên bị khoá không vào được trang quản trị
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: đúng địa chỉ, khoá ở đầu x-goog-api-key (không ở URL), thân chỉ có ba phần, khuôn JSON qua responseFormat
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: ghép chữ, bỏ phần suy nghĩ, đọc đúng ba số token
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: thiếu số token thì coi là 0; khuôn null thì không gửi schema
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: lỗi HTTP được phân loại; thông điệp không chứa khoá hay thân trả lời with data set "(429, 'tam_thoi')"
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: lỗi HTTP được phân loại; thông điệp không chứa khoá hay thân trả lời with data set "(500, 'tam_thoi')"
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: lỗi HTTP được phân loại; thông điệp không chứa khoá hay thân trả lời with data set "(502, 'tam_thoi')"
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: lỗi HTTP được phân loại; thông điệp không chứa khoá hay thân trả lời with data set "(503, 'tam_thoi')"
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: lỗi HTTP được phân loại; thông điệp không chứa khoá hay thân trả lời with data set "(504, 'tam_thoi')"
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: lỗi HTTP được phân loại; thông điệp không chứa khoá hay thân trả lời with data set "(400, 'cau_hinh')"
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: lỗi HTTP được phân loại; thông điệp không chứa khoá hay thân trả lời with data set "(401, 'cau_hinh')"
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: lỗi HTTP được phân loại; thông điệp không chứa khoá hay thân trả lời with data set "(403, 'cau_hinh')"
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: lỗi HTTP được phân loại; thông điệp không chứa khoá hay thân trả lời with data set "(404, 'cau_hinh')"
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: đứt mạng hay hết giờ là lỗi tạm thời
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: thiếu khoá là lỗi cấu hình và không gọi HTTP
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: câu hỏi hay câu trả lời bị chặn vì an toàn with data set "dataset "blockReason""
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: câu hỏi hay câu trả lời bị chặn vì an toàn with data set "dataset "không có câu trả lời""
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: câu hỏi hay câu trả lời bị chặn vì an toàn with data set "dataset "SAFETY""
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: câu hỏi hay câu trả lời bị chặn vì an toàn with data set "dataset "PROHIBITED_CONTENT""
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini: câu hỏi hay câu trả lời bị chặn vì an toàn with data set "dataset "RECITATION""
+dat	pest	-	tests/Feature/AiBoNoiTest.php	OpenAI tương thích: đúng đường, đầu Bearer, đọc đúng chữ và token; lỗi phân loại như Gemini
+dat	pest	-	tests/Feature/AiBoNoiTest.php	AI giả: theo kịch bản, hết kịch bản thì trả mẫu đúng khuôn có chứa từ đang hỏi; ghi lại mọi yêu cầu
+dat	pest	-	tests/Feature/AiBoNoiTest.php	AI giả không chạy ở production
+dat	pest	-	tests/Feature/AiBoNoiTest.php	chọn bộ nối: AI_DRIVER thắng ô Nhà cung cấp; thiếu khoá ngoài production thì dùng AI giả; ở production là lỗi cấu hình
+dat	pest	-	tests/Feature/AiChenLenhTest.php	có 20 mẫu chèn lệnh: 5 kiểu ở 3 thứ tiếng và 5 biến thể đóng thẻ
+dat	pest	-	tests/Feature/AiChenLenhTest.php	mỗi mẫu ghép vào 8 loại prompt có {text}: đúng một cặp thẻ, không còn thẻ giả, prompt hệ thống chỉ đổi {level}
+dat	pest	-	tests/Feature/AiChenLenhTest.php	tham số không thuộc loại thì bị bỏ qua; chữ có {meaning} không bị thay lần nữa; ký tự điều khiển bị bỏ
+dat	pest	-	tests/Feature/AiChenLenhTest.php	thiếu trình độ thì dùng A1; thiếu tham số thì để trống
+dat	pest	-	tests/Feature/AiChenLenhTest.php	giữ tab và xuống dòng; vô hiệu thẻ viết hoa, có dấu cách, có thuộc tính
+dat	pest	-	tests/Feature/AiKhuonTest.php	kết quả đúng khuôn được nhận và giữ nguyên chữ
+dat	pest	-	tests/Feature/AiKhuonTest.php	các dạng hỏng bị bỏ with data set "dataset "chữ thường""
+dat	pest	-	tests/Feature/AiKhuonTest.php	các dạng hỏng bị bỏ with data set "dataset "JSON thiếu trường""
+dat	pest	-	tests/Feature/AiKhuonTest.php	các dạng hỏng bị bỏ with data set "dataset "sai kiểu""
+dat	pest	-	tests/Feature/AiKhuonTest.php	các dạng hỏng bị bỏ with data set "dataset "chuỗi quá dài""
+dat	pest	-	tests/Feature/AiKhuonTest.php	các dạng hỏng bị bỏ with data set "dataset "bị cắt giữa chừng""
+dat	pest	-	tests/Feature/AiKhuonTest.php	các dạng hỏng bị bỏ with data set "dataset "rỗng""
+dat	pest	-	tests/Feature/AiKhuonTest.php	các dạng hỏng bị bỏ with data set "dataset "JSON là mảng""
+dat	pest	-	tests/Feature/AiKhuonTest.php	các dạng hỏng bị bỏ with data set "dataset "chuỗi bắt buộc rỗng""
+dat	pest	-	tests/Feature/AiKhuonTest.php	các dạng hỏng bị bỏ with data set "dataset "phần tử ví dụ thiếu bản dịch""
+dat	pest	-	tests/Feature/AiKhuonTest.php	các dạng hỏng bị bỏ with data set "dataset "lỗi hay gặp không phải chuỗi""
+dat	pest	-	tests/Feature/AiKhuonTest.php	chấp nhận rào ```json bọc ngoài, bỏ khoá lạ, cắt danh sách dài, giữ nguyên thẻ HTML như chữ
+dat	pest	-	tests/Feature/AiKhuonTest.php	loại chưa có khuôn thì không nhận gì
+dat	pest	-	tests/Feature/AiKhuonTest.php	JSON Schema của word chỉ dùng type, properties, required, items
 dat	pest	-	tests/Feature/AmThanhTest.php	tên file khớp công cụ Python: chuẩn hoá NFC và khoảng trắng, sha1(giọng|normal|chữ), thư mục theo 2 ký tự đầu
 dat	pest	-	tests/Feature/AmThanhTest.php	chữ đem đi đọc: bỏ phần trong ngoặc, "/" đọc thành dấu phẩy, gộp khoảng trắng with data set "dataset "danh từ""
 dat	pest	-	tests/Feature/AmThanhTest.php	chữ đem đi đọc: bỏ phần trong ngoặc, "/" đọc thành dấu phẩy, gộp khoảng trắng with data set "dataset "ghi chú trong ngoặc""
@@ -281,6 +323,10 @@ dat	pest	-	tests/Feature/QuanTriTest.php	tạo nhân viên: mật khẩu dưới
 dat	pest	-	tests/Feature/QuanTriTest.php	sửa nhân viên: khoá tài khoản, đổi vai trò được ghi nhật ký; không tự khoá chính mình
 dat	pest	-	tests/Feature/QuanTriTest.php	nhân viên sửa nội dung thì ghi người sửa và nhật ký trước/sau; người học tự sửa hồ sơ thì không ghi nhật ký
 dat	pest	-	tests/Feature/QuanTriTest.php	đăng nhập trang quản trị: sai 5 lần thì lần thứ 6 bị chặn tạm, kể cả khi nhập đúng
+dat	pest	-	tests/Feature/QuyenLoiTest.php	không có gói: tắt mở tạm thì theo gói miễn phí (3), bật mở tạm thì theo Premium (50)
+dat	pest	-	tests/Feature/QuyenLoiTest.php	gói đang chạy được tính, kể cả dùng thử; gói hết hạn, chưa bắt đầu hay đã huỷ thì như không có
+dat	pest	-	tests/Feature/QuyenLoiTest.php	gói trọn đời không kèm AI (0), nhưng đang mở tạm thì vẫn được 50; không có ngày hết hạn là trọn đời
+dat	pest	-	tests/Feature/QuyenLoiTest.php	-1 (không giới hạn) thắng mọi số; gói mở tạm trỏ tới gói không có thì bỏ qua; quyền lợi lạ là 0
 dat	pest	-	tests/Feature/SoTayApiTest.php	đánh dấu sao rồi ghi chú: lưu theo tài khoản, thẻ từ và danh sách thẻ đều thấy
 dat	pest	-	tests/Feature/SoTayApiTest.php	gửi ô nào đổi ô đó; bỏ sao và xoá ghi chú thì xoá hẳn dòng
 dat	pest	-	tests/Feature/SoTayApiTest.php	dữ liệu sai thì 422 đúng ô, không ghi gì

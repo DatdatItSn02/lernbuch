@@ -1,5 +1,5 @@
 workflow: ci  job: php  status: success
-commit: d04df2a56328374af6d03c4148e96124bc0df48b  ref: work/g2-tuan1  run: 46092618339
+commit: de6a3519a624c13d8e68e096d429215a7b68ce44  ref: work/g2-tuan1  run: 46093917057
 
 ✔ Pint (định dạng code)
 ✔ Larastan (phân tích tĩnh)
@@ -23,34 +23,30 @@ commit: d04df2a56328374af6d03c4148e96124bc0df48b  ref: work/g2-tuan1  run: 46092
 KẾT QUẢ: 19/19 bước đạt
 
 ----- cuối log -----
-ông cụ Python: chuẩn hoá NFC và khoảng trắng, sha[39m[90m…[39m [90m0.07s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chữ đem đi đọc: bỏ phần trong ngoặc, "/" đọc thành dấu phẩy, gộp[39m[90m…[39m [90m0.07s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chữ đem đi đọc: bỏ phần trong ngoặc, "/" đọc thành dấu phẩy, gộp[39m[90m…[39m [90m0.07s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chữ đem đi đọc: bỏ phần trong ngoặc, "/" đọc thành dấu phẩy, gộp[39m[90m…[39m [90m0.07s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chữ đem đi đọc: bỏ phần trong ngoặc, "/" đọc thành dấu phẩy, gộp[39m[90m…[39m [90m0.07s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chữ đem đi đọc: bỏ phần trong ngoặc, "/" đọc thành dấu phẩy, gộp[39m[90m…[39m [90m0.07s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit danh sách cần tạo: mọi thẻ hệ thống đang hiện, mỗi chữ một lần;[39m[90m… [39m [90m0.08s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit ghi file vào media_assets: chạy lại không nhân đôi; dòng sai thì[39m[90m…[39m [90m0.08s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit API: thẻ có file thì kèm địa chỉ audio, chưa có thì null; đổi AU[39m[90m…[39m [90m0.12s[39m  
+m[90m…[39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chữ đem đi đọc: bỏ phần trong ngoặc, "/" đọc thành dấu phẩy, gộp[39m[90m…[39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit danh sách cần tạo: mọi thẻ hệ thống đang hiện, mỗi chữ một lần;[39m[90m… [39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ghi file vào media_assets: chạy lại không nhân đôi; dòng sai thì[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit API: thẻ có file thì kèm địa chỉ audio, chưa có thì null; đổi AU[39m[90m…[39m [90m0.10s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\ApiTaiKhoanTest[39m
   [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập: 401 có mã chua_dang_nhap, lời nhắn tiếng Việt, k[39m[90m…[39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chưa xác minh email: 403 có mã chua_xac_minh[39m[90m                     [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chưa xác minh email: 403 có mã chua_xac_minh[39m[90m                     [39m [90m0.07s[39m  
   [32;1m✓[39;22m[90m [39m[90mit GET /toi: mã ULID thay cho id số, cài đặt mặc định, khoá học từ[39m[90m… [39m [90m0.03s[39m  
   [32;1m✓[39;22m[90m [39m[90mit hồ sơ: đổi tên, múi giờ; chọn mục tiêu rồi trình độ thì ghi danh[39m[90m…[39m [90m0.04s[39m  
   [32;1m✓[39;22m[90m [39m[90mit hồ sơ sai thì báo đúng ô, không ghi gì[39m[90m                           [39m [90m0.03s[39m  
   [32;1m✓[39;22m[90m [39m[90mit chưa có khoá học thì không chọn được mục tiêu, báo rõ lý do[39m[90m      [39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit cài đặt: đổi phần nào giữ phần kia; 0 từ mới = tất cả; mỗi người[39m[90m…[39m [90m0.04s[39m  
   [32;1m✓[39;22m[90m [39m[90mit cài đặt sai thì 422 đúng ô, giá trị cũ giữ nguyên[39m[90m                [39m [90m0.04s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit danh sách máy: chỉ phiên của mình, đọc được trình duyệt, ghi rõ[39m[90m… [39m [90m0.03s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit đăng xuất các máy khác: sai mật khẩu thì không làm gì; đúng thì[39m[90m… [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit danh sách máy: chỉ phiên của mình, đọc được trình duyệt, ghi rõ[39m[90m… [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đăng xuất các máy khác: sai mật khẩu thì không làm gì; đúng thì[39m[90m… [39m [90m0.03s[39m  
   [32;1m✓[39;22m[90m [39m[90mit đăng xuất các máy khác bị giới hạn 6 lần mỗi phút để chặn đoán m[39m[90m…[39m [90m0.03s[39m  
   [32;1m✓[39;22m[90m [39m[90mit giới hạn chung của API: 120 lần mỗi phút cho mỗi người[39m[90m           [39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Chrome[39m[90m… [39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Safari[39m[90m… [39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Edge"[39m[90m   [39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Samsung[39m[90m…[39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Firefox[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Edge"[39m[90m   [39m [90m0.01s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Samsung[39m[90m…[39m [90m0.01s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Firefox[39m[90m…[39m [90m0.01s[39m  
   [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Chrome[39m[90m… [39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "Android[39m[90m…[39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit đoán trình duyệt và loại máy từ User-Agent with dataset "trống"[39m[90m  [39m [90m0.02s[39m  
@@ -58,41 +54,41 @@ KẾT QUẢ: 19/19 bước đạt
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\BanDichFilamentTest[39m
   [32;1m✓[39;22m[90m [39m[90mit mọi khoá dịch của Filament có tiếng Việt (của gói hoặc lang/vend[39m[90m…[39m [90m0.03s[39m  
   [32;1m✓[39;22m[90m [39m[90mit khoá không có thì cách kiểm báo thiếu (không lẫn với khoá có thậ[39m[90m…[39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit trang quản trị không còn mã khoá dịch nào trong HTML[39m[90m             [39m [90m0.26s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit trang quản trị không còn mã khoá dịch nào trong HTML[39m[90m             [39m [90m0.30s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\BaoMatTest[39m
   [32;1m✓[39;22m[90m [39m[90mit lỗi máy chủ chỉ hiện trang lỗi chung, không lộ nội dung lỗi hay[39m[90m… [39m [90m0.03s[39m  
   [32;1m✓[39;22m[90m [39m[90mit đúng email và mật khẩu thì đăng nhập được trang quản trị[39m[90m         [39m [90m0.05s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit nhập sai mật khẩu 5 lần thì bị chặn tạm thời, kể cả lần sau đúng[39m[90m…[39m [90m1.14s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nhập sai mật khẩu 5 lần thì bị chặn tạm thời, kể cả lần sau đúng[39m[90m…[39m [90m1.11s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\CaiDatHocTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit chưa sửa gì thì dùng ngưỡng mặc định[39m[90m                             [39m [90m0.03s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chỉ người có quyền cấu hình hệ thống mới vào được trang Cài đặt[39m[90m… [39m [90m0.11s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit lưu ngưỡng: có hiệu lực ngay, ghi nhật ký trước và sau[39m[90m           [39m [90m0.13s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit ngưỡng âm, quá 10 giây hay không phải số thì báo lỗi đúng ô, khô[39m[90m…[39m [90m0.07s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit ngưỡng âm, quá 10 giây hay không phải số thì báo lỗi đúng ô, khô[39m[90m…[39m [90m0.07s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit ngưỡng âm, quá 10 giây hay không phải số thì báo lỗi đúng ô, khô[39m[90m…[39m [90m0.07s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit ngưỡng âm, quá 10 giây hay không phải số thì báo lỗi đúng ô, khô[39m[90m…[39m [90m0.07s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit giá trị lưu hỏng trong bảng settings thì bỏ, dùng mặc định cho ô[39m[90m…[39m [90m0.03s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit xu mỗi lượt: Tốt, Dễ đủ xu của chế độ; Khó một nửa làm tròn xuốn[39m[90m…[39m [90m0.03s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit xu theo chế độ khớp bảng dùng chung với app (tests/chung/xu-che-[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chưa sửa gì thì dùng ngưỡng mặc định[39m[90m                             [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ người có quyền cấu hình hệ thống mới vào được trang Cài đặt[39m[90m… [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit lưu ngưỡng: có hiệu lực ngay, ghi nhật ký trước và sau[39m[90m           [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ngưỡng âm, quá 10 giây hay không phải số thì báo lỗi đúng ô, khô[39m[90m…[39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ngưỡng âm, quá 10 giây hay không phải số thì báo lỗi đúng ô, khô[39m[90m…[39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ngưỡng âm, quá 10 giây hay không phải số thì báo lỗi đúng ô, khô[39m[90m…[39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ngưỡng âm, quá 10 giây hay không phải số thì báo lỗi đúng ô, khô[39m[90m…[39m [90m0.05s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit giá trị lưu hỏng trong bảng settings thì bỏ, dùng mặc định cho ô[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit xu mỗi lượt: Tốt, Dễ đủ xu của chế độ; Khó một nửa làm tròn xuốn[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit xu theo chế độ khớp bảng dùng chung với app (tests/chung/xu-che-[39m[90m…[39m [90m0.02s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\CheDoHocTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit Quiz: mỗi thẻ có 6 đáp án nhiễu; cùng loại từ, cùng chủ đề đứng[39m[90m… [39m [90m0.10s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Flash[39m[90m…[39m [90m0.09s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Quiz"[39m[90m [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit Quiz: mỗi thẻ có 6 đáp án nhiễu; cùng loại từ, cùng chủ đề đứng[39m[90m… [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Flash[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Quiz"[39m[90m [39m [90m0.08s[39m  
   [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Liste[39m[90m…[39m [90m0.08s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Typin[39m[90m…[39m [90m0.09s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Ghép[39m[90m… [39m [90m0.09s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Hỗn h[39m[90m…[39m [90m0.10s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Đặt c[39m[90m…[39m [90m0.09s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit Đặt câu: chỉ thẻ có câu ví dụ, cả ôn và mới; không đổi chủ đề đa[39m[90m…[39m [90m0.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Typin[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Ghép[39m[90m… [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Hỗn h[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ Quiz, Ghép cặp, Hỗn hợp kèm đáp án nhiễu with dataset "Đặt c[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit Đặt câu: chỉ thẻ có câu ví dụ, cả ôn và mới; không đổi chủ đề đa[39m[90m…[39m [90m0.15s[39m  
   [32;1m✓[39;22m[90m [39m[90mit Đặt câu trong một chủ đề không có câu nào thì phiên rỗng; chế độ[39m[90m…[39m [90m0.08s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit lượt chấm ở các chế độ được xu theo chế độ: Hỗn hợp 20, Listenin[39m[90m…[39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit lượt chấm ở các chế độ được xu theo chế độ: Hỗn hợp 20, Listenin[39m[90m…[39m [90m0.09s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\CreateAdminCommandTest[39m
   [32;1m✓[39;22m[90m [39m[90mit tạo tài khoản quản trị bằng lệnh[39m[90m                                 [39m [90m0.03s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit đã nạp seed.sql thì gán đúng vai trò có sẵn, không tạo vai trò t[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đã nạp seed.sql thì gán đúng vai trò có sẵn, không tạo vai trò t[39m[90m…[39m [90m0.03s[39m  
   [32;1m✓[39;22m[90m [39m[90mit từ chối email đã có, kể cả khác hoa thường[39m[90m                       [39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit từ chối mật khẩu ngắn hơn 12 ký tự[39m[90m                               [39m [90m0.02s[39m  
 
@@ -102,44 +98,44 @@ KẾT QUẢ: 19/19 bước đạt
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\HangDoiTest[39m
   [32;1m✓[39;22m[90m [39m[90mit lịch có việc ghi nhịp chạy mỗi phút[39m[90m                              [39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit job thử chạy xong qua hàng đợi database[39m[90m                          [39m [90m3.04s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit job cố ý lỗi vào failed_jobs sau đúng 3 lần thử[39m[90m                  [39m [90m3.04s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit cache database (như trên alwaysdata) vẫn đếm đủ 3 lần thử[39m[90m        [39m [90m3.04s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit lệnh thử hàng đợi: đưa 2 job vào, worker chạy xong thì kiểm đạt[39m[90m  [39m [90m3.04s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit 10 phút lịch chạy mỗi phút qua hàng đợi thì đủ 10 nhịp[39m[90m          [39m [90m30.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit job thử chạy xong qua hàng đợi database[39m[90m                          [39m [90m3.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit job cố ý lỗi vào failed_jobs sau đúng 3 lần thử[39m[90m                  [39m [90m3.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit cache database (như trên alwaysdata) vẫn đếm đủ 3 lần thử[39m[90m        [39m [90m3.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit lệnh thử hàng đợi: đưa 2 job vào, worker chạy xong thì kiểm đạt[39m[90m  [39m [90m3.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit 10 phút lịch chạy mỗi phút qua hàng đợi thì đủ 10 nhịp[39m[90m          [39m [90m30.08s[39m  
   [32;1m✓[39;22m[90m [39m[90mit thiếu nhịp (lịch hay hàng đợi dừng) thì kiểm nhịp báo lỗi[39m[90m        [39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit job ghi nhịp ghi đúng phút hiện tại[39m[90m                              [39m [90m0.02s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\HocApiTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit người mới: phiên có 10 từ mới của chủ đề đầu tiên theo thứ tự tr[39m[90m…[39m [90m0.10s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chấm một lô: tiến độ theo luật 6 mức, xu, nhật ký, phiên, thống[39m[90m… [39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit người mới: phiên có 10 từ mới của chủ đề đầu tiên theo thứ tự tr[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chấm một lô: tiến độ theo luật 6 mức, xu, nhật ký, phiên, thống[39m[90m… [39m [90m0.10s[39m  
   [32;1m✓[39;22m[90m [39m[90mit mục 4: gửi một lô hai lần (và trùng ngay trong lô) thì ghi một l[39m[90m…[39m [90m0.11s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit mục 6: hai máy chấm cùng thẻ, lô tới lệch thứ tự: kết quả theo g[39m[90m…[39m [90m0.16s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit mục 7: chấm 20 thẻ trong 2 giây thì tiến độ vẫn ghi, xu không cộ[39m[90m…[39m [90m0.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit mục 6: hai máy chấm cùng thẻ, lô tới lệch thứ tự: kết quả theo g[39m[90m…[39m [90m0.14s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit mục 7: chấm 20 thẻ trong 2 giây thì tiến độ vẫn ghi, xu không cộ[39m[90m…[39m [90m0.11s[39m  
   [32;1m✓[39;22m[90m [39m[90mit mục 8: phiên của người khác thì 404 và không ghi gì; thẻ riêng c[39m[90m…[39m [90m0.12s[39m  
   [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "mã lượt v[39m[90m…[39m [90m0.07s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "mã lượt c[39m[90m…[39m [90m0.08s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "chấm 4"[39m[90m   [39m [90m0.08s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "chế độ lạ[39m[90m…[39m [90m0.08s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "giờ chấm[39m[90m… [39m [90m0.13s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "thẻ 0"[39m[90m    [39m [90m0.09s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "thời gian[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "mã lượt c[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "chấm 4"[39m[90m   [39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "chế độ lạ[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "giờ chấm[39m[90m… [39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "thẻ 0"[39m[90m    [39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì with dataset "thời gian[39m[90m…[39m [90m0.07s[39m  
   [32;1m✓[39;22m[90m [39m[90mit lô rỗng, quá 200 lượt hoặc thiếu ô phiên thì 422[39m[90m                 [39m [90m0.16s[39m  
   [32;1m✓[39;22m[90m [39m[90mit giờ chấm trên máy: quá xa tương lai thì lấy giờ máy chủ, trước l[39m[90m…[39m [90m0.09s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit phiên ngày sau: thẻ đến hạn (quá hạn lâu nhất trước) xen kẽ với[39m[90m… [39m [90m0.17s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit phiên ngày sau: thẻ đến hạn (quá hạn lâu nhất trước) xen kẽ với[39m[90m… [39m [90m0.12s[39m  
   [32;1m✓[39;22m[90m [39m[90mit hết từ mới của chủ đề đang học thì sang chủ đề kế theo thứ tự; "[39m[90m…[39m [90m0.08s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit "tất cả" từ mới: lấy hết từ mới của chủ đề đang học, không sang[39m[90m… [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit "tất cả" từ mới: lấy hết từ mới của chủ đề đang học, không sang[39m[90m… [39m [90m0.09s[39m  
   [32;1m✓[39;22m[90m [39m[90mit học riêng một chủ đề: ôn và mới đều trong chủ đề đó, chủ đề đó t[39m[90m…[39m [90m0.09s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chuỗi ngày: ngày liền nhau thì tăng, bỏ một ngày thì về 1; lượt[39m[90m… [39m [90m0.16s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chuỗi ngày: ngày liền nhau thì tăng, bỏ một ngày thì về 1; lượt[39m[90m… [39m [90m0.17s[39m  
   [32;1m✓[39;22m[90m [39m[90mit mục tiêu ngày: đủ số thẻ thì ghi đã đạt[39m[90m                          [39m [90m0.09s[39m  
   [32;1m✓[39;22m[90m [39m[90mit người mới mở Hôm nay: mọi số bằng 0, 14 ngày, chủ đề đang học là[39m[90m…[39m [90m0.08s[39m  
   [32;1m✓[39;22m[90m [39m[90mit trang chủ đề có tiến độ của người học: đến hạn, chưa học, số thẻ[39m[90m…[39m [90m0.08s[39m  
   [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập thì 401[39m[90m                                           [39m [90m0.07s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\HocOfflineTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit service worker ở /sw.js: không cần đăng nhập, không lưu đệm, phi[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit service worker ở /sw.js: không cần đăng nhập, không lưu đệm, phi[39m[90m…[39m [90m0.03s[39m  
   [32;1m✓[39;22m[90m [39m[90mit tải chủ đề: mọi thẻ người học xem được theo thứ tự trong chủ đề,[39m[90m…[39m [90m0.08s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit tải chủ đề: chủ đề không có, đã ẩn hay không phải chủ đề nhỏ thì[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit tải chủ đề: chủ đề không có, đã ẩn hay không phải chủ đề nhỏ thì[39m[90m…[39m [90m0.08s[39m  
   [32;1m✓[39;22m[90m [39m[90mit lượt chấm lúc mất mạng gửi sau, không có mã phiên: máy chủ nhận[39m[90m… [39m [90m0.08s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\LuyenTapApiTest[39m
@@ -150,17 +146,17 @@ KẾT QUẢ: 19/19 bước đạt
   [32;1m✓[39;22m[90m [39m[90mit phiên theo bộ có thứ tự: đúng thứ tự trong bộ, đủ thông tin để l[39m[90m…[39m [90m0.08s[39m  
   [32;1m✓[39;22m[90m [39m[90mit trắc nghiệm: lựa chọn đủ và trộn; đáp án lưu khác lựa chọn chỉ ở[39m[90m…[39m [90m0.09s[39m  
   [32;1m✓[39;22m[90m [39m[90mit Luyện nhanh: không lấy bộ Ôn tập; lọc cấp thì bộ không có cấp (S[39m[90m…[39m [90m0.10s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit ghi kết quả: máy chủ chấm lại từng câu, đếm đúng liên tiếp, cộng[39m[90m…[39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ghi kết quả: máy chủ chấm lại từng câu, đếm đúng liên tiếp, cộng[39m[90m…[39m [90m0.10s[39m  
   [32;1m✓[39;22m[90m [39m[90mit gửi lại cùng mã: không ghi lần hai, xu không cộng lần hai, trả k[39m[90m…[39m [90m0.09s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit làm quá nhanh (dưới 1 giây mỗi câu): vẫn ghi đúng sai, không cộn[39m[90m…[39m [90m0.09s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit kết quả tới trễ (làm trước lần đã ghi): chỉ cộng vào số đếm, khô[39m[90m…[39m [90m0.10s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit Ôn câu sai: câu đã làm mà chưa thuộc, ở mọi bộ (cả bộ Ôn tập); c[39m[90m…[39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit làm quá nhanh (dưới 1 giây mỗi câu): vẫn ghi đúng sai, không cộn[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kết quả tới trễ (làm trước lần đã ghi): chỉ cộng vào số đếm, khô[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit Ôn câu sai: câu đã làm mà chưa thuộc, ở mọi bộ (cả bộ Ôn tập); c[39m[90m…[39m [90m0.10s[39m  
   [32;1m✓[39;22m[90m [39m[90mit người khác không thấy và không đổi được tiến độ bài tập của mình[39m[90m [39m [90m0.10s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit kết quả sai dạng thì báo lỗi đúng ô; câu nháp, câu của bộ nháp,[39m[90m… [39m [90m0.14s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit bảng động từ: theo chữ cái, tìm nguyên mẫu hoặc nghĩa không cần[39m[90m… [39m [90m0.11s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit luyện chia động từ: mỗi động từ một câu, đáp án đúng dạng hỏi; m[39m[90m…[39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kết quả sai dạng thì báo lỗi đúng ô; câu nháp, câu của bộ nháp,[39m[90m… [39m [90m0.16s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bảng động từ: theo chữ cái, tìm nguyên mẫu hoặc nghĩa không cần[39m[90m… [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit luyện chia động từ: mỗi động từ một câu, đáp án đúng dạng hỏi; m[39m[90m…[39m [90m0.09s[39m  
   [32;1m✓[39;22m[90m [39m[90mit Điền câu: thẻ Từ vựng có câu trống; câu đầy đủ kèm bản dịch; dan[39m[90m…[39m [90m0.08s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit Điền câu: thẻ đã gặp đứng trước thẻ chưa học; kết quả gửi như lư[39m[90m…[39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit Điền câu: thẻ đã gặp đứng trước thẻ chưa học; kết quả gửi như lư[39m[90m…[39m [90m0.10s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\MauQuanTriTest[39m
   [32;1m✓[39;22m[90m [39m[90mit nút mọi màu của trang quản trị đạt 4.5:1 ở giao diện sáng và tối[39m[90m…[39m [90m0.02s[39m  
@@ -182,46 +178,46 @@ KẾT QUẢ: 19/19 bước đạt
   [32;1m✓[39;22m[90m [39m[90mit bài ngữ pháp và bộ bài tập có ngôn ngữ giải thích, mặc định tiến[39m[90m…[39m [90m0.02s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\NguoiHocThuSeederTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit tạo tài khoản chung, tài khoản học riêng cho mỗi cỡ màn hình và[39m[90m… [39m [90m0.16s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit không tạo gì trên máy chủ thật, kể cả khi chạy db:seed --force[39m[90m   [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit tạo tài khoản chung, tài khoản học riêng cho mỗi cỡ màn hình và[39m[90m… [39m [90m0.14s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit không tạo gì trên máy chủ thật, kể cả khi chạy db:seed --force[39m[90m   [39m [90m0.03s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\NhapLernbuchTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit chạy thử: đếm đúng theo loại, nguồn, cấp; bỏ thẻ đã tắt và dòng[39m[90m… [39m [90m0.07s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit ghi: thẻ, chủ đề 3 tầng, nghĩa, câu ví dụ, dạng từ, ngữ pháp, bà[39m[90m…[39m [90m0.09s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit dạng từ "–" (danh từ không có số nhiều) giữ nguyên, khác với để[39m[90m… [39m [90m0.07s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chạy lại lần hai: không thêm dòng nào, giữ id (nên giữ tiến độ h[39m[90m…[39m [90m0.11s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit nguồn đánh dấu "Không" thì không có dòng nào của nguồn đó, kể cả[39m[90m…[39m [90m0.12s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit sig câu bài tập có chữ Đức ghi nguyên văn, khớp chính xác (Föhn[39m[90m… [39m [90m0.10s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit quy tắc bài tập: sig trùng hoặc dài quá 64 ký tự thì báo đúng câ[39m[90m…[39m [90m0.06s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit quy tắc dữ liệu: cụm từ trong Từ vựng, thẻ không có chủ đề thì b[39m[90m…[39m [90m0.10s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit lỗi database lúc ghi: in gọn thông báo gốc và tên bảng, không in[39m[90m…[39m [90m0.03s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit nhận cả file lernweb.zip và thẳng file seed.db[39m[90m                   [39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chạy thử: đếm đúng theo loại, nguồn, cấp; bỏ thẻ đã tắt và dòng[39m[90m… [39m [90m0.05s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ghi: thẻ, chủ đề 3 tầng, nghĩa, câu ví dụ, dạng từ, ngữ pháp, bà[39m[90m…[39m [90m0.38s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dạng từ "–" (danh từ không có số nhiều) giữ nguyên, khác với để[39m[90m… [39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chạy lại lần hai: không thêm dòng nào, giữ id (nên giữ tiến độ h[39m[90m…[39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nguồn đánh dấu "Không" thì không có dòng nào của nguồn đó, kể cả[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sig câu bài tập có chữ Đức ghi nguyên văn, khớp chính xác (Föhn[39m[90m… [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit quy tắc bài tập: sig trùng hoặc dài quá 64 ký tự thì báo đúng câ[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit quy tắc dữ liệu: cụm từ trong Từ vựng, thẻ không có chủ đề thì b[39m[90m…[39m [90m0.13s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit lỗi database lúc ghi: in gọn thông báo gốc và tên bảng, không in[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nhận cả file lernweb.zip và thẳng file seed.db[39m[90m                   [39m [90m0.08s[39m  
   [32;1m✓[39;22m[90m [39m[90mit nguồn sai: báo lỗi rõ, mã thoát 2, không ghi gì[39m[90m                  [39m [90m0.03s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.03s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.04s[39m  
   [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit kiểm từ đơn của Từ vựng: bỏ mạo từ, ngoặc, sich; các cách viết n[39m[90m…[39m [90m0.02s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\NoiDungApiTest[39m
   [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập thì 401, chưa xác minh email thì 403, không lộ nộ[39m[90m…[39m [90m0.08s[39m  
   [32;1m✓[39;22m[90m [39m[90mit loại thẻ: chỉ loại có thẻ đã xuất bản, theo thứ tự, kèm số thẻ[39m[90m   [39m [90m0.07s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit cây chủ đề Từ vựng: nhóm › chủ đề vừa › chủ đề nhỏ theo thứ tự;[39m[90m… [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit cây chủ đề Từ vựng: nhóm › chủ đề vừa › chủ đề nhỏ theo thứ tự;[39m[90m… [39m [90m0.08s[39m  
   [32;1m✓[39;22m[90m [39m[90mit lọc theo cấp (khoảng cấp, 0 = chưa xếp) và loại từ: chỉ còn chủ[39m[90m… [39m [90m0.09s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit Giao tiếp và loại thẻ khác dùng cùng cây chủ đề; loại chưa có th[39m[90m…[39m [90m0.08s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit bộ lọc sai thì 422 đúng ô[39m[90m                                        [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit Giao tiếp và loại thẻ khác dùng cùng cây chủ đề; loại chưa có th[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bộ lọc sai thì 422 đúng ô[39m[90m                                        [39m [90m0.07s[39m  
   [32;1m✓[39;22m[90m [39m[90mit trang chủ đề: thông tin, vị trí, số thẻ theo cấp và loại từ, 20[39m[90m… [39m [90m0.10s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit trang chủ đề: lọc theo chữ (không dấu, ae/oe/ue, tiếng Việt khôn[39m[90m…[39m [90m0.16s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chủ đề không có, đã ẩn, hay không phải chủ đề nhỏ thì 404 khong_[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit trang chủ đề: lọc theo chữ (không dấu, ae/oe/ue, tiếng Việt khôn[39m[90m…[39m [90m0.14s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chủ đề không có, đã ẩn, hay không phải chủ đề nhỏ thì 404 khong_[39m[90m…[39m [90m0.07s[39m  
   [32;1m✓[39;22m[90m [39m[90mit thẻ từ: nghĩa, câu ví dụ, mẹo, vị trí trong chủ đề, sổ tay của c[39m[90m…[39m [90m0.08s[39m  
   [32;1m✓[39;22m[90m [39m[90mit thẻ nháp, thẻ không có, mã sai thì 404; thẻ riêng của người khác[39m[90m…[39m [90m0.09s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\PagesTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit trả 200 ở /up[39m[90m                                                    [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit trả 200 ở /up[39m[90m                                                    [39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit trang chào hiện đúng chữ tiếng Việt và tiếng Đức[39m[90m                 [39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit mở được khung app học, cả đường dẫn con, khi đã đăng nhập và xác[39m[90m…[39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit mở được khung app học, cả đường dẫn con, khi đã đăng nhập và xác[39m[90m…[39m [90m0.03s[39m  
   [32;1m✓[39;22m[90m [39m[90mit chưa đăng nhập thì app học về trang đăng nhập[39m[90m                    [39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit không lộ file .env và log[39m[90m                                        [39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit có manifest đủ điều kiện cài app: tên, trang mở đầu, mở như app,[39m[90m…[39m [90m0.02s[39m  
@@ -231,40 +227,46 @@ KẾT QUẢ: 19/19 bước đạt
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\QuanTriNguoiHocTest[39m
   [32;1m✓[39;22m[90m [39m[90mit cần quyền xem người dùng; chỉ liệt kê người học (không có nhân v[39m[90m…[39m [90m0.18s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit xem tiến độ: cùng số liệu với trang Hôm nay của người học (thẻ t[39m[90m…[39m [90m0.12s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit khoá: đăng xuất mọi máy, API trả 403, trang app về đăng nhập, kh[39m[90m…[39m [90m0.70s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit xem tiến độ: cùng số liệu với trang Hôm nay của người học (thẻ t[39m[90m…[39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit khoá: đăng xuất mọi máy, API trả 403, trang app về đăng nhập, kh[39m[90m…[39m [90m0.66s[39m  
   [32;1m✓[39;22m[90m [39m[90mit chỉ người có quyền quản lý người dùng mới khoá được; khoá hai lầ[39m[90m…[39m [90m0.07s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit nút Lọc của bảng có tên đọc được kèm số bộ lọc đang dùng, như số[39m[90m…[39m [90m0.10s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit danh sách mở trang người học bằng mã ULID (không bằng id); nhãn[39m[90m… [39m [90m0.14s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nút Lọc của bảng có tên đọc được kèm số bộ lọc đang dùng, như số[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit danh sách mở trang người học bằng mã ULID (không bằng id); nhãn[39m[90m… [39m [90m0.12s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\QuanTriNoiDungTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit trang nội dung cần quyền sửa nội dung; nhật ký thao tác và job l[39m[90m…[39m [90m0.50s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit sửa thẻ: dạng, nghĩa, câu ví dụ; ghi nhật ký từng phần; tìm được[39m[90m…[39m [90m0.31s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit người duyệt đổi trạng thái: thẻ ẩn thì người học không thấy, số[39m[90m… [39m [90m0.18s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit sửa chủ đề: đổi tên, ghi nhật ký; mã và đường dẫn không đổi[39m[90m      [39m [90m0.15s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit sửa bài ngữ pháp: nội dung sai dạng thì báo, đúng thì lưu (tăng[39m[90m… [39m [90m0.29s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit sửa câu bài tập: đáp án trắc nghiệm phải là một lựa chọn; lưu th[39m[90m…[39m [90m0.32s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit sửa động từ: bảng chia và nghĩa; giữ phần không có trên form, bả[39m[90m…[39m [90m0.20s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit thêm nguồn: mã không trùng, đúng dạng; ghi người tạo và nhật ký[39m[90m  [39m [90m0.19s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit nhật ký thao tác: xem danh sách và giá trị trước, sau; không có[39m[90m… [39m [90m0.15s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit job lỗi: chạy lại đưa job về hàng đợi, bỏ thì xoá; mỗi việc ghi[39m[90m… [39m [90m0.17s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit trang nội dung cần quyền sửa nội dung; nhật ký thao tác và job l[39m[90m…[39m [90m0.44s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa thẻ: dạng, nghĩa, câu ví dụ; ghi nhật ký từng phần; tìm được[39m[90m…[39m [90m0.26s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit người duyệt đổi trạng thái: thẻ ẩn thì người học không thấy, số[39m[90m… [39m [90m0.16s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa chủ đề: đổi tên, ghi nhật ký; mã và đường dẫn không đổi[39m[90m      [39m [90m0.13s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa bài ngữ pháp: nội dung sai dạng thì báo, đúng thì lưu (tăng[39m[90m… [39m [90m0.25s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa câu bài tập: đáp án trắc nghiệm phải là một lựa chọn; lưu th[39m[90m…[39m [90m0.25s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa động từ: bảng chia và nghĩa; giữ phần không có trên form, bả[39m[90m…[39m [90m0.16s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit thêm nguồn: mã không trùng, đúng dạng; ghi người tạo và nhật ký[39m[90m  [39m [90m0.21s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nhật ký thao tác: xem danh sách và giá trị trước, sau; không có[39m[90m… [39m [90m0.14s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit job lỗi: chạy lại đưa job về hàng đợi, bỏ thì xoá; mỗi việc ghi[39m[90m… [39m [90m0.36s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\QuanTriTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit người học (không phải nhân viên) vào /admin thì bị từ chối 403;[39m[90m… [39m [90m0.09s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chỉ người có quyền phân quyền mới thấy trang Vai trò và Nhân viê[39m[90m…[39m [90m0.15s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit sửa quyền của vai trò: có hiệu lực ngay, ghi nhật ký quyền trước[39m[90m…[39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit người học (không phải nhân viên) vào /admin thì bị từ chối 403;[39m[90m… [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chỉ người có quyền phân quyền mới thấy trang Vai trò và Nhân viê[39m[90m…[39m [90m0.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa quyền của vai trò: có hiệu lực ngay, ghi nhật ký quyền trước[39m[90m…[39m [90m0.09s[39m  
   [32;1m✓[39;22m[90m [39m[90mit không sửa được vai trò Quản trị cao nhất (đã có mọi quyền)[39m[90m       [39m [90m0.04s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit tạo nhân viên: mật khẩu dưới 12 ký tự bị từ chối; đủ thì tạo tài[39m[90m…[39m [90m0.13s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit sửa nhân viên: khoá tài khoản, đổi vai trò được ghi nhật ký; khô[39m[90m…[39m [90m0.16s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit nhân viên sửa nội dung thì ghi người sửa và nhật ký trước/sau; n[39m[90m…[39m [90m0.05s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit đăng nhập trang quản trị: sai 5 lần thì lần thứ 6 bị chặn tạm, k[39m[90m…[39m [90m1.19s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit tạo nhân viên: mật khẩu dưới 12 ký tự bị từ chối; đủ thì tạo tài[39m[90m…[39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sửa nhân viên: khoá tài khoản, đổi vai trò được ghi nhật ký; khô[39m[90m…[39m [90m0.13s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit nhân viên sửa nội dung thì ghi người sửa và nhật ký trước/sau; n[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đăng nhập trang quản trị: sai 5 lần thì lần thứ 6 bị chặn tạm, k[39m[90m…[39m [90m1.15s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\QuyenLoiTest[39m
+  [32;1m✓[39;22m[90m [39m[90mit không có gói: tắt mở tạm thì theo gói miễn phí (3), bật mở tạm t[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit gói đang chạy được tính, kể cả dùng thử; gói hết hạn, chưa bắt đ[39m[90m…[39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit gói trọn đời không kèm AI (0), nhưng đang mở tạm thì vẫn được 50[39m[90m…[39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit -1 (không giới hạn) thắng mọi số; gói mở tạm trỏ tới gói không c[39m[90m…[39m [90m0.03s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\SoTayApiTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit đánh dấu sao rồi ghi chú: lưu theo tài khoản, thẻ từ và danh sác[39m[90m…[39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit đánh dấu sao rồi ghi chú: lưu theo tài khoản, thẻ từ và danh sác[39m[90m…[39m [90m0.09s[39m  
   [32;1m✓[39;22m[90m [39m[90mit gửi ô nào đổi ô đó; bỏ sao và xoá ghi chú thì xoá hẳn dòng[39m[90m       [39m [90m0.09s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì[39m[90m                         [39m [90m0.08s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit danh sách sổ tay: lọc sao, có ghi chú, tìm chữ; sửa gần nhất trư[39m[90m…[39m [90m0.10s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit người A không đọc, không sửa được sổ tay của người B; thẻ không[39m[90m… [39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu sai thì 422 đúng ô, không ghi gì[39m[90m                         [39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit danh sách sổ tay: lọc sao, có ghi chú, tìm chữ; sửa gần nhất trư[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit người A không đọc, không sửa được sổ tay của người B; thẻ không[39m[90m… [39m [90m0.10s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\TaiKhoanTest[39m
   [32;1m✓[39;22m[90m [39m[90mit hiện trang đăng nhập, đăng ký, quên mật khẩu bằng tiếng Việt[39m[90m     [39m [90m0.03s[39m  
@@ -275,63 +277,63 @@ KẾT QUẢ: 19/19 bước đạt
   [32;1m✓[39;22m[90m [39m[90mit chưa xác minh email mà vào học thì được dẫn tới trang gửi lại th[39m[90m…[39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit bấm link xác minh thì xác minh xong và vào học[39m[90m                   [39m [90m0.03s[39m  
   [32;1m✓[39;22m[90m [39m[90mit link xác minh hết hạn hoặc không khớp email thì không dùng được[39m[90m  [39m [90m0.03s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit gửi lại thư xác minh[39m[90m                                             [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit gửi lại thư xác minh[39m[90m                                             [39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit đăng nhập đúng (email viết hoa cũng được) thì vào app học và ghi[39m[90m…[39m [90m0.02s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit sai mật khẩu 5 lần thì lần thứ 6 bị chặn tạm, kể cả đúng mật khẩ[39m[90m…[39m [90m1.04s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit quên mật khẩu: gửi link, đặt mật khẩu mới, dùng lại link thì khô[39m[90m…[39m [90m0.24s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit thư xác minh và thư đặt lại mật khẩu viết bằng tiếng Việt, link[39m[90m… [39m [90m0.05s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit sai mật khẩu 5 lần thì lần thứ 6 bị chặn tạm, kể cả đúng mật khẩ[39m[90m…[39m [90m1.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit quên mật khẩu: gửi link, đặt mật khẩu mới, dùng lại link thì khô[39m[90m…[39m [90m0.23s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit thư xác minh và thư đặt lại mật khẩu viết bằng tiếng Việt, link[39m[90m… [39m [90m0.04s[39m  
   [32;1m✓[39;22m[90m [39m[90mit đăng xuất thì về trang chào và ghi lịch sử[39m[90m                       [39m [90m0.03s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\TraTuApiTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit "zahlen" và "zählen": từ đúng từng chữ đứng đầu, rồi dạng khác ([39m[90m…[39m [90m0.10s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit gõ không dấu ở 4 thứ tiếng: Đức (ö → o hoặc oe), Việt, Anh, Trun[39m[90m…[39m [90m0.14s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit chữ quá ngắn, ký tự đại diện, thẻ nháp và thẻ riêng của người kh[39m[90m…[39m [90m0.10s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit kết quả có nghĩa, mạo từ tách riêng, sao của chính mình; tối đa[39m[90m… [39m [90m0.14s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit bấm một chữ trong câu: đúng dạng (số nhiều, dạng chia), viết hoa[39m[90m…[39m [90m0.10s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit lịch sử tra: ghi khi mở thẻ, mới nhất trước, gộp lần tra lặp lại[39m[90m…[39m [90m0.12s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit lịch sử tra sai dữ liệu thì 422; thẻ không xem được thì không gh[39m[90m…[39m [90m0.08s[39m  
-  [32;1m✓[39;22m[90m [39m[90mit xoá lịch sử: chỉ mục của mình; mục của người khác thì 404 và vẫn[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit "zahlen" và "zählen": từ đúng từng chữ đứng đầu, rồi dạng khác ([39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit gõ không dấu ở 4 thứ tiếng: Đức (ö → o hoặc oe), Việt, Anh, Trun[39m[90m…[39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit chữ quá ngắn, ký tự đại diện, thẻ nháp và thẻ riêng của người kh[39m[90m…[39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit kết quả có nghĩa, mạo từ tách riêng, sao của chính mình; tối đa[39m[90m… [39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit bấm một chữ trong câu: đúng dạng (số nhiều, dạng chia), viết hoa[39m[90m…[39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit lịch sử tra: ghi khi mở thẻ, mới nhất trước, gộp lần tra lặp lại[39m[90m…[39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit lịch sử tra sai dữ liệu thì 422; thẻ không xem được thì không gh[39m[90m…[39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit xoá lịch sử: chỉ mục của mình; mục của người khác thì 404 và vẫn[39m[90m…[39m [90m0.08s[39m  
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\Utf8DatabaseTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Brötchen')[39m[90m [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Brötchen')[39m[90m [39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('Straße')[39m[90m   [39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('tiếng Việt[39m[90m…[39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit ghi rồi đọc chữ có dấu qua database giữ nguyên with ('ẞ ắ ặ ộ ữ[39m[90m… [39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit kết nối sai bảng mã thì chữ có dấu đọc ra bị hỏng, nên test bắt[39m[90m… [39m [90m0.02s[39m  
   [32;1m✓[39;22m[90m [39m[90mit kết nối database dùng utf8mb4[39m[90m                                    [39m [90m0.02s[39m  
 
-  [90mTests:[39m    [32;1m316 passed[39;22m[90m (2893 assertions)[39m
-  [90mDuration:[39m [39m66.11s[39m
+  [90mTests:[39m    [32;1m362 passed[39;22m[90m (4139 assertions)[39m
+  [90mDuration:[39m [39m65.85s[39m
 
 ✔ Pest (database lernbuch_test)
 ::endgroup::
 ::group::Hiệu năng với dữ liệu cỡ thật (tạo phiên p95 < 150 ms, API khác < 200 ms)
 
 Hiệu năng (11882 thẻ, 620 chủ đề nhỏ, 5000 dòng tiến độ):
-  POST hoc/phien                 p50   12.3 ms   p95   13.6 ms   max   13.7 ms
-  POST hoc/phien (Quiz)          p50   64.6 ms   p95   66.6 ms   max   73.7 ms
-  GET hoc/con-lai                p50    5.5 ms   p95    8.8 ms   max    9.0 ms
-  GET hom-nay                    p50   46.5 ms   p95   48.8 ms   max   48.9 ms
-  GET chu-de/{slug}              p50    8.4 ms   p95    9.3 ms   max    9.8 ms
-  GET chu-de (cây)               p50   48.6 ms   p95   50.6 ms   max   52.4 ms
-  GET tra-tu                     p50   52.4 ms   p95   53.1 ms   max   53.2 ms
-  POST hoc/luot-cham (20 lượt)   p50   19.1 ms   p95   23.0 ms   max   24.7 ms
-  GET ngu-phap                   p50    9.5 ms   p95    9.7 ms   max   10.0 ms
-  GET ngu-phap/{slug}            p50    3.5 ms   p95    3.7 ms   max    3.8 ms
-  GET bai-tap                    p50   20.7 ms   p95   21.5 ms   max   21.7 ms
-  GET bai-tap/phien (Luyện nhanh) p50   12.0 ms   p95   12.2 ms   max   12.2 ms
-  GET bai-tap/phien (Ôn câu sai) p50   19.3 ms   p95   20.0 ms   max   20.0 ms
-  POST bai-tap/ket-qua (15 câu)  p50   10.0 ms   p95   13.7 ms   max   15.0 ms
-  GET dong-tu                    p50   10.4 ms   p95   10.8 ms   max   12.6 ms
-  GET dong-tu?q=                 p50    7.3 ms   p95    7.5 ms   max    7.5 ms
-  GET dong-tu/luyen              p50    4.5 ms   p95    4.6 ms   max    4.8 ms
-  GET bai-tap/dien-cau           p50   35.2 ms   p95   36.2 ms   max   36.9 ms
+  POST hoc/phien                 p50   11.5 ms   p95   12.2 ms   max   12.3 ms
+  POST hoc/phien (Quiz)          p50   60.3 ms   p95   61.5 ms   max   61.9 ms
+  GET hoc/con-lai                p50    4.7 ms   p95    4.8 ms   max    4.8 ms
+  GET hom-nay                    p50   40.3 ms   p95   43.8 ms   max   45.1 ms
+  GET chu-de/{slug}              p50    7.8 ms   p95   10.0 ms   max   12.1 ms
+  GET chu-de (cây)               p50   42.8 ms   p95   44.5 ms   max   48.5 ms
+  GET tra-tu                     p50   44.0 ms   p95   44.7 ms   max   44.8 ms
+  POST hoc/luot-cham (20 lượt)   p50   16.0 ms   p95   17.1 ms   max   18.8 ms
+  GET ngu-phap                   p50    7.5 ms   p95    7.8 ms   max    8.0 ms
+  GET ngu-phap/{slug}            p50    2.6 ms   p95    2.7 ms   max    2.7 ms
+  GET bai-tap                    p50   15.8 ms   p95   16.3 ms   max   16.8 ms
+  GET bai-tap/phien (Luyện nhanh) p50    8.9 ms   p95    9.3 ms   max    9.3 ms
+  GET bai-tap/phien (Ôn câu sai) p50   15.5 ms   p95   17.5 ms   max   18.9 ms
+  POST bai-tap/ket-qua (15 câu)  p50    8.7 ms   p95    9.0 ms   max    9.0 ms
+  GET dong-tu                    p50    9.3 ms   p95    9.6 ms   max    9.7 ms
+  GET dong-tu?q=                 p50    6.5 ms   p95    6.7 ms   max    6.7 ms
+  GET dong-tu/luyen              p50    3.8 ms   p95    3.9 ms   max    3.9 ms
+  GET bai-tap/dien-cau           p50   31.9 ms   p95   32.2 ms   max   32.3 ms
 
   [30;42;1m PASS [39;49;22m[39m Tests\Feature\HieuNangHocTest[39m
-  [32;1m✓[39;22m[90m [39m[90mit dữ liệu cỡ thật: tạo phiên p95 dưới 150 ms, các API học và nội[39m[90m… [39m [90m13.41s[39m  
+  [32;1m✓[39;22m[90m [39m[90mit dữ liệu cỡ thật: tạo phiên p95 dưới 150 ms, các API học và nội[39m[90m… [39m [90m14.59s[39m  
 
   [90mTests:[39m    [32;1m1 passed[39;22m[90m (735 assertions)[39m
-  [90mDuration:[39m [39m13.53s[39m
+  [90mDuration:[39m [39m14.69s[39m
 
 ✔ Hiệu năng với dữ liệu cỡ thật (tạo phiên p95 < 150 ms, API khác < 200 ms)
 ::endgroup::
