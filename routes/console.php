@@ -11,3 +11,6 @@ Artisan::command('inspire', function () {
 
 // Nhịp mỗi phút đi qua hàng đợi: đủ nhịp nghĩa là cả lịch (schedule:run) và worker (queue:work) đang chạy.
 Schedule::job(new GhiNhip)->everyMinute()->name('ghi-nhip');
+
+// AI: xoá đoạn trích câu hỏi quá 30 ngày và cache AI đã hết hạn.
+Schedule::command('app:ai-don')->dailyAt('03:17')->name('ai-don');

@@ -5,8 +5,14 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserSetting;
+use App\Support\Ai\DongYAi;
+use App\Support\Ai\TrangThaiAi;
 use App\Support\KhoaHoc;
+use App\Support\LoiApi;
 use App\Support\NgonNgu;
+use Carbon\CarbonImmutable;
+use DateTimeImmutable;
+use DateTimeZone;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -58,6 +64,42 @@ class ToiController extends Controller
         return response()->json(['data' => $this->duLieu($user)]);
     }
 
+    /**
+     * Khai ngày sinh để dùng AI (chỉ một lần; cần sửa thì nhân viên sửa trong trang quản trị, có nhật ký).
+     * Lưu INT: 00:00 UTC của ngày sinh (có thể âm). Không ở tương lai theo ngày của người học, không trước 1900.
+     */
+    public function ngaySinh(Request $request): JsonResponse
+    {
+        $user = $this->nguoiDung($request);
+
+        if ($user->getAttribute('birth_date') !== null) {
+            return LoiApi::json('ngay_sinh_da_khai', 409);
+        }
+
+        $homNay = CarbonImmutable::now($user->timezone)->format('Y-m-d');
+        $hopLe = $request->validate([
+            'birth_date' => ['required', 'string', 'date_format:Y-m-d', 'after_or_equal:1900-01-01', 'before_or_equal:'.$homNay],
+        ]);
+
+        $user->forceFill(['birth_date' => (new DateTimeImmutable($hopLe['birth_date'].' 00:00:00', new DateTimeZone('UTC')))->getTimestamp()])->save();
+
+        return response()->json(['data' => $this->duLieu($user)]);
+    }
+
+    /** Đồng ý hay rút đồng ý gửi nội dung cho nhà cung cấp AI; phải gửi đúng phiên bản lời đồng ý đang hiện. */
+    public function dongYAi(Request $request): JsonResponse
+    {
+        $user = $this->nguoiDung($request);
+        $hopLe = $request->validate([
+            'granted' => ['required', 'boolean'],
+            'version' => ['required', 'string', Rule::in([DongYAi::PHIEN_BAN])],
+        ]);
+
+        DongYAi::ghi($user, (bool) $hopLe['granted']);
+
+        return response()->json(['data' => $this->duLieu($user)]);
+    }
+
     /** @return array<string, mixed> */
     private function duLieu(User $user): array
     {
@@ -70,6 +112,7 @@ class ToiController extends Controller
             'created_at' => $user->created_at?->getTimestamp(),
             'course' => KhoaHoc::choApi($user, KhoaHoc::hienTai($user)),
             'settings' => UserSetting::cua($user),
+            'ai' => TrangThaiAi::choToi($user),
         ];
     }
 }

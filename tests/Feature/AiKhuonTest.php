@@ -1,6 +1,8 @@
 <?php
 
 use App\Support\Ai\KhuonAi;
+use Database\Seeders\NoiDungThuSeeder;
+use Illuminate\Support\Facades\DB;
 
 // Mục tự kiểm 2: kết quả AI sai khuôn bị bỏ. Phần đường ống (không hiện, không lưu cache, không trừ lượt) ở cuối file.
 
@@ -65,4 +67,24 @@ it('JSON Schema của word chỉ dùng type, properties, required, items', funct
         ]])
         ->and($s['properties']['common_mistakes'])->toBe(['type' => 'array', 'items' => ['type' => 'string']]);
     expect(json_encode($s))->not->toContain('maxLength')->not->toContain('maxItems');
+});
+
+// Phần đường ống: kết quả hỏng không hiện, không lưu cache, không trừ lượt; nhật ký vẫn ghi token và chi phí.
+
+it('đường ống: mỗi dạng hỏng trả ai_tra_loi_hong, không lưu cache, không trừ lượt, nhật ký error có chi phí', function () {
+    $this->seed();
+    (new NoiDungThuSeeder)->tao();
+    batAi();
+    $this->actingAs(nguoiHocAi());
+    $hong = ['Essen nghĩa là ăn.', '{"meaning":"ăn"}', '[1,2]', '', '{"meaning":', json_encode(ketQuaWordMau(['meaning' => str_repeat('a', 601)]))];
+    aiGia()->kich($hong);
+
+    foreach ($hong as $chu) {
+        giaiThich(theMau('das Brötchen'))->assertStatus(502)->assertJson(['code' => 'ai_tra_loi_hong', 'message' => 'AI trả lời chưa đúng mẫu, thử lại.'])
+            ->assertJsonMissingPath('data');
+    }
+
+    expect(DB::table('ai_cache')->count())->toBe(0)
+        ->and(DB::table('ai_requests')->where('status', 'error')->where('cost_micro_usd', 1125)->count())->toBe(6)
+        ->and($this->getJson('/api/v1/toi')->json('data.ai.used'))->toBe(0);
 });

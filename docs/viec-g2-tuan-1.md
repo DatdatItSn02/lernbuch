@@ -293,11 +293,11 @@ Làm theo thứ tự. Mỗi đợt một lần đẩy. Trong lúc CI của đợ
 
 ### Đợt 2: tám chặng và chức năng đầu tiên
 
-- [ ] **T6. Chặng 1 và 2.** `DanhSachThu`, `DongYAi`, `TrangThaiAi`; `ToiController` thêm `ngaySinh`, `dongYAi` và khối `ai`; hai đường mới trong `routes/api.php`; định nghĩa tính năng Pennant. File mẫu: `ToiController.php`, `LapLich::dauNgay`. Sửa các test đang so nguyên thân của `/toi`.
-- [ ] **T7. Chặng 3 đến 5.** `HanMucAi`, `BoNhoAi`, `TranAi` theo 1.6.
-- [ ] **T8. Đường ống và API.** `TuChoiAi`, `HoiAi`, `AiController`, đường `ai/giai-thich-tu`, `LoiApi` (tham số `$them`, nhận `TuChoiAi`), chữ lỗi ở `lang/vi/api.php`. File mẫu: `LoiApi.php`, `NoiDungController::the`.
-- [ ] **T9. Dọn dẹp.** Lệnh `app:ai-don`: xoá trắng `input_excerpt` của dòng quá 30 ngày, xoá mục `ai_cache` hết hạn. Chạy mỗi ngày qua `Schedule::command` trong `routes/console.php`.
-- [ ] **Test của đợt 2** (mỗi file là một mục tự kiểm; dòng đầu file ghi số mục):
+- [x] **T6. Chặng 1 và 2.** `DanhSachThu`, `DongYAi`, `TrangThaiAi`; `ToiController` thêm `ngaySinh`, `dongYAi` và khối `ai`; hai đường mới trong `routes/api.php`; định nghĩa tính năng Pennant. File mẫu: `ToiController.php`, `LapLich::dauNgay`. Sửa các test đang so nguyên thân của `/toi`.
+- [x] **T7. Chặng 3 đến 5.** `HanMucAi`, `BoNhoAi`, `TranAi` theo 1.6.
+- [x] **T8. Đường ống và API.** `TuChoiAi`, `HoiAi`, `AiController`, đường `ai/giai-thich-tu`, `LoiApi` (tham số `$them`, nhận `TuChoiAi`), chữ lỗi ở `lang/vi/api.php`. File mẫu: `LoiApi.php`, `NoiDungController::the`.
+- [x] **T9. Dọn dẹp.** Lệnh `app:ai-don`: xoá trắng `input_excerpt` của dòng quá 30 ngày, xoá mục `ai_cache` hết hạn. Chạy mỗi ngày qua `Schedule::command` trong `routes/console.php`.
+- [x] **Test của đợt 2** (mỗi file là một mục tự kiểm; dòng đầu file ghi số mục):
   - `AiGiaiThichTuApiTest`: trả đúng khuôn và `meta`; nhật ký có `kind = word`, `context_type = card`, token, `cost_micro_usd = 1125`; thẻ không có, thẻ nháp, thẻ riêng của người khác thì 404 và không gọi AI; `card_id` thiếu hoặc là chữ thì 422; chưa đăng nhập thì 401; `{level}` theo trình độ tự chọn, rồi cấp của thẻ, rồi A1; bộ nối nhận đúng từ và nghĩa tiếng Việt.
   - `AiBoNoiTest` (phần đường ống, mục 1): lỗi tạm thời rồi thành công thì trả kết quả, gọi đúng 2 lần, trừ 1 lượt; lỗi tạm thời hai lần thì `ai_loi_tam_thoi`, gọi đúng 2 lần, không trừ lượt, nhật ký `error`; lần một mất 19 giây (`travel`) thì không thử lại; lỗi cấu hình thì gọi 1 lần; bị chặn thì `ai_bi_tu_choi`; thân trả về và nhật ký không chứa khoá.
   - `AiKhuonTest` (phần đường ống, mục 2): mỗi loại hỏng cho `ai_tra_loi_hong`, không lưu cache, không trừ lượt, nhật ký `error`.
@@ -307,7 +307,7 @@ Làm theo thứ tự. Mỗi đợt một lần đẩy. Trong lúc CI của đợ
   - `AiDanhSachThuTest` (mục 7): công tắc tắt thì `ai_tam_tat` và `state = hidden` cho mọi người; bật và `testers`: ngoài danh sách `ai_chua_mo` và `hidden`, trong danh sách thì qua; `adults` thì ai đủ điều kiện cũng qua; tắt giữa hai lượt gọi thì lượt sau bị chặn, bật lại thì chạy; AI tắt hoặc bộ nối lỗi thì `GET /hom-nay` vẫn 200.
   - `AiDuLieuGuiTest` (mục 8): người học tên "Nguyễn Thị Rất Dễ Nhận", email `rat-de-nhan@example.com`: chữ bộ nối nhận (`BoNoiGia::$daNhan`, và thân gửi Gemini qua `Http::fake`) không chứa tên, email, `public_id`, địa chỉ IP; thân gửi Gemini chỉ có ba khoá `systemInstruction`, `contents`, `generationConfig`; `input_excerpt` dài tối đa 500 ký tự, không cắt giữa ký tự; `app:ai-don` xoá trắng đoạn trích quá 30 ngày và giữ dòng mới, xoá cache hết hạn và giữ `lesson`; lệnh có trong lịch.
   - `AiCacheTest` (mục 9): hỏi lại cùng thẻ thì bộ nối chỉ bị gọi 1 lần, `meta.cached = true`, không trừ lượt, `hits = 1`; người thứ hai cùng trình độ lấy từ cache; khác trình độ thì gọi lại; khoá giống nhau khi chỉ khác khoảng trắng hoặc dạng NFD, khác nhau khi khác hoa thường (`Essen`, `essen`); prompt lên version 2 hoặc đổi model thì không dùng bản cũ; sau 91 ngày thì gọi lại và ghi đè; kết quả hỏng không được lưu; bốn loại không lưu trả `false` ở `BoNhoAi::duocLuu`.
-- [ ] **Đẩy đợt 2.**
+- [x] **Đẩy đợt 2.**
 
 ### Đợt 3: quản trị
 

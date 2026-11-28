@@ -1,10 +1,15 @@
 <?php
 
 use App\Models\User;
+use App\Support\Ai\BoNoi\BoNoiGia;
+use App\Support\Ai\CaiDatAi;
+use App\Support\Ai\DanhSachThu;
+use App\Support\Ai\DongYAi;
 use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
 pest()->extend(TestCase::class)->use(RefreshDatabase::class)->in('Feature');
@@ -56,4 +61,69 @@ function dongNhatKy(string $viec): array
     expect($dong)->not->toBeNull("không có nhật ký {$viec}");
 
     return (array) $dong;
+}
+
+// Dùng chung cho các test AI (tests/Feature/Ai*Test.php): AI giả (AI_DRIVER=fake trong phpunit.xml), nội dung mẫu.
+
+/**
+ * Bật AI với các ô cài đặt cho trước. Mặc định giai đoạn thử; trần lượt mỗi phút, mỗi ngày đặt cao để không vướng
+ * (test trần hệ thống tự đặt lại).
+ *
+ * @param  array<string, mixed>  $doi
+ */
+function batAi(array $doi = []): void
+{
+    CaiDatAi::luu($doi + ['enabled' => true, 'rpm_cap' => 10000, 'rpd_cap' => 1000000], null);
+}
+
+/**
+ * Người học dùng được AI: đủ tuổi (sinh 1/1/1990), trong danh sách thử, đã đồng ý.
+ *
+ * @param  array<string, mixed>  $doi
+ */
+function nguoiHocAi(array $doi = [], bool $thu = true, bool $dongY = true): User
+{
+    $user = User::factory()->create($doi + ['birth_date' => gmmktime(0, 0, 0, 1, 1, 1990)]);
+
+    if ($thu) {
+        DanhSachThu::dat($user, true);
+    }
+
+    if ($dongY) {
+        DongYAi::ghi($user, true);
+    }
+
+    return $user;
+}
+
+function aiGia(): BoNoiGia
+{
+    return app(BoNoiGia::class);
+}
+
+/** Mã thẻ mẫu của NoiDungThuSeeder theo mặt trước. */
+function theMau(string $front): int
+{
+    return (int) DB::table('cards')->where('front', $front)->value('id');
+}
+
+/** Gọi Giải thích từ cho một thẻ bằng tài khoản đang đăng nhập. */
+function giaiThich(int $the): TestResponse
+{
+    return test()->postJson('/api/v1/ai/giai-thich-tu', ['card_id' => $the]);
+}
+
+/**
+ * Thêm các dòng nhật ký AI giả lập (vd lượt đã dùng hôm nay).
+ *
+ * @param  array<string, mixed>  $doi
+ */
+function dongAi(?User $user, int $soDong, array $doi = []): void
+{
+    for ($i = 0; $i < $soDong; $i++) {
+        DB::table('ai_requests')->insert($doi + [
+            'user_id' => $user?->id, 'kind' => 'word', 'provider' => 'fake', 'status' => 'ok', 'cache_hit' => 0,
+            'cost_micro_usd' => 0, 'created_at' => now()->getTimestamp(),
+        ]);
+    }
 }

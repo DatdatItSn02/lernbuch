@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Support\Ai\TuChoiAi;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -23,10 +24,13 @@ final class LoiApi
         429 => 'qua_nhieu_lan',
     ];
 
-    /** @param  array<string, string>  $headers */
-    public static function json(string $ma, int $trangThai, array $headers = []): JsonResponse
+    /**
+     * @param  array<string, string>  $headers
+     * @param  array<string, mixed>  $them  phần thêm vào thân lỗi, vd reset_at khi hết lượt AI
+     */
+    public static function json(string $ma, int $trangThai, array $headers = [], array $them = []): JsonResponse
     {
-        return new JsonResponse(['code' => $ma, 'message' => __('api.'.$ma)], $trangThai, $headers);
+        return new JsonResponse(['code' => $ma, 'message' => __('api.'.$ma)] + $them, $trangThai, $headers);
     }
 
     /** Gắn vào withExceptions: chỉ đổi lỗi của đường dẫn api/*, còn lại để Laravel xử lý như cũ. */
@@ -34,6 +38,10 @@ final class LoiApi
     {
         if (! $request->is('api/*')) {
             return null;
+        }
+
+        if ($e instanceof TuChoiAi) {
+            return self::json($e->ma, $e->trangThai, [], $e->them);
         }
 
         if ($e instanceof AuthenticationException) {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use App\Support\Ai\BoNoi\BoNoiGemini;
 use App\Support\Ai\BoNoi\BoNoiGia;
 use App\Support\Ai\BoNoi\BoNoiOpenAi;
@@ -7,8 +8,10 @@ use App\Support\Ai\BoNoi\ChonBoNoi;
 use App\Support\Ai\BoNoi\LoiBoNoi;
 use App\Support\Ai\BoNoi\YeuCauAi;
 use App\Support\Ai\KhuonAi;
+use Database\Seeders\NoiDungThuSeeder;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 // Mục tự kiểm 1: nhà cung cấp lỗi. Phần đầu: từng bộ nối gửi đúng, đọc đúng, phân loại lỗi đúng, không lộ khoá.
@@ -199,4 +202,85 @@ it('chọn bộ nối: AI_DRIVER thắng ô Nhà cung cấp; thiếu khoá ngoà
     config(['ai.bo_noi' => null, 'ai.gemini.khoa' => null]);
     expect(ChonBoNoi::ten())->toBe('gemini')
         ->and(loiBoNoiCua(fn () => ChonBoNoi::boNoi()->goi(yeuCauBoNoi()))->loai)->toBe(LoiBoNoi::CAU_HINH);
+});
+
+// Phần đường ống: thử lại đúng một lần khi lỗi tạm thời và còn thời gian; lỗi không trừ lượt; không lộ khoá.
+
+function chuanBiDuongOng(): User
+{
+    test()->seed();
+    (new NoiDungThuSeeder)->tao();
+    batAi();
+    $user = nguoiHocAi();
+    test()->actingAs($user);
+
+    return $user;
+}
+
+function daDungHomNay(): int
+{
+    return (int) test()->getJson('/api/v1/toi')->json('data.ai.used');
+}
+
+it('lỗi tạm thời rồi thành công: trả kết quả, gọi đúng 2 lần, trừ 1 lượt', function () {
+    chuanBiDuongOng();
+    aiGia()->kich([new LoiBoNoi(LoiBoNoi::TAM_THOI, 'Gemini: HTTP 503')]);
+
+    giaiThich(theMau('das Brötchen'))->assertOk()->assertJsonPath('meta.used', 1);
+
+    expect(aiGia()->daNhan)->toHaveCount(2)
+        ->and(aiGia()->daNhan[1]->choGiay)->toBeLessThanOrEqual(20.0)
+        ->and(DB::table('ai_requests')->pluck('status')->all())->toBe(['ok'])
+        ->and(daDungHomNay())->toBe(1);
+});
+
+it('lỗi tạm thời hai lần: báo lỗi tạm thời, gọi đúng 2 lần, không trừ lượt, nhật ký error', function () {
+    chuanBiDuongOng();
+    aiGia()->kich([new LoiBoNoi(LoiBoNoi::TAM_THOI), new LoiBoNoi(LoiBoNoi::TAM_THOI), '{"khong":"dung"}']);
+
+    giaiThich(theMau('das Brötchen'))->assertStatus(503)->assertJson(['code' => 'ai_loi_tam_thoi', 'message' => 'AI chưa trả lời được, thử lại sau.']);
+
+    expect(aiGia()->daNhan)->toHaveCount(2)
+        ->and(DB::table('ai_requests')->pluck('status')->all())->toBe(['error'])
+        ->and(daDungHomNay())->toBe(0);
+});
+
+it('lần một mất 19 giây: không còn đủ 3 giây nên không thử lại', function () {
+    chuanBiDuongOng();
+    aiGia()->kich([function () {
+        $this->travel(19)->seconds();
+
+        return new LoiBoNoi(LoiBoNoi::TAM_THOI);
+    }]);
+
+    giaiThich(theMau('das Brötchen'))->assertStatus(503)->assertJson(['code' => 'ai_loi_tam_thoi']);
+
+    expect(aiGia()->daNhan)->toHaveCount(1)
+        ->and((int) DB::table('ai_requests')->value('latency_ms'))->toBeGreaterThanOrEqual(19000);
+});
+
+it('lỗi cấu hình gọi 1 lần (503); bị chặn vì an toàn: 422; cả hai không trừ lượt', function () {
+    chuanBiDuongOng();
+    aiGia()->kich([new LoiBoNoi(LoiBoNoi::CAU_HINH), new LoiBoNoi(LoiBoNoi::BI_CHAN)]);
+
+    giaiThich(theMau('das Brötchen'))->assertStatus(503)->assertJson(['code' => 'ai_loi_cau_hinh']);
+    expect(aiGia()->daNhan)->toHaveCount(1);
+
+    giaiThich(theMau('das Brötchen'))->assertStatus(422)->assertJson(['code' => 'ai_bi_tu_choi', 'message' => 'AI không trả lời được câu này.']);
+    expect(aiGia()->daNhan)->toHaveCount(2)
+        ->and(DB::table('ai_requests')->pluck('status')->all())->toBe(['error', 'error'])
+        ->and(daDungHomNay())->toBe(0);
+});
+
+it('Gemini thật lỗi 500 hai lần: thân trả về và nhật ký không chứa khoá', function () {
+    chuanBiDuongOng();
+    config(['ai.bo_noi' => 'gemini', 'ai.gemini.khoa' => KHOA_GEMINI_THU]);
+    Http::fake([URL_GEMINI => Http::response(['error' => ['code' => 500, 'status' => 'INTERNAL', 'message' => 'lỗi '.KHOA_GEMINI_THU]], 500)]);
+
+    $r = giaiThich(theMau('das Brötchen'))->assertStatus(503);
+
+    Http::assertSentCount(2);
+    expect($r->getContent())->not->toContain('khoa-bi-mat')
+        ->and(json_encode(DB::table('ai_requests')->get()))->not->toContain('khoa-bi-mat')
+        ->and(DB::table('ai_requests')->value('provider'))->toBe('gemini');
 });

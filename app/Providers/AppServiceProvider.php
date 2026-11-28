@@ -5,12 +5,14 @@ namespace App\Providers;
 use App\Models\Role;
 use App\Models\User;
 use App\Support\Ai\BoNoi\BoNoiGia;
+use App\Support\Ai\DanhSachThu;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Laravel\Pennant\Feature;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,6 +32,9 @@ class AppServiceProvider extends ServiceProvider
 
         // Quản trị cao nhất có mọi quyền, kể cả quyền thêm sau này; vai trò khác theo bảng role_has_permissions.
         Gate::before(fn ($user) => $user instanceof User && $user->is_staff && $user->hasRole(Role::CAO_NHAT) ? true : null);
+
+        // Danh sách thử AI: mặc định không ai trong danh sách; quản trị bật cho từng người ở trang xem người học.
+        Feature::define(DanhSachThu::TEN, fn (User $user) => false);
 
         RateLimiter::for('api', fn (Request $request) => Limit::perMinute(max(1, (int) config('app.api_moi_phut', self::API_MOI_PHUT)))
             ->by($request->user()?->getAuthIdentifier() ?? $request->ip()));

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AiController;
 use App\Http\Controllers\Api\V1\BaiTapController;
 use App\Http\Controllers\Api\V1\CaiDatController;
 use App\Http\Controllers\Api\V1\DongTuController;
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->middleware(['auth:sanctum', 'con-hoat-dong', 'da-xac-minh', 'ngon-ngu'])->group(function () {
     Route::get('toi', [ToiController::class, 'show']);
     Route::put('toi/ho-so', [ToiController::class, 'capNhatHoSo']);
+    // AI: khai ngày sinh (một lần), đồng ý hay rút đồng ý gửi nội dung cho nhà cung cấp AI
+    Route::put('toi/ngay-sinh', [ToiController::class, 'ngaySinh']);
+    Route::put('toi/dong-y-ai', [ToiController::class, 'dongYAi']);
 
     Route::get('toi/cai-dat', [CaiDatController::class, 'show']);
     Route::put('toi/cai-dat', [CaiDatController::class, 'update']);
@@ -60,4 +64,7 @@ Route::prefix('v1')->middleware(['auth:sanctum', 'con-hoat-dong', 'da-xac-minh',
     Route::post('tra-tu/lich-su', [TraTuController::class, 'ghiLichSu']);
     Route::delete('tra-tu/lich-su', [TraTuController::class, 'xoaHetLichSu']);
     Route::delete('tra-tu/lich-su/{id}', [TraTuController::class, 'xoaLichSu'])->whereNumber('id');
+
+    // AI: mọi lượt đi qua tám chặng (App\Support\Ai\HoiAi); khoá AI chỉ nằm trên máy chủ
+    Route::post('ai/giai-thich-tu', [AiController::class, 'giaiThichTu']);
 });
