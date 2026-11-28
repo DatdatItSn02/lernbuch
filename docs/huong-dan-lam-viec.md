@@ -74,6 +74,23 @@ Lệnh `--cho` thoát với mã 0 khi cả hai job đạt, 1 khi có job hỏng,
 | Test trình duyệt | `tests/e2e/*.spec.ts`, `tests/e2e/phien.ts` | Máy chủ PHP thật, database có `NguoiHocThuSeeder` và `NoiDungThuSeeder`. Mẫu có axe, sáng và tối: `tests/e2e/noi-dung.spec.ts` |
 | Thiết kế | `DESIGN.md`, `.impeccable/design-full.md` | Dùng lớp và token đang có; không thêm màu, cỡ chữ mới |
 
+**AI đã có từ tuần 1 của G2** (dùng lại, đừng viết lại; chữ ký đầy đủ: `graphify explain "TenLop"`)
+
+| Cần gì | Ở đâu | Ghi chú |
+| --- | --- | --- |
+| Hỏi AI qua tám chặng | `app/Support/Ai/HoiAi.php` | `HoiAi::hoi($user, $loai, $thamSo, $trich, $kieuNguCanh, $maNguCanh)` trả `['data', 'meta']`; từ chối thì ném `TuChoiAi(ma, trangThai, them)`, `LoiApi` đổi thành JSON |
+| Cổng (công tắc, danh sách thử, tuổi, đồng ý) | `TrangThaiAi::kiem($user, $cd)`, `choToi($user)` | Khối `ai` của `GET /toi`: `state` là `hidden`, `need_birth_date`, `underage`, `need_consent`, `ready` |
+| Cài đặt AI | `CaiDatAi::tatCa()`, `luu()` | Dòng `ai.<khoá>` trong `settings`; `default_model`, các trần, `trial_daily_cap`, `price_usd_per_mtok` |
+| Prompt | `AiPrompt::dangDung($loai)`, `SoanLoiNhac::soan()`, `THAM_SO`, `lamSach()` | Mẫu thay bằng `strtr`; thẻ `<input>` giả bị vô hiệu |
+| Khuôn kết quả | `KhuonAi::KHUON`, `doc($loai, $chu)`, `jsonSchema($loai)` | Hỏng thì `null`: không hiện, không lưu cache, không trừ lượt |
+| Bộ nối | `app/Support/Ai/BoNoi/`: `BoNoiGemini`, `BoNoiOpenAi`, `BoNoiGia`, `ChonBoNoi` | Test: `aiGia()->kich([...])`, `aiGia()->daNhan`; hết kịch bản thì trả `BoNoiGia::mau()` |
+| Hạn mức, cache, trần | `HanMucAi`, `BoNhoAi` (`DUOC_LUU`, `khoa()`, `lay()`, `luu()`), `TranAi` (`chamTran()`, `giuCho()`) | Cache giữ hoa thường; trần ngày theo `America/Los_Angeles` |
+| Danh sách thử, đồng ý | `DanhSachThu::co()`, `dat()`; `DongYAi::ghi()`, `dangDongY()` | Phiên bản lời đồng ý `2026-11` |
+| Hàm test AI | `tests/Pest.php` | `batAi($doi)`, `nguoiHocAi($doi, $thu, $dongY)`, `aiGia()`, `theMau($front)`, `giaiThich($the)`, `dongAi($user, $soDong, $doi)` |
+| Quản trị AI | `app/Filament/Pages/TrangCaiDatAi.php`, `app/Support/QuanTri/AiNguoiHoc.php` | Quyền `ai.manage`; test mẫu `tests/Feature/AiCaiDatTest.php` |
+| AI ở app học | `lib/ai.ts`, `components/ai/CongAi.tsx` (`CongAi`, `chuLoi`), `screens/ai/TabHoiAi.tsx` | `coTabAi(toi.ai)`; `MA_DOI_TRANG_THAI` thì gọi `taiLaiToi()`; test mẫu `TabHoiAi.test.tsx` |
+| Test trình duyệt AI | `tests/e2e/ai.spec.ts`, `NguoiHocThuSeeder::TAI_KHOAN_AI` | Seeder bật `ai.enabled` và xoá trạng thái AI của các tài khoản thử mỗi lần chạy |
+
 ## 5. Bẫy đã gặp
 
 **PHP, Pint, Larastan**
@@ -91,9 +108,13 @@ Lệnh `--cho` thoát với mã 0 khi cả hai job đạt, 1 khi có job hỏng,
 - Bản dịch tiếng Việt còn thiếu thì thêm vào `lang/vendor/<gói>/vi/`; `tests/Feature/BanDichFilamentTest.php` bắt khoá chưa dịch.
 - Nhãn không tự viết hoa (`Resource::titleCaseModelLabel(false)` đã đặt). Nút màu phải qua `tests/Feature/MauQuanTriTest.php`: chỉ dùng bảng màu trong `app/Support/QuanTri/MauQuanTri.php`.
 - Trang đăng nhập admin chặn quá 5 lần mỗi phút: test trình duyệt đăng nhập một lần trong `dang-nhap.setup.ts` rồi dùng lại phiên.
+- Ô chọn trong trang cài đặt của admin dùng `->native()` (ô chọn gốc của trình duyệt): ô chọn kiểu Filament có nút xoá nhỏ, axe báo `target-size`.
+- Trong test Livewire, sau một lần `callAction` bị lỗi kiểm dữ liệu thì tạo `Livewire::test(...)` mới cho lần gọi sau; gọi tiếp trên bản cũ ném `ActionNotResolvableException`.
+- Thêm việc vào lịch (`routes/console.php`) làm cột của `schedule:list` đổi độ rộng: test so bằng regex, đừng so nguyên dòng.
 
 **App học và test**
 
+- Màn tải bằng `lazy` (tab Hỏi AI, trang Hỏi AI): trong Vitest phải `await waitFor`/`findBy…` trước khi tìm nội dung.
 - Thêm trường vào `Toi` thì sửa cả `toiMau()` trong `resources/js/test/fakeApi.ts`.
 - Test trình duyệt chạy song song hai cỡ màn hình trên cùng database: test nào ghi dữ liệu thì mỗi cỡ dùng một tài khoản riêng (`emailHoc(duAn, so)` trong `phien.ts`).
 - Service worker bị chặn trong test trình duyệt, trừ `pwa.spec.ts`.
