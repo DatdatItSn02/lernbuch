@@ -187,14 +187,14 @@ FROM (
          '{"translation":"","literal":"","words":[{"de":"","vi":"","note":""}],"grammar":"","natural":""}' AS json_shape,
          'Dịch sang {target}, giữ đúng ngữ cảnh: <input>{text}</input>' AS tpl, 900 AS max_tokens, 0.20 AS temperature
   UNION ALL SELECT 'lookup',
-         '{"lemma":"","pos":"","gender":"m|f|n|","plural":"","forms":{},"meanings_vi":[""],"examples":[{"de":"","vi":""}],"collocations":[""],"level":""}',
-         'Tra từ tiếng Đức: <input>{text}</input>', 900, 0.10
+         '{"lemma":"","pos":"","gender":"m|f|n|","plural":"","forms":[{"label":"","form":""}],"meanings_vi":[""],"examples":[{"de":"","vi":""}],"collocations":[""],"level":""}',
+         'Tra từ tiếng Đức: <input>{text}</input> gender là m, f, n; không phải danh từ thì để trống.', 900, 0.10
   UNION ALL SELECT 'lesson',
          '{"title":"","level":"","text":[{"de":"","vi":""}],"new_words":[{"de":"","vi":""}],"questions":[{"q":"","choices":[""],"answer":0}],"exercise":[{"de":"","answer":""}]}',
-         'Soạn bài ngắn cấp {level} về chủ đề {topic}, dùng các từ: {words}', 1500, 0.50
+         'Soạn bài ngắn cấp {level}: bài đọc 5 đến 8 câu; 5 đến 8 từ mới; đúng 3 câu hỏi, mỗi câu 3 lựa chọn, answer là số thứ tự lựa chọn đúng tính từ 0; 4 câu bài tập điền từ, chỗ trống viết ____. Chủ đề và từ cần dùng: <input>Chủ đề: {topic}. Từ: {words}</input>', 2000, 0.50
   UNION ALL SELECT 'chat',
          '{"reply_de":"","reply_vi":"","corrections":[{"wrong":"","right":"","why":""}],"next_hint":""}',
-         'Tình huống: {scenario}. Người học nói: <input>{text}</input>', 700, 0.60
+         'Tình huống: {scenario}. reply_de viết bằng tiếng Đức đúng trình độ, 1 đến 3 câu, kết bằng một câu hỏi để người học nói tiếp; reply_vi là bản dịch; corrections chỉ ghi lỗi trong câu mới của người học. <input>Các lượt trước: {history} Câu mới của người học: {text}</input>', 700, 0.60
   UNION ALL SELECT 'grammar',
          '{"corrected":"","errors":[{"wrong":"","right":"","why":""}],"natural":"","level":""}',
          'Sửa lỗi đoạn tiếng Đức sau: <input>{text}</input>', 1200, 0.10

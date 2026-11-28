@@ -139,3 +139,16 @@ it('bật rồi tắt: người chưa đăng nhập lại phải đăng nhập, 
     $this->post('/dang-nhap', ['email' => KhachXemThu::EMAIL, 'password' => 'password'])->assertSessionHasErrors();
     $this->assertGuest('web');
 });
+
+it('bật: tài khoản khách chung không bao giờ dùng AI, không khai ngày sinh, không đồng ý thay ai được', function () {
+    batXemThu();
+    batAi(['audience' => 'adults']);
+
+    $this->getJson('/api/v1/toi')->assertOk()->assertJsonPath('data.ai.state', 'hidden');
+    $this->putJson('/api/v1/toi/ngay-sinh', ['birth_date' => '1990-01-01'])->assertForbidden()->assertJsonPath('code', 'ai_chua_mo');
+    $this->putJson('/api/v1/toi/dong-y-ai', ['granted' => true, 'version' => '2026-11'])->assertForbidden();
+    $this->postJson('/api/v1/ai/dich', ['text' => 'Xin chào', 'target' => 'de'])->assertForbidden()->assertJsonPath('code', 'ai_chua_mo');
+
+    expect(KhachXemThu::khach()->birth_date)->toBeNull()
+        ->and(aiGia()->daNhan)->toBe([]);
+});

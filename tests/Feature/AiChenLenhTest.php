@@ -27,14 +27,16 @@ it('có 20 mẫu chèn lệnh: 5 kiểu ở 3 thứ tiếng và 5 biến thể �
         ->and(array_unique(array_column($mau, 'lang')))->toEqualCanonicalizing(['vi', 'de', 'en']);
 });
 
-it('mỗi mẫu ghép vào 8 loại prompt có {text}: đúng một cặp thẻ, không còn thẻ giả, prompt hệ thống chỉ đổi {level}', function () {
+it('mỗi mẫu ghép vào 9 loại prompt có chữ người học: đúng một cặp thẻ, không còn thẻ giả, prompt hệ thống chỉ đổi {level}', function () {
     $prompts = DB::table('ai_prompts')->where('is_active', 1)->get()->keyBy('kind');
-    $coText = $prompts->filter(fn ($p) => str_contains((string) $p->user_template, '{text}'));
-    expect($coText->keys()->sort()->values()->all())->toBe(['answer', 'ask', 'chat', 'doc', 'grammar', 'lookup', 'sentence', 'translate']);
+    $coChu = $prompts->filter(fn ($p, $loai) => array_intersect(SoanLoiNhac::THAM_SO[$loai], SoanLoiNhac::NGUOI_GO) !== []);
+    expect($coChu->keys()->sort()->values()->all())->toBe(['answer', 'ask', 'chat', 'doc', 'grammar', 'lesson', 'lookup', 'sentence', 'translate']);
 
     foreach (mauChenLenh() as $m) {
-        foreach ($coText as $loai => $p) {
+        foreach ($coChu as $loai => $p) {
+            // Mọi tham số đều nhận chữ chèn lệnh; tham số người học gõ phải nằm giữa cặp thẻ
             $thamSo = array_fill_keys(SoanLoiNhac::THAM_SO[$loai], $m['text']) + ['level' => 'B1'];
+            $thamSo = array_merge($thamSo, array_fill_keys(array_diff(SoanLoiNhac::THAM_SO[$loai], SoanLoiNhac::NGUOI_GO), 'x'), ['level' => 'B1']);
             [$heThong, $nguoiDung] = SoanLoiNhac::soan($loai, (string) $p->system_prompt, (string) $p->user_template, $thamSo);
             $nhan = "{$m['id']} trong {$loai}";
 
@@ -43,6 +45,8 @@ it('mỗi mẫu ghép vào 8 loại prompt có {text}: đúng một cặp thẻ,
                 ->and(substr_count($nguoiDung, '</input>'))->toBe(1, $nhan)
                 ->and(strpos($nguoiDung, '<input>'))->toBeLessThan(strpos($nguoiDung, '</input>'));
             expect(preg_match('/<\s*\/?\s*input\b/i', Str::between($nguoiDung, '<input>', '</input>')))->toBe(0, $nhan);
+            // Ngoài cặp thẻ không còn chữ người học
+            expect(str_replace(Str::between($nguoiDung, '<input>', '</input>'), '', $nguoiDung))->not->toContain(SoanLoiNhac::lamSach($m['text']), $nhan);
             expect($heThong)->toBe(strtr((string) $p->system_prompt, ['{level}' => 'B1']), $nhan)
                 ->and($heThong)->toContain('Chỉ trả về JSON đúng mẫu: {"');
         }

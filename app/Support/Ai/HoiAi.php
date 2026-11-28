@@ -38,6 +38,20 @@ final class HoiAi
      */
     public static function hoi(User $user, string $loai, array $thamSo, string $trich, ?string $kieuNguCanh = null, ?int $maNguCanh = null): array
     {
+        $kq = self::hoiKem($user, $loai, $thamSo, $trich, $kieuNguCanh, $maNguCanh);
+
+        return ['data' => $kq['data'], 'meta' => $kq['meta']];
+    }
+
+    /**
+     * Như hoi(), trả thêm mã dòng ai_requests của lượt này (kể cả lượt lấy từ cache) và khoá cache (null nếu loại không lưu).
+     * Hai giá trị này chỉ dùng ở máy chủ (lưu tin trò chuyện, bài học), không bao giờ trả cho app.
+     *
+     * @param  array<string, string>  $thamSo
+     * @return array{data: array<string, mixed>, meta: array{cached: bool, limit: int, used: int, remaining: int, reset_at: int}, request_id: int, hash: string|null}
+     */
+    public static function hoiKem(User $user, string $loai, array $thamSo, string $trich, ?string $kieuNguCanh = null, ?int $maNguCanh = null): array
+    {
         $cd = CaiDatAi::tatCa();
         TrangThaiAi::kiem($user, $cd);
 
@@ -64,9 +78,9 @@ final class HoiAi
             $cu = $khoaCache !== null ? BoNhoAi::lay($khoaCache) : null;
 
             if ($cu !== null) {
-                $ghi('ok', $coSo + ['cache_hit' => 1, 'latency_ms' => 0]);
+                $ma = $ghi('ok', $coSo + ['cache_hit' => 1, 'latency_ms' => 0]);
 
-                return ['data' => $cu, 'meta' => HanMucAi::meta($hm, true)];
+                return ['data' => $cu, 'meta' => HanMucAi::meta($hm, true), 'request_id' => $ma, 'hash' => $khoaCache];
             }
 
             if (TranAi::chamTran($cd)) {
@@ -117,10 +131,10 @@ final class HoiAi
                     BoNhoAi::luu($khoaCache, $loai, $kq);
                 }
 
-                $ghi('ok', $luot);
+                $ma = $ghi('ok', $luot);
                 $hm['used']++;
 
-                return ['data' => $kq, 'meta' => HanMucAi::meta($hm, false)];
+                return ['data' => $kq, 'meta' => HanMucAi::meta($hm, false), 'request_id' => $ma, 'hash' => $khoaCache];
             } finally {
                 $cho->release();
             }
@@ -154,9 +168,9 @@ final class HoiAi
     }
 
     /** @param array<string, mixed> $them */
-    private static function ghi(User $user, string $loai, string $trich, ?string $kieuNguCanh, ?int $maNguCanh, string $trangThai, array $them): void
+    private static function ghi(User $user, string $loai, string $trich, ?string $kieuNguCanh, ?int $maNguCanh, string $trangThai, array $them): int
     {
-        DB::table('ai_requests')->insert($them + [
+        return (int) DB::table('ai_requests')->insertGetId($them + [
             'user_id' => $user->id,
             'kind' => $loai,
             'provider' => substr(ChonBoNoi::ten(), 0, 20),

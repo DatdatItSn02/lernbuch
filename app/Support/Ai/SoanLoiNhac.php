@@ -15,7 +15,7 @@ final class SoanLoiNhac
         'translate' => ['target', 'text'],
         'lookup' => ['text'],
         'lesson' => ['level', 'topic', 'words'],
-        'chat' => ['scenario', 'text'],
+        'chat' => ['scenario', 'history', 'text'],
         'grammar' => ['text'],
         'sentence' => ['word', 'meaning', 'text'],
         'answer' => ['expected', 'prompt', 'text'],
@@ -23,6 +23,9 @@ final class SoanLoiNhac
         'doc' => ['text'],
         'ask' => ['text'],
     ];
+
+    /** Tham số có chữ do người học gõ (hoặc tin cũ của họ): mẫu câu phải đặt chúng giữa đúng một cặp thẻ <input>. */
+    public const NGUOI_GO = ['text', 'history', 'topic', 'words'];
 
     /** Bỏ ký tự điều khiển (giữ tab, xuống dòng), rồi vô hiệu mọi thẻ input, kể cả viết hoa, có dấu cách hay xuống dòng. */
     public static function lamSach(string $chu): string

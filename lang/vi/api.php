@@ -24,5 +24,10 @@ return [
     'ai_loi_cau_hinh' => 'AI chưa trả lời được, thử lại sau.',
     'ai_bi_tu_choi' => 'AI không trả lời được câu này.',
     'ai_tra_loi_hong' => 'AI trả lời chưa đúng mẫu, thử lại.',
+    'ai_can_co_chu' => 'Hãy gõ chữ, không chỉ số hay ký hiệu.',
+    'ai_qua_nhieu_cuoc' => 'Bạn đã có 50 cuộc trò chuyện. Xoá bớt cuộc cũ để mở cuộc mới.',
+    'ai_cuoc_day' => 'Cuộc trò chuyện này đã đủ 200 tin. Mở cuộc mới để nói tiếp.',
+    'ai_dap_an_khop_mau' => 'Câu trả lời này đã khớp đáp án mẫu.',
+    'ai_khong_ap_dung' => 'Dạng câu này không dùng được kiểm đáp án bằng AI.',
     'ngay_sinh_da_khai' => 'Ngày sinh đã khai rồi. Cần sửa thì liên hệ hỗ trợ.',
 ];

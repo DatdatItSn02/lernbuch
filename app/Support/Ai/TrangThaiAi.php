@@ -2,6 +2,7 @@
 
 namespace App\Support\Ai;
 
+use App\Http\Middleware\KhachXemThu;
 use App\Models\User;
 use Carbon\CarbonImmutable;
 
@@ -14,7 +15,8 @@ final class TrangThaiAi
     /** @param array{enabled: bool, audience: string} $cd */
     public static function moChoNguoi(User $user, array $cd): bool
     {
-        return $cd['enabled'] && ($cd['audience'] === 'adults' || DanhSachThu::co($user));
+        // Tài khoản khách xem thử dùng chung: không bao giờ dùng AI (không ai đồng ý thay được cho người khác)
+        return $cd['enabled'] && ! KhachXemThu::la($user) && ($cd['audience'] === 'adults' || DanhSachThu::co($user));
     }
 
     /**

@@ -76,6 +76,10 @@ class ToiController extends Controller
     {
         $user = $this->nguoiDung($request);
 
+        if (KhachXemThu::la($user)) {
+            return LoiApi::json('ai_chua_mo', 403);
+        }
+
         if ($user->getAttribute('birth_date') !== null) {
             return LoiApi::json('ngay_sinh_da_khai', 409);
         }
@@ -94,6 +98,10 @@ class ToiController extends Controller
     public function dongYAi(Request $request): JsonResponse
     {
         $user = $this->nguoiDung($request);
+
+        if (KhachXemThu::la($user)) {
+            return LoiApi::json('ai_chua_mo', 403);
+        }
         $hopLe = $request->validate([
             'granted' => ['required', 'boolean'],
             'version' => ['required', 'string', Rule::in([DongYAi::PHIEN_BAN])],

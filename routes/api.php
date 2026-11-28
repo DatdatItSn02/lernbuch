@@ -67,4 +67,10 @@ Route::prefix('v1')->middleware(['khach-xem-thu', 'auth:sanctum', 'con-hoat-dong
 
     // AI: mọi lượt đi qua tám chặng (App\Support\Ai\HoiAi); khoá AI chỉ nằm trên máy chủ
     Route::post('ai/giai-thich-tu', [AiController::class, 'giaiThichTu']);
+    Route::post('ai/dich', [AiController::class, 'dich']);
+    Route::post('ai/sua-ngu-phap', [AiController::class, 'suaNguPhap']);
+    Route::post('ai/tra-tu', [AiController::class, 'traTu']);
+    Route::post('ai/ngu-phap/giai-thich', [AiController::class, 'giaiThichNguPhap']);
+    Route::post('ai/ngu-phap/hoi', [AiController::class, 'hoiNguPhap']);
+    Route::post('ai/kiem-dap-an', [AiController::class, 'kiemDapAn']);
 });
