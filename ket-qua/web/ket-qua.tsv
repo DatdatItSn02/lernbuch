@@ -340,6 +340,22 @@ dat	vitest	-	resources/js/app/components/ai/OHoiAi.test.tsx	Ô hỏi AI › bộ
 dat	vitest	-	resources/js/app/components/ai/OHoiAi.test.tsx	Ô hỏi AI › dán quá dài: báo, nút gửi tắt, không gửi; không chặn dán
 dat	vitest	-	resources/js/app/components/ai/OHoiAi.test.tsx	Ô hỏi AI › ô trống, toàn số và ký hiệu: báo ngay, không gửi; gõ lại thì hết báo
 dat	vitest	-	resources/js/app/components/ai/OHoiAi.test.tsx	Ô hỏi AI › Ctrl+Enter gửi ở ô nhiều dòng; đúng giới hạn thì gửi được
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › chọn bằng phím 1–4; sai thì thẻ quay lại để luyện nhưng chỉ lượt đầu được tính; tổng kết đúng số
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › Esc thoát về Hôm nay; chế độ lạ trên đường dẫn thì học Flashcard
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › chế độ lạ trên đường dẫn thì xin phiên Flashcard
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › P nghe từ, S nghe chậm, cả trước khi chọn (từ tiếng Đức đã hiện sẵn)
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Typing: chưa trả lời thì P, Alt+P không đọc (khỏi lộ đáp án); trả lời rồi thì P, S đọc từ
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Listening: đọc từ ngay khi hiện; đang gõ thì Alt+P, Alt+S đọc lại, P không có Alt là chữ p
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Đặt câu: P nghe câu, S nghe chậm
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Typing: thiếu mạo từ được Khó; gợi ý thì tối đa Khó; nút chữ đặc biệt chèn ä ö ü ß vào ô
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Typing: ô trống thì chưa chấm; sai mạo từ là Quên
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Listening: gõ lại từ vừa nghe; hết 30 giây thì chấm Quên với lý do hết giờ
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › bấm chữ theo đúng thứ tự là Tốt; sai rồi sửa là Khó; Backspace bỏ chữ cuối
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › chưa đủ chữ thì chưa kiểm được; Xem đáp án là Quên
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › phiên Đặt câu không có thẻ nào có câu ví dụ thì báo rõ
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Ghép cặp: nối đúng thì khoá cặp; thẻ từng nối sai là Khó; xong vòng thì tổng kết
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Ghép cặp: chưa chọn từ thì P không đọc; chọn từ rồi thì P, S đọc từ vừa chọn
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Hỗn hợp: kiểu câu hỏi theo mức của thẻ, lượt chấm ghi chế độ Hỗn hợp
 dat	vitest	-	resources/js/app/screens/ai/BaiHocAi.test.tsx	Bài học AI › tách từ theo dấu phẩy hay xuống dòng, bỏ ô trống
 dat	vitest	-	resources/js/app/screens/ai/BaiHocAi.test.tsx	Bài học AI › danh sách bài kèm điểm; nút gợi ý điền chủ đề; soạn bài gửi đúng thân rồi mở bài
 dat	vitest	-	resources/js/app/screens/ai/BaiHocAi.test.tsx	Bài học AI › quá 10 từ, từ có ký hiệu, chủ đề trống: báo ngay, không gọi API
@@ -362,22 +378,6 @@ dat	vitest	-	resources/js/app/screens/ai/TroChuyen.test.tsx	Trò chuyện › g�
 dat	vitest	-	resources/js/app/screens/ai/TroChuyen.test.tsx	Trò chuyện › AI lỗi: chữ vẫn còn trong ô, có nút Thử lại
 dat	vitest	-	resources/js/app/screens/ai/TroChuyen.test.tsx	Trò chuyện › cuộc không có (404): Không tìm thấy, có đường về danh sách
 dat	vitest	-	resources/js/app/screens/ai/TroChuyen.test.tsx	Trò chuyện › xoá: hỏi lại; Huỷ thì thôi; Xoá hẳn thì gọi xoá rồi về danh sách
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › chọn bằng phím 1–4; sai thì thẻ quay lại để luyện nhưng chỉ lượt đầu được tính; tổng kết đúng số
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › Esc thoát về Hôm nay; chế độ lạ trên đường dẫn thì học Flashcard
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › chế độ lạ trên đường dẫn thì xin phiên Flashcard
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › P nghe từ, S nghe chậm, cả trước khi chọn (từ tiếng Đức đã hiện sẵn)
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Typing: chưa trả lời thì P, Alt+P không đọc (khỏi lộ đáp án); trả lời rồi thì P, S đọc từ
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Listening: đọc từ ngay khi hiện; đang gõ thì Alt+P, Alt+S đọc lại, P không có Alt là chữ p
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Đặt câu: P nghe câu, S nghe chậm
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Typing: thiếu mạo từ được Khó; gợi ý thì tối đa Khó; nút chữ đặc biệt chèn ä ö ü ß vào ô
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Typing: ô trống thì chưa chấm; sai mạo từ là Quên
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Listening: gõ lại từ vừa nghe; hết 30 giây thì chấm Quên với lý do hết giờ
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › bấm chữ theo đúng thứ tự là Tốt; sai rồi sửa là Khó; Backspace bỏ chữ cuối
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › chưa đủ chữ thì chưa kiểm được; Xem đáp án là Quên
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › phiên Đặt câu không có thẻ nào có câu ví dụ thì báo rõ
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Ghép cặp: nối đúng thì khoá cặp; thẻ từng nối sai là Khó; xong vòng thì tổng kết
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Ghép cặp: chưa chọn từ thì P không đọc; chọn từ rồi thì P, S đọc từ vừa chọn
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Hỗn hợp: kiểu câu hỏi theo mức của thẻ, lượt chấm ghi chế độ Hỗn hợp
 dat	vitest	-	resources/js/app/screens/luyenTap/LuyenTap.test.tsx	Ngữ pháp › danh sách theo cấp và chương; chương 9 chỉ có tên; giáo trình gốc và chuyên đề riêng; số câu bài tập
 dat	vitest	-	resources/js/app/screens/luyenTap/LuyenTap.test.tsx	Ngữ pháp › lọc một cấp (giữ trên đường dẫn); tìm theo tên bài không cần dấu; không khớp thì báo
 dat	vitest	-	resources/js/app/screens/luyenTap/LuyenTap.test.tsx	Ngữ pháp › không tải được thì báo và thử lại được
@@ -557,8 +557,8 @@ dat	playwright	may-tinh	tests/e2e/hoc.spec.ts	đi hết một phiên, xem tổng
 dat	playwright	dien-thoai	tests/e2e/hoc.spec.ts	đi hết một phiên, xem tổng kết, Học tiếp mở phiên mới với từ mới kế tiếp
 dat	playwright	may-tinh	tests/e2e/hoc.spec.ts	mục 5: mất mạng sau thẻ 3, chấm tiếp 5 thẻ, tải lại trang, có mạng lại: đủ 8 lượt tới máy chủ, mỗi lượt một lần
 dat	playwright	dien-thoai	tests/e2e/hoc.spec.ts	mục 5: mất mạng sau thẻ 3, chấm tiếp 5 thẻ, tải lại trang, có mạng lại: đủ 8 lượt tới máy chủ, mỗi lượt một lần
-hong	playwright	may-tinh	tests/e2e/hoi-ai.spec.ts	trang Hỏi AI: Dịch, Sửa ngữ pháp, Trò chuyện, Bài học AI
-hong	playwright	dien-thoai	tests/e2e/hoi-ai.spec.ts	trang Hỏi AI: Dịch, Sửa ngữ pháp, Trò chuyện, Bài học AI
+dat	playwright	may-tinh	tests/e2e/hoi-ai.spec.ts	trang Hỏi AI: Dịch, Sửa ngữ pháp, Trò chuyện, Bài học AI
+dat	playwright	dien-thoai	tests/e2e/hoi-ai.spec.ts	trang Hỏi AI: Dịch, Sửa ngữ pháp, Trò chuyện, Bài học AI
 dat	playwright	may-tinh	tests/e2e/hoi-ai.spec.ts	AI ở các màn đang có: Tra từ, bài ngữ pháp, Kiểm đáp án, Viết câu, Giải thích từ trong phiên học
 dat	playwright	dien-thoai	tests/e2e/hoi-ai.spec.ts	AI ở các màn đang có: Tra từ, bài ngữ pháp, Kiểm đáp án, Viết câu, Giải thích từ trong phiên học
 dat	playwright	may-tinh	tests/e2e/luyen-tap.spec.ts	đọc ngữ pháp, xem bài tập, bảng động từ (sáng): không tràn, không lỗi, WCAG 2.2 AA
