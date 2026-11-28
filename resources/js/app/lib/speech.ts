@@ -4,9 +4,29 @@ import { t } from '../i18n';
 // interrupted: câu đang đọc bị huỷ vì người dùng bấm đọc lại hoặc bấm nút nghe khác; không phải lỗi.
 export type SpeakResult = 'ok' | 'interrupted' | 'no-voice' | 'unsupported' | 'error';
 
-function germanVoice(): SpeechSynthesisVoice | undefined {
-    const voices = window.speechSynthesis.getVoices();
-    return voices.find((v) => v.lang === 'de-DE') ?? voices.find((v) => v.lang.toLowerCase().startsWith('de'));
+// Trình duyệt không cho biết giọng nam hay nữ, nên đoán theo tên giọng (Windows/Edge, macOS/iOS, Chrome, Android).
+// Thứ tự chọn: giọng nữ đã biết → giọng chưa rõ → giọng nam đã biết; trong cùng nhóm thì de-DE trước, rồi de-AT, de-CH.
+const GIONG_NU = [
+    'katja', 'hedda', 'amala', 'seraphina', 'louisa', 'elke', 'gisela', 'klarissa', 'maja', 'tanja', 'ingrid', 'leni',
+    'anna', 'helena', 'petra', 'marlene', 'sandy', 'shelley', 'grandma', 'google deutsch', 'female', 'weiblich', 'frau',
+];
+const GIONG_NAM = [
+    'stefan', 'conrad', 'killian', 'florian', 'bernd', 'christoph', 'kasper', 'ralf', 'jonas', 'jan ', 'markus',
+    'yannick', 'viktor', 'eddy', 'reed', 'rocko', 'grandpa', 'male', 'männlich', 'mann',
+];
+
+function nhomGioi(name: string): number {
+    const n = name.toLowerCase();
+    // "Female" chứa "male": có dấu hiệu nữ thì tính là nữ trước
+    if (GIONG_NU.some((x) => n.includes(x))) return 0;
+    return GIONG_NAM.some((x) => n.includes(x)) ? 2 : 1;
+}
+
+/** Giọng tiếng Đức của máy, ưu tiên giọng nữ để cùng giọng với audio tạo sẵn. */
+export function germanVoice(): SpeechSynthesisVoice | undefined {
+    const de = window.speechSynthesis.getVoices().filter((v) => v.lang.replace('_', '-').toLowerCase().startsWith('de'));
+    const thuTuVung = (v: SpeechSynthesisVoice) => (v.lang.replace('_', '-') === 'de-DE' ? 0 : 1);
+    return [...de].sort((a, b) => nhomGioi(a.name) - nhomGioi(b.name) || thuTuVung(a) - thuTuVung(b))[0];
 }
 
 export function canSpeak(): boolean {
