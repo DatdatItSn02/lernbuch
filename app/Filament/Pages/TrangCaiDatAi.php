@@ -76,12 +76,12 @@ class TrangCaiDatAi extends Page
                 ->columns(2)
                 ->schema([
                     Toggle::make('enabled')->label('Bật AI'),
-                    Select::make('audience')->label('Ai được dùng')->options(self::AI_DUNG)->required()->native(false),
+                    Select::make('audience')->label('Ai được dùng')->options(self::AI_DUNG)->required(),
                 ]),
             Section::make('Nhà cung cấp')
                 ->columns(2)
                 ->schema([
-                    Select::make('provider')->label('Nhà cung cấp')->options(self::NHA_CUNG_CAP)->required()->native(false),
+                    Select::make('provider')->label('Nhà cung cấp')->options(self::NHA_CUNG_CAP)->required(),
                     TextInput::make('default_model')->label('Model')->required()->maxLength(60)->regex('/^[A-Za-z0-9._-]{1,60}$/'),
                 ]),
             Section::make('Hạn mức và trần')

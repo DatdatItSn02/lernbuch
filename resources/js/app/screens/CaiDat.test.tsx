@@ -224,3 +224,33 @@ describe('Cài đặt: cài app và đăng xuất trên máy học offline', () 
         await waitFor(() => expect(screen.queryByRole('button', { name: 'Cài Lernbuch' })).toBeNull());
     });
 });
+
+describe('Cài đặt: mục AI', () => {
+    it('AI chưa mở cho tài khoản: không có mục AI', async () => {
+        giaApi({ 'GET /api/v1/toi': () => ({ json: { data: toiMau() } }) });
+        renderAppCoTaiKhoan('/cai-dat');
+        await screen.findByRole('heading', { name: 'Tài khoản' });
+        expect(screen.queryByRole('heading', { name: 'AI' })).toBeNull();
+    });
+
+    it('đã đồng ý: bấm Rút đồng ý thì gửi granted false rồi hiện câu chưa đồng ý', async () => {
+        const goi = giaApi({
+            'GET /api/v1/toi': () => ({ json: { data: toiMau({ ai: { state: 'ready', consent_version: '2026-11', limit: 50, used: 0, reset_at: 1764262800 } }) } }),
+            'PUT /api/v1/toi/dong-y-ai': () => ({ json: { data: toiMau({ ai: { state: 'need_consent', min_age: 18, consent_version: '2026-11' } }) } }),
+        });
+        renderAppCoTaiKhoan('/cai-dat');
+        expect(await screen.findByText('Bạn đã đồng ý gửi nội dung cho AI.')).toBeTruthy();
+
+        fireEvent.click(screen.getByRole('button', { name: 'Rút đồng ý' }));
+
+        expect(await screen.findByText(/Bạn chưa đồng ý dùng AI/)).toBeTruthy();
+        expect(goi.find((g) => g.url === '/api/v1/toi/dong-y-ai')?.body).toEqual({ granted: false, version: '2026-11' });
+    });
+
+    it('chưa khai ngày sinh hay chưa đủ tuổi: một câu giải thích, không có nút', async () => {
+        giaApi({ 'GET /api/v1/toi': () => ({ json: { data: toiMau({ ai: { state: 'need_birth_date', min_age: 18 } }) } }) });
+        renderAppCoTaiKhoan('/cai-dat');
+        expect(await screen.findByText(/Bạn chưa khai ngày sinh/)).toBeTruthy();
+        expect(screen.queryByRole('button', { name: 'Rút đồng ý' })).toBeNull();
+    });
+});

@@ -318,11 +318,11 @@ Làm theo thứ tự. Mỗi đợt một lần đẩy. Trong lúc CI của đợ
 
 ### Đợt 4: app học
 
-- [ ] **T11. Giao diện.** Theo 1.10. File mẫu: `lib/api.ts`, `state/taiKhoan.tsx`, `screens/TheTu.tsx` (phần tab), `screens/CaiDat.tsx`, `screens/TheTu.test.tsx`, `test/fakeApi.ts`.
+- [x] **T11. Giao diện.** Theo 1.10. File mẫu: `lib/api.ts`, `state/taiKhoan.tsx`, `screens/TheTu.tsx` (phần tab), `screens/CaiDat.tsx`, `screens/TheTu.test.tsx`, `test/fakeApi.ts`.
   - `CongAi.test.tsx`: năm trạng thái; ngày 31/2 không gọi API; khai xong thì sang bước đồng ý; kết quả `underage` thì không vẽ `children`; lời đồng ý có đủ sáu ý; bấm đồng ý gọi đúng API kèm `version`; đổi bước thì tiêu điểm nằm ở tiêu đề mới.
   - `TabHoiAi.test.tsx`: `hidden` thì thẻ từ không có tab Hỏi AI; bấm giải thích có dòng `status` rồi bốn phần; phần rỗng bị ẩn; chuỗi `<b>x</b><script>` hiện nguyên văn, không sinh phần tử; `ai_het_luot` hiện giờ có lượt mới; `ai_qua_tai`, `ai_loi_tam_thoi` hiện chữ của máy chủ và nút Thử lại; mất mạng hiện `ai.canMang`; `ai_can_dong_y` thì tải lại `/toi` và hiện bước đồng ý; số lượt còn lại lấy từ `meta`.
   - Thêm vào `CaiDat.test.tsx`: `hidden` không có mục AI; `ready` bấm Rút đồng ý gọi `PUT` với `granted: false` rồi hiện câu chưa đồng ý.
-- [ ] **T12. Test trình duyệt và hoàn tất.** `NguoiHocThuSeeder`: tăng `SO_TAI_KHOAN_HOC` lên 13; tài khoản 12 và 13 của mỗi cỡ màn hình nằm trong danh sách thử; mỗi lần chạy seeder thì xoá ngày sinh, dòng `consents`, dòng `ai_requests` của hai tài khoản đó; đặt `ai.enabled = true`, `ai.audience = "testers"`. Vẫn không làm gì ở production. Sửa `NguoiHocThuSeederTest`. File mẫu: `tests/e2e/noi-dung.spec.ts` (hàm `moThe`, `axe`, `ghiLoi`).
+- [x] **T12. Test trình duyệt và hoàn tất.** `NguoiHocThuSeeder`: tăng `SO_TAI_KHOAN_HOC` lên 13; tài khoản 12 và 13 của mỗi cỡ màn hình nằm trong danh sách thử; mỗi lần chạy seeder thì xoá ngày sinh, dòng `consents`, dòng `ai_requests` của hai tài khoản đó; đặt `ai.enabled = true`, `ai.audience = "testers"`. Vẫn không làm gì ở production. Sửa `NguoiHocThuSeederTest`. File mẫu: `tests/e2e/noi-dung.spec.ts` (hàm `moThe`, `axe`, `ghiLoi`).
   - `tests/e2e/ai.spec.ts`: tài khoản 12 mở thẻ `das Brötchen`, vào tab Hỏi AI, khai ngày sinh người lớn, đồng ý, bấm giải thích, thấy kết quả của AI giả; tải lại trang và hỏi lại thì số lượt còn lại không giảm. Ở mỗi bước: axe sạch, không tràn ngang, không lỗi console, giao diện sáng và tối, `chupDu`. Tài khoản 13 khai ngày sinh dưới 18: thấy câu chưa đủ tuổi; tải lại thì tab Hỏi AI không còn.
   - README: thêm mục AI (biến `AI_DRIVER`, `GEMINI_API_KEY`; trang Cài đặt AI; lệnh `app:ai-don`; câu về phiên bản lời đồng ý ở 1.7).
 - [ ] **Đẩy đợt 4**, thông điệp commit có `[anh]`.
@@ -356,4 +356,6 @@ Mỗi quyết định tự chọn ngoài file này ghi một dòng ở đây: ng
 
 - 28/11, T3: `BoNoiGia` là singleton trong container (`app(BoNoiGia::class)`), `kich`, `daNhan`, `datLai` là của đối tượng, không tĩnh: mỗi test có một bản mới, kịch bản của test này không lọt sang test khác.
 - 28/11, T9: `HangDoiTest` so cột lịch bằng regex: thêm việc `app:ai-don` (lịch `17 3 * * *`) làm cột lịch của `schedule:list` được căn rộng hơn.
+- 28/11, T10: hai ô chọn của trang Cài đặt AI dùng `select` gốc của trình duyệt: ô chọn kiểu Filament có nút xoá nhỏ, axe báo `target-size`.
+- 28/11, T11: `i18n.test.ts` gom chữ ở mọi tầng (nhóm `ai` có tầng con `ai.ngaySinh`, `ai.dongY`, `ai.caiDat`).
 - 28/11, T10: việc cho thử AI và sửa ngày sinh nằm ở `app/Support/QuanTri/AiNguoiHoc.php` (giống `KhoaTaiKhoan`), trang chỉ gọi.

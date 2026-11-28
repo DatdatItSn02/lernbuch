@@ -8,6 +8,8 @@ export class LoiApi extends Error {
         public readonly ma: string | null,
         public readonly loiO: Record<string, string[]> = {},
         message = '',
+        /** Toàn bộ thân JSON của lỗi (vd reset_at khi hết lượt AI). */
+        public readonly than: Record<string, unknown> = {},
     ) {
         super(message || `API ${trangThai}`);
         this.name = 'LoiApi';
@@ -54,10 +56,10 @@ async function goi<T>(phuongThuc: 'GET' | 'PUT' | 'POST' | 'DELETE', duong: stri
     // Service worker trả bản đã lưu (mất mạng) thì có đầu này: vẫn dùng được, nhưng là chưa tới máy chủ
     baoMayChu(r.headers?.get?.('X-Lernbuch-Ban-Luu') !== '1');
 
-    const json = (await r.json().catch(() => null)) as { code?: string; message?: string; errors?: Record<string, string[]> } | null;
+    const json = (await r.json().catch(() => null)) as ({ code?: string; message?: string; errors?: Record<string, string[]> } & Record<string, unknown>) | null;
     if (r.ok) return json as T;
 
-    const loi = new LoiApi(r.status, json?.code ?? null, json?.errors ?? {}, json?.message);
+    const loi = new LoiApi(r.status, json?.code ?? null, json?.errors ?? {}, json?.message, json ?? {});
     // Hết đăng nhập, hoặc tài khoản bị khoá (máy chủ đã đăng xuất phiên này): về trang đăng nhập
     if (r.status === 401 || (r.status === 403 && loi.ma === 'tai_khoan_bi_khoa')) chuyenTrang.toi('/dang-nhap');
     else if (r.status === 403 && loi.ma === 'chua_xac_minh') chuyenTrang.toi('/xac-minh-email');

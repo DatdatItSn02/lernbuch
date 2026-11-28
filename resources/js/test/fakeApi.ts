@@ -35,6 +35,7 @@ export function toiMau(doi: Partial<Toi> = {}): Toi {
         created_at: 1764201600,
         course: { slug: 'tieng-duc', level_min: 1, level_max: 4, goal: null, level: null },
         settings: { new_per_session: 10, daily_goal: 20, theme: 'light', font_size: 'md', season: 'auto', meaning_langs: ['vi', 'en', 'zh'] },
+        ai: { state: 'hidden' },
         ...doi,
     };
 }

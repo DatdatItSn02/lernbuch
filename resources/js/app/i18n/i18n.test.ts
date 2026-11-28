@@ -46,7 +46,9 @@ describe('t(): chữ giao diện theo ngôn ngữ', () => {
     });
 
     it('từ điển tiếng Việt: mọi chữ khác rỗng, không thừa khoảng trắng đầu cuối', () => {
-        const chu = Object.values(tuDienVi).flatMap((nhom) => Object.values(nhom));
+        // Nhóm có thể lồng nhiều tầng (vd ai.ngaySinh.tieuDe): gom mọi chữ ở mọi tầng
+        const gom = (nut: unknown): string[] => (typeof nut === 'string' ? [nut] : Object.values(nut as Record<string, unknown>).flatMap(gom));
+        const chu = gom(tuDienVi);
         expect(chu.length).toBeGreaterThan(200);
         for (const c of chu) {
             expect(c.trim()).not.toBe('');

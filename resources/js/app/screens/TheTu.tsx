@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
-import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
+import { lazy, Suspense, useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import { Link, useParams } from 'react-router';
 import { Article, DongDang, TuDuc } from '../components/Article';
 import { AudioButton } from '../components/AudioButton';
@@ -7,19 +7,25 @@ import { CauBamDuoc } from '../components/CauBamDuoc';
 import { Sheet } from '../components/Shell';
 import { DangTai, LoiTai } from '../components/TaiNoiDung';
 import { api } from '../lib/api';
+import { coTabAi } from '../lib/ai';
 import { tenLoaiTu, type MaoTu, type SoTay, type TheChiTiet } from '../lib/noiDung';
 import { quenDaTai, useApi } from '../lib/useApi';
 import { useStore, type Lang } from '../state/store';
+import { useTaiKhoan } from '../state/taiKhoan';
 import { KhongThay } from './KhongThay';
 import { useTitle } from '../lib/useTitle';
 import { t, type Khoa } from '../i18n';
 
-const TABS = [
+type TabId = 'nghia' | 'ngu-phap' | 'ghi-chu' | 'ai';
+type Tab = { id: TabId; readonly label: string };
+const TABS: readonly Tab[] = [
     { id: 'nghia', get label() { return t('theTu.tabNghia'); } },
     { id: 'ngu-phap', get label() { return t('khung.nguPhap'); } },
     { id: 'ghi-chu', get label() { return t('theTu.tabGhiChu'); } },
-] as const;
-type TabId = (typeof TABS)[number]['id'];
+];
+/** Tab Hỏi AI: chỉ có khi AI mở cho tài khoản này (xem lib/ai.ts). Phần AI tải riêng, lúc mở tab. */
+const TAB_AI: Tab = { id: 'ai', get label() { return t('ai.tab'); } };
+const TabHoiAi = lazy(() => import('./ai/TabHoiAi'));
 
 // short: mã ngắn trên nút (giữ nguyên ở mọi ngôn ngữ giao diện)
 const LANGS: { id: Lang; short: string; readonly name: string }[] = [
@@ -51,6 +57,9 @@ function WordSheet({ id }: { id: string }) {
     const [loiSao, setLoiSao] = useState(false);
     const tabsRef = useRef<HTMLDivElement>(null);
     const baseId = useId();
+    const { toi } = useTaiKhoan();
+    // Đang mở tab Hỏi AI thì giữ tab dù trạng thái vừa đổi (vd khai ngày sinh xong mà chưa đủ tuổi: vẫn thấy câu giải thích)
+    const tabs = coTabAi(toi?.ai) || tab === 'ai' ? [...TABS, TAB_AI] : TABS;
 
     if (loi?.trangThai === 404) {
         return <KhongThay title={t('theTu.khongCo')} message={t('theTu.khongCoMoTa')} back={{ to: '/chu-de', label: t('chung.veDanhSachChuDe') }} />;
@@ -83,17 +92,17 @@ function WordSheet({ id }: { id: string }) {
     const sacThai = typeof reg === 'string' ? reg : null;
 
     const onTabKey = (e: KeyboardEvent<HTMLDivElement>) => {
-        const i = TABS.findIndex((tb) => tb.id === tab);
+        const i = tabs.findIndex((tb) => tb.id === tab);
         const to =
-            e.key === 'ArrowRight' ? (i + 1) % TABS.length
-            : e.key === 'ArrowLeft' ? (i - 1 + TABS.length) % TABS.length
+            e.key === 'ArrowRight' ? (i + 1) % tabs.length
+            : e.key === 'ArrowLeft' ? (i - 1 + tabs.length) % tabs.length
             : e.key === 'Home' ? 0
-            : e.key === 'End' ? TABS.length - 1
+            : e.key === 'End' ? tabs.length - 1
             : null;
         if (to === null) return;
         e.preventDefault();
-        setTab(TABS[to].id);
-        tabsRef.current?.querySelector<HTMLButtonElement>(`[data-tab="${TABS[to].id}"]`)?.focus();
+        setTab(tabs[to].id);
+        tabsRef.current?.querySelector<HTMLButtonElement>(`[data-tab="${tabs[to].id}"]`)?.focus();
     };
 
     const { nav } = word;
@@ -152,7 +161,7 @@ function WordSheet({ id }: { id: string }) {
                 </header>
 
                 <div ref={tabsRef} role="tablist" aria-label={t('theTu.thongTin')} onKeyDown={onTabKey} className="flex overflow-x-auto border-b border-line px-2 md:px-6">
-                    {TABS.map((tb) => {
+                    {tabs.map((tb) => {
                         const on = tb.id === tab;
                         return (
                             <button
@@ -179,6 +188,11 @@ function WordSheet({ id }: { id: string }) {
                     {tab === 'nghia' && <MeaningTab word={word} />}
                     {tab === 'ngu-phap' && <GrammarTab word={word} />}
                     {tab === 'ghi-chu' && <NoteTab word={word} onLuu={doiSoTay} />}
+                    {tab === 'ai' && (
+                        <Suspense fallback={<DangTai />}>
+                            <TabHoiAi cardId={word.id} />
+                        </Suspense>
+                    )}
                 </div>
             </Sheet>
 

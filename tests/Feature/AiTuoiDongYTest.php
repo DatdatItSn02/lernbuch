@@ -137,7 +137,10 @@ it('trang người học: có users.manage thì sửa được ngày sinh, có n
         ->assertSee('11/03/2010')
         ->assertActionVisible('sua-ngay-sinh')
         ->callAction('sua-ngay-sinh', data: ['ngay_sinh' => '2030-01-01', 'ly_do' => 'x'])
-        ->assertHasActionErrors(['ngay_sinh'])
+        ->assertHasActionErrors(['ngay_sinh']);
+    expect($hoc->fresh()->birth_date)->toBe(gmmktime(0, 0, 0, 3, 11, 2010));
+
+    Livewire::test(ViewNguoiHoc::class, ['record' => $hoc->public_id])
         ->callAction('sua-ngay-sinh', data: ['ngay_sinh' => '2000-03-11', 'ly_do' => 'Người học gửi giấy tờ'])
         ->assertHasNoActionErrors();
 

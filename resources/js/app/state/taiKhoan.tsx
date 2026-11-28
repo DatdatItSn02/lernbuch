@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import type { TrangThaiAi } from '../lib/ai';
 import { api } from '../lib/api';
 import { sanitizeSettings, useStore, type Season, type Settings } from './store';
 
@@ -23,6 +24,8 @@ export type Toi = {
     created_at: number | null;
     course: { slug: string; level_min: number; level_max: number; goal: MucTieu | null; level: number | null } | null;
     settings: CaiDatApi;
+    /** AI có mở cho người này không và còn thiếu bước nào (khai ngày sinh, đồng ý); xem lib/ai.ts. */
+    ai: TrangThaiAi;
 };
 
 export type HoSoMoi = Partial<{ name: string; timezone: string; goal: MucTieu | null; level: number | null }>;
@@ -69,9 +72,13 @@ type TaiKhoan = {
     toi: Toi | null;
     luu: TrangThaiLuu;
     capNhatHoSo: (thayDoi: HoSoMoi) => Promise<void>;
+    /** Nhận hồ sơ mới mà máy chủ vừa trả (khai ngày sinh, đồng ý AI). */
+    nhanToi: (toi: Toi) => void;
+    /** Tải lại hồ sơ (vd AI vừa bị tắt hay cần đồng ý lại), lỗi thì giữ bản đang có. */
+    taiLaiToi: () => Promise<void>;
 };
 
-const MAC_DINH: TaiKhoan = { trangThai: 'khong-co', toi: null, luu: 'yen', capNhatHoSo: async () => {} };
+const MAC_DINH: TaiKhoan = { trangThai: 'khong-co', toi: null, luu: 'yen', capNhatHoSo: async () => {}, nhanToi: () => {}, taiLaiToi: async () => {} };
 const TaiKhoanContext = createContext<TaiKhoan>(MAC_DINH);
 
 /** Chờ người dùng ngừng bấm một chút rồi mới gửi, để đổi liền mấy ô chỉ gửi một lần. */
@@ -173,7 +180,17 @@ export function TaiKhoanProvider({ children }: { children: ReactNode }) {
         setToi(data);
     }, []);
 
-    const value = useMemo(() => ({ trangThai, toi, luu, capNhatHoSo }), [trangThai, toi, luu, capNhatHoSo]);
+    const nhanToi = useCallback((moi: Toi) => setToi(moi), []);
+    const taiLaiToi = useCallback(async () => {
+        try {
+            const { data } = await api.lay<{ data: Toi }>('/toi');
+            setToi(data);
+        } catch {
+            // giữ bản đang có
+        }
+    }, []);
+
+    const value = useMemo(() => ({ trangThai, toi, luu, capNhatHoSo, nhanToi, taiLaiToi }), [trangThai, toi, luu, capNhatHoSo, nhanToi, taiLaiToi]);
     return <TaiKhoanContext.Provider value={value}>{children}</TaiKhoanContext.Provider>;
 }
 

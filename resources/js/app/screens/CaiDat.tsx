@@ -1,9 +1,11 @@
 import { Download } from 'lucide-react';
 import { useId, useState, type FormEvent } from 'react';
+import { chuLoi } from '../components/ai/CongAi';
 import { Choice } from '../components/Choice';
 import { MayDangNhap } from '../components/MayDangNhap';
 import { Sheet } from '../components/Shell';
 import { t, type Khoa } from '../i18n';
+import { guiDongY } from '../lib/ai';
 import { LoiApi } from '../lib/api';
 import { useCaiApp } from '../lib/caiApp';
 import { cacMuiGio } from '../lib/muiGio';
@@ -116,8 +118,62 @@ export function CaiDat() {
                 />
             </div>
 
+            {theoTaiKhoan && <MucAi />}
             {theoTaiKhoan && <TaiKhoanPhan />}
         </Sheet>
+    );
+}
+
+/** AI: đã đồng ý thì rút được; chưa khai, chưa đủ tuổi, chưa đồng ý thì một câu giải thích. AI chưa mở cho tài khoản này thì ẩn. */
+function MucAi() {
+    const { toi, nhanToi } = useTaiKhoan();
+    const uid = useId();
+    const [loi, setLoi] = useState<string | null>(null);
+    const [dangGui, setDangGui] = useState(false);
+    const ai = toi?.ai;
+    if (!ai || ai.state === 'hidden') return null;
+
+    const rut = async () => {
+        setLoi(null);
+        setDangGui(true);
+        try {
+            const { data } = await guiDongY(false);
+            nhanToi(data);
+        } catch (e) {
+            setLoi(chuLoi(e));
+        } finally {
+            setDangGui(false);
+        }
+    };
+
+    return (
+        <section aria-labelledby={`${uid}-ai`} className="mt-10 border-t border-line pt-6">
+            <h2 id={`${uid}-ai`} className="text-title font-bold">
+                {t('ai.caiDat.tieuDe')}
+            </h2>
+            {ai.state === 'ready' ? (
+                <>
+                    <p className="mt-2">{t('ai.caiDat.daDongY')}</p>
+                    <button
+                        type="button"
+                        onClick={() => void rut()}
+                        disabled={dangGui}
+                        className="mt-3 inline-flex min-h-11 items-center rounded-md border border-line-strong px-4 font-semibold transition-colors duration-200 hover:bg-sunken disabled:opacity-60"
+                    >
+                        {t('ai.caiDat.rut')}
+                    </button>
+                </>
+            ) : (
+                <p className="mt-2 text-ink-2">
+                    {ai.state === 'need_birth_date' ? t('ai.caiDat.chuaKhai') : ai.state === 'underage' ? t('ai.chuaDuTuoi', { tuoi: ai.min_age }) : t('ai.caiDat.chuaDongY')}
+                </p>
+            )}
+            {loi && (
+                <p role="alert" className="mt-2 text-label font-semibold text-danger">
+                    {loi}
+                </p>
+            )}
+        </section>
     );
 }
 

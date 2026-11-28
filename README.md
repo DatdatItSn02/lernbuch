@@ -51,6 +51,14 @@ Web chạy ở `127.0.0.1:8001`, không dùng `localhost:8000` để không trù
 
 `/admin` (Filament), cho nhân viên theo vai trò: Người học (tìm, xem tiến độ, khoá và mở khoá), Chủ đề, Thẻ, Ngữ pháp, Bài tập, Động từ, Nguồn, Nhật ký thao tác (giá trị trước và sau của mọi lần sửa), Job lỗi (chạy lại, bỏ), Vai trò, Nhân viên, Cài đặt học. Người học không vào được; tài khoản quản trị đầu tiên tạo bằng `php artisan app:create-admin`.
 
+## AI (G2)
+
+- Mọi lượt hỏi AI đi qua máy chủ, tám chặng (`app/Support/Ai/HoiAi.php`): công tắc và danh sách thử, tuổi và đồng ý, hạn mức người học, cache dùng chung, trần hệ thống, gọi nhà cung cấp (thử lại một lần), kiểm khuôn kết quả, ghi nhật ký `ai_requests`. Khoá AI không bao giờ tới trình duyệt.
+- Biến môi trường: `AI_DRIVER` (`fake` là AI giả, dùng cho máy dev và test; trống thì theo ô Nhà cung cấp), `GEMINI_API_KEY` (chỉ đặt trên máy chủ, qua GitHub Secrets). Ngoài máy chủ thật, thiếu khoá thì tự dùng AI giả.
+- Trang quản trị Cài đặt AI (`/admin/cai-dat-ai`, quyền `ai.manage`): bật tắt, ai được dùng, model, lượt mỗi phút, mỗi ngày, chi phí mỗi ngày, lượt cùng lúc, hạn mức giai đoạn thử. Cho một người thử AI: trang người học, nút Cho thử AI.
+- Lệnh `php artisan app:ai-don` (lịch chạy mỗi ngày): xoá trắng đoạn trích câu hỏi quá 30 ngày, xoá cache AI hết hạn.
+- Đổi nhà cung cấp AI hoặc chuyển Gemini sang bậc trả tiền thì phải sửa lời đồng ý trong app (`resources/js/app/i18n/vi.ts`, nhóm `ai.dongY`) và tăng `DongYAi::PHIEN_BAN` cùng `PHIEN_BAN_DONG_Y` trong `resources/js/app/lib/ai.ts`: mọi người phải đồng ý lại.
+
 ## Quy ước database
 
 Không khoá ngoại; thời gian lưu Unix timestamp (INT), trừ 10 bảng của Laravel; bảng có trang quản lý đủ cột `created_*`, `updated_*`, `deleted_*`. Đổi cấu trúc bằng migration mới, mỗi lần deploy chỉ thêm, không xoá cột.
