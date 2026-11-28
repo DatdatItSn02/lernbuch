@@ -120,6 +120,23 @@ dat	pest	-	tests/Feature/AiCacheTest.php	khoá cache: giống nhau khi chỉ kh�
 dat	pest	-	tests/Feature/AiCacheTest.php	prompt lên phiên bản 2 hay đổi model thì không dùng kết quả cũ
 dat	pest	-	tests/Feature/AiCacheTest.php	sau 91 ngày mục cache hết hạn: gọi lại và ghi đè
 dat	pest	-	tests/Feature/AiCacheTest.php	kết quả hỏng không được lưu; bốn loại chứa chữ riêng của người học không bao giờ lưu
+dat	pest	-	tests/Feature/AiCaiDatTest.php	chưa có gì trong database thì dùng mặc định: AI tắt, chỉ danh sách thử
+dat	pest	-	tests/Feature/AiCaiDatTest.php	chỉ người có quyền ai.manage vào được trang
+dat	pest	-	tests/Feature/AiCaiDatTest.php	lưu: có hiệu lực ngay, ghi nhật ký những ô đã đổi; lưu y như cũ thì không ghi thêm
+dat	pest	-	tests/Feature/AiCaiDatTest.php	chi phí số nguyên lưu lại y như cũ không bị coi là đổi
+dat	pest	-	tests/Feature/AiCaiDatTest.php	giá trị sai báo lỗi đúng ô, không lưu gì with data set "dataset "lượt mỗi phút là 0""
+dat	pest	-	tests/Feature/AiCaiDatTest.php	giá trị sai báo lỗi đúng ô, không lưu gì with data set "dataset "lượt mỗi ngày âm""
+dat	pest	-	tests/Feature/AiCaiDatTest.php	giá trị sai báo lỗi đúng ô, không lưu gì with data set "dataset "lượt cùng lúc là chữ""
+dat	pest	-	tests/Feature/AiCaiDatTest.php	giá trị sai báo lỗi đúng ô, không lưu gì with data set "dataset "model rỗng""
+dat	pest	-	tests/Feature/AiCaiDatTest.php	giá trị sai báo lỗi đúng ô, không lưu gì with data set "dataset "model có dấu cách""
+dat	pest	-	tests/Feature/AiCaiDatTest.php	giá trị sai báo lỗi đúng ô, không lưu gì with data set "dataset "nhà cung cấp lạ""
+dat	pest	-	tests/Feature/AiCaiDatTest.php	giá trị sai báo lỗi đúng ô, không lưu gì with data set "dataset "ai được dùng lạ""
+dat	pest	-	tests/Feature/AiCaiDatTest.php	giá trị sai báo lỗi đúng ô, không lưu gì with data set "dataset "chi phí quá trần""
+dat	pest	-	tests/Feature/AiCaiDatTest.php	giá trị sai báo lỗi đúng ô, không lưu gì with data set "dataset "hạn mức thử quá 500""
+dat	pest	-	tests/Feature/AiCaiDatTest.php	giá trị sai báo lỗi đúng ô, không lưu gì with data set "dataset "giá âm""
+dat	pest	-	tests/Feature/AiCaiDatTest.php	giá trị hỏng trong bảng settings thì bỏ, dùng mặc định cho ô đó
+dat	pest	-	tests/Feature/AiCaiDatTest.php	CaiDatAi::luu bỏ qua ô lạ, giá trị sai và tuổi tối thiểu
+dat	pest	-	tests/Feature/AiCaiDatTest.php	trang không bao giờ chứa khoá AI, chỉ báo đã có hay chưa có
 dat	pest	-	tests/Feature/AiChenLenhTest.php	có 20 mẫu chèn lệnh: 5 kiểu ở 3 thứ tiếng và 5 biến thể đóng thẻ
 dat	pest	-	tests/Feature/AiChenLenhTest.php	mỗi mẫu ghép vào 8 loại prompt có {text}: đúng một cặp thẻ, không còn thẻ giả, prompt hệ thống chỉ đổi {level}
 dat	pest	-	tests/Feature/AiChenLenhTest.php	tham số không thuộc loại thì bị bỏ qua; chữ có {meaning} không bị thay lần nữa; ký tự điều khiển bị bỏ
@@ -131,6 +148,7 @@ dat	pest	-	tests/Feature/AiDanhSachThuTest.php	mở cho mọi người từ 18 t
 dat	pest	-	tests/Feature/AiDanhSachThuTest.php	tắt giữa hai lượt gọi thì lượt sau bị chặn; bật lại thì chạy; bỏ khỏi danh sách cũng có hiệu lực ngay
 dat	pest	-	tests/Feature/AiDanhSachThuTest.php	AI tắt hay nhà cung cấp lỗi thì phần học vẫn chạy
 dat	pest	-	tests/Feature/AiDanhSachThuTest.php	tài khoản mới mặc định không nằm trong danh sách thử
+dat	pest	-	tests/Feature/AiDanhSachThuTest.php	trang người học: có ai.manage thì cho thử và bỏ thử AI được, có nhật ký; thiếu quyền thì không thấy nút
 dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	AI giả nhận gì: không có tên, email, mã tài khoản, địa chỉ IP
 dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	thân gửi Gemini chỉ có ba khoá và không có thông tin riêng của người học
 dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	đoạn trích trong nhật ký tối đa 500 ký tự, không cắt giữa một ký tự
@@ -185,6 +203,7 @@ dat	pest	-	tests/Feature/AiTuoiDongYTest.php	đủ tuổi tính theo ngày ở m
 dat	pest	-	tests/Feature/AiTuoiDongYTest.php	chưa đồng ý: ai_can_dong_y; đồng ý ghi một dòng consents đủ cột; rút thì khoá ngay; đồng ý lại thì mở
 dat	pest	-	tests/Feature/AiTuoiDongYTest.php	đồng ý bản lời đồng ý cũ coi như chưa đồng ý; gửi sai phiên bản hay thiếu ô thì 422
 dat	pest	-	tests/Feature/AiTuoiDongYTest.php	ô Tuổi tối thiểu đặt 16 trong database: vẫn dùng 18
+hong	pest	-	tests/Feature/AiTuoiDongYTest.php	trang người học: có users.manage thì sửa được ngày sinh, có nhật ký kèm lý do; thiếu quyền thì không thấy nút
 dat	pest	-	tests/Feature/AmThanhTest.php	tên file khớp công cụ Python: chuẩn hoá NFC và khoảng trắng, sha1(giọng|normal|chữ), thư mục theo 2 ký tự đầu
 dat	pest	-	tests/Feature/AmThanhTest.php	chữ đem đi đọc: bỏ phần trong ngoặc, "/" đọc thành dấu phẩy, gộp khoảng trắng with data set "dataset "danh từ""
 dat	pest	-	tests/Feature/AmThanhTest.php	chữ đem đi đọc: bỏ phần trong ngoặc, "/" đọc thành dấu phẩy, gộp khoảng trắng with data set "dataset "ghi chú trong ngoặc""
@@ -247,7 +266,7 @@ dat	pest	-	tests/Feature/CreateAdminCommandTest.php	từ chối email đã có, 
 dat	pest	-	tests/Feature/CreateAdminCommandTest.php	từ chối mật khẩu ngắn hơn 12 ký tự
 dat	pest	-	tests/Feature/DungLuongTest.php	in dung lượng database và số bảng, rồi số nội dung đã xuất bản, theo dạng deploy ghi lại
 dat	pest	-	tests/Feature/DungLuongTest.php	không đo được database thì báo lỗi mà không lộ chi tiết kết nối
-hong	pest	-	tests/Feature/HangDoiTest.php	lịch có việc ghi nhịp chạy mỗi phút
+dat	pest	-	tests/Feature/HangDoiTest.php	lịch có việc ghi nhịp chạy mỗi phút
 dat	pest	-	tests/Feature/HangDoiTest.php	job thử chạy xong qua hàng đợi database
 dat	pest	-	tests/Feature/HangDoiTest.php	job cố ý lỗi vào failed_jobs sau đúng 3 lần thử
 dat	pest	-	tests/Feature/HangDoiTest.php	cache database (như trên alwaysdata) vẫn đếm đủ 3 lần thử
