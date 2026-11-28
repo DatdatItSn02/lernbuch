@@ -91,6 +91,24 @@ Lệnh `--cho` thoát với mã 0 khi cả hai job đạt, 1 khi có job hỏng,
 | AI ở app học | `lib/ai.ts`, `components/ai/CongAi.tsx` (`CongAi`, `chuLoi`), `screens/ai/TabHoiAi.tsx` | `coTabAi(toi.ai)`; `MA_DOI_TRANG_THAI` thì gọi `taiLaiToi()`; test mẫu `TabHoiAi.test.tsx` |
 | Test trình duyệt AI | `tests/e2e/ai.spec.ts`, `NguoiHocThuSeeder::TAI_KHOAN_AI` | Seeder bật `ai.enabled` và xoá trạng thái AI của các tài khoản thử mỗi lần chạy |
 
+**AI có thêm từ tuần 2 của G2**
+
+| Cần gì | Ở đâu | Ghi chú |
+| --- | --- | --- |
+| Hỏi AI kèm mã lượt | `HoiAi::hoiKem(...)` | Như `hoi()`, trả thêm `request_id`, `hash` |
+| Luật cho chữ người học gõ | `ChuNhap::luat($toiDa)`, `ChuNhap::sach()`, `CoChu` | Phải có ít nhất một chữ cái; middleware `TrimStrings` đổi chuỗi toàn dấu cách thành rỗng |
+| Từ chối một lượt | `throw new TuChoiAi('ma_loi', 429, ['reset_at' => …])` | `LoiApi` đổi thành `{code, message, …phần thêm}`; chữ ở `lang/vi/api.php` |
+| Mười đường gọi AI trong test | `DUONG_AI`, `duongAi($ten, $user)`, `cuocTroChuyen($user)` trong `tests/Pest.php` | Dùng cho test "ở cả mọi chức năng" |
+| Ô nhập và khối kết quả ở app | `components/ai/OHoiAi.tsx`, `KetQuaAi.tsx` (`useHoiAi`, `TrangThaiHoi`, `ConLuotAi`, `KHONG_THU_LAI`) | Lỗi 422 không có nút Thử lại |
+| Dữ liệu AI giả cho test giao diện | `resources/js/test/aiGia.ts` | |
+| Trang quản trị chỉ đọc, có lọc | `app/Filament/Resources/NhatKyAis/` | Mẫu cho hàng chờ, nhật ký |
+| Trang xem có nút hành động | `app/Filament/Resources/AiPrompts/Pages/ViewAiPrompt.php`, `JobLois/Pages/ViewJobLoi.php` | Test bằng `callAction`, `assertHasActionErrors` |
+| Trang Blade tự vẽ trong admin | `app/Filament/Pages/TrangThongKeAi.php`, `resources/views/filament/pages/thong-ke-ai.blade.php` | Bảng HTML có `caption`, `th scope` |
+| Lệnh thử với nhà cung cấp thật | `app/Console/Commands/AiThu.php`, `.github/workflows/ai-thu.yml` | Mẫu cho lệnh và workflow chỉ chạy khi có secret |
+| Khoá trong deploy | `.env.production.example`, `.github/scripts/env-production.py`, `test_env_production.py`, job deploy của `ci.yml` | Mẫu: `GEMINI_API_KEY` |
+| Tài khoản thử của test trình duyệt | `NguoiHocThuSeeder`: 12, 13 (cổng AI), 14, 15 (AI sẵn sàng, gói Premium) | Mỗi lần chạy seeder xoá dữ liệu AI của các tài khoản này |
+| Tài khoản khách xem thử | `App\Http\Middleware\KhachXemThu`, `KhachXemThu::la($user)` | Dùng chung cho mọi khách: không ghi dữ liệu riêng, không dùng AI |
+
 ## 5. Bẫy đã gặp
 
 **PHP, Pint, Larastan**
@@ -111,6 +129,10 @@ Lệnh `--cho` thoát với mã 0 khi cả hai job đạt, 1 khi có job hỏng,
 - Ô chọn trong trang cài đặt của admin dùng `->native()` (ô chọn gốc của trình duyệt): ô chọn kiểu Filament có nút xoá nhỏ, axe báo `target-size`.
 - Trong test Livewire, sau một lần `callAction` bị lỗi kiểm dữ liệu thì tạo `Livewire::test(...)` mới cho lần gọi sau; gọi tiếp trên bản cũ ném `ActionNotResolvableException`.
 - Thêm việc vào lịch (`routes/console.php`) làm cột của `schedule:list` đổi độ rộng: test so bằng regex, đừng so nguyên dòng.
+- Hàm truyền cho Filament (`modifyQueryUsing`, `query` của bộ lọc) phải đặt tên tham số là `$query`: Filament đưa giá trị theo tên, đặt `$q` thì nhận null và trang lỗi 500.
+- Hàng của bảng bấm được mà có ô rỗng thì axe báo `link-name`: ô không có giá trị hiện chữ "Không".
+- Vùng cuộn ngang (bảng rộng trong trang Blade) cần `tabindex="0"`, không thì axe báo `scrollable-region-focusable`.
+- Trong test, sau một lượt gọi API (guard `sanctum`) mà muốn `NhatKy` ghi đúng nhân viên thì gọi `actingAs($nhanVien, 'web')` trước khi thao tác trang quản trị.
 
 **App học và test**
 
@@ -121,6 +143,12 @@ Lệnh `--cho` thoát với mã 0 khi cả hai job đạt, 1 khi có job hỏng,
 - Cần cập nhật giao diện ngay rồi đặt con trỏ: dùng `flushSync`, không dùng `requestAnimationFrame`.
 - Không lồng khung trong khung. Chia phần bằng dải kẻ `border-y border-line py-3`. Vùng bấm tối thiểu `min-h-11`.
 - Mọi màn mới có test axe WCAG 2.2 AA ở giao diện sáng và tối, hai cỡ màn hình, kèm `chupDu(page, info, 'ten-man')`.
+- Đo axe ngay sau khi đổi giao diện sáng, tối: tắt hiệu ứng chuyển màu trước (thêm thẻ `style` tắt `transition`), không thì báo lỗi tương phản giả. Cuộn về đầu trang trước khi đo: thanh đầu trang dính che nút làm axe báo `target-size` giả.
+- Ô chọn (`radio`) có nhãn chứa `span`: trong Playwright bấm vào chữ của nhãn, `.check()` bị `span` chặn và hết giờ.
+- `giaApi` (`fakeApi.ts`) không trả được 204 có thân: ca xoá dùng mã 200 với `null`.
+- Nhãn nhìn thấy và tên trợ năng của nút phải khớp nhau (`label-content-name-mismatch`): phần thêm cho trình đọc màn hình đặt trong `span` lớp `sr-only` ở cuối.
+- Gói Free chỉ có 3 lượt AI mỗi ngày: tài khoản thử cần nhiều lượt thì seeder cấp gói `premium_12m`.
+- **Từ 29/11:** giao diện mặc định sẽ là tiếng Anh (làm ở G3), tiếng Việt là lựa chọn. Chưa đổi gì bây giờ, nhưng mọi chữ mới của app học phải nằm trong `i18n/vi.ts`, chữ của email trong `lang/vi/thu.php`, và nội dung do quản trị soạn (trang trợ giúp) phải lưu kèm mã ngôn ngữ.
 
 **CI và máy người dùng**
 

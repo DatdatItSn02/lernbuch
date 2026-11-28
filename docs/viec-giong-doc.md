@@ -1,5 +1,7 @@
 # Việc lẻ: đọc từ bằng cùng giọng với câu (danh sách việc cho Opus)
 
+**TẠM HOÃN (29/11): người dùng bảo chưa cần chuyển. Không làm file này cho tới khi người dùng yêu cầu lại.**
+
 Viết 29/11/2026. Nhánh `work/g2-tuan2` (đã có commit `bf8d1b5`: giọng trình duyệt ưu tiên giọng nữ). Đọc `docs/huong-dan-lam-viec.md` trước. File này đủ để làm; không cần dò lại code ngoài các file nêu ở mục 2.
 
 **Người dùng yêu cầu (29/11):** nút nghe của **từ** đang phát file Piper giọng nam (thorsten), nút nghe của **câu ví dụ** đọc bằng giọng của trình duyệt (máy người dùng ra giọng nữ). Chuyển phần đọc từ sang đúng giọng đang đọc câu.
