@@ -202,6 +202,9 @@ dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: phần tài k
 dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: cài app và đăng xuất trên máy học offline › đăng xuất: gửi nốt lượt chấm, dọn chủ đề đã tải, phiên dở và bản lưu trên máy, rồi mới gửi form
 dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: cài app và đăng xuất trên máy học offline › không có mạng thì báo cần có mạng để đăng xuất, không gửi form
 dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: cài app và đăng xuất trên máy học offline › cài app: trình duyệt cho cài thì có nút mở hộp cài; chưa cho thì hướng dẫn cài từ menu trình duyệt
+dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: mục AI › AI chưa mở cho tài khoản: không có mục AI
+dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: mục AI › đã đồng ý: bấm Rút đồng ý thì gửi granted false rồi hiện câu chưa đồng ý
+dat	vitest	-	resources/js/app/screens/CaiDat.test.tsx	Cài đặt: mục AI › chưa khai ngày sinh hay chưa đủ tuổi: một câu giải thích, không có nút
 dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › đầu trang: vị trí trong cây, tên hai thứ tiếng, loại thẻ và số từ, ô học chủ đề
 dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › bảng: mạo từ tách riêng, link sang thẻ, dòng dạng từ và cấp; "–" là không có số nhiều; thẻ chưa xếp cấp không ghi cấp
 dat	vitest	-	resources/js/app/screens/ChuDe.test.tsx	Trang chủ đề (API): sổ từ hai cột › lọc theo cấp: bấm chọn, bấm lần nữa bỏ; đường dẫn và câu hỏi máy chủ đổi theo
@@ -314,22 +317,18 @@ dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › đổ
 dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › đổi rồi tải lại trang ngay (chưa kịp gửi): lần mở sau, phần chờ trên máy thắng và được gửi tiếp
 dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › rời trang ngay sau khi đổi: gửi luôn bằng keepalive, không chờ
 dat	vitest	-	resources/js/app/state/taiKhoan.test.tsx	TaiKhoanProvider › không tải được tài khoản (mất mạng): app vẫn chạy, cài đặt lưu trên trình duyệt
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › chọn bằng phím 1–4; sai thì thẻ quay lại để luyện nhưng chỉ lượt đầu được tính; tổng kết đúng số
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › Esc thoát về Hôm nay; chế độ lạ trên đường dẫn thì học Flashcard
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › chế độ lạ trên đường dẫn thì xin phiên Flashcard
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › P nghe từ, S nghe chậm, cả trước khi chọn (từ tiếng Đức đã hiện sẵn)
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Typing: chưa trả lời thì P, Alt+P không đọc (khỏi lộ đáp án); trả lời rồi thì P, S đọc từ
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Listening: đọc từ ngay khi hiện; đang gõ thì Alt+P, Alt+S đọc lại, P không có Alt là chữ p
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Đặt câu: P nghe câu, S nghe chậm
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Typing: thiếu mạo từ được Khó; gợi ý thì tối đa Khó; nút chữ đặc biệt chèn ä ö ü ß vào ô
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Typing: ô trống thì chưa chấm; sai mạo từ là Quên
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Listening: gõ lại từ vừa nghe; hết 30 giây thì chấm Quên với lý do hết giờ
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › bấm chữ theo đúng thứ tự là Tốt; sai rồi sửa là Khó; Backspace bỏ chữ cuối
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › chưa đủ chữ thì chưa kiểm được; Xem đáp án là Quên
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › phiên Đặt câu không có thẻ nào có câu ví dụ thì báo rõ
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Ghép cặp: nối đúng thì khoá cặp; thẻ từng nối sai là Khó; xong vòng thì tổng kết
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Ghép cặp: chưa chọn từ thì P không đọc; chọn từ rồi thì P, S đọc từ vừa chọn
-dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Hỗn hợp: kiểu câu hỏi theo mức của thẻ, lượt chấm ghi chế độ Hỗn hợp
+dat	vitest	-	resources/js/app/components/ai/CongAi.test.tsx	Cổng AI › AI chưa mở cho tài khoản (hidden): thẻ từ không có tab Hỏi AI
+dat	vitest	-	resources/js/app/components/ai/CongAi.test.tsx	Cổng AI › chưa đủ tuổi từ trước: không có tab Hỏi AI
+dat	vitest	-	resources/js/app/components/ai/CongAi.test.tsx	Cổng AI › khai ngày sinh: chọn thiếu hay ngày không có thật thì báo ngay, không gọi API
+dat	vitest	-	resources/js/app/components/ai/CongAi.test.tsx	Cổng AI › khai xong thì sang bước đồng ý, tiêu điểm ở tiêu đề mới; đồng ý thì gửi đúng phiên bản và tới nút Giải thích
+dat	vitest	-	resources/js/app/components/ai/CongAi.test.tsx	Cổng AI › khai xong mà chưa đủ tuổi: hiện câu giải thích, không có phần AI; tab vẫn mở tới khi rời trang
+dat	vitest	-	resources/js/app/components/ai/CongAi.test.tsx	Cổng AI › lỗi của máy chủ khi khai ngày sinh hiện dưới các ô
+dat	vitest	-	resources/js/app/screens/ai/TabHoiAi.test.tsx	Tab Hỏi AI › bấm giải thích: đang trả lời rồi bốn phần; gửi đúng mã thẻ; số lượt còn lại từ máy chủ
+dat	vitest	-	resources/js/app/screens/ai/TabHoiAi.test.tsx	Tab Hỏi AI › phần rỗng bị ẩn; chữ có thẻ HTML hiện nguyên văn, không sinh phần tử
+dat	vitest	-	resources/js/app/screens/ai/TabHoiAi.test.tsx	Tab Hỏi AI › hết lượt: chữ của máy chủ và giờ có lượt mới theo múi giờ tài khoản; không có nút Thử lại
+dat	vitest	-	resources/js/app/screens/ai/TabHoiAi.test.tsx	Tab Hỏi AI › quá tải hay lỗi tạm thời: chữ của máy chủ và nút Thử lại gọi lại
+dat	vitest	-	resources/js/app/screens/ai/TabHoiAi.test.tsx	Tab Hỏi AI › mất mạng: báo cần có mạng
+dat	vitest	-	resources/js/app/screens/ai/TabHoiAi.test.tsx	Tab Hỏi AI › máy chủ báo cần đồng ý lại: tải lại hồ sơ và hiện bước đồng ý
 dat	vitest	-	resources/js/app/screens/luyenTap/LuyenTap.test.tsx	Ngữ pháp › danh sách theo cấp và chương; chương 9 chỉ có tên; giáo trình gốc và chuyên đề riêng; số câu bài tập
 dat	vitest	-	resources/js/app/screens/luyenTap/LuyenTap.test.tsx	Ngữ pháp › lọc một cấp (giữ trên đường dẫn); tìm theo tên bài không cần dấu; không khớp thì báo
 dat	vitest	-	resources/js/app/screens/luyenTap/LuyenTap.test.tsx	Ngữ pháp › không tải được thì báo và thử lại được
@@ -347,8 +346,28 @@ dat	vitest	-	resources/js/app/screens/luyenTap/LuyenTap.test.tsx	Làm bài: ch�
 dat	vitest	-	resources/js/app/screens/luyenTap/LuyenTap.test.tsx	Làm cả phiếu rồi chấm › Enter sang câu sau, từ cho sẵn, Ctrl+Enter hỏi lại khi còn câu chưa làm, chấm và gửi, ghi nhớ, làm lại câu sai
 dat	vitest	-	resources/js/app/screens/luyenTap/LuyenTap.test.tsx	Điền câu và Chia động từ › Điền câu: mỗi câu trả lời lần đầu là một lượt chấm thẻ chế độ cloze (Tốt, Khó hay Quên); câu đầy đủ kèm bản dịch
 dat	vitest	-	resources/js/app/screens/luyenTap/LuyenTap.test.tsx	Điền câu và Chia động từ › Chia động từ: hỏi một dạng, nghe động từ sau khi trả lời; gửi theo mã câu, loại lượt chia động từ
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › chọn bằng phím 1–4; sai thì thẻ quay lại để luyện nhưng chỉ lượt đầu được tính; tổng kết đúng số
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › Esc thoát về Hôm nay; chế độ lạ trên đường dẫn thì học Flashcard
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › chế độ lạ trên đường dẫn thì xin phiên Flashcard
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Quiz › P nghe từ, S nghe chậm, cả trước khi chọn (từ tiếng Đức đã hiện sẵn)
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Typing: chưa trả lời thì P, Alt+P không đọc (khỏi lộ đáp án); trả lời rồi thì P, S đọc từ
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Listening: đọc từ ngay khi hiện; đang gõ thì Alt+P, Alt+S đọc lại, P không có Alt là chữ p
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Phím nghe khi gõ › Đặt câu: P nghe câu, S nghe chậm
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Typing: thiếu mạo từ được Khó; gợi ý thì tối đa Khó; nút chữ đặc biệt chèn ä ö ü ß vào ô
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Typing: ô trống thì chưa chấm; sai mạo từ là Quên
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Typing và Listening › Listening: gõ lại từ vừa nghe; hết 30 giây thì chấm Quên với lý do hết giờ
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › bấm chữ theo đúng thứ tự là Tốt; sai rồi sửa là Khó; Backspace bỏ chữ cuối
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › chưa đủ chữ thì chưa kiểm được; Xem đáp án là Quên
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Đặt câu › phiên Đặt câu không có thẻ nào có câu ví dụ thì báo rõ
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Ghép cặp: nối đúng thì khoá cặp; thẻ từng nối sai là Khó; xong vòng thì tổng kết
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Ghép cặp: chưa chọn từ thì P không đọc; chọn từ rồi thì P, S đọc từ vừa chọn
+dat	vitest	-	resources/js/app/screens/hoc/PhienLuyen.test.tsx	Ghép cặp và Hỗn hợp › Hỗn hợp: kiểu câu hỏi theo mức của thẻ, lượt chấm ghi chế độ Hỗn hợp
 dat	playwright	dang-nhap	tests/e2e/dang-nhap.setup.ts	đăng nhập bằng tài khoản người học thử
 dat	playwright	dang-nhap	tests/e2e/dang-nhap.setup.ts	đăng nhập trang quản trị bằng nhân viên thử
+hong	playwright	may-tinh	tests/e2e/ai.spec.ts	khai ngày sinh, đồng ý, Giải thích từ; hỏi lại sau khi tải lại trang thì lấy từ cache, không trừ lượt
+hong	playwright	dien-thoai	tests/e2e/ai.spec.ts	khai ngày sinh, đồng ý, Giải thích từ; hỏi lại sau khi tải lại trang thì lấy từ cache, không trừ lượt
+dat	playwright	may-tinh	tests/e2e/ai.spec.ts	chưa đủ 18 tuổi: thấy câu giải thích; tải lại thì thẻ từ không còn tab Hỏi AI
+hong	playwright	dien-thoai	tests/e2e/ai.spec.ts	chưa đủ 18 tuổi: thấy câu giải thích; tải lại thì thẻ từ không còn tab Hỏi AI
 dat	playwright	may-tinh	tests/e2e/anh-app.spec.ts	chụp ảnh app chu-de
 dat	playwright	dien-thoai	tests/e2e/anh-app.spec.ts	chụp ảnh app chu-de
 dat	playwright	may-tinh	tests/e2e/anh-app.spec.ts	chụp ảnh app cap-do
@@ -512,7 +531,7 @@ dat	playwright	dien-thoai	tests/e2e/luyen-tap.spec.ts	đọc ngữ pháp, xem b�
 dat	playwright	may-tinh	tests/e2e/luyen-tap.spec.ts	làm bài chấm ngay bằng bàn phím: chọn, gõ, câu sai quay lại; tổng kết; kết quả lên máy chủ
 dat	playwright	dien-thoai	tests/e2e/luyen-tap.spec.ts	làm bài chấm ngay bằng bàn phím: chọn, gõ, câu sai quay lại; tổng kết; kết quả lên máy chủ
 dat	playwright	may-tinh	tests/e2e/luyen-tap.spec.ts	làm cả phiếu rồi chấm: Enter sang câu sau, Ctrl+Enter chấm, ghi nhớ
-dat	playwright	dien-thoai	tests/e2e/luyen-tap.spec.ts	làm cả phiếu rồi chấm: Enter sang câu sau, Ctrl+Enter chấm, ghi nhớ
+hong	playwright	dien-thoai	tests/e2e/luyen-tap.spec.ts	làm cả phiếu rồi chấm: Enter sang câu sau, Ctrl+Enter chấm, ghi nhớ
 dat	playwright	may-tinh	tests/e2e/luyen-tap.spec.ts	Chia động từ và Điền câu: xem đáp án, câu quay lại, tổng kết
 dat	playwright	dien-thoai	tests/e2e/luyen-tap.spec.ts	Chia động từ và Điền câu: xem đáp án, câu quay lại, tổng kết
 dat	playwright	may-tinh	tests/e2e/noi-dung.spec.ts	thẻ từ danh từ và động từ (sáng): không tràn ngang, không lỗi, đạt WCAG 2.2 AA ở mọi tab
@@ -550,7 +569,7 @@ dat	playwright	dien-thoai	tests/e2e/tai-khoan.spec.ts	trang Tạo tài khoản: 
 dat	playwright	may-tinh	tests/e2e/tai-khoan.spec.ts	trang Quên mật khẩu: đạt WCAG 2.2 AA, không tràn ngang
 dat	playwright	dien-thoai	tests/e2e/tai-khoan.spec.ts	trang Quên mật khẩu: đạt WCAG 2.2 AA, không tràn ngang
 dat	playwright	may-tinh	tests/e2e/tai-khoan.spec.ts	đăng ký xong thì tới trang Xác minh email: đạt WCAG 2.2 AA, không tràn ngang
-dat	playwright	dien-thoai	tests/e2e/tai-khoan.spec.ts	đăng ký xong thì tới trang Xác minh email: đạt WCAG 2.2 AA, không tràn ngang
+hong	playwright	dien-thoai	tests/e2e/tai-khoan.spec.ts	đăng ký xong thì tới trang Xác minh email: đạt WCAG 2.2 AA, không tràn ngang
 dat	playwright	may-tinh	tests/e2e/tai-khoan.spec.ts	chưa đăng nhập mà mở app học thì về trang đăng nhập
 dat	playwright	dien-thoai	tests/e2e/tai-khoan.spec.ts	chưa đăng nhập mà mở app học thì về trang đăng nhập
 dat	playwright	may-tinh	tests/e2e/tai-khoan.spec.ts	sai mật khẩu thì báo lỗi ngay dưới ô email, giữ email đã gõ
