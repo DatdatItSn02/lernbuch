@@ -86,7 +86,9 @@ test('trang Hỏi AI: Dịch, Sửa ngữ pháp, Trò chuyện, Bài học AI', 
     await page.getByLabel(/Từ muốn luyện/).fill('der Kaffee, trinken');
     await page.getByRole('button', { name: 'Soạn bài' }).click();
     await expect(page.getByRole('heading', { level: 1, name: `Bài học AI giả: Ăn uống ${may}` })).toBeVisible();
-    await page.getByRole('radio', { name: 'Kaffee' }).check();
+    // Lựa chọn có chữ tiếng Đức nằm trong span: bấm vào chữ (span che ô radio ẩn)
+    await page.getByText('Kaffee', { exact: true }).click();
+    await expect(page.getByRole('radio', { name: 'Kaffee' })).toBeChecked();
     await page.getByLabel(/Ich ____ Kaffee/).fill('trinke');
     await page.getByRole('button', { name: 'Chấm bài' }).click();
     await expect(page.getByText('Bạn đúng 2/2 câu: 100 điểm.')).toBeVisible();
