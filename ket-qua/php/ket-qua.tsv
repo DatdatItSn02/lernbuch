@@ -109,11 +109,46 @@ dat	pest	-	tests/Feature/AiBoNoiTest.php	OpenAI tương thích: đúng đường
 dat	pest	-	tests/Feature/AiBoNoiTest.php	AI giả: theo kịch bản, hết kịch bản thì trả mẫu đúng khuôn có chứa từ đang hỏi; ghi lại mọi yêu cầu
 dat	pest	-	tests/Feature/AiBoNoiTest.php	AI giả không chạy ở production
 dat	pest	-	tests/Feature/AiBoNoiTest.php	chọn bộ nối: AI_DRIVER thắng ô Nhà cung cấp; thiếu khoá ngoài production thì dùng AI giả; ở production là lỗi cấu hình
+dat	pest	-	tests/Feature/AiBoNoiTest.php	lỗi tạm thời rồi thành công: trả kết quả, gọi đúng 2 lần, trừ 1 lượt
+dat	pest	-	tests/Feature/AiBoNoiTest.php	lỗi tạm thời hai lần: báo lỗi tạm thời, gọi đúng 2 lần, không trừ lượt, nhật ký error
+dat	pest	-	tests/Feature/AiBoNoiTest.php	lần một mất 19 giây: không còn đủ 3 giây nên không thử lại
+dat	pest	-	tests/Feature/AiBoNoiTest.php	lỗi cấu hình gọi 1 lần (503); bị chặn vì an toàn: 422; cả hai không trừ lượt
+dat	pest	-	tests/Feature/AiBoNoiTest.php	Gemini thật lỗi 500 hai lần: thân trả về và nhật ký không chứa khoá
+dat	pest	-	tests/Feature/AiCacheTest.php	hỏi lại cùng thẻ: chỉ gọi AI một lần, lần hai lấy từ cache, không trừ lượt, đếm số lần dùng
+dat	pest	-	tests/Feature/AiCacheTest.php	người thứ hai cùng trình độ lấy từ cache; khác trình độ thì gọi lại
+dat	pest	-	tests/Feature/AiCacheTest.php	khoá cache: giống nhau khi chỉ khác khoảng trắng hay dạng Unicode; khác nhau khi khác hoa thường
+dat	pest	-	tests/Feature/AiCacheTest.php	prompt lên phiên bản 2 hay đổi model thì không dùng kết quả cũ
+dat	pest	-	tests/Feature/AiCacheTest.php	sau 91 ngày mục cache hết hạn: gọi lại và ghi đè
+dat	pest	-	tests/Feature/AiCacheTest.php	kết quả hỏng không được lưu; bốn loại chứa chữ riêng của người học không bao giờ lưu
 dat	pest	-	tests/Feature/AiChenLenhTest.php	có 20 mẫu chèn lệnh: 5 kiểu ở 3 thứ tiếng và 5 biến thể đóng thẻ
 dat	pest	-	tests/Feature/AiChenLenhTest.php	mỗi mẫu ghép vào 8 loại prompt có {text}: đúng một cặp thẻ, không còn thẻ giả, prompt hệ thống chỉ đổi {level}
 dat	pest	-	tests/Feature/AiChenLenhTest.php	tham số không thuộc loại thì bị bỏ qua; chữ có {meaning} không bị thay lần nữa; ký tự điều khiển bị bỏ
 dat	pest	-	tests/Feature/AiChenLenhTest.php	thiếu trình độ thì dùng A1; thiếu tham số thì để trống
 dat	pest	-	tests/Feature/AiChenLenhTest.php	giữ tab và xuống dòng; vô hiệu thẻ viết hoa, có dấu cách, có thuộc tính
+dat	pest	-	tests/Feature/AiDanhSachThuTest.php	công tắc tắt: ai_tam_tat cho mọi người, khối ai là hidden
+dat	pest	-	tests/Feature/AiDanhSachThuTest.php	giai đoạn thử: ngoài danh sách thì ai_chua_mo và hidden; trong danh sách thì dùng được
+dat	pest	-	tests/Feature/AiDanhSachThuTest.php	mở cho mọi người từ 18 tuổi: người ngoài danh sách cũng dùng được
+dat	pest	-	tests/Feature/AiDanhSachThuTest.php	tắt giữa hai lượt gọi thì lượt sau bị chặn; bật lại thì chạy; bỏ khỏi danh sách cũng có hiệu lực ngay
+dat	pest	-	tests/Feature/AiDanhSachThuTest.php	AI tắt hay nhà cung cấp lỗi thì phần học vẫn chạy
+dat	pest	-	tests/Feature/AiDanhSachThuTest.php	tài khoản mới mặc định không nằm trong danh sách thử
+dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	AI giả nhận gì: không có tên, email, mã tài khoản, địa chỉ IP
+dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	thân gửi Gemini chỉ có ba khoá và không có thông tin riêng của người học
+dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	đoạn trích trong nhật ký tối đa 500 ký tự, không cắt giữa một ký tự
+dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	app:ai-don: xoá trắng đoạn trích quá 30 ngày (giữ dòng), xoá cache hết hạn, giữ bài học AI và mục còn hạn
+dat	pest	-	tests/Feature/AiDuLieuGuiTest.php	app:ai-don có trong lịch chạy mỗi ngày
+dat	pest	-	tests/Feature/AiGiaiThichTuApiTest.php	trả đúng khuôn và số lượt; nhật ký ghi loại, thẻ, token và chi phí quy đổi
+dat	pest	-	tests/Feature/AiGiaiThichTuApiTest.php	AI nhận đúng từ và nghĩa tiếng Việt của thẻ, gói trong prompt đang dùng
+dat	pest	-	tests/Feature/AiGiaiThichTuApiTest.php	trình độ trong prompt: trình độ tự chọn, chưa chọn thì cấp của thẻ, không có thì A1
+dat	pest	-	tests/Feature/AiGiaiThichTuApiTest.php	thẻ không có, thẻ nháp, thẻ riêng của người khác: 404 và không gọi AI
+dat	pest	-	tests/Feature/AiGiaiThichTuApiTest.php	mã thẻ thiếu hay sai dạng: 422; chưa đăng nhập: 401
+dat	pest	-	tests/Feature/AiGiaiThichTuApiTest.php	GET /toi có khối ai: sẵn sàng, hạn mức, đã dùng, giờ có lượt mới
+dat	pest	-	tests/Feature/AiHanMucTest.php	dùng hết lượt: 429 ai_het_luot kèm giờ có lượt mới và hạn mức; nhật ký quota; không gọi AI
+dat	pest	-	tests/Feature/AiHanMucTest.php	qua nửa đêm theo múi giờ của người học thì có lượt mới
+dat	pest	-	tests/Feature/AiHanMucTest.php	hai người ở Việt Nam và ở Đức có lượt mới ở hai giờ khác nhau
+dat	pest	-	tests/Feature/AiHanMucTest.php	lượt lỗi, sai khuôn, lấy từ cache, bị chặn, chấm phát âm không bị trừ
+dat	pest	-	tests/Feature/AiHanMucTest.php	đang có câu trước chưa trả lời xong (giữ khoá của người này): 429 ai_dang_xu_ly, không ghi gì
+dat	pest	-	tests/Feature/AiHanMucTest.php	còn 1 lượt mà hỏi hai câu: câu thứ hai hết lượt
+dat	pest	-	tests/Feature/AiHanMucTest.php	giai đoạn thử dùng số nhỏ hơn giữa gói và ô Hạn mức giai đoạn thử; mở cho mọi người lớn thì chỉ theo gói
 dat	pest	-	tests/Feature/AiKhuonTest.php	kết quả đúng khuôn được nhận và giữ nguyên chữ
 dat	pest	-	tests/Feature/AiKhuonTest.php	các dạng hỏng bị bỏ with data set "dataset "chữ thường""
 dat	pest	-	tests/Feature/AiKhuonTest.php	các dạng hỏng bị bỏ with data set "dataset "JSON thiếu trường""
@@ -128,6 +163,28 @@ dat	pest	-	tests/Feature/AiKhuonTest.php	các dạng hỏng bị bỏ with data 
 dat	pest	-	tests/Feature/AiKhuonTest.php	chấp nhận rào ```json bọc ngoài, bỏ khoá lạ, cắt danh sách dài, giữ nguyên thẻ HTML như chữ
 dat	pest	-	tests/Feature/AiKhuonTest.php	loại chưa có khuôn thì không nhận gì
 dat	pest	-	tests/Feature/AiKhuonTest.php	JSON Schema của word chỉ dùng type, properties, required, items
+dat	pest	-	tests/Feature/AiKhuonTest.php	đường ống: mỗi dạng hỏng trả ai_tra_loi_hong, không lưu cache, không trừ lượt, nhật ký error có chi phí
+dat	pest	-	tests/Feature/AiTranTest.php	quá lượt mỗi phút: chặn, không gọi AI, không trừ lượt, nhật ký blocked; 61 giây sau gọi được
+dat	pest	-	tests/Feature/AiTranTest.php	lượt bị chặn, hết lượt, lấy từ cache và chấm phát âm không tính vào trần
+dat	pest	-	tests/Feature/AiTranTest.php	quá lượt mỗi ngày: chặn tới nửa đêm giờ Thái Bình Dương
+dat	pest	-	tests/Feature/AiTranTest.php	chi phí quy đổi trong ngày chạm trần: chặn
+dat	pest	-	tests/Feature/AiTranTest.php	đủ số lượt gọi cùng lúc: chặn; nhả một chỗ thì gọi được
+dat	pest	-	tests/Feature/AiTranTest.php	bộ nối ném lỗi thì chỗ gọi vẫn được nhả
+dat	pest	-	tests/Feature/AiTranTest.php	lượt trúng cache không bị trần chặn
+dat	pest	-	tests/Feature/AiTuoiDongYTest.php	chưa khai ngày sinh: ai_can_ngay_sinh; khai hợp lệ thì lưu 00:00 UTC; khai lần hai thì 409
+dat	pest	-	tests/Feature/AiTuoiDongYTest.php	ngày sinh trước 1970 lưu số âm
+dat	pest	-	tests/Feature/AiTuoiDongYTest.php	ngày sinh sai: 422, không lưu with data set "dataset "ngày mai""
+dat	pest	-	tests/Feature/AiTuoiDongYTest.php	ngày sinh sai: 422, không lưu with data set "dataset "trước 1900""
+dat	pest	-	tests/Feature/AiTuoiDongYTest.php	ngày sinh sai: 422, không lưu with data set "dataset "sai dạng""
+dat	pest	-	tests/Feature/AiTuoiDongYTest.php	ngày sinh sai: 422, không lưu with data set "dataset "ngày không có thật""
+dat	pest	-	tests/Feature/AiTuoiDongYTest.php	ngày sinh sai: 422, không lưu with data set "dataset "trống""
+dat	pest	-	tests/Feature/AiTuoiDongYTest.php	ngày sinh sai: 422, không lưu with data set "dataset "không phải chữ""
+dat	pest	-	tests/Feature/AiTuoiDongYTest.php	thiếu một ngày mới đủ 18: underage; đúng sinh nhật 18: dùng được
+dat	pest	-	tests/Feature/AiTuoiDongYTest.php	sinh 29/2/2008: ngày 28/2/2026 chưa đủ 18, ngày 1/3/2026 đủ
+dat	pest	-	tests/Feature/AiTuoiDongYTest.php	đủ tuổi tính theo ngày ở múi giờ người học (Việt Nam đã sang ngày mới, UTC chưa)
+dat	pest	-	tests/Feature/AiTuoiDongYTest.php	chưa đồng ý: ai_can_dong_y; đồng ý ghi một dòng consents đủ cột; rút thì khoá ngay; đồng ý lại thì mở
+dat	pest	-	tests/Feature/AiTuoiDongYTest.php	đồng ý bản lời đồng ý cũ coi như chưa đồng ý; gửi sai phiên bản hay thiếu ô thì 422
+dat	pest	-	tests/Feature/AiTuoiDongYTest.php	ô Tuổi tối thiểu đặt 16 trong database: vẫn dùng 18
 dat	pest	-	tests/Feature/AmThanhTest.php	tên file khớp công cụ Python: chuẩn hoá NFC và khoảng trắng, sha1(giọng|normal|chữ), thư mục theo 2 ký tự đầu
 dat	pest	-	tests/Feature/AmThanhTest.php	chữ đem đi đọc: bỏ phần trong ngoặc, "/" đọc thành dấu phẩy, gộp khoảng trắng with data set "dataset "danh từ""
 dat	pest	-	tests/Feature/AmThanhTest.php	chữ đem đi đọc: bỏ phần trong ngoặc, "/" đọc thành dấu phẩy, gộp khoảng trắng with data set "dataset "ghi chú trong ngoặc""
@@ -190,7 +247,7 @@ dat	pest	-	tests/Feature/CreateAdminCommandTest.php	từ chối email đã có, 
 dat	pest	-	tests/Feature/CreateAdminCommandTest.php	từ chối mật khẩu ngắn hơn 12 ký tự
 dat	pest	-	tests/Feature/DungLuongTest.php	in dung lượng database và số bảng, rồi số nội dung đã xuất bản, theo dạng deploy ghi lại
 dat	pest	-	tests/Feature/DungLuongTest.php	không đo được database thì báo lỗi mà không lộ chi tiết kết nối
-dat	pest	-	tests/Feature/HangDoiTest.php	lịch có việc ghi nhịp chạy mỗi phút
+hong	pest	-	tests/Feature/HangDoiTest.php	lịch có việc ghi nhịp chạy mỗi phút
 dat	pest	-	tests/Feature/HangDoiTest.php	job thử chạy xong qua hàng đợi database
 dat	pest	-	tests/Feature/HangDoiTest.php	job cố ý lỗi vào failed_jobs sau đúng 3 lần thử
 dat	pest	-	tests/Feature/HangDoiTest.php	cache database (như trên alwaysdata) vẫn đếm đủ 3 lần thử
